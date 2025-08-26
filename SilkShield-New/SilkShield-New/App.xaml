@@ -2,8 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SilkShield_New"
-             StartupUri="MainWindow.xaml">
+             StartupUri="View/New_Inventory.xaml">
+    
     <Application.Resources>
-         
+       
     </Application.Resources>
 </Application>
