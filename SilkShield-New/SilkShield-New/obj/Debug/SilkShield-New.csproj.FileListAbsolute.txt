@@ -41,3 +41,5 @@ E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.pdb
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Customer_Manage.g.cs
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Customer_Manage.baml
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\AddNewCustomer.baml
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\AddNewCustomer.g.cs

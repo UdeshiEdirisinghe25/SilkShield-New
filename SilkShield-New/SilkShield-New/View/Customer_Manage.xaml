@@ -53,7 +53,7 @@
         HorizontalAlignment="Right"
         Cursor="Hand"
         Height="35"
-        FontWeight="Bold" />
+        FontWeight="Bold" Click="Button_Click" />
         </Grid>
 
         <!-- Search + Button -->

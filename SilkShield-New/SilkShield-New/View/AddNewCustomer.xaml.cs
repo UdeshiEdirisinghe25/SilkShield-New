@@ -15,20 +15,22 @@ using System.Windows.Shapes;
 namespace SilkShield_New.View
 {
     /// <summary>
-    /// Interaction logic for Customer_Manage.xaml
+    /// Interaction logic for AddNewCustomer.xaml
     /// </summary>
-    public partial class Customer_Manage : Window
+    public partial class AddNewCustomer : Window
     {
-        public Customer_Manage()
+        public AddNewCustomer()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            AddNewCustomer newCustomerWindow = new AddNewCustomer();
-            newCustomerWindow.Show();
 
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
         }
     }
