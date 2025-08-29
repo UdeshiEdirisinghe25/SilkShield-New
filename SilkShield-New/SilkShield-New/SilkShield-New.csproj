@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\InvoiceItem.cs" />
     <Compile Include="ViewModel\DashboardViewModel.cs" />
     <Compile Include="ViewModel\NewInvoice1ViewModel.cs" />
     <Compile Include="View\DashboardWindow.xaml.cs">
@@ -112,7 +113,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DatabaseHelper\" />
-    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
