@@ -18,3 +18,26 @@ D:\Udeshi\2.2\SE\SilkShield\Invoice Generator\SilkShield-New\SilkShield-New\Silk
 D:\Udeshi\2.2\SE\SilkShield\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.exe.config
 D:\Udeshi\2.2\SE\SilkShield\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\New_Inventory.g.cs
 D:\Udeshi\2.2\SE\SilkShield\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\New_Inventory.baml
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SilkShield-New.exe.config
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SilkShield-New.exe
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SilkShield-New.pdb
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Data.SQLite.dll
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.csproj.AssemblyReference.cache
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\New_Inventory.baml
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\MainWindow.g.cs
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\DashboardWindow.g.cs
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\New_Inventory.g.cs
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\App.g.cs
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New_MarkupCompile.cache
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New_MarkupCompile.lref
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\MainWindow.baml
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\DashboardWindow.baml
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.g.resources
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield_New.Properties.Resources.resources
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.csproj.GenerateResource.cache
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.csproj.CoreCompileInputs.cache
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShie.D00486D6.Up2Date
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.exe
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.pdb
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Customer_Manage.g.cs
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Customer_Manage.baml
