@@ -49,7 +49,7 @@
                         </Border>
                     </StackPanel>
 
-                    <!-- Date Field - Now a DatePicker -->
+                    <!-- Date Field - now a DatePicker -->
                     <StackPanel Grid.Row="0" Grid.Column="1" Margin="20,0,0,0">
                         <TextBlock Text="Date" Foreground="#555" Margin="0,0,0,5"/>
                         <Border BorderBrush="#ccc" BorderThickness="1" CornerRadius="5" Background="White">
@@ -57,7 +57,7 @@
                         </Border>
                     </StackPanel>
 
-                    <!-- Customer Field - Now a TextBox -->
+                    <!-- Customer Field - now a TextBox -->
                     <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,15,20,0">
                         <TextBlock Text="Customer" Foreground="#555" Margin="0,0,0,5"/>
                         <Border BorderBrush="#ccc" BorderThickness="1" CornerRadius="5" Background="White">
@@ -75,46 +75,43 @@
                 </Grid>
 
                 <!-- Invoice Items Table -->
-                <Border Grid.Row="2" Margin="0,7,0,20" BorderBrush="#ddd" BorderThickness="1" CornerRadius="5">
-                    <StackPanel>
-                        <!-- Table Headers -->
-                        <Grid Background="#f0f0f0" Margin="10,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Item Name" FontWeight="SemiBold" Foreground="#333" Margin="0,10"/>
-                            <TextBlock Grid.Column="1" Text="Quantity" FontWeight="SemiBold" Foreground="#333" Margin="0,10"/>
-                            <TextBlock Grid.Column="2" Text="Unit Price" FontWeight="SemiBold" Foreground="#333" Margin="0,10"/>
-                            <TextBlock Grid.Column="3" Text="Total" FontWeight="SemiBold" Foreground="#333" Margin="0,10"/>
-                        </Grid>
-                        <!-- Sample Item Row -->
-                        <Grid Margin="10,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Silk Roll" Margin="0,10,20,10"/>
-                            <TextBlock Grid.Column="1" Text="10" Margin="0,10"/>
-                            <TextBlock Grid.Column="2" Text="$500.00" Margin="0,10"/>
-                            <TextBlock Grid.Column="3" Text="$5000.00" Margin="0,10"/>
-                        </Grid>
-                    </StackPanel>
-                </Border>
+                <DataGrid x:Name="ItemDataGrid" 
+                          Grid.Row="2" 
+                          Margin="0,7,0,20" 
+                          BorderBrush="#ddd" 
+                          BorderThickness="1" 
+                          Background="White" 
+                          AutoGenerateColumns="False" 
+                          HeadersVisibility="Column"
+                          CanUserAddRows="True" 
+                          CanUserDeleteRows="True"
+                          GridLinesVisibility="Horizontal"
+                          HorizontalGridLinesBrush="#eee"
+                          VerticalGridLinesBrush="#eee"
+                          IsTabStop="False"
+                          KeyDown="ItemDataGrid_KeyDown">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Item Name" Width="2*" Binding="{Binding ItemName}"/>
+                        <DataGridTextColumn Header="Quantity" Width="*" Binding="{Binding Quantity}"/>
+                        <DataGridTextColumn Header="Unit Price" Width="*" Binding="{Binding UnitPrice}"/>
+                        <DataGridTextColumn Header="Total" Width="*" Binding="{Binding Total}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
 
                 <!-- Add Item Button -->
-                <Button Grid.Row="3" HorizontalAlignment="Right" Content="+ Add Item" 
+                <Button Grid.Row="3" 
+                        HorizontalAlignment="Right" 
+                        Content="+ Add Item" 
                         Background="Transparent" 
                         BorderThickness="0" 
                         Foreground="#3498db" 
                         FontWeight="Bold" 
                         FontSize="14" 
                         Cursor="Hand" 
-                        Margin="0,10,0,0" Width="75">
+                        Margin="0,10,0,0" 
+                        Width="75"
+                        Click="AddItem_Click">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <TextBlock Text="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -132,7 +129,7 @@
                     <StackPanel Grid.Column="0">
                         <TextBlock Text="Payment Method" Foreground="#555" Margin="0,0,0,5"/>
                         <Border BorderBrush="#ccc" BorderThickness="1" CornerRadius="5" Background="White" Padding="8">
-                            <!-- Payment Method - Now a standard ComboBox with options -->
+                            <!-- Payment Method - now a standard ComboBox with options -->
                             <ComboBox Padding="8" BorderBrush="Transparent" BorderThickness="0">
                                 <ComboBoxItem Content="Cash" IsSelected="True"/>
                                 <ComboBoxItem Content="Card"/>
