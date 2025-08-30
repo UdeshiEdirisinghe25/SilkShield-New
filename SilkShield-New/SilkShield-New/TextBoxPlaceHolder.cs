@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace SilkShield_New
 {
-    internal class TextBoxPlaceHolder
-    {
-    }
-}
-
-
     public static class TextBoxPlaceholder
     {
+        // Define the attached property
         public static readonly DependencyProperty PlaceholderProperty =
             DependencyProperty.RegisterAttached(
                 "Placeholder",
@@ -37,46 +28,38 @@ namespace SilkShield_New
         {
             if (d is TextBox textBox)
             {
-                // When TextBox is loaded
-                textBox.Loaded += (s, ev) => ShowPlaceholder(textBox);
+                // When TextBox loads, apply placeholder if needed
+                textBox.Loaded += (s, ev) => UpdatePlaceholder(textBox);
 
-                // When user types
-                textBox.TextChanged += (s, ev) => ShowPlaceholder(textBox);
+                // Update placeholder whenever text changes
+                textBox.TextChanged += (s, ev) => UpdatePlaceholder(textBox);
+
+                // Remove placeholder on focus
+                textBox.GotFocus += (s, ev) =>
+                {
+                    if (textBox.Foreground == Brushes.Gray)
+                    {
+                        textBox.Text = string.Empty;
+                        textBox.Foreground = Brushes.Black;
+                    }
+                };
+
+                // Restore placeholder when focus is lost
+                textBox.LostFocus += (s, ev) => UpdatePlaceholder(textBox);
             }
         }
 
-        private static void ShowPlaceholder(TextBox textBox)
+        private static void UpdatePlaceholder(TextBox textBox)
         {
             if (string.IsNullOrEmpty(textBox.Text))
             {
-                textBox.Foreground = System.Windows.Media.Brushes.Gray;
+                textBox.Foreground = Brushes.Gray;
                 textBox.Text = GetPlaceholder(textBox);
-
-                textBox.GotFocus += RemovePlaceholder;
             }
-        }
-
-        private static void RemovePlaceholder(object sender, RoutedEventArgs e)
-        {
-            var textBox = sender as TextBox;
-            if (textBox.Text == GetPlaceholder(textBox))
+            else if (textBox.Foreground == Brushes.Gray && textBox.Text == GetPlaceholder(textBox))
             {
-                textBox.Text = string.Empty;
-                textBox.Foreground = System.Windows.Media.Brushes.Black;
-            }
-
-            textBox.LostFocus += AddPlaceholderBack;
-        }
-
-        private static void AddPlaceholderBack(object sender, RoutedEventArgs e)
-        {
-            var textBox = sender as TextBox;
-
-            if (string.IsNullOrEmpty(textBox.Text))
-            {
-                textBox.Foreground = System.Windows.Media.Brushes.Gray;
-                textBox.Text = GetPlaceholder(textBox);
+                textBox.Foreground = Brushes.Black;
             }
         }
     }
-
+}
