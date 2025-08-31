@@ -8,49 +8,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="756" Width="1157">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="199*"/>
-            <ColumnDefinition Width="201*"/>
-        </Grid.ColumnDefinitions>
-
-        <Grid Grid.Column="0">
-            <Label Content="Welcome" FontSize="80" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,82,0,0"/>
-            <TextBox Text="Smart invoicing begins here!" FontSize="16" BorderThickness="0" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,188,0,0"/>
-
-            <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Width="236" Margin="0,209,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <TextBox Style="{StaticResource CurvedTextBoxStyle}" Margin="-34,130,-56,-13" Grid.ColumnSpan="2"/>
-                <fa:FontAwesome Icon="User" FontSize="16" Foreground="Gray" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-55,138,0,0"/>
-            </Grid>
-
-            <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Width="236" Margin="0,343,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <fa:FontAwesome Icon="Lock" FontSize="16" Foreground="Gray" HorizontalAlignment="Left" Margin="-54,76,0,-10"/>
-                <TextBox Style="{StaticResource CurvedTextBoxStyle}" Margin="-34,67,-56,-19" Grid.ColumnSpan="2"/>
-            </Grid>
-
-            <Button x:Name="LoginButton" Content="LOG IN" Style="{StaticResource CurvedButtonStyle}" HorizontalAlignment="Left" Height="42" Margin="130,500,0,0" FontWeight="Bold" VerticalAlignment="Top" Width="337" Background="#FF111111" Foreground="#FFFCF3F3"/>
-        </Grid>
-
-        <Grid Grid.Column="1">
-            <Rectangle RadiusX="34.5" RadiusY="34.5" Margin="54,141,46,138">
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\Images\IMG_5247.PNG" Stretch="Fill"/>
-                </Rectangle.Fill>
-            </Rectangle>
-
-            <Rectangle RadiusX="140" RadiusY="140" Margin="73,60,65,67">
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\Images\Logo (2).PNG"/>
-                </Rectangle.Fill>
-            </Rectangle>
-        </Grid>
-
+        
     </Grid>
 </Window>
