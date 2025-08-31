@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Udeshi\2.2\SE\SilkShield\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\
 SilkShield_New
 none
 false
 DEBUG;TRACE
-D:\Udeshi\2.2\SE\SilkShield\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\App.xaml
-31034847258
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\App.xaml
+51406162297
 
-11-787446515
-15-619511663
-MainWindow.xaml;View\DashboardWindow.xaml;View\New_Inventory.xaml;
+15507795248
+1281870572108
+MainWindow.xaml;View\AddNewCustomer.xaml;View\Customer_Manage.xaml;View\DashboardWindow.xaml;View\New_Inventory.xaml;
 
-True
+False
 

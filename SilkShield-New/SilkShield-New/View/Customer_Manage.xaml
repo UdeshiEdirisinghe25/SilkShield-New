@@ -1,0 +1,136 @@
+﻿<Window x:Class="SilkShield_New.View.Customer_Manage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SilkShield_New.View"
+        mc:Ignorable="d"
+        Title="Customer_Management" Height="450" Width="800">
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0" Margin="20,20,20,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="Customer Details" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Foreground="Black"/>
+                <TextBlock Text="Manage your customer information and project status" 
+                           FontSize="14" 
+                           Foreground="Gray" 
+                           Margin="0,5,0,0" RenderTransformOrigin="0.5,0.5">
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-0.717"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+            </StackPanel>
+            <!-- Add Customer Button -->
+            <Button Grid.Column="1"
+        Content="+ Add Customer"
+        Padding="12,6"
+        Background="#4B280E"
+        Foreground="White"
+        BorderBrush="#4B280E"
+        BorderThickness="1"
+        VerticalAlignment="Center"
+        HorizontalAlignment="Right"
+        Cursor="Hand"
+        Height="35"
+        FontWeight="Bold" Click="Button_Click" />
+        </Grid>
+
+        <!-- Search + Button -->
+        <Border Grid.Row="1" Margin="20,10,20,20" Background="#F0F0F0" CornerRadius="10">
+            <Grid Margin="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Search Box -->
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Search Customers" 
+                               FontSize="18" 
+                               FontWeight="Bold" 
+                               Foreground="Black" 
+                               Margin="0,0,0,8"/>
+                    <Border BorderBrush="#D3D3D3" 
+                            BorderThickness="1" 
+                            CornerRadius="5" 
+                            Background="White" 
+                            Height="32">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Search Icon -->
+                            <Path Data="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 
+                                        6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79
+                                        l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 
+                                        5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 
+                                        11.99 14 9.5 14z" 
+                                  Fill="Gray" 
+                                  VerticalAlignment="Center" 
+                                  Margin="8,0,5,0"
+                                  Height="15" Width="15"/>
+
+                            <!-- Search Input -->
+                            <TextBox Grid.Column="1"
+                                     Name="txtSearch"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     VerticalContentAlignment="Center"
+                                     Foreground="Gray"
+                                     FontSize="13"
+                                     Padding="2"
+                                     Text="Search by customer name or email..."/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+
+            </Grid>
+        </Border>
+
+        <!-- DataGrid -->
+        <DataGrid Grid.Row="2" Name="dgCustomers" Margin="20,0,20,10"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  RowHeight="35"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="None"
+                  Background="White">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Customer Type" Binding="{Binding CustomerType}" Width="*"/>
+                <DataGridTextColumn Header="Visited/Not Visited" Binding="{Binding VisitedStatus}" Width="*"/>
+                <DataGridTextColumn Header="Customer Name" Binding="{Binding CustomerName}" Width="*"/>
+                <DataGridTextColumn Header="Contact Details" Binding="{Binding Email}" Width="*"/>
+                <DataGridTextColumn Header="Quotation Status" Binding="{Binding QuotationStatus}" Width="*"/>
+                <DataGridTextColumn Header="Project Confirmation" Binding="{Binding ProjectConfirmation}" Width="*"/>
+
+                <DataGridTemplateColumn Header="Action" Width="*"/>
+
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
