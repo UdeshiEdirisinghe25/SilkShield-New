@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
+using SilkShield_New.ViewModels;
 
 namespace SilkShield_New.View
 {
@@ -25,9 +27,6 @@ namespace SilkShield_New.View
             this.DataContext = new NewInventoryViewModel();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
 
-        }
     }
 }

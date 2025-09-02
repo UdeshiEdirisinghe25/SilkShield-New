@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="New_Inventory" Height="700" Width="847">
+        Title="New_Inventory" Height="697" Width="868" MaxHeight="697" MaxWidth="868">
 
     <Grid>
         <!-- Title -->
@@ -22,7 +22,7 @@
         <!-- Card background -->
         <Rectangle HorizontalAlignment="Left"
         Height="544"
-        Margin="28,94,0,0"
+        Margin="42,97,0,0"
         Stroke="DarkGray"
         VerticalAlignment="Top"
         Width="758"
@@ -114,8 +114,8 @@
                 <Grid>
                     <!-- ComboBox -->
                     <ComboBox x:Name="Category" 
-                              Text="{Binding Category, UpdateSourceTrigger=PropertyChanged}" 
                               Background="Transparent" 
+                              SelectedItem="{Binding SelectedCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               BorderThickness="0" 
                               VerticalContentAlignment="Center" 
                               Padding="8,0,0,0" FontSize="14" 
@@ -206,19 +206,10 @@
 
             </Border>
         </Grid>
-        <!--color code name box-->
-        <TextBlock HorizontalAlignment="Left"
-            Height="28"
-            Margin="81,487,0,0"
-            TextWrapping="Wrap"
-            Text="Color Code"
-            VerticalAlignment="Top"
-            Width="96"
-            FontSize="16" FontWeight="Bold"/>
 
 
         <!--Measuring Unit textbox and placeholder-->
-        <Grid Margin="430,210,0,223" Height="38" HorizontalAlignment="Left" Width="200" VerticalAlignment="Top">
+        <Grid Margin="77,520,0,0" Height="38" HorizontalAlignment="Left" Width="200" VerticalAlignment="Top">
             <Border 
              CornerRadius="10"
              BorderBrush="DarkGray"
@@ -228,7 +219,7 @@
             >
                 <Grid>
                     <ComboBox x:Name="MeasuringUnit" 
-                              Text="{Binding MeasuringUnit, UpdateSourceTrigger=PropertyChanged}" 
+                              SelectedItem="{Binding SelectedMeasuringUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Background="Transparent" 
                               BorderThickness="0" 
                               VerticalContentAlignment="Center" 
@@ -236,10 +227,13 @@
                               IsEditable="True" Margin="5,2,7,3" 
                               Grid.ColumnSpan="2">
 
-                        <ComboBoxItem>Meters (m)</ComboBoxItem>
-                        <ComboBoxItem>Square Meters (sqm)</ComboBoxItem>
+                        <ComboBoxItem>Meter (m)</ComboBoxItem>
+                        <ComboBoxItem>Square Meter (sqm)</ComboBoxItem>
+                        <ComboBoxItem>Square Feet (sft)</ComboBoxItem>
                         <ComboBoxItem>Feet (ft)</ComboBoxItem>
                         <ComboBoxItem>Pieces</ComboBoxItem>
+                        <ComboBoxItem>Roll</ComboBoxItem>
+
                     </ComboBox>
 
                     <!-- Placeholder TextBlock -->
@@ -267,7 +261,7 @@
         </Grid>
         <TextBlock HorizontalAlignment="Left"
             Height="28"
-            Margin="432,175,0,0"
+            Margin="79,483,0,0"
             TextWrapping="Wrap"
             Text="Measuring Unit"
             VerticalAlignment="Top"
@@ -275,69 +269,30 @@
             FontWeight="Bold"
             FontSize="16" RenderTransformOrigin="0.222,0.555"/>
 
-        <Grid Margin="77,520,0,0" Height="38" HorizontalAlignment="Left" Width="200" VerticalAlignment="Top">
-            <Border 
-        CornerRadius="10"
-        BorderBrush="DarkGray"
-        BorderThickness="1"
-        HorizontalAlignment="Stretch"
-        VerticalAlignment="Stretch">
-                <Grid>
-                    <!-- TextBox -->
-                    <TextBox x:Name="ColorCode"
-                 Text="{Binding ColorCode, UpdateSourceTrigger=PropertyChanged}"
-                 Background="Transparent"
-                 BorderThickness="0"
-                 VerticalContentAlignment="Center"
-                 Padding="8,0,0,0"
-                 FontSize="14" Margin="0,-2,0,2"/>
 
-                    <!-- Placeholder -->
-                    <TextBlock Text="Enter the Color Code"
-                   Foreground="Gray"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Left"
-                   Margin="10,0,0,0"
-                   IsHitTestVisible="False" FontSize="13">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <!-- Show placeholder only when empty -->
-                                    <DataTrigger Binding="{Binding Text.Length, ElementName=ColorCode}" Value="0">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                </Grid>
 
-            </Border>
-        </Grid>
-
-        <Rectangle HorizontalAlignment="Left" Height="256" Margin="409,271,0,0" Stroke="DarkGray" VerticalAlignment="Top" Width="271" RadiusX="20" RadiusY="20"/>
+        <Rectangle HorizontalAlignment="Left" Height="256" Margin="426,189,0,0" Stroke="DarkGray" VerticalAlignment="Top" Width="272" RadiusX="20" RadiusY="20"/>
 
         <TextBlock HorizontalAlignment="Left"
-            Margin="465,287,0,0"
+            Margin="474,203,0,0"
             TextWrapping="Wrap"
             Text="Pricing &amp; Stock"
             VerticalAlignment="Top"
             Height="28"
-            Width="149"
+            Width="148"
             FontSize="20"
             FontFamily="Arial" Foreground="#FF292727"/>
         <TextBlock HorizontalAlignment="Left"
             Height="28"
-            Margin="430,336,0,0"
+            Margin="464,255,0,0"
             TextWrapping="Wrap"
             Text="Unit Price(LKR)"
             VerticalAlignment="Top"
-            Width="135"
+            Width="136"
             FontWeight="Bold"
             FontSize="16" RenderTransformOrigin="0.222,0.555"/>
 
-        <Grid Margin="430,370,0,0" Height="38" HorizontalAlignment="Left" Width="200" VerticalAlignment="Top">
+        <Grid Margin="464,289,0,0" Height="38" HorizontalAlignment="Left" Width="200" VerticalAlignment="Top">
             <Border 
             CornerRadius="10"
             BorderBrush="DarkGray"
@@ -346,27 +301,27 @@
             VerticalAlignment="Stretch">
                 <Grid>
                     <!-- TextBox -->
-                    <TextBox x:Name="Price"
-         Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}"
-         Background="Transparent"
-         BorderThickness="0"
-         VerticalContentAlignment="Center"
-         Padding="8,0,0,0"
-         FontSize="14" Margin="0,-2,0,2"/>
+                    <TextBox x:Name="UnitPrice"
+                     Text="{Binding UnitPrice, UpdateSourceTrigger=PropertyChanged}"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     VerticalContentAlignment="Center"
+                     Padding="8,0,0,0"
+                     FontSize="14" Margin="0,-2,0,2"/>
 
                     <!-- Placeholder -->
                     <TextBlock Text="Input Price"
-                       Foreground="Gray"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Left"
-                       Margin="10,0,0,0"
-                       IsHitTestVisible="False" FontSize="13">
+       Foreground="Gray"
+       VerticalAlignment="Center"
+       HorizontalAlignment="Left"
+       Margin="12,0,0,0"
+       IsHitTestVisible="False" FontSize="13">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Visibility" Value="Collapsed"/>
                                 <Style.Triggers>
                                     <!-- Show placeholder only when empty -->
-                                    <DataTrigger Binding="{Binding Text.Length, ElementName=Price}" Value="0">
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=UnitPrice}" Value="0">
                                         <Setter Property="Visibility" Value="Visible"/>
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -379,15 +334,15 @@
         </Grid>
         <TextBlock HorizontalAlignment="Left"
             Height="28"
-            Margin="432,431,0,0"
+            Margin="460,355,0,0"
             TextWrapping="Wrap"
             Text="Stock"
             VerticalAlignment="Top"
-            Width="135"
+            Width="136"
             FontWeight="Bold"
             FontSize="16" RenderTransformOrigin="0.222,0.555"/>
 
-        <Grid Margin="430,460,0,0" Height="38" HorizontalAlignment="Left" Width="200" VerticalAlignment="Top">
+        <Grid Margin="460,389,0,0" Height="38" HorizontalAlignment="Left" Width="200" VerticalAlignment="Top">
             <Border 
                 CornerRadius="10"
                 BorderBrush="DarkGray"
@@ -397,17 +352,17 @@
                 <Grid>
                     <!-- TextBox -->
                     <ComboBox x:Name="Stock"
-                                 Text="{Binding Stock, UpdateSourceTrigger=PropertyChanged}"
-                                 Background="Transparent"
-                                 BorderThickness="0"
-                                 VerticalContentAlignment="Center"
-                                 Padding="8,0,0,0"
-                                 FontSize="14"
-                                 IsEditable="True" Margin="5,5,5,4">
+          ItemsSource="{Binding StockStatusList}"
+          SelectedItem="{Binding SelectedStockStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+          Background="Transparent"
+          BorderThickness="0"
+          VerticalContentAlignment="Center"
+          Padding="8,0,0,0"
+          FontSize="14"
+          Margin="5,5,5,4"
+          IsEditable="True" 
+                        />
 
-                        <ComboBoxItem>In Stock</ComboBoxItem>
-                        <ComboBoxItem>Out of Stock</ComboBoxItem>
-                    </ComboBox>
 
                     <!-- Placeholder -->
                     <TextBlock Text="Select Status"
@@ -432,47 +387,167 @@
 
             </Border>
         </Grid>
-        <Grid>
-         <Button x:Name="btnsave" Content="SAVE" Background="#FF5B281C" Foreground="White" Margin="409,568,336,84" FontSize="15" FontFamily="Segoe UI"
-                FontWeight="SemiBold">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" 
-                    CornerRadius="12" 
+
+        <Grid Margin="158,511,22,59">
+            <!-- Position buttons at bottom -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- SAVE Button -->
+            <Button x:Name="btnsave"
+        Grid.Column="1"
+        Content="SAVE"
+        Background="#FF5B281C"
+        Foreground="White"
+        FontSize="15"
+        FontFamily="Segoe UI"
+        FontWeight="SemiBold"
+        Width="110"
+        Height="40"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Command="{Binding SaveCommand}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                    Background="{TemplateBinding Background}"
+                    CornerRadius="12"
                     BorderThickness="0">
-                        <ContentPresenter HorizontalAlignment="Center" 
+                            <ContentPresenter HorizontalAlignment="Center"
                                   VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-        <Button x:Name="btnclear" Content="CLEAR" Background="#FF5B281C" Foreground="White" Margin="530,568,215,84" FontSize="15" FontFamily="Segoe UI"
-            FontWeight="SemiBold">
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}" 
-                        CornerRadius="12" 
-                        BorderThickness="0">
-                        <ContentPresenter HorizontalAlignment="Center" 
-                            VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-        <Button x:Name="btncancel" Content="CANCEL" Background="#FF5B281C" Foreground="White" Margin="649,568,96,84" FontSize="15" FontFamily="Segoe UI"
-            FontWeight="SemiBold">
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}" 
-                        CornerRadius="12" 
-                        BorderThickness="0">
-                        <ContentPresenter HorizontalAlignment="Center" 
-                            VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-          </Button>
-       </Grid>
+                        </Border>
+
+                        <!-- Triggers for hover, pressed, and disabled states -->
+                        <ControlTemplate.Triggers>
+                            <!-- Hover effect -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF804031"/>
+                                <!-- Slightly lighter -->
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+
+                            <!-- Pressed effect -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF4A1E16"/>
+                                <!-- Slightly darker -->
+                            </Trigger>
+
+                            <!-- Disabled state -->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="#FFB8B8B8"/>
+                                <Setter Property="Foreground" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+
+            <!-- CLEAR Button -->
+            <Button x:Name="btnclear"
+            Grid.Column="2"
+            Content="CLEAR"
+            Background="#FF5B281C"
+            Foreground="White"
+            FontSize="15"
+            FontFamily="Segoe UI"
+            FontWeight="SemiBold"
+            Width="110"
+            Height="40"
+            Margin="20,0,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+             Command="{Binding ClearCommand}"       >
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+    Background="{TemplateBinding Background}"
+    CornerRadius="12"
+    BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center"
+                  VerticalAlignment="Center"/>
+                        </Border>
+
+                        <!-- Triggers for hover, pressed, and disabled states -->
+                        <ControlTemplate.Triggers>
+                            <!-- Hover effect -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF804031"/>
+                                <!-- Slightly lighter -->
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+
+                            <!-- Pressed effect -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF4A1E16"/>
+                                <!-- Slightly darker -->
+                            </Trigger>
+
+                            <!-- Disabled state -->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="#FFB8B8B8"/>
+                                <Setter Property="Foreground" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <!-- CANCEL Button -->
+            <Button x:Name="btncancel"
+            Grid.Column="3"
+            Content="CANCEL"
+            Background="#FF5B281C"
+            Foreground="White"
+            FontSize="15"
+            FontFamily="Segoe UI"
+            FontWeight="SemiBold"
+            Width="110"
+            Height="40"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="20,0,0,0"
+              Command="{Binding CancelCommand}"      >
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+    Background="{TemplateBinding Background}"
+    CornerRadius="12"
+    BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center"
+                  VerticalAlignment="Center"/>
+                        </Border>
+
+                        <!-- Triggers for hover, pressed, and disabled states -->
+                        <ControlTemplate.Triggers>
+                            <!-- Hover effect -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF804031"/>
+                                <!-- Slightly lighter -->
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+
+                            <!-- Pressed effect -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF4A1E16"/>
+                                <!-- Slightly darker -->
+                            </Trigger>
+
+                            <!-- Disabled state -->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="#FFB8B8B8"/>
+                                <Setter Property="Foreground" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+
 
 
 
