@@ -3,17 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\",
   "Documents": [
     {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|c:\\users\\my pc\\desktop\\silkshield-new\\silkshield-new\\silkshield-new\\view\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|c:\\users\\my pc\\desktop\\silkshield-new\\silkshield-new\\silkshield-new\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|c:\\users\\my pc\\desktop\\silkshield-new\\silkshield-new\\silkshield-new\\view\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-=======
-=======
->>>>>>> Stashed changes
       "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|c:\\users\\my pc\\desktop\\silkshield-new\\silkshield-new\\silkshield-new\\view\\new_inventory.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\new_inventory.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
@@ -48,7 +41,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\silkshield-new\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
->>>>>>> Stashed changes
     }
   ],
   "DocumentGroupContainers": [
@@ -58,15 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
           "SelectedChildIndex": 1,
-=======
-          "SelectedChildIndex": 5,
->>>>>>> Stashed changes
-=======
-          "SelectedChildIndex": 5,
->>>>>>> Stashed changes
           "Children": [
             {
               "$type": "Bookmark",
@@ -74,114 +58,90 @@
             },
             {
               "$type": "Document",
-<<<<<<< Updated upstream
               "DocumentIndex": 0,
               "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "SilkShield-New\\View\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\MainWindow.xaml",
-              "RelativeToolTip": "SilkShield-New\\View\\MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "SilkShield-New\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\MainWindow.xaml",
+              "RelativeToolTip": "SilkShield-New\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-02T20:50:46.574Z",
+              "WhenOpened": "2025-09-02T21:15:09.622Z",
               "EditorCaption": ""
-=======
-              "DocumentIndex": 7,
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "App.xaml",
               "DocumentMoniker": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\App.xaml",
               "RelativeDocumentMoniker": "SilkShield-New\\App.xaml",
               "ToolTip": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\App.xaml",
               "RelativeToolTip": "SilkShield-New\\App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-08-31T17:08:26.742Z",
+              "WhenOpened": "2025-09-02T21:14:15.897Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "DatabaseHelper.cs",
               "DocumentMoniker": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Data\\DatabaseHelper.cs",
               "RelativeDocumentMoniker": "SilkShield-New\\Data\\DatabaseHelper.cs",
               "ToolTip": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Data\\DatabaseHelper.cs",
               "RelativeToolTip": "SilkShield-New\\Data\\DatabaseHelper.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-31T15:42:59.665Z"
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALLSURBVDhP7ZNdSFNhGMf/73vO2ea209zmNPEiQzhbUlGwJKJ54\u002BiD8CLwKlIhIW/DSXkjOLoyiEUQRHdGJIFdaCYNvSjvHOeitmU5rSzMPHOrs7bUfbzndHVEA6\u002Biu35XDzz/58cD7/sA//lbOKNIKkl725U2t3BSEIWAIDrOOsRDFw\u002BJLZ0tpvmx\u002BU0AUFXVaT9vd64dWTOlo\u002Blif3\u002B/J\u002BPP7Ntq3cL61HoJAKghrBQrvaRCZE3Q5ApfkRmYTDkq8\u002BAjRoaBRUy6SWYcixQKhZqiVnyhQZNZhfUaGQIA8S/xwelP05ffKG8kM29Gs6cZNsEGpjOUWGmy\u002B3B3FwOL3I3dPTf7Zbbuc\u002B6zYubN8WP7jwWWvi9Zfmz\u002BSFFKH6WupW5SAIh9i534qH6UNF3DmYNnCkfrjt4\u002BXnc8LLmkcK21dtThcJQ1XUvUi/U5j80DQkiuiq\u002BK\u002B9y\u002BsmgSQUBWCcgHY0t0jHZMXHpySQ9Ph5V8Pv9QVVXXdnMH2Z/ZiVuvbulSRHqWLqTrs7ns156nPbo34h0yMhQAFrOLMHNmOKucMVEUu6qrq7/vFOm6TvP5fG3mV8ayUdoAAMv9ufu1SkHhiqwIHbq9\u002BXaza1vIUx485SFQYadnG\u002BMB7szdCYy9G0NZK58eeT0S7RzvrJFXZTCdXWUci8AQNogN2KxsIp6O/\u002BkCANhsthx03GiX2uOtB1rBES7R5G66PnBqIOd1e0FAJjWm3QMAHgCCB4N4u/4Wi9lFKfQ8NBRsDMJusSOzkYGSV1KU0scAprNqtiahJLwc5VLR7uhERs14pj5MiRzhXi70LcRgfJu55bnB6FL0cjKdlFxWF3xuH6yCFWWtjCIrTvYF\u002Btr/WHpPiFHMLMyEltXl0Pj7cazkV8BRDk3OJjTua5wZvjDctXtsb7YvxaJZHqAMPykTP3T4GWN\u002BohN/iStd2z3yn3/Nb0PjNWfDy7QfAAAAAElFTkSuQmCC",
+              "WhenOpened": "2025-09-02T21:14:16.214Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "NewInventoryViewModel.cs",
               "DocumentMoniker": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\NewInventoryViewModel.cs",
               "RelativeDocumentMoniker": "SilkShield-New\\ViewModel\\NewInventoryViewModel.cs",
               "ToolTip": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\NewInventoryViewModel.cs",
               "RelativeToolTip": "SilkShield-New\\ViewModel\\NewInventoryViewModel.cs",
               "ViewState": "AgIAAHMAAAAAAAAAAAAUwH4AAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-22T07:43:05.683Z"
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALLSURBVDhP7ZNdSFNhGMf/73vO2ea209zmNPEiQzhbUlGwJKJ54\u002BiD8CLwKlIhIW/DSXkjOLoyiEUQRHdGJIFdaCYNvSjvHOeitmU5rSzMPHOrs7bUfbzndHVEA6\u002Biu35XDzz/58cD7/sA//lbOKNIKkl725U2t3BSEIWAIDrOOsRDFw\u002BJLZ0tpvmx\u002BU0AUFXVaT9vd64dWTOlo\u002Blif3\u002B/J\u002BPP7Ntq3cL61HoJAKghrBQrvaRCZE3Q5ApfkRmYTDkq8\u002BAjRoaBRUy6SWYcixQKhZqiVnyhQZNZhfUaGQIA8S/xwelP05ffKG8kM29Gs6cZNsEGpjOUWGmy\u002B3B3FwOL3I3dPTf7Zbbuc\u002B6zYubN8WP7jwWWvi9Zfmz\u002BSFFKH6WupW5SAIh9i534qH6UNF3DmYNnCkfrjt4\u002BXnc8LLmkcK21dtThcJQ1XUvUi/U5j80DQkiuiq\u002BK\u002B9y\u002BsmgSQUBWCcgHY0t0jHZMXHpySQ9Ph5V8Pv9QVVXXdnMH2Z/ZiVuvbulSRHqWLqTrs7ns156nPbo34h0yMhQAFrOLMHNmOKucMVEUu6qrq7/vFOm6TvP5fG3mV8ayUdoAAMv9ufu1SkHhiqwIHbq9\u002BXaza1vIUx485SFQYadnG\u002BMB7szdCYy9G0NZK58eeT0S7RzvrJFXZTCdXWUci8AQNogN2KxsIp6O/\u002BkCANhsthx03GiX2uOtB1rBES7R5G66PnBqIOd1e0FAJjWm3QMAHgCCB4N4u/4Wi9lFKfQ8NBRsDMJusSOzkYGSV1KU0scAprNqtiahJLwc5VLR7uhERs14pj5MiRzhXi70LcRgfJu55bnB6FL0cjKdlFxWF3xuH6yCFWWtjCIrTvYF\u002Btr/WHpPiFHMLMyEltXl0Pj7cazkV8BRDk3OJjTua5wZvjDctXtsb7YvxaJZHqAMPykTP3T4GWN\u002BohN/iStd2z3yn3/Nb0PjNWfDy7QfAAAAAElFTkSuQmCC",
+              "WhenOpened": "2025-09-02T21:14:16.217Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-<<<<<<< Updated upstream
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "SilkShield-New\\View\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\MainWindow.xaml.cs",
-              "RelativeToolTip": "SilkShield-New\\View\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-02T20:49:31.719Z",
-              "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": -1,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
-=======
+              "DocumentIndex": 2,
               "Title": "New_Inventory.xaml.cs",
               "DocumentMoniker": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\New_Inventory.xaml.cs",
               "RelativeDocumentMoniker": "SilkShield-New\\View\\New_Inventory.xaml.cs",
               "ToolTip": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\New_Inventory.xaml.cs",
               "RelativeToolTip": "SilkShield-New\\View\\New_Inventory.xaml.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAAAABcAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-21T16:29:37.072Z"
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAICSURBVDhP7ZRPiBJRHMe/M46DPZqhMVHpDwvbKCwahFuCJLXQYSGWEDzlpWNIp\u002B4R0TnongSe6mQIsoiHpfGk3QqSgfYkuIO6uPgv9fnn2WmGUVgQ2kOHPvAO3/f9vi/8Ho/Hwcbbw18HLoEv7HgJHBx78vjOjYLd3wTeLnY8BP7LIj5\u002Ba6HWmrwq/jh5avc3gcOLozemCPlJIOQnqaPjHh5sy3i07dK26HE5m81aBwRBgKqqSCQSA0rph3g8PrBMAAI4btcUreHM5\u002BpMMJkznA5nEB2X9hRF2QuFQtaBTqeD0WiEer1\u002B5vP5TiuVSikWi7VMn7OSAA6/Nw4GdFl499VAateD/aAEL\u002BEwnU6tTLFYRKlUgizLSCaTkCTpmaIoX8Lh8BDrd/izOcJJf4qXD69hPyjjqguYzWb2CACAMYZ\u002Bv49cLgfDMN6Px\u002BPnprdSGPUAUS9D9KYLV0SGJVtguVzaIxZmabVadefzecncd9hD9\u002B/eDv4\u002Ba6VubV2H4ODBGLPbAACO4\u002BB2uxEIBKCqKgzDQKPRKNdqNQ3rhZIkBdvtdioSiUAURbtlYZaZS9d1NJvNsq7rGtZHppSCUnrumJuwUngR/C/8e/79QsEuCCHgeR6app37sNfp9XoghFh65bdJp9P35vP56263i8ViYbfORZZlOJ3Oz5lM5tO6dyH8AT44umB0ILjzAAAAAElFTkSuQmCC",
+              "WhenOpened": "2025-09-02T21:14:16.22Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "New_Inventory.xaml",
               "DocumentMoniker": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\New_Inventory.xaml",
               "RelativeDocumentMoniker": "SilkShield-New\\View\\New_Inventory.xaml",
               "ToolTip": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\New_Inventory.xaml",
               "RelativeToolTip": "SilkShield-New\\View\\New_Inventory.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-08-21T14:21:27.5Z",
+              "WhenOpened": "2025-09-02T21:14:18.214Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "DashboardWindow.xaml",
               "DocumentMoniker": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\DashboardWindow.xaml",
               "RelativeDocumentMoniker": "SilkShield-New\\View\\DashboardWindow.xaml",
               "ToolTip": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\DashboardWindow.xaml",
               "RelativeToolTip": "SilkShield-New\\View\\DashboardWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-08-18T06:23:09.775Z"
+              "WhenOpened": "2025-09-02T21:14:18.366Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "DashboardViewModel.cs",
               "DocumentMoniker": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\DashboardViewModel.cs",
               "RelativeDocumentMoniker": "SilkShield-New\\ViewModel\\DashboardViewModel.cs",
@@ -189,11 +149,11 @@
               "RelativeToolTip": "SilkShield-New\\ViewModel\\DashboardViewModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-18T06:23:59.112Z"
+              "WhenOpened": "2025-09-02T21:14:18.37Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "RelayCommand.cs",
               "DocumentMoniker": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\RelayCommand.cs",
               "RelativeDocumentMoniker": "SilkShield-New\\ViewModel\\RelayCommand.cs",
@@ -201,11 +161,11 @@
               "RelativeToolTip": "SilkShield-New\\ViewModel\\RelayCommand.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-31T17:22:53.228Z"
+              "WhenOpened": "2025-09-02T21:14:18.374Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "App.config",
               "DocumentMoniker": "C:\\Users\\my pc\\Desktop\\SilkShield-New\\SilkShield-New\\SilkShield-New\\App.config",
               "RelativeDocumentMoniker": "SilkShield-New\\App.config",
@@ -213,18 +173,7 @@
               "RelativeToolTip": "SilkShield-New\\App.config",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2025-08-21T16:58:55.124Z"
->>>>>>> Stashed changes
-            }
-          ]
-        },
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": -1,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+              "WhenOpened": "2025-09-02T21:14:18.376Z"
             }
           ]
         },
