@@ -1,0 +1,238 @@
+﻿<Window x:Class="SilkShield_New.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        Title="MainWndow" Height="756" Width="1160" WindowStyle="None" AllowsTransparency="True"
+        Background="Transparent" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <!-- Color Resources -->
+        <SolidColorBrush x:Key="DarkBackgroundBrush" Color="#1C1C1C"/>
+        <SolidColorBrush x:Key="WhiteBackgroundBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="DarkBlueBrush" Color="#344767"/>
+        <SolidColorBrush x:Key="GreyBrush" Color="#7B809A"/>
+        <SolidColorBrush x:Key="DarkNavyBrush" Color="#262A41"/>
+        <SolidColorBrush x:Key="LightGreyBrush" Color="#F0F2F5"/>
+        <SolidColorBrush x:Key="RedGradientStart" Color="#E93B77"/>
+        <SolidColorBrush x:Key="RedGradientEnd" Color="#DA1F63"/>
+        <SolidColorBrush x:Key="GreenGradientStart" Color="#63B967"/>
+        <SolidColorBrush x:Key="GreenGradientEnd" Color="#4BA64F"/>
+        <SolidColorBrush x:Key="BlackGradientStart" Color="#3E3D45"/>
+        <SolidColorBrush x:Key="BlackGradientEnd" Color="#202020"/>
+        <SolidColorBrush x:Key="OrangeBrush" Color="#E0822D"/>
+
+        <!-- Gradient Brushes -->
+        <LinearGradientBrush x:Key="RedGradientBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#E93B77" Offset="0"/>
+            <GradientStop Color="#DA1F63" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="GreenGradientBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#63B967" Offset="0"/>
+            <GradientStop Color="#4BA64F" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="BlackGradientBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#3E3D45" Offset="0"/>
+            <GradientStop Color="#202020" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="OrangeButtonBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#E0822D" Offset="0"/>
+            <GradientStop Color="#E0822D" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- Card Style -->
+        <Style x:Key="MetricCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource WhiteBackgroundBrush}"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#40000000" BlurRadius="6" ShadowDepth="2" Opacity="0.25"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Navigation Button Style -->
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#8CFFFFFF"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,16"/>
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="12" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#08FFFFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Active Navigation Button Style -->
+        <Style x:Key="ActiveNavButtonStyle" TargetType="Button" BasedOn="{StaticResource NavButtonStyle}">
+            <Setter Property="Background" Value="#08FFFFFF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="LightBlue" BlurRadius="15" ShadowDepth="0" Opacity="1"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Promo Button Style -->
+        <Style x:Key="PromoButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource OrangeButtonBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,11,24,11"/>
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="12" Padding="{TemplateBinding Padding}">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#4DA85205" BlurRadius="24" ShadowDepth="4" Opacity="0.3"/>
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <!-- Main Container -->
+    <Border Background="{StaticResource DarkBackgroundBrush}" CornerRadius="25">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="261"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Sidebar -->
+            <DockPanel Grid.Column="0" Margin="29,0,0,29" LastChildFill="False">
+
+                <!-- Logout Button (fixed at bottom) -->
+                <Button x:Name="logout"
+                        DockPanel.Dock="Bottom"
+                        Width="200" Height="50"
+                        Style="{StaticResource ActiveNavButtonStyle}"
+                        HorizontalContentAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,0,20">
+                    <TextBlock Text="LOGOUT" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Button>
+
+                <!-- Sidebar content -->
+                <StackPanel DockPanel.Dock="Top">
+                   
+
+                    <!-- User Profile -->
+                    <StackPanel Margin="9,10,0,20">
+                        <Grid Height="77">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Grid.Column="0" Width="48" Height="48" Fill="#F2C7BA"/>
+                            <StackPanel Grid.Column="1" Margin="15,0,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="Andrew Smith" FontFamily="Inter" FontSize="14" FontWeight="Medium" Foreground="White">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect Color="White" BlurRadius="16" ShadowDepth="0"/>
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- Promo Block -->
+                    <Border Width="200" Height="179" HorizontalAlignment="Left" Background="#1A380E24" CornerRadius="28" Padding="16,24,16,16" Margin="0,0,0,20">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#A5662500" BlurRadius="64" ShadowDepth="32" Opacity="0.65"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <TextBlock Text="Let's start!" FontFamily="Inter" FontSize="16" FontWeight="SemiBold" Foreground="White" TextAlignment="Center" Margin="0,0,0,6"/>
+                            <TextBlock Text="Creating or adding new invoices couldn't be easier" FontFamily="Inter" FontSize="13" FontWeight="Medium" Foreground="#8FFFFFFF" 
+                                       TextAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,20"/>
+                            <Button x:Name="invoice" Style="{StaticResource PromoButtonStyle}" Click="invoice_click">
+                                <StackPanel Orientation="Horizontal" Width="135">
+                                    <Border Width="24" Height="24" CornerRadius="12" Margin="0,0,6,0">
+                                        <Path Data="M12,4L10.59,5.41L16.17,11H4V13H16.17L10.59,18.59L12,20L20,12L12,4Z" Fill="White" Stretch="Uniform" Width="12" Height="12"/>
+                                    </Border>
+                                    <TextBlock Text="Add New Invoice" FontSize="12" Width="99" Height="14"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Navigation Menu -->
+                    <StackPanel x:Name="Sidebar">
+                        <TextBlock Text="MAIN" FontFamily="Inter" FontSize="11" FontWeight="Medium" Foreground="#52FFFFFF" Margin="20,0,0,4" />
+                        <Button x:Name="dashboard" Style="{StaticResource ActiveNavButtonStyle}" Click="dashboard_click">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="24" Height="24" Margin="0,0,16,0">
+                                    <Grid Height="24" VerticalAlignment="Top">
+                                        <Rectangle Width="8" Height="8" Fill="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,2,0,0"/>
+                                        <Rectangle Width="8" Height="8" Fill="White" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,2,2,0"/>
+                                        <Rectangle Width="8" Height="8" Fill="White" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="2,0,0,2"/>
+                                        <Rectangle Width="8" Height="8" Fill="White" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,2,2"/>
+                                    </Grid>
+                                </Border>
+                                <TextBlock Text="Dashboard"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="customer" Style="{StaticResource NavButtonStyle}" Click="customer_click">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="24" Height="24" Margin="0,0,16,0">
+                                    <Path Data="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" Fill="#8FFFFFFF" Stretch="Uniform"/>
+                                </Border>
+                                <TextBlock Text="Customer Details"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="inventory" Style="{StaticResource NavButtonStyle}" Click="inventory_click">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="24" Height="24" Margin="0,0,16,0">
+                                    <Rectangle Fill="#8FFFFFFF" Width="20" Height="20"/>
+                                </Border>
+                                <TextBlock Text="Inventory"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="InvoiceHistory" Style="{StaticResource NavButtonStyle}" Click="inv_history_click">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="24" Height="24" Margin="0,0,16,0">
+                                    <Ellipse Fill="#8FFFFFFF" Width="20" Height="20"/>
+                                </Border>
+                                <TextBlock Text="Invoice History"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </DockPanel>
+
+           
+
+            <!-- Top Bar -->
+            <Grid Height="40" VerticalAlignment="Top" Background="Transparent" MouseLeftButtonDown="TopBar_MouseLeftButtonDown" Grid.Column="1" Margin="2,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                
+            </Grid>
+
+        </Grid>
+    </Border>
+  </Window>
