@@ -41,10 +41,46 @@ namespace SilkShield_New.View
             // Apply active style to selected button
             activeButton.Style = (Style)FindResource("ActiveNavButtonStyle");
         }
+        private void dashboard_click(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = dashboardView;
+            HighlightButton(dashboard);
+        }
 
-        
+        private void invoice_click(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = invoiceView;
 
-       
+        }
+
+        private void inv_history_click(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = invoiceHistory;
+            HighlightButton(InvoiceHistory);
+        }
+
+        private void customer_click(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = customerView;
+            HighlightButton(customer);
+        }
+
+        private void inventory_click(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = inventoryView;
+            HighlightButton(inventory);
+        }
+
+
+        private void TopBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Allow dragging the window
+            if (e.LeftButton == MouseButtonState.Pressed)
+                this.DragMove();
+        }
+
+
+
 
 
     }
