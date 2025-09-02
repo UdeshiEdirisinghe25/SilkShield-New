@@ -234,8 +234,13 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
+             <!-- Window Buttons -->
+                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                    <Button Content="—" Width="40" Height="40" Click="Minimize_Click" Background="Transparent" Foreground="White" BorderThickness="0" FontSize="16" FontWeight="Bold" Cursor="Hand"/>
+                    <Button Content="□" Width="40" Height="40" Click="MaximizeRestore_Click" Background="Transparent" Foreground="White" BorderThickness="0" FontSize="12" FontWeight="Bold" Cursor="Hand"/>
+                    <Button Content="✕" Width="40" Height="40" Click="Close_Click" Background="Transparent" Foreground="White" BorderThickness="0" FontSize="14" FontWeight="Bold" Cursor="Hand"/>
+                </StackPanel>
 
-                
             </Grid>
 
         </Grid>
