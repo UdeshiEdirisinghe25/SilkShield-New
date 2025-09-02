@@ -1,27 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SilkShield_New.View
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private DashboardWindow dashboardView;
+        private CustomerDetailsView customerView;
+        private InventoryView inventoryView;
+        private Invoice invoiceView;
+        private InvoiceHistory invoiceHistory;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            dashboardView = new DashboardWindow();
+            customerView = new CustomerDetailsView();
+            inventoryView = new InventoryView();
+            invoiceView = new Invoice();
+            invoiceHistory = new InvoiceHistory();
+
+            MainContentArea.Content = dashboardView;
+
+            HighlightButton(dashboard);
         }
+
+        private void HighlightButton(Button activeButton)
+        {
+            // Reset all sidebar buttons
+            foreach (var child in Sidebar.Children)
+            {
+                if (child is Button btn)
+                {
+                    btn.Style = (Style)FindResource("NavButtonStyle");
+                }
+            }
+
+            // Apply active style to selected button
+            activeButton.Style = (Style)FindResource("ActiveNavButtonStyle");
+        }
+
+        
+
+       
+
+
     }
 }
