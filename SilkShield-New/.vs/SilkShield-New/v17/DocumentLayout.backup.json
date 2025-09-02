@@ -1,72 +1,41 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\",
+  "WorkspaceRootPath": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|e:\\silkshield\\silkshield-new\\silkshield-new\\silkshield-new\\model\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\model\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|e:\\silkshield\\silkshield-new\\silkshield-new\\silkshield-new\\data\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\data\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\view\\customer_manage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\customer_manage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\view\\customer_manage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\customer_manage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\view\\addnewcustomer.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\addnewcustomer.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|SilkShield-New||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\view\\addnewcustomer.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\addnewcustomer.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\view\\new_inventory.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|d:\\udeshi\\invoice generator\\silkshield-new\\silkshield-new\\silkshield-new\\view\\new_inventory.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\new_inventory.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\view\\new_inventory.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\silkshield-new\\view\\new_inventory.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\new_inventory.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\viewmodel\\newinventoryviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\silkshield-new\\viewmodel\\newinventoryviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\viewmodel\\newinventoryviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\textboxplaceholder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\textboxplaceholder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\silkshield-new\\data\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\data\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\silkshield-new\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\viewmodel\\dashboardviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\silkshield-new\\viewmodel\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\viewmodel\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\silkshield-new\\viewmodel\\dashboardviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\viewmodel\\dashboardviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\silkshield-new\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\view\\dashboardwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\silkshield-new\\view\\dashboardwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\dashboardwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
@@ -77,213 +46,98 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 5,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{74946827-37a0-11d2-a273-00c04f8ef4ff}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Customer.cs",
-              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Model\\Customer.cs",
-              "RelativeDocumentMoniker": "SilkShield-New\\Model\\Customer.cs",
-              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Model\\Customer.cs",
-              "RelativeToolTip": "SilkShield-New\\Model\\Customer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-31T15:13:28.31Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DatabaseHelper.cs",
-              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Data\\DatabaseHelper.cs",
-              "RelativeDocumentMoniker": "SilkShield-New\\Data\\DatabaseHelper.cs",
-              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Data\\DatabaseHelper.cs",
-              "RelativeToolTip": "SilkShield-New\\Data\\DatabaseHelper.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-31T15:12:47.323Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "SilkShield-New",
-              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\SilkShield-New.csproj",
-              "RelativeDocumentMoniker": "SilkShield-New\\SilkShield-New.csproj",
-              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\SilkShield-New.csproj",
-              "RelativeToolTip": "SilkShield-New\\SilkShield-New.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-08-29T17:09:39.479Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "AddNewCustomer.xaml.cs",
-              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\AddNewCustomer.xaml.cs",
-              "RelativeDocumentMoniker": "SilkShield-New\\View\\AddNewCustomer.xaml.cs",
-              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\AddNewCustomer.xaml.cs",
-              "RelativeToolTip": "SilkShield-New\\View\\AddNewCustomer.xaml.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAswBkAAAAAAAAAAAAAAA==",
+              "Title": "RelayCommand.cs",
+              "DocumentMoniker": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\RelayCommand.cs",
+              "RelativeDocumentMoniker": "SilkShield-New\\ViewModel\\RelayCommand.cs",
+              "ToolTip": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\RelayCommand.cs",
+              "RelativeToolTip": "SilkShield-New\\ViewModel\\RelayCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-29T07:45:54.942Z"
+              "WhenOpened": "2025-08-31T17:22:53.228Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "AddNewCustomer.xaml",
-              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\AddNewCustomer.xaml",
-              "RelativeDocumentMoniker": "SilkShield-New\\View\\AddNewCustomer.xaml",
-              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\AddNewCustomer.xaml",
-              "RelativeToolTip": "SilkShield-New\\View\\AddNewCustomer.xaml",
+              "Title": "App.xaml",
+              "DocumentMoniker": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\SilkShield-New\\App.xaml",
+              "RelativeDocumentMoniker": "SilkShield-New\\App.xaml",
+              "ToolTip": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\SilkShield-New\\App.xaml",
+              "RelativeToolTip": "SilkShield-New\\App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-08-29T07:32:46.518Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "SilkShield-New\\MainWindow.xaml",
-              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\MainWindow.xaml",
-              "RelativeToolTip": "SilkShield-New\\MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-08-29T07:07:49.5Z"
+              "WhenOpened": "2025-08-31T17:08:26.742Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Customer_Manage.xaml.cs",
-              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\Customer_Manage.xaml.cs",
-              "RelativeDocumentMoniker": "SilkShield-New\\View\\Customer_Manage.xaml.cs",
-              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\Customer_Manage.xaml.cs",
-              "RelativeToolTip": "SilkShield-New\\View\\Customer_Manage.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Title": "DatabaseHelper.cs",
+              "DocumentMoniker": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Data\\DatabaseHelper.cs",
+              "RelativeDocumentMoniker": "SilkShield-New\\Data\\DatabaseHelper.cs",
+              "ToolTip": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Data\\DatabaseHelper.cs",
+              "RelativeToolTip": "SilkShield-New\\Data\\DatabaseHelper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-27T15:20:26.651Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-31T15:42:59.665Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Customer_Manage.xaml",
-              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\Customer_Manage.xaml",
-              "RelativeDocumentMoniker": "SilkShield-New\\View\\Customer_Manage.xaml",
-              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\Customer_Manage.xaml",
-              "RelativeToolTip": "SilkShield-New\\View\\Customer_Manage.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-08-27T15:05:52.522Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
               "Title": "NewInventoryViewModel.cs",
-              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\NewInventoryViewModel.cs",
+              "DocumentMoniker": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\NewInventoryViewModel.cs",
               "RelativeDocumentMoniker": "SilkShield-New\\ViewModel\\NewInventoryViewModel.cs",
-              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\NewInventoryViewModel.cs",
+              "ToolTip": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\NewInventoryViewModel.cs",
               "RelativeToolTip": "SilkShield-New\\ViewModel\\NewInventoryViewModel.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAowD0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAH4AAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-22T07:43:05.683Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "App.xaml",
-              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\App.xaml",
-              "RelativeDocumentMoniker": "SilkShield-New\\App.xaml",
-              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\App.xaml",
-              "RelativeToolTip": "SilkShield-New\\App.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-08-22T07:35:56.696Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 1,
               "Title": "New_Inventory.xaml.cs",
-              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\New_Inventory.xaml.cs",
+              "DocumentMoniker": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\New_Inventory.xaml.cs",
               "RelativeDocumentMoniker": "SilkShield-New\\View\\New_Inventory.xaml.cs",
-              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\New_Inventory.xaml.cs",
+              "ToolTip": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\New_Inventory.xaml.cs",
               "RelativeToolTip": "SilkShield-New\\View\\New_Inventory.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAABcAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-21T16:29:37.072Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 0,
               "Title": "New_Inventory.xaml",
-              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\New_Inventory.xaml",
+              "DocumentMoniker": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\New_Inventory.xaml",
               "RelativeDocumentMoniker": "SilkShield-New\\View\\New_Inventory.xaml",
-              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\New_Inventory.xaml",
+              "ToolTip": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\New_Inventory.xaml",
               "RelativeToolTip": "SilkShield-New\\View\\New_Inventory.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-08-21T14:21:27.5Z"
+              "WhenOpened": "2025-08-21T14:21:27.5Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "TextBoxPlaceHolder.cs",
-              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\TextBoxPlaceHolder.cs",
-              "RelativeDocumentMoniker": "SilkShield-New\\TextBoxPlaceHolder.cs",
-              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\TextBoxPlaceHolder.cs",
-              "RelativeToolTip": "SilkShield-New\\TextBoxPlaceHolder.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-22T08:04:35.7Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "SilkShield-New\\MainWindow.xaml.cs",
-              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\MainWindow.xaml.cs",
-              "RelativeToolTip": "SilkShield-New\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-18T05:06:14.989Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 8,
               "Title": "DashboardWindow.xaml",
-              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\DashboardWindow.xaml",
+              "DocumentMoniker": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\DashboardWindow.xaml",
               "RelativeDocumentMoniker": "SilkShield-New\\View\\DashboardWindow.xaml",
-              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\DashboardWindow.xaml",
+              "ToolTip": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\DashboardWindow.xaml",
               "RelativeToolTip": "SilkShield-New\\View\\DashboardWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-08-18T06:23:09.775Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 7,
               "Title": "App.config",
-              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\App.config",
+              "DocumentMoniker": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\SilkShield-New\\App.config",
               "RelativeDocumentMoniker": "SilkShield-New\\App.config",
-              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\App.config",
+              "ToolTip": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\SilkShield-New\\App.config",
               "RelativeToolTip": "SilkShield-New\\App.config",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
@@ -291,11 +145,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 6,
               "Title": "DashboardViewModel.cs",
-              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\DashboardViewModel.cs",
+              "DocumentMoniker": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\DashboardViewModel.cs",
               "RelativeDocumentMoniker": "SilkShield-New\\ViewModel\\DashboardViewModel.cs",
-              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\DashboardViewModel.cs",
+              "ToolTip": "D:\\Udeshi\\Invoice Generator\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\DashboardViewModel.cs",
               "RelativeToolTip": "SilkShield-New\\ViewModel\\DashboardViewModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
