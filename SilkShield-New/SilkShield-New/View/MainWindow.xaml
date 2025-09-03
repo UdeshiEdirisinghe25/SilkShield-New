@@ -127,10 +127,10 @@
 
                 <!-- Sidebar content -->
                 <StackPanel DockPanel.Dock="Top">
-                    
-                    
-                    
-                    
+                    <!-- Logo -->
+                    <Border Width="100" Height="100" Margin="8,0,0,0" HorizontalAlignment="Left">
+                        <Rectangle Fill="#FF666666" Width="100" Height="100"/>
+                    </Border>
                     <!-- User Profile -->
                     <StackPanel Margin="9,10,0,20">
                         <Grid Height="77">
