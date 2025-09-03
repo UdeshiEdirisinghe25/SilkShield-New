@@ -17,7 +17,7 @@ namespace SilkShield_New.View
     /// <summary>
     /// Interaction logic for AddNewCustomer.xaml
     /// </summary>
-    public partial class AddNewCustomer : Window
+    public partial class AddNewCustomer : UserControl
     {
         public AddNewCustomer()
         {

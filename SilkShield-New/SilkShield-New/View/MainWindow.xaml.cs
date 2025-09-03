@@ -26,7 +26,7 @@ namespace SilkShield_New.View
 
             MainContentArea.Content = dashboardView;
 
-            HighlightButton(dashboard);
+            HighlightButton(dashboard);//default
         }
 
         private void HighlightButton(Button activeButton)
@@ -51,15 +51,17 @@ namespace SilkShield_New.View
         }
 
         
-
-       
-
         private void customer_click(object sender, RoutedEventArgs e)
         {
             MainContentArea.Content = customerView;
             HighlightButton(customer);
         }
 
+        // private void Invoice_click(object sender, RoutedEventArgs e)
+        //{
+          //  MainContentArea.Content = InvoiceView;
+            //HighlightButton(invoice);
+        //}
         
 
 
