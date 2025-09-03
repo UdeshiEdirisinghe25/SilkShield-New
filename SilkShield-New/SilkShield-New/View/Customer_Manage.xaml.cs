@@ -1,8 +1,9 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace SilkShield_New.View
 {
-    public partial class Customer_Manage : Window
+    public partial class Customer_Manage : UserControl
     {
         public Customer_Manage()
         {

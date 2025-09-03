@@ -20,17 +20,23 @@
         <SolidColorBrush x:Key="BlackGradientEnd" Color="#202020"/>
         <SolidColorBrush x:Key="OrangeBrush" Color="#E0822D"/>
 
-        <!-- Gradient Brushes -->
-        <LinearGradientBrush x:Key="BlackGradientBrush" StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Color="#3E3D45" Offset="0"/>
-            <GradientStop Color="#202020" Offset="1"/>
-        </LinearGradientBrush>
+
         <LinearGradientBrush x:Key="OrangeButtonBrush" StartPoint="0,0" EndPoint="0,1">
             <GradientStop Color="#E0822D" Offset="0"/>
             <GradientStop Color="#E0822D" Offset="1"/>
         </LinearGradientBrush>
 
-        
+        <!-- Card Style -->
+        <Style x:Key="MetricCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource WhiteBackgroundBrush}"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#40000000" BlurRadius="6" ShadowDepth="2" Opacity="0.25"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <!-- Navigation Button Style -->
         <Style x:Key="NavButtonStyle" TargetType="Button">
@@ -102,15 +108,11 @@
                 <ColumnDefinition Width="261"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <!-- Main Content Area -->
-            <Border Grid.Column="1" Background="{StaticResource WhiteBackgroundBrush}" CornerRadius="40" Margin="0,43,29,29">
-                <ContentControl x:Name="MainContentArea" Margin="40"/>
-            </Border>
 
             <!-- Sidebar -->
             <DockPanel Grid.Column="0" Margin="29,0,0,29" LastChildFill="False">
 
-                <!-- Logout Button -->
+                <!-- Logout Button (fixed at bottom) -->
                 <Button x:Name="logout" Click="Logout_Click"
                         DockPanel.Dock="Bottom"
                         Width="200" Height="50"
@@ -127,6 +129,7 @@
                     <Border Width="100" Height="100" Margin="8,0,0,0" HorizontalAlignment="Left">
                         <Rectangle Fill="#FF666666" Width="100" Height="100"/>
                     </Border>
+
                     <!-- User Profile -->
                     <StackPanel Margin="9,10,0,20">
                         <Grid Height="77">
@@ -154,7 +157,7 @@
                             <TextBlock Text="Let's start!" FontFamily="Inter" FontSize="16" FontWeight="SemiBold" Foreground="White" TextAlignment="Center" Margin="0,0,0,6"/>
                             <TextBlock Text="Creating or adding new invoices couldn't be easier" FontFamily="Inter" FontSize="13" FontWeight="Medium" Foreground="#8FFFFFFF" 
                                        TextAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,20"/>
-                            <Button x:Name="invoice" Style="{StaticResource PromoButtonStyle}" Click="invoice_click">
+                            <Button x:Name="invoice" Style="{StaticResource PromoButtonStyle}" >
                                 <StackPanel Orientation="Horizontal" Width="135">
                                     <Border Width="24" Height="24" CornerRadius="12" Margin="0,0,6,0">
                                         <Path Data="M12,4L10.59,5.41L16.17,11H4V13H16.17L10.59,18.59L12,20L20,12L12,4Z" Fill="White" Stretch="Uniform" Width="12" Height="12"/>
@@ -189,7 +192,7 @@
                                 <TextBlock Text="Customer Details"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="inventory" Style="{StaticResource NavButtonStyle}" Click="inventory_click">
+                        <Button x:Name="inventory" Style="{StaticResource NavButtonStyle}" >
                             <StackPanel Orientation="Horizontal">
                                 <Border Width="24" Height="24" Margin="0,0,16,0">
                                     <Rectangle Fill="#8FFFFFFF" Width="20" Height="20"/>
@@ -197,7 +200,7 @@
                                 <TextBlock Text="Inventory"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="InvoiceHistory" Style="{StaticResource NavButtonStyle}" Click="inv_history_click">
+                        <Button x:Name="InvoiceHistory" Style="{StaticResource NavButtonStyle}" >
                             <StackPanel Orientation="Horizontal">
                                 <Border Width="24" Height="24" Margin="0,0,16,0">
                                     <Ellipse Fill="#8FFFFFFF" Width="20" Height="20"/>
@@ -208,6 +211,12 @@
                     </StackPanel>
                 </StackPanel>
             </DockPanel>
+
+            <!-- Main Content Area -->
+            <Border Grid.Column="1" Background="{StaticResource WhiteBackgroundBrush}" CornerRadius="40" Margin="0,43,29,29">
+                <ContentControl x:Name="MainContentArea" Margin="40"/>
+            </Border>
+
             <!-- Top Bar -->
             <Grid Height="40" VerticalAlignment="Top" Background="Transparent" MouseLeftButtonDown="TopBar_MouseLeftButtonDown" Grid.Column="1" Margin="2,0,0,0">
                 <Grid.ColumnDefinitions>
@@ -226,3 +235,10 @@
         </Grid>
     </Border>
 </Window>
+
+
+
+
+
+
+
