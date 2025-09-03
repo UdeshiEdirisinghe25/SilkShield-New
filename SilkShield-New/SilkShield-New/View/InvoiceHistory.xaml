@@ -8,8 +8,35 @@
         Title="InvoiceHistory" Height="600" Width="1000">
 
     <Window.Resources>
+        <!-- Converters -->
         <local:StatusToBrushConverter x:Key="StatusToBrushConverter"/>
         <local:StatusToTextBrushConverter x:Key="StatusToTextBrushConverter"/>
+        <local:TextNotEmptyConverter x:Key="TextNotEmptyConverter"/>
+
+        <!-- Watermark / Placeholder TextBox Style -->
+        <Style x:Key="WatermarkTextBox" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid>
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                            <TextBlock x:Name="Watermark"
+                                       Text="{TemplateBinding Tag}"
+                                       Margin="5,0,0,0"
+                                       Foreground="Gray"
+                                       VerticalAlignment="Center"
+                                       IsHitTestVisible="False"
+                                       Visibility="Collapsed"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Text" Value="">
+                                <Setter TargetName="Watermark" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -19,41 +46,126 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!-- Header + Search -->
         <Grid Grid.Row="0" Margin="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Text="Invoice History" FontSize="30" FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0"
+                       Text="Invoice History"
+                       FontSize="30" FontWeight="Bold"
+                       VerticalAlignment="Center"/>
 
-            <Border Grid.Column="1" Background="#F0F0F0" CornerRadius="15" Padding="5" Width="250" HorizontalAlignment="Right">
+            <Border Grid.Column="1" Background="#F0F0F0" CornerRadius="15"
+                    Padding="5" Width="250" HorizontalAlignment="Right">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Margin="5,0,0,0"
-                             d:Text="Search Here"/>
-                    <TextBlock Grid.Column="1" Text="🔍" VerticalAlignment="Center" FontSize="16" Margin="0,0,5,0"/>
+
+                    <TextBox x:Name="SearchTextBox"
+                             Grid.Column="0"
+                             Style="{StaticResource WatermarkTextBox}"
+                             Tag="Search Here"
+                             BorderThickness="0"
+                             Background="Transparent"
+                             VerticalAlignment="Center"
+                             Margin="5,0,0,0"/>
+
+                    <Button x:Name="ClearSearchButton"
+                            Grid.Column="1"
+                            Content="✖"
+                            FontSize="12"
+                            FontWeight="Bold"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="Gray"
+                            VerticalAlignment="Center"
+                            Margin="0,0,5,0"
+                            Click="ClearSearchButton_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchTextBox, Converter={StaticResource TextNotEmptyConverter}}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <TextBlock Grid.Column="2" Text="🔍"
+                               VerticalAlignment="Center" FontSize="16"
+                               Margin="0,0,5,0"/>
                 </Grid>
             </Border>
         </Grid>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20,0,20,20">
-            <Border Background="#F0F0F0" CornerRadius="15" Padding="10" Width="200" Margin="0,0,10,0">
-                <TextBox BorderThickness="0" Background="Transparent" d:Text="From date"/>
-            </Border>
-            <Border Background="#F0F0F0" CornerRadius="15" Padding="10" Width="200">
-                <TextBox BorderThickness="0" Background="Transparent" d:Text="To date"/>
-            </Border>
+        <!-- Date Filters with Labels and Clear Button -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20,0,20,20" VerticalAlignment="Center">
+            <!-- From Label + DatePicker -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,10,0" VerticalAlignment="Center">
+                <TextBlock Text="From:" VerticalAlignment="Center" Margin="0,0,5,0" FontWeight="Bold"/>
+                <Border Background="#F0F0F0" CornerRadius="15" Padding="5" Width="200">
+                    <DatePicker x:Name="FromDatePicker"
+                                SelectedDate="{x:Null}"
+                                DisplayDateStart="2000-01-01"
+                                DisplayDateEnd="2100-12-31"
+                                BorderThickness="0"
+                                Background="Transparent"/>
+                </Border>
+            </StackPanel>
+
+            <!-- To Label + DatePicker -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,10,0" VerticalAlignment="Center">
+                <TextBlock Text="To:" VerticalAlignment="Center" Margin="0,0,5,0" FontWeight="Bold"/>
+                <Border Background="#F0F0F0" CornerRadius="15" Padding="5" Width="200">
+                    <DatePicker x:Name="ToDatePicker"
+                                SelectedDate="{x:Null}"
+                                DisplayDateStart="2000-01-01"
+                                DisplayDateEnd="2100-12-31"
+                                BorderThickness="0"
+                                Background="Transparent"/>
+                </Border>
+            </StackPanel>
+
+            <!-- Small Curved Clear Button -->
+            <Button Width="80" Height="28"
+                    Click="ClearDates_Click"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    Background="#FF5B281C"
+                    BorderThickness="0">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="14"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+                Clear
+            </Button>
         </StackPanel>
 
+        <!-- DataGrid -->
         <Border Grid.Row="2" Background="White" CornerRadius="20" Padding="20" Margin="20,0,20,20">
-            <DataGrid x:Name="InvoiceDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column" 
-                      GridLinesVisibility="None" BorderThickness="0" IsReadOnly="True"
-                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-
+            <DataGrid x:Name="InvoiceDataGrid"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      HeadersVisibility="Column"
+                      GridLinesVisibility="None"
+                      BorderThickness="0"
+                      IsReadOnly="True"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Invoice ID" Binding="{Binding InvoiceID}" Width="*"/>
                     <DataGridTextColumn Header="Customer" Binding="{Binding Customer}" Width="*"/>
@@ -64,26 +176,26 @@
                             <DataTemplate>
                                 <Border CornerRadius="10" Padding="5,2" HorizontalAlignment="Left"
                                         Background="{Binding Status, Converter={StaticResource StatusToBrushConverter}}">
-                                    <TextBlock Text="{Binding Status}" 
-                                               Foreground="{Binding Status, Converter={StaticResource StatusToTextBrushConverter}}" 
+                                    <TextBlock Text="{Binding Status}"
+                                               Foreground="{Binding Status, Converter={StaticResource StatusToTextBrushConverter}}"
                                                FontWeight="Bold" TextAlignment="Center"/>
                                 </Border>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-
                     <DataGridTemplateColumn Header="View" Width="0.5*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="👁️" Background="Transparent" BorderThickness="0" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Button Content="👁" Background="Transparent" BorderThickness="0"
+                                        FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-
                     <DataGridTemplateColumn Header="Copy" Width="0.5*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="📋" Background="Transparent" BorderThickness="0" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Button Content="📋" Background="Transparent" BorderThickness="0"
+                                        FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

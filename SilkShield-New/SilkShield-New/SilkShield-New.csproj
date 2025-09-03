@@ -98,6 +98,7 @@
     <Compile Include="View\AddNewCustomer.xaml.cs">
       <DependentUpon>AddNewCustomer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Converters .cs" />
     <Compile Include="View\Customer_Manage.xaml.cs">
       <DependentUpon>Customer_Manage.xaml</DependentUpon>
     </Compile>
