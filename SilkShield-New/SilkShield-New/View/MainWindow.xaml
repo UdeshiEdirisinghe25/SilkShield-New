@@ -216,6 +216,20 @@
                     </StackPanel>
                 </StackPanel>
             </DockPanel>
+            <!-- Top Bar -->
+            <Grid Height="40" VerticalAlignment="Top" Background="Transparent" MouseLeftButtonDown="TopBar_MouseLeftButtonDown" Grid.Column="1" Margin="2,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Window Buttons -->
+                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                    <Button Content="—" Width="40" Height="40" Click="Minimize_Click" Background="Transparent" Foreground="White" BorderThickness="0" FontSize="16" FontWeight="Bold" Cursor="Hand"/>
+                    <Button Content="□" Width="40" Height="40" Click="MaximizeRestore_Click" Background="Transparent" Foreground="White" BorderThickness="0" FontSize="12" FontWeight="Bold" Cursor="Hand"/>
+                    <Button Content="✕" Width="40" Height="40" Click="Close_Click" Background="Transparent" Foreground="White" BorderThickness="0" FontSize="14" FontWeight="Bold" Cursor="Hand"/>
+                </StackPanel>
+            </Grid>
 
         </Grid>
     </Border>
