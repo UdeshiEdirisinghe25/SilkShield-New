@@ -110,6 +110,10 @@
                 <ColumnDefinition Width="261"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <!-- Main Content Area -->
+            <Border Grid.Column="1" Background="{StaticResource WhiteBackgroundBrush}" CornerRadius="40" Margin="0,43,29,29">
+                <ContentControl x:Name="MainContentArea" Margin="40"/>
+            </Border>
 
             <!-- Sidebar -->
             <DockPanel Grid.Column="0" Margin="29,0,0,29" LastChildFill="False">
