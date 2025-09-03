@@ -136,3 +136,17 @@ D:\Udeshi\Copies\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShie
 D:\Udeshi\Copies\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.exe
 D:\Udeshi\Copies\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.pdb
 D:\Udeshi\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.exe.config
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.csproj.AssemblyReference.cache
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.exe
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.pdb
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\AddNewCustomer.baml
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\MainWindow.baml
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\New_Inventory.baml
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\AddNewCustomer.g.cs
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Customer_Manage.g.cs
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\DashboardWindow.g.cs
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\MainWindow.g.cs
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\New_Inventory.g.cs
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\App.g.cs
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New_MarkupCompile.cache
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New_MarkupCompile.lref
