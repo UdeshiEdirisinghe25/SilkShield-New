@@ -1,166 +1,201 @@
-﻿<Window x:Class="SilkShield_New.View.NewInvoice1" 
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-        xmlns:local="clr-namespace:SilkShield_New.View" 
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+﻿<Window x:Class="SilkShield_New.View.NewInvoice1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:SilkShield_New.View"
+        xmlns:vm="clr-namespace:SilkShield_New.ViewModel"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        mc:Ignorable="d" 
-        Title="NewInvoice1" Height="650" Width="900" 
-        Background="Transparent" AllowsTransparency="True" WindowStyle="None">
-    <Grid>
-        <Border Background="White" CornerRadius="50" Margin="50">
-            <Grid Margin="30">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="Auto" MinHeight="28.62"/>
-                    <RowDefinition Height="Auto" MinHeight="79"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+        mc:Ignorable="d"
+        Title="New Invoice"
+        Width="900" Height="700"
+        WindowStartupLocation="CenterScreen"
+        Background="White"
+        d:DataContext="{d:DesignInstance vm:NewInvoice1ViewModel}">
 
-                <TextBlock Grid.Row="0" Margin="0,0,0,20" FontSize="28" FontWeight="Bold" Foreground="#333" Text="Invoice"/>
-
-                <Grid Grid.Row="1" Margin="0,10,0,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="20">
+            <Border Background="White" CornerRadius="10" Padding="20" BorderBrush="#ccc" BorderThickness="1">
+                <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,20,0">
-                        <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Invoice Number"/>
-                        <Border Background="White" BorderBrush="#ccc" BorderThickness="1" CornerRadius="5">
-                            <TextBox Padding="8" BorderBrush="Transparent" BorderThickness="0" Text="INV-1001"/>
-                        </Border>
-                    </StackPanel>
+                    <TextBlock Grid.Row="0" FontSize="28" FontWeight="Bold" Foreground="#333" Text="Invoice" Margin="0,0,0,20"/>
 
-                    <StackPanel Grid.Row="0" Grid.Column="1" Margin="20,0,0,0">
-                        <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Date"/>
-                        <Border Background="White" BorderBrush="#ccc" BorderThickness="1" CornerRadius="5">
-                            <DatePicker Padding="8" BorderBrush="Transparent" BorderThickness="0" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                        </Border>
-                    </StackPanel>
+                    <Grid Grid.Row="1" Margin="0,10,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,15,20,0">
-                        <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Customer"/>
-                        <Border Background="White" BorderBrush="#ccc" BorderThickness="1" CornerRadius="5">
-                            <TextBox Padding="8" BorderBrush="Transparent" BorderThickness="0" Text="John Doe"/>
-                        </Border>
-                    </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,20,0">
+                            <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Invoice Number"/>
+                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="INV-1001"/>
+                        </StackPanel>
 
-                    <StackPanel Grid.Row="1" Grid.Column="1" Margin="20,15,0,0">
-                        <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Building Type"/>
-                        <Border Background="White" BorderBrush="#ccc" BorderThickness="1" CornerRadius="5">
-                            <TextBox Padding="8" BorderBrush="Transparent" BorderThickness="0"/>
-                        </Border>
-                    </StackPanel>
-                </Grid>
+                        <StackPanel Grid.Row="0" Grid.Column="1" Margin="20,0,0,0">
+                            <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Date"/>
+                            <DatePicker Padding="8" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                        </StackPanel>
 
-                <DataGrid x:Name="ItemDataGrid" 
-                          Grid.Row="2" 
-                          Margin="0,7,0,20" 
-                          AutoGenerateColumns="False" 
-                          Background="White" 
-                          BorderBrush="#ddd" 
-                          BorderThickness="1" 
-                          CanUserAddRows="True" 
-                          CanUserDeleteRows="True" 
-                          HeadersVisibility="Column" 
-                          HorizontalGridLinesBrush="#eee" 
-                          IsTabStop="False" 
-                          VerticalGridLinesBrush="#eee"
-                          GridLinesVisibility="Horizontal"
-                          KeyDown="ItemDataGrid_KeyDown">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Item Name" Binding="{Binding ItemName}" Width="2*"/>
-                        <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <DataGridTextColumn Header="Unit Price" Binding="{Binding UnitPrice, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                        <DataGridTextColumn Header="Total" Binding="{Binding Total}" IsReadOnly="True" Width="*"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                        <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,15,20,0">
+                            <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Customer"/>
+                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="John Doe"/>
+                        </StackPanel>
 
-                <Button Grid.Row="3" 
-                        HorizontalAlignment="Right" 
-                        Width="75"
-                        Content="+ Add Item" 
-                        Background="Transparent" 
-                        BorderThickness="0" 
-                        Click="AddItem_Click" 
-                        Cursor="Hand" 
-                        FontSize="14" 
-                        FontWeight="Bold" 
-                        Foreground="#FF5B281C" 
-                        Margin="0,10,0,0">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <TextBlock HorizontalAlignment="Center" Text="{TemplateBinding Content}" VerticalAlignment="Center"/>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                        <StackPanel Grid.Row="1" Grid.Column="1" Margin="20,15,0,0">
+                            <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Building Type"/>
+                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1"/>
+                        </StackPanel>
+                    </Grid>
 
-                <Grid Grid.Row="4" Margin="0,20,0,0" Height="59" VerticalAlignment="Top">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                    <DataGrid x:Name="ItemDataGrid"
+                              Grid.Row="2"
+                              Margin="0,7,0,20"
+                              AutoGenerateColumns="False"
+                              Background="White"
+                              BorderBrush="#ddd"
+                              BorderThickness="1"
+                              CanUserAddRows="True"
+                              CanUserDeleteRows="True"
+                              HeadersVisibility="Column"
+                              HorizontalGridLinesBrush="#eee"
+                              VerticalGridLinesBrush="#eee"
+                              GridLinesVisibility="All"
+                              ItemsSource="{Binding Items}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Item Name" Binding="{Binding ItemName}" Width="2*"/>
+                            <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                            <DataGridTextColumn Header="Unit Price" Binding="{Binding UnitPrice, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                            <DataGridTextColumn Header="Total" Binding="{Binding Total}" IsReadOnly="True" Width="*"/>
+                            <DataGridTemplateColumn Header="Delete" Width="50">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.DeleteItemCommand}"
+                                                CommandParameter="{Binding}"
+                                                Cursor="Hand"
+                                                Background="Transparent"
+                                                BorderThickness="0">
+                                            <Grid Width="12" Height="12" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <Path Data="M3,6 L5,6 L21,6 M19,6 L17,20 C17,21.1 16.1,22 15,22 L7,22 C5.9,22 5,21.1 5,20 L3,6 M10,11 L10,17 M14,11 L14,17"
+                                                      Fill="Gray" Stretch="Uniform"/>
+                                            </Grid>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
-                    <StackPanel Grid.Column="0">
-                        <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Payment Method"/>
-                        <Border Background="White" BorderBrush="#ccc" BorderThickness="1" CornerRadius="5" Padding="8">
-                            <ComboBox Padding="8" BorderBrush="Transparent" BorderThickness="0">
+                    <Button Grid.Row="3"
+                            HorizontalAlignment="Right"
+                            Width="90"
+                            Content="+ Add Item"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Command="{Binding AddItemCommand}"
+                            Cursor="Hand"
+                            FontSize="14"
+                            FontWeight="Bold"
+                            Foreground="#FF5B281C"
+                            Margin="0,10,0,0"/>
+
+                    <Grid Grid.Row="4" Margin="0,15,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Curtain type</TextBlock>
+                            <ComboBox Width="90" Padding="4" SelectedValue="{Binding CurtainLayerType}" Margin="0,0,10,0">
+                                <ComboBoxItem Content="Double layer"/>
+                                <ComboBoxItem Content="Single layer"/>
+                            </ComboBox>
+                            <ComboBox Width="90" Padding="4" SelectedValue="{Binding CurtainStyle}">
+                                <ComboBoxItem Content="Ripple"/>
+                                <ComboBoxItem Content="Eyelet"/>
+                                <ComboBoxItem Content="3 pleat"/>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Pelmet board</TextBlock>
+                            <ComboBox Width="70" Padding="4" SelectedValue="{Binding IsPelmetBoardChecked}" Margin="0,0,20,0">
+                                <ComboBoxItem Content="Yes" Tag="True"/>
+                                <ComboBoxItem Content="No" Tag="False"/>
+                            </ComboBox>
+                            <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Motorized</TextBlock>
+                            <ComboBox Width="70" Padding="4" SelectedValue="{Binding IsMotorizedChecked}">
+                                <ComboBoxItem Content="Yes" Tag="True"/>
+                                <ComboBoxItem Content="No" Tag="False"/>
+                            </ComboBox>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="5" Margin="0,20,0,0" VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Payment Method"/>
+                            <ComboBox Padding="8" BorderBrush="#ccc" BorderThickness="1">
                                 <ComboBoxItem Content="Cash" IsSelected="True"/>
                                 <ComboBoxItem Content="Card"/>
                                 <ComboBoxItem Content="Bank Transfer"/>
                             </ComboBox>
-                        </Border>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <StackPanel Grid.Column="1" Margin="20,0,0,0">
-                        <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Discount"/>
-                        <Border Background="White" BorderBrush="#ccc" BorderThickness="1" CornerRadius="5" Padding="8">
-                            <TextBox x:Name="DiscountTextBox" BorderBrush="Transparent" BorderThickness="0" TextChanged="Discount_TextChanged"/>
-                        </Border>
-                    </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="20,0,20,0">
+                            <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Transport and Labor Cost"/>
+                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding TransportLaborCost, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Margin="20,0,0,0">
+                            <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Discount"/>
+                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding Discount, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="6" Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
+                            <TextBlock Margin="0,0,20,0" FontSize="18" FontWeight="SemiBold" Text="Total Amount" VerticalAlignment="Center"/>
+                            <TextBlock FontSize="20" FontWeight="Bold" Foreground="#333" Text="{Binding GrandTotal, StringFormat=LKR {0:F2}}" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <Button Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                Width="100" Height="40"
+                                Margin="0,10,0,0"
+                                Background="#FF5B281C"
+                                Content="Create"
+                                Cursor="Hand"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                Command="{Binding CreateInvoiceCommand}"/>
+                    </Grid>
                 </Grid>
-
-                <Grid Grid.Row="5" Margin="0,20,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Grid.Column="0" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
-                        <TextBlock Margin="0,0,20,0" FontSize="18" FontWeight="SemiBold" Text="Total Amount" VerticalAlignment="Center"/>
-                        <TextBlock FontSize="20" FontWeight="Bold" Foreground="#333" Text="{Binding GrandTotal, StringFormat=LKR  \.}" VerticalAlignment="Center"/>
-                    </StackPanel>
-
-                    <Button Grid.Column="1" 
-                            HorizontalAlignment="Left" 
-                            VerticalAlignment="Bottom"
-                            Width="100" 
-                            Height="40" 
-                            Margin="0,10,0,0"
-                            Background="#FF5B281C" 
-                            Content="Create" 
-                            Cursor="Hand" 
-                            FontSize="16" 
-                            FontWeight="Bold" 
-                            Foreground="White">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Background="{TemplateBinding Background}" CornerRadius="5" Padding="10">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                </Grid>
-            </Grid>
-        </Border>
-    </Grid>
+            </Border>
+        </Grid>
+    </ScrollViewer>
 </Window>

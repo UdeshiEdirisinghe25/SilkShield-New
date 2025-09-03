@@ -1,35 +1,66 @@
 using System.ComponentModel;
 
-namespace SilkShield_New.Models
+namespace SilkShield_New.Model
 {
     public class InvoiceItem : INotifyPropertyChanged
     {
         private string _itemName;
-        private int _quantity;
-        private decimal _unitPrice;
+        private double _quantity;
+        private double _unitPrice;
+        private double _total;
 
         public string ItemName
         {
             get => _itemName;
-            set { _itemName = value; OnPropertyChanged(nameof(ItemName)); }
+            set
+            {
+                _itemName = value;
+                OnPropertyChanged(nameof(ItemName));
+            }
         }
 
-        public int Quantity
+        public double Quantity
         {
             get => _quantity;
-            set { _quantity = value; OnPropertyChanged(nameof(Quantity)); OnPropertyChanged(nameof(Total)); }
+            set
+            {
+                if (_quantity != value)
+                {
+                    _quantity = value;
+                    Total = _quantity * _unitPrice;
+                    OnPropertyChanged(nameof(Quantity));
+                }
+            }
         }
 
-        public decimal UnitPrice
+        public double UnitPrice
         {
             get => _unitPrice;
-            set { _unitPrice = value; OnPropertyChanged(nameof(UnitPrice)); OnPropertyChanged(nameof(Total)); }
+            set
+            {
+                if (_unitPrice != value)
+                {
+                    _unitPrice = value;
+                    Total = _quantity * _unitPrice;
+                    OnPropertyChanged(nameof(UnitPrice));
+                }
+            }
         }
 
-        public decimal Total => Quantity * UnitPrice;
+        public double Total
+        {
+            get => _total;
+            set
+            {
+                _total = value;
+                OnPropertyChanged(nameof(Total));
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string n) =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(n));
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

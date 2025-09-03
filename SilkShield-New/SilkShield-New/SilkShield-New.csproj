@@ -88,9 +88,11 @@
     </ApplicationDefinition>
     <Compile Include="Data\DatabaseHelper.cs" />
     <Compile Include="Model\Customer.cs" />
+    <Compile Include="Model\InvoiceItem.cs" />
     <Compile Include="TextBoxPlaceHolder.cs" />
     <Compile Include="ViewModel\DashboardViewModel.cs" />
     <Compile Include="ViewModel\NewInventoryViewModel.cs" />
+    <Compile Include="ViewModel\NewInvoice1ViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="View\AddNewCustomer.xaml.cs">
       <DependentUpon>AddNewCustomer.xaml</DependentUpon>
@@ -100,6 +102,9 @@
     </Compile>
     <Compile Include="View\DashboardWindow.xaml.cs">
       <DependentUpon>DashboardWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NewInvoice1.xaml.cs">
+      <DependentUpon>NewInvoice1.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\New_Inventory.xaml.cs">
       <DependentUpon>New_Inventory.xaml</DependentUpon>
@@ -127,6 +132,10 @@
     <Page Include="View\DashboardWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NewInvoice1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\New_Inventory.xaml">
       <SubType>Designer</SubType>
