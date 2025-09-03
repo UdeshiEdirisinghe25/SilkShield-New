@@ -19,7 +19,7 @@ namespace SilkShield_New.View
     /// <summary>
     /// Interaction logic for New_Inventory.xaml
     /// </summary>
-    public partial class New_Inventory : Window
+    public partial class New_Inventory : UserControl
     {
         public New_Inventory()
         {
