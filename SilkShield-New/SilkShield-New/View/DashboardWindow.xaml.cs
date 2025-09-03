@@ -17,7 +17,7 @@ namespace SilkShield_New.View
     /// <summary>
     /// Interaction logic for DashboardWindow.xaml
     /// </summary>
-    public partial class DashboardWindow : Window
+    public partial class DashboardWindow : UserControl
     {
         public DashboardWindow()
         {

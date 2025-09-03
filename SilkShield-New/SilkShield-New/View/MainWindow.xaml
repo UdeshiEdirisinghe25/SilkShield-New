@@ -21,14 +21,6 @@
         <SolidColorBrush x:Key="OrangeBrush" Color="#E0822D"/>
 
         <!-- Gradient Brushes -->
-        <LinearGradientBrush x:Key="RedGradientBrush" StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Color="#E93B77" Offset="0"/>
-            <GradientStop Color="#DA1F63" Offset="1"/>
-        </LinearGradientBrush>
-        <LinearGradientBrush x:Key="GreenGradientBrush" StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Color="#63B967" Offset="0"/>
-            <GradientStop Color="#4BA64F" Offset="1"/>
-        </LinearGradientBrush>
         <LinearGradientBrush x:Key="BlackGradientBrush" StartPoint="0,0" EndPoint="0,1">
             <GradientStop Color="#3E3D45" Offset="0"/>
             <GradientStop Color="#202020" Offset="1"/>
