@@ -14,12 +14,11 @@ using System.Windows.Shapes;
 using System.Xml.Linq;
 using SilkShield_New.ViewModels;
 
-namespace SilkShield_New.View
-{
+namespace SilkShield_New.View { 
     /// <summary>
     /// Interaction logic for New_Inventory.xaml
     /// </summary>
-    public partial class New_Inventory : UserControl
+    public partial class New_Inventory : Window 
     {
         public New_Inventory()
         {

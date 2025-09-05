@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\Udeshi\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\App.xaml
-51406162297
+61482600827
 
-161371939866
+19-304236419
 128299502010
-MainWindow.xaml;View\AddNewCustomer.xaml;View\Customer_Manage.xaml;View\DashboardWindow.xaml;View\New_Inventory.xaml;
+View\AddNewCustomer.xaml;View\Customer_Manage.xaml;View\DashboardWindow.xaml;View\MainWindow.xaml;View\NewInvoice1.xaml;View\New_Inventory.xaml;
 
-True
+False
 
