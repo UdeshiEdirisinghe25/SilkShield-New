@@ -4,7 +4,7 @@
 winexe
 C#
 .cs
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\
+D:\Udeshi\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\
 SilkShield_New
 none
 false
@@ -15,11 +15,12 @@ F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\App.xaml
 201908642259
 1281097644255
 View\AddNewCustomer.xaml;View\Customer_Manage.xaml;View\DashboardWindow.xaml;View\MainWindow.xaml;View\NewInvoice1.xaml;View\New_Inventory.xaml;
+D:\Udeshi\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\App.xaml
 61385256253
 
-202040991884
-128-1761225282
+22-129532498
+128941679449
 MainWindow.xaml;View\AddNewCustomer.xaml;View\Customer_Manage.xaml;View\DashboardWindow.xaml;View\InvoiceHistory.xaml;View\New_Inventory.xaml;
 
-True
+False
 
