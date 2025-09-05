@@ -99,7 +99,7 @@
                         
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#08FFFFFF"/>
+                                    <Setter Property="Background" Value="OrangeRed"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                        
@@ -165,7 +165,7 @@
                             <TextBlock Text="Let's start!" FontFamily="Inter" FontSize="16" FontWeight="SemiBold" Foreground="White" TextAlignment="Center" Margin="0,0,0,6"/>
                             <TextBlock Text="Creating or adding new invoices couldn't be easier" FontFamily="Inter" FontSize="13" FontWeight="Medium" Foreground="#8FFFFFFF" 
                                        TextAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,20"/>
-                            <Button x:Name="invoice" Style="{StaticResource PromoButtonStyle}"  >
+                            <Button x:Name="invoice" Style="{StaticResource PromoButtonStyle}" Click="Invoice_Click"  >
                                 <StackPanel Orientation="Horizontal" Width="135">
                                     <Border Width="24" Height="24" CornerRadius="12" Margin="0,0,6,0">
                                         <Path Data="M12,4L10.59,5.41L16.17,11H4V13H16.17L10.59,18.59L12,20L20,12L12,4Z" Fill="White" Stretch="Uniform" Width="12" Height="12"/>
@@ -234,9 +234,9 @@
 
                 <!-- Window Buttons -->
                 <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
-                    <Button Content="—" Width="40" Height="40" Click="Minimize_Click" Background="Transparent" Foreground="White" BorderThickness="0" FontSize="16" FontWeight="Bold" Cursor="Hand"/>
-                    <Button Content="□" Width="40" Height="40" Click="MaximizeRestore_Click" Background="Transparent" Foreground="White" BorderThickness="0" FontSize="12" FontWeight="Bold" Cursor="Hand"/>
-                    <Button Content="✕" Width="40" Height="40" Click="Close_Click" Background="Transparent" Foreground="White" BorderThickness="0" FontSize="14" FontWeight="Bold" Cursor="Hand"/>
+                    <Button Content="—" Width="40" Height="40" Click="Minimize_Click" Background="Transparent" Foreground="White" BorderThickness="0" FontSize="16" FontWeight="Bold" Style="{StaticResource NavButtonStyle}" Cursor="Hand"/>
+                    <Button Content="□" Width="40" Height="40" Click="MaximizeRestore_Click" Background="Transparent" Foreground="White" BorderThickness="0" FontSize="12" FontWeight="Bold"  Style="{StaticResource NavButtonStyle}" Cursor="Hand"/>
+                    <Button Content="✕" Width="40" Height="40" Click="Close_Click" Background="Transparent" Foreground="White" BorderThickness="0" FontSize="14" FontWeight="Bold"  Style="{StaticResource NavButtonStyle}" Cursor="Hand"/>
                 </StackPanel>
             </Grid>
 

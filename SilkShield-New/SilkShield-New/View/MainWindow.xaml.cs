@@ -11,7 +11,7 @@ namespace SilkShield_New.View
         private DashboardWindow dashboardView;
         private Customer_Manage customerView;
         //private InventoryView inventoryView;
-        //private Invoice invoiceView;
+         private NewInvoice1 invoiceView;
         //private InvoiceHistory invoiceHistory;
 
         public MainWindow()
@@ -21,7 +21,7 @@ namespace SilkShield_New.View
             dashboardView = new DashboardWindow();
             customerView = new Customer_Manage();
             //inventoryView = new InventoryView();
-            //invoiceView = new Invoice();
+              invoiceView = new NewInvoice1();
             //invoiceHistory = new InvoiceHistory();
 
             MainContentArea.Content = dashboardView;
@@ -31,18 +31,17 @@ namespace SilkShield_New.View
 
         private void HighlightButton(Button activeButton)
         {
-            // Reset all sidebar buttons
-            foreach (var child in Sidebar.Children)
-            {
-                if (child is Button btn)
-                {
-                    btn.Style = (Style)FindResource("NavButtonStyle");
-                }
-            }
+           
+            dashboard.Style = (Style)FindResource("NavButtonStyle");
+            customer.Style = (Style)FindResource("NavButtonStyle");
+            invoice.Style = (Style)FindResource("PromoButtonStyle");
+            // Add other buttons if needed...
 
-            // Apply active style to selected button
+            
             activeButton.Style = (Style)FindResource("ActiveNavButtonStyle");
         }
+
+
 
         private void dashboard_click(object sender, RoutedEventArgs e)
         {
@@ -57,11 +56,11 @@ namespace SilkShield_New.View
             HighlightButton(customer);
         }
 
-        // private void Invoice_click(object sender, RoutedEventArgs e)
-        //{
-          //  MainContentArea.Content = InvoiceView;
-            //HighlightButton(invoice);
-        //}
+         private void Invoice_Click(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = invoiceView;
+            HighlightButton(invoice);
+        }
         
 
 
