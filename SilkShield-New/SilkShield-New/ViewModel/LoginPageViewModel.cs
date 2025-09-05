@@ -4,6 +4,7 @@ using System.Windows;
 using System;
 using System.Data.SQLite;
 using System.Windows.Controls;
+using SilkShield_New.Data; // Ensure this is imported to use DatabaseHelper
 
 namespace SilkShield_New.ViewModel
 {
@@ -35,6 +36,9 @@ namespace SilkShield_New.ViewModel
             }
         }
 
+        // An event to notify the View when login is successful, so it can handle navigation.
+        public event EventHandler LoginSuccess;
+
         public ICommand LoginCommand { get; private set; }
 
         public LoginPageViewModel()
@@ -44,50 +48,59 @@ namespace SilkShield_New.ViewModel
 
         private void Login(object parameter)
         {
-            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
-            {
-                // Use a custom message box instead of MessageBox.Show
-                MessageBox.Show("Please enter both username and password.");
-                return;
-            }
-
-            // Using the DatabaseHelper to check user credentials
-            using (SQLiteConnection connection = new SQLiteConnection("Data Source=C:/YourProjectFolder/Database.db;Version=3;"))
+            // Use the DatabaseHelper to get a connection.
+            var dbHelper = new DatabaseHelper();
+            using (SQLiteConnection connection = dbHelper.GetConnection())
             {
                 try
                 {
                     connection.Open();
-                    string query = "SELECT COUNT(*) FROM user WHERE Username = @username AND Password = @password";
+                    // Select the password for the given username.
+                    string query = "SELECT Password FROM user WHERE Username = @username";
 
                     using (SQLiteCommand command = new SQLiteCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@username", Username);
-                        command.Parameters.AddWithValue("@password", Password);
+                        object result = command.ExecuteScalar();
 
-                        long count = (long)command.ExecuteScalar();
-
-                        if (count > 0)
+                        if (result != null)
                         {
-                            // Login successful
-                            // Use a custom message box instead of MessageBox.Show
-                            MessageBox.Show("Login Successful!");
-                            // Navigate to the Dashboard window
-                            // We need to handle this in your View.
+                            string storedPassword = result.ToString();
+                            // Check if the entered password matches the stored password.
+                            if (storedPassword == Password)
+                            {
+                                // Login successful, notify the View.
+                                MessageBox.Show("Login Successful!");
+                                LoginSuccess?.Invoke(this, EventArgs.Empty);
+                            }
+                            else
+                            {
+                                // Passwords do not match.
+                                MessageBox.Show("Invalid username or password.");
+                                ClearFields();
+                            }
                         }
                         else
                         {
-                            // Login failed
-                            // Use a custom message box instead of MessageBox.Show
+                            // Username not found.
                             MessageBox.Show("Invalid username or password.");
+                            ClearFields();
                         }
                     }
                 }
                 catch (SQLiteException ex)
                 {
-                    // Use a custom message box instead of MessageBox.Show
                     MessageBox.Show("Database error: " + ex.Message);
+                    ClearFields();
                 }
             }
+        }
+
+        // Method to clear the input fields after a failed login.
+        private void ClearFields()
+        {
+            Username = null;
+            Password = null;
         }
 
         private bool CanLogin(object parameter)
@@ -103,6 +116,7 @@ namespace SilkShield_New.ViewModel
         }
     }
 
+    // You may need to have this class in a separate file if it is not already.
     public class CustomCommand : ICommand
     {
         private readonly Action<object> _execute;
@@ -110,19 +124,13 @@ namespace SilkShield_New.ViewModel
 
         public CustomCommand(Action<object> execute, Func<object, bool> canExecute = null)
         {
-            _execute = execute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
 
-        public bool CanExecute(object parameter)
-        {
-            return _canExecute == null || _canExecute(parameter);
-        }
+        public bool CanExecute(object parameter) => _canExecute == null || _canExecute(parameter);
 
-        public void Execute(object parameter)
-        {
-            _execute(parameter);
-        }
+        public void Execute(object parameter) => _execute(parameter);
 
         public event EventHandler CanExecuteChanged
         {
