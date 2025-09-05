@@ -87,6 +87,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\DatabaseHelper.cs" />
+    <Compile Include="Data\InvoiceDataService.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\Invoice.cs" />
     <Compile Include="Model\InvoiceItem.cs" />

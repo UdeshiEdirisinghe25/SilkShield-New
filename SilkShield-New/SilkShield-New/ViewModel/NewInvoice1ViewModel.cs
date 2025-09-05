@@ -1,16 +1,96 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
-using SilkShield_New.Model;
-using System.Globalization;
+using System.Data.SQLite;
+using SilkShield_New.Data;
+using System.Windows;
 
 namespace SilkShield_New.ViewModel
 {
+    // A simple model for an item on the invoice.
+    public class InvoiceItem : INotifyPropertyChanged
+    {
+        private string _description;
+        private double _quantity;
+        private double _unitPrice;
+        private double _total;
+        private string _itemName;
+
+        public string ItemName
+        {
+            get => _itemName;
+            set
+            {
+                if (_itemName == value) return;
+                _itemName = value;
+                OnPropertyChanged(nameof(ItemName));
+            }
+        }
+
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                if (_description == value) return;
+                _description = value;
+                OnPropertyChanged(nameof(Description));
+            }
+        }
+
+        public double Quantity
+        {
+            get => _quantity;
+            set
+            {
+                if (_quantity == value) return;
+                _quantity = value;
+                CalculateTotal();
+                OnPropertyChanged(nameof(Quantity));
+            }
+        }
+
+        public double UnitPrice
+        {
+            get => _unitPrice;
+            set
+            {
+                if (_unitPrice == value) return;
+                _unitPrice = value;
+                CalculateTotal();
+                OnPropertyChanged(nameof(UnitPrice));
+            }
+        }
+
+        public double Total
+        {
+            get => _total;
+            private set
+            {
+                if (_total == value) return;
+                _total = value;
+                OnPropertyChanged(nameof(Total));
+            }
+        }
+
+        private void CalculateTotal()
+        {
+            Total = Quantity * UnitPrice;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
     public class NewInvoice1ViewModel : INotifyPropertyChanged
     {
-        // Properties for invoice details
+        #region Private Fields
         private string _invoiceNumber;
         private DateTime _invoiceDate;
         private string _customerName;
@@ -20,78 +100,18 @@ namespace SilkShield_New.ViewModel
         private string _paymentMethod;
         private ObservableCollection<InvoiceItem> _items;
         private double _grandTotal;
+        private string _discountText;
+        private string _transportLaborCostText;
+        private double _discountPercentage;
+        private double _transportLaborCost;
+        private bool _isPelmetBoardChecked;
+        private bool _isMotorizedChecked;
 
-        // New properties for UI bindings and their internal logic
-        private double _discountPercentage; // Stores the actual discount percentage
-        private string _discountText; // For the TextBox binding
-        private double _transportLaborCost; // Stores the combined cost
-        private string _transportLaborCostText; // For the TextBox binding
-
-        // Properties for ComboBox selections (using strings for better binding)
-        private string _isPelmetBoardCheckedText;
-        private string _isMotorizedCheckedText;
-
-        // ICommands
-        public ICommand AddItemCommand { get; }
-        public ICommand DeleteItemCommand { get; }
-        public ICommand CreateInvoiceCommand { get; }
-        public ICommand ClearFormCommand { get; }
-
-        public NewInvoice1ViewModel()
-        {
-            // Initialize commands
-            AddItemCommand = new RelayCommand(AddItem);
-            DeleteItemCommand = new RelayCommand(DeleteItem);
-            CreateInvoiceCommand = new RelayCommand(CreateInvoice);
-            ClearFormCommand = new RelayCommand(ClearForm);
-
-            // Initialize collections
-            Items = new ObservableCollection<InvoiceItem>();
-            Items.CollectionChanged += (sender, e) => CalculateGrandTotal();
-
-            // Listen for PropertyChanged events on each item in the collection
-            Items.CollectionChanged += (sender, e) => {
-                if (e.NewItems != null)
-                {
-                    foreach (InvoiceItem item in e.NewItems)
-                    {
-                        item.PropertyChanged += OnItemPropertyChanged;
-                    }
-                }
-                if (e.OldItems != null)
-                {
-                    foreach (InvoiceItem item in e.OldItems)
-                    {
-                        item.PropertyChanged -= OnItemPropertyChanged;
-                    }
-                }
-            };
-
-            // Add an initial empty row to the DataGrid
-            var initialItem = new InvoiceItem();
-            Items.Add(initialItem);
-
-            // Set initial values
-            InvoiceNumber = "INV-1001";
-            InvoiceDate = DateTime.Now;
-            CurtainLayerType = "Double layer";
-            CurtainStyle = "Ripple";
-            PaymentMethod = "Cash";
-            IsPelmetBoardChecked = false; // Internal boolean
-            IsMotorizedChecked = false; // Internal boolean
-
-            // Set initial UI text values
-            TransportLaborCostText = "0.00";
-            DiscountText = "0";
-            IsPelmetBoardCheckedText = "No";
-            IsMotorizedCheckedText = "No";
-
-            // Calculate initial grand total
-            CalculateGrandTotal();
-        }
+        // The collection to bind to the ComboBox in the DataGrid.
+        private ObservableCollection<string> _availableItems;
+        #endregion
 
         #region Public Properties
-
         public string InvoiceNumber
         {
             get => _invoiceNumber;
@@ -182,79 +202,117 @@ namespace SilkShield_New.ViewModel
             }
         }
 
-        // This is the property for the Transport and Labor Cost TextBox
         public string TransportLaborCostText
         {
-            get => _transportLaborCost == 0 ? "0" : _transportLaborCost.ToString("0.##");
+            get => _transportLaborCostText;
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    _transportLaborCost = 0;
-                }
-                else if (double.TryParse(value, NumberStyles.Any, CultureInfo.CurrentCulture, out double result))
+                if (_transportLaborCostText == value) return;
+                _transportLaborCostText = value;
+                if (double.TryParse(value, NumberStyles.Any, CultureInfo.CurrentCulture, out double result))
                 {
                     _transportLaborCost = Math.Max(0, result);
+                }
+                else
+                {
+                    _transportLaborCost = 0;
                 }
                 CalculateGrandTotal();
                 OnPropertyChanged(nameof(TransportLaborCostText));
             }
         }
 
-        // This is the property for the Discount TextBox
         public string DiscountText
         {
-            get => _discountPercentage == 0 ? "0" : _discountPercentage.ToString("0.##");
+            get => _discountText;
             set
             {
-                if (string.IsNullOrWhiteSpace(value) ||
-                    !double.TryParse(value, NumberStyles.Any, CultureInfo.CurrentCulture, out double result))
+                if (_discountText == value) return;
+                _discountText = value;
+                if (double.TryParse(value, NumberStyles.Any, CultureInfo.CurrentCulture, out double result))
                 {
-                    _discountPercentage = 0;
+                    _discountPercentage = Math.Max(0, result);
                 }
                 else
                 {
-                    _discountPercentage = Math.Max(0, result);
+                    _discountPercentage = 0;
                 }
                 CalculateGrandTotal();
                 OnPropertyChanged(nameof(DiscountText));
             }
         }
 
-        // Internal boolean properties for the ComboBoxes
         public bool IsPelmetBoardChecked
         {
-            get => _isPelmetBoardCheckedText == "Yes";
-            set => _isPelmetBoardCheckedText = value ? "Yes" : "No";
+            get => _isPelmetBoardChecked;
+            set
+            {
+                _isPelmetBoardChecked = value;
+                OnPropertyChanged(nameof(IsPelmetBoardChecked));
+            }
         }
 
         public bool IsMotorizedChecked
         {
-            get => _isMotorizedCheckedText == "Yes";
-            set => _isMotorizedCheckedText = value ? "Yes" : "No";
-        }
-
-        // Properties to bind to the ComboBoxes in XAML
-        public string IsPelmetBoardCheckedText
-        {
-            get => _isPelmetBoardCheckedText;
+            get => _isMotorizedChecked;
             set
             {
-                _isPelmetBoardCheckedText = value;
-                OnPropertyChanged(nameof(IsPelmetBoardCheckedText));
+                _isMotorizedChecked = value;
+                OnPropertyChanged(nameof(IsMotorizedChecked));
             }
         }
 
-        public string IsMotorizedCheckedText
+        // The collection to bind to the ComboBox in the DataGrid.
+        public ObservableCollection<string> AvailableItems
         {
-            get => _isMotorizedCheckedText;
+            get => _availableItems;
             set
             {
-                _isMotorizedCheckedText = value;
-                OnPropertyChanged(nameof(IsMotorizedCheckedText));
+                _availableItems = value;
+                OnPropertyChanged(nameof(AvailableItems));
             }
         }
 
+        #endregion
+
+        #region ICommands
+        public ICommand AddItemCommand { get; }
+        public ICommand DeleteItemCommand { get; }
+        public ICommand CreateInvoiceCommand { get; }
+        public ICommand ClearFormCommand { get; }
+        #endregion
+
+        #region Constructor
+        public NewInvoice1ViewModel()
+        {
+            AddItemCommand = new RelayCommand(AddItem);
+            DeleteItemCommand = new RelayCommand(DeleteItem);
+            CreateInvoiceCommand = new RelayCommand(CreateInvoice);
+            ClearFormCommand = new RelayCommand(ClearForm);
+
+            Items = new ObservableCollection<InvoiceItem>();
+            Items.CollectionChanged += (sender, e) => CalculateGrandTotal();
+
+            Items.CollectionChanged += (sender, e) => {
+                if (e.NewItems != null)
+                {
+                    foreach (InvoiceItem item in e.NewItems)
+                    {
+                        item.PropertyChanged += OnItemPropertyChanged;
+                    }
+                }
+                if (e.OldItems != null)
+                {
+                    foreach (InvoiceItem item in e.OldItems)
+                    {
+                        item.PropertyChanged -= OnItemPropertyChanged;
+                    }
+                }
+            };
+
+            LoadItemNamesFromDatabase();
+            ClearForm(null);
+        }
         #endregion
 
         #region Private Methods
@@ -269,20 +327,10 @@ namespace SilkShield_New.ViewModel
 
         private void CalculateGrandTotal()
         {
-            double subTotal = Items?.Where(item => item?.Total > 0)?.Sum(item => item.Total) ?? 0;
-
-            // First, add the transport cost to the subtotal.
+            double subTotal = Items?.Sum(item => item.Total) ?? 0;
             double totalBeforeDiscount = subTotal + _transportLaborCost;
-
-            // Then, apply the percentage discount to that new total.
             double discountAmount = totalBeforeDiscount * (_discountPercentage / 100.0);
-
-            // Ensure the discount doesn't exceed the total before discount.
-            discountAmount = Math.Min(totalBeforeDiscount, discountAmount);
-
-            double calculatedTotal = totalBeforeDiscount - discountAmount;
-
-            GrandTotal = Math.Max(0, calculatedTotal);
+            GrandTotal = Math.Max(0, totalBeforeDiscount - discountAmount);
         }
 
         private void AddItem(object obj)
@@ -301,30 +349,28 @@ namespace SilkShield_New.ViewModel
 
         private void CreateInvoice(object obj)
         {
-            // Validation before creating invoice
             if (string.IsNullOrWhiteSpace(CustomerName))
             {
-                System.Windows.MessageBox.Show("Please enter customer name before creating invoice.", "Validation Error",
-                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                MessageBox.Show("Please enter customer name before creating invoice.", "Validation Error",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (!Items.Any(item => item.Total > 0))
             {
-                System.Windows.MessageBox.Show("Please add at least one item with value before creating invoice.", "Validation Error",
-                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                MessageBox.Show("Please add at least one item with a value before creating invoice.", "Validation Error",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            System.Windows.MessageBox.Show($"Invoice {InvoiceNumber} created successfully!\n" +
+            MessageBox.Show($"Invoice {InvoiceNumber} created successfully!\n" +
                                          $"Customer: {CustomerName}\n" +
                                          $"Total Amount: {GrandTotal:C}", "Invoice Created",
-                                         System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ClearForm(object obj)
         {
-            // Reset properties
             InvoiceNumber = "INV-1001";
             InvoiceDate = DateTime.Now;
             CustomerName = string.Empty;
@@ -333,17 +379,47 @@ namespace SilkShield_New.ViewModel
             CurtainStyle = "Ripple";
             PaymentMethod = "Cash";
 
-            // Reset text-based inputs and internal values
+            _transportLaborCost = 0;
+            _discountPercentage = 0;
             TransportLaborCostText = "0.00";
             DiscountText = "0";
 
-            IsPelmetBoardCheckedText = "No";
-            IsMotorizedCheckedText = "No";
+            IsPelmetBoardChecked = false;
+            IsMotorizedChecked = false;
 
             Items.Clear();
             Items.Add(new InvoiceItem());
         }
 
+        private void LoadItemNamesFromDatabase()
+        {
+            AvailableItems = new ObservableCollection<string>();
+            DatabaseHelper dbHelper = new DatabaseHelper();
+            string query = "SELECT DISTINCT ItemName FROM inventory";
+
+            try
+            {
+                using (var connection = dbHelper.GetConnection() as SQLiteConnection)
+                {
+                    connection.Open();
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                AvailableItems.Add(reader.GetString(0));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading inventory data: " + ex.Message, "Database Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         #endregion
 
         #region INotifyPropertyChanged Implementation
@@ -355,8 +431,6 @@ namespace SilkShield_New.ViewModel
         #endregion
     }
 
-    // Note: The RelayCommand class provided in your initial request is correct and does not need modification.
-    // It's a standard implementation for handling ICommand in MVVM.
     public class RelayCommand : ICommand
     {
         private readonly Action<object> _execute;

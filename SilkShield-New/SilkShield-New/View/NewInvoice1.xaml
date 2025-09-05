@@ -2,18 +2,17 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SilkShield_New.View"
         xmlns:vm="clr-namespace:SilkShield_New.ViewModel"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="New Invoice"
         Width="900" Height="700"
         WindowStartupLocation="CenterScreen"
         Background="White"
         d:DataContext="{d:DesignInstance vm:NewInvoice1ViewModel}">
+
     <Window.Resources>
-        <!-- Style for the 'Reset' linked label -->
         <Style x:Key="ResetLinkStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -28,25 +27,42 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="AddButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="#FF5B281C"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid Margin="20">
-            <Border Background="White" CornerRadius="10" Padding="20" BorderBrush="#ccc" BorderThickness="1">
+            <Border Background="White" Padding="20" BorderBrush="#ccc" BorderThickness="1">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" FontSize="28" FontWeight="Bold" Foreground="#333" Text="Invoice" Margin="0,0,0,20"/>
-
-                    <Grid Grid.Row="1" Margin="0,10,0,10">
+                    <!-- Invoice Info -->
+                    <Grid Grid.Row="0" Margin="0,10,0,10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -73,95 +89,77 @@
 
                         <StackPanel Grid.Row="1" Grid.Column="1" Margin="20,15,0,0">
                             <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Building Type"/>
-                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding BuildingType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
-                    </Grid>
-
-                    <DataGrid x:Name="ItemDataGrid"
-                              Grid.Row="2"
-                              Margin="0,7,0,20"
-                              AutoGenerateColumns="False"
-                              Background="White"
-                              BorderBrush="#ddd"
-                              BorderThickness="1"
-                              CanUserAddRows="True"
-                              CanUserDeleteRows="True"
-                              HeadersVisibility="Column"
-                              HorizontalGridLinesBrush="#eee"
-                              VerticalGridLinesBrush="#eee"
-                              GridLinesVisibility="All"
-                              ItemsSource="{Binding Items}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Item Name" Binding="{Binding ItemName}" Width="2*"/>
-                            <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                            <DataGridTextColumn Header="Unit Price" Binding="{Binding UnitPrice, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                            <DataGridTextColumn Header="Total" Binding="{Binding Total}" IsReadOnly="True" Width="*"/>
-                            <DataGridTemplateColumn Header="Delete" Width="50">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.DeleteItemCommand}"
-                                                CommandParameter="{Binding}"
-                                                Cursor="Hand"
-                                                Background="Transparent"
-                                                BorderThickness="0">
-                                            <Grid Width="12" Height="12" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <Path Data="M3,6 L5,6 L21,6 M19,6 L17,20 C17,21.1 16.1,22 15,22 L7,22 C5.9,22 5,21.1 5,20 L3,6 M10,11 L10,17 M14,11 L14,17"
-                                                      Fill="Gray" Stretch="Uniform"/>
-                                            </Grid>
-                                        </Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-
-                    <Button Grid.Row="3"
-                            HorizontalAlignment="Right"
-                            Width="90"
-                            Content="+ Add Item"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Command="{Binding AddItemCommand}"
-                            Cursor="Hand"
-                            FontSize="14"
-                            FontWeight="Bold"
-                            Foreground="#FF5B281C"
-                            Margin="0,10,0,0"/>
-
-                    <Grid Grid.Row="4" Margin="0,15,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
-                            <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Curtain type</TextBlock>
-                            <ComboBox Width="90" Padding="4" SelectedValue="{Binding CurtainLayerType, Mode=TwoWay}" Margin="0,0,10,0">
-                                <ComboBoxItem Content="Double layer"/>
-                                <ComboBoxItem Content="Single layer"/>
-                            </ComboBox>
-                            <ComboBox Width="90" Padding="4" SelectedValue="{Binding CurtainStyle, Mode=TwoWay}">
-                                <ComboBoxItem Content="Ripple"/>
-                                <ComboBoxItem Content="Eyelet"/>
-                                <ComboBoxItem Content="3 pleat"/>
-                            </ComboBox>
-                        </StackPanel>
-
-                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Pelmet board</TextBlock>
-                            <ComboBox Width="70" Padding="4" SelectedValue="{Binding IsPelmetBoardCheckedText, Mode=TwoWay}" Margin="0,0,20,0">
-                                <ComboBoxItem Content="Yes"/>
-                                <ComboBoxItem Content="No"/>
-                            </ComboBox>
-                            <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Motorized</TextBlock>
-                            <ComboBox Width="70" Padding="4" SelectedValue="{Binding IsMotorizedCheckedText, Mode=TwoWay}">
-                                <ComboBoxItem Content="Yes"/>
-                                <ComboBoxItem Content="No"/>
+                            <ComboBox Padding="8" BorderBrush="#ccc" BorderThickness="1" SelectedValue="{Binding BuildingType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <ComboBoxItem Content="House"/>
+                                <ComboBoxItem Content="Apartment"/>
+                                <ComboBoxItem Content="Commercial"/>
                             </ComboBox>
                         </StackPanel>
                     </Grid>
 
-                    <Grid Grid.Row="5" Margin="0,20,0,0" VerticalAlignment="Top">
+                    <!-- Items DataGrid & Add Item Button -->
+                    <StackPanel Grid.Row="1" Margin="0,7,0,0">
+                        <DataGrid x:Name="ItemDataGrid"
+                                  AutoGenerateColumns="False"
+                                  Background="White"
+                                  BorderBrush="#ddd"
+                                  BorderThickness="1"
+                                  CanUserAddRows="True"
+                                  CanUserDeleteRows="True"
+                                  HeadersVisibility="Column"
+                                  HorizontalGridLinesBrush="#eee"
+                                  VerticalGridLinesBrush="#eee"
+                                  GridLinesVisibility="All"
+                                  ItemsSource="{Binding Items}">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Item Name" Width="2*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ItemName}" VerticalAlignment="Center" Margin="5,0"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataTemplate>
+                                            <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.AvailableItems}"
+                                                      SelectedItem="{Binding ItemName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                                <DataGridTextColumn Header="Unit Price" Binding="{Binding UnitPrice, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                                <DataGridTextColumn Header="Total" Binding="{Binding Total}" IsReadOnly="True" Width="*"/>
+
+                                <DataGridTemplateColumn Header="Delete" Width="50">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.DeleteItemCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Cursor="Hand"
+                                                    Background="Transparent"
+                                                    BorderThickness="0">
+                                                <Grid Width="12" Height="12" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <Path Data="M3,6 L5,6 L21,6 M19,6 L17,20 C17,21.1 16.1,22 15,22 L7,22 C5.9,22 5,21.1 5,20 L3,6 M10,11 L10,17 M14,11 L14,17"
+                                                          Fill="Gray" Stretch="Uniform"/>
+                                                </Grid>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <!-- Moved + ADD ITEM button here -->
+                        <Button Content="+ ADD ITEM"
+                                Command="{Binding AddItemCommand}"
+                                Style="{StaticResource AddButtonStyle}"
+                                HorizontalAlignment="Right"
+                                Margin="0,10,0,0"/>
+
+                    </StackPanel>
+
+                    <!-- Curtain, Payment, Transport & Discount -->
+                    <Grid Grid.Row="2" Margin="0,20,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -169,53 +167,65 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Grid.Column="0">
-                            <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Payment Method"/>
-                            <ComboBox Padding="8" BorderBrush="#ccc" BorderThickness="1" SelectedValue="{Binding PaymentMethod, Mode=TwoWay}">
+                            <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Curtain Type &amp; Style"/>
+                            <StackPanel Orientation="Horizontal">
+                                <ComboBox Padding="8" Width="90" SelectedValue="{Binding CurtainLayerType, Mode=TwoWay}" Margin="0,0,10,0">
+                                    <ComboBoxItem Content="Single layer"/>
+                                    <ComboBoxItem Content="Double layer"/>
+                                    <ComboBoxItem Content="Triple layer"/>
+                                </ComboBox>
+                                <ComboBox Padding="8" Width="120" SelectedValue="{Binding CurtainStyle, Mode=TwoWay}">
+                                    <ComboBoxItem Content="Ripple"/>
+                                    <ComboBoxItem Content="Pleat"/>
+                                    <ComboBoxItem Content="Eyelet"/>
+                                    <ComboBoxItem Content="Roman Blinds"/>
+                                    <ComboBoxItem Content="Venetian Blinds"/>
+                                    <ComboBoxItem Content="Zebra Blinds"/>
+                                    <ComboBoxItem Content="Roller Blinds"/>
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                                <CheckBox IsChecked="{Binding IsPelmetBoardChecked, Mode=TwoWay}" Content="Pelmet Board" Margin="0,0,20,0" VerticalAlignment="Center"/>
+                                <CheckBox IsChecked="{Binding IsMotorizedChecked, Mode=TwoWay}" Content="Motorized" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Margin="20,0,20,0">
+                            <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Payment Method"/>
+                            <ComboBox Padding="8" SelectedValue="{Binding PaymentMethod, Mode=TwoWay}">
                                 <ComboBoxItem Content="Cash"/>
                                 <ComboBoxItem Content="Card"/>
                                 <ComboBoxItem Content="Bank Transfer"/>
                             </ComboBox>
                         </StackPanel>
 
-                        <StackPanel Grid.Column="1" Margin="20,0,20,0">
-                            <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Transport and Labor Cost"/>
-                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding TransportLaborCostText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
-
-                        <StackPanel Grid.Column="2" Margin="20,0,0,0">
-                            <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Discount"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBox Grid.Column="0" Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding DiscountText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                <TextBlock Grid.Column="1" Text="%" Margin="5,0,0,0" VerticalAlignment="Center" FontWeight="Bold"/>
-                            </Grid>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Transport &amp; Labor Cost (LKR)"/>
+                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding TransportLaborCostText, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Margin="0,15,0,5" Foreground="#555" Text="Discount (%)"/>
+                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding DiscountText, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Margin="0,15,0,5" Foreground="#555" Text="Total Amount (LKR)"/>
+                            <TextBlock FontWeight="Bold" FontSize="20" Foreground="#333" Text="{Binding GrandTotal, StringFormat={}{0:F2}}"/>
                         </StackPanel>
                     </Grid>
 
-                    <Grid Grid.Row="6" Margin="0,20,0,0">
+                    <!-- Bottom buttons -->
+                    <Grid Grid.Row="3" Margin="0,30,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button Content="Reset Form"
-                                Grid.Column="0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Bottom"
+                        <!-- Left side: Reset -->
+                        <Button Grid.Column="0" Content="Reset"
                                 Command="{Binding ClearFormCommand}"
                                 Style="{StaticResource ResetLinkStyle}"
-                                Margin="0,10,0,0"/>
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"/>
 
-                        <StackPanel Grid.Column="0" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
-                            <TextBlock Margin="0,0,20,0" FontSize="18" FontWeight="SemiBold" Text="Total Amount" VerticalAlignment="Center"/>
-                            <TextBlock FontSize="20" FontWeight="Bold" Foreground="#333" Text="{Binding GrandTotal, StringFormat=LKR {0:F2}}" VerticalAlignment="Center"/>
-                        </StackPanel>
-
+                        <!-- Right side: Create -->
                         <Button Grid.Column="1"
-                                HorizontalAlignment="Left"
+                                HorizontalAlignment="Right"
                                 Width="100" Height="40"
                                 Margin="0,10,0,0"
                                 Background="#FF5B281C"
@@ -238,6 +248,7 @@
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
+
                     </Grid>
                 </Grid>
             </Border>
