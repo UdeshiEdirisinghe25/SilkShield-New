@@ -149,14 +149,14 @@
 
                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                             <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Pelmet board</TextBlock>
-                            <ComboBox Width="70" Padding="4" SelectedValue="{Binding IsPelmetBoardChecked, Mode=TwoWay}" Margin="0,0,20,0">
-                                <ComboBoxItem Content="Yes" Tag="True"/>
-                                <ComboBoxItem Content="No" Tag="False"/>
+                            <ComboBox Width="70" Padding="4" SelectedValue="{Binding IsPelmetBoardCheckedText, Mode=TwoWay}" Margin="0,0,20,0">
+                                <ComboBoxItem Content="Yes"/>
+                                <ComboBoxItem Content="No"/>
                             </ComboBox>
                             <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Motorized</TextBlock>
-                            <ComboBox Width="70" Padding="4" SelectedValue="{Binding IsMotorizedChecked, Mode=TwoWay}">
-                                <ComboBoxItem Content="Yes" Tag="True"/>
-                                <ComboBoxItem Content="No" Tag="False"/>
+                            <ComboBox Width="70" Padding="4" SelectedValue="{Binding IsMotorizedCheckedText, Mode=TwoWay}">
+                                <ComboBoxItem Content="Yes"/>
+                                <ComboBoxItem Content="No"/>
                             </ComboBox>
                         </StackPanel>
                     </Grid>
@@ -171,7 +171,7 @@
                         <StackPanel Grid.Column="0">
                             <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Payment Method"/>
                             <ComboBox Padding="8" BorderBrush="#ccc" BorderThickness="1" SelectedValue="{Binding PaymentMethod, Mode=TwoWay}">
-                                <ComboBoxItem Content="Cash" IsSelected="True"/>
+                                <ComboBoxItem Content="Cash"/>
                                 <ComboBoxItem Content="Card"/>
                                 <ComboBoxItem Content="Bank Transfer"/>
                             </ComboBox>
@@ -179,12 +179,19 @@
 
                         <StackPanel Grid.Column="1" Margin="20,0,20,0">
                             <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Transport and Labor Cost"/>
-                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding TransportLaborCost, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding TransportLaborCostText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="2" Margin="20,0,0,0">
                             <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Discount"/>
-                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding Discount, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding DiscountText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Grid.Column="1" Text="%" Margin="5,0,0,0" VerticalAlignment="Center" FontWeight="Bold"/>
+                            </Grid>
                         </StackPanel>
                     </Grid>
 
