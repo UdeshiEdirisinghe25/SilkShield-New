@@ -25,7 +25,6 @@ E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Data
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.csproj.AssemblyReference.cache
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\AddNewCustomer.baml
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\New_Inventory.baml
-E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\MainWindow.g.cs
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\AddNewCustomer.g.cs
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Customer_Manage.g.cs
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\DashboardWindow.g.cs
@@ -33,7 +32,6 @@ E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\New_In
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\App.g.cs
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New_MarkupCompile.cache
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New_MarkupCompile.lref
-E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\MainWindow.baml
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Customer_Manage.baml
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\DashboardWindow.baml
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.g.resources
@@ -216,3 +214,8 @@ F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.csproj.GenerateResource.cache
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.csproj.CoreCompileInputs.cache
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShie.D00486D6.Up2Date
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Data.SQLite.xml
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\MainWindow.baml
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\MainWindow.g.cs
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\NewInvoice1.g.cs
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\NewInvoice1.baml

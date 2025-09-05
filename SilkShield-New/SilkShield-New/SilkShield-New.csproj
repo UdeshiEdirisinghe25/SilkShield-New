@@ -86,11 +86,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data\CustomerDAL.cs" />
     <Compile Include="Data\DatabaseHelper.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\Invoice.cs" />
     <Compile Include="Model\InvoiceItem.cs" />
     <Compile Include="TextBoxPlaceHolder.cs" />
+    <Compile Include="ViewModel\AddNewCustomerViewModel.cs" />
+    <Compile Include="ViewModel\Customer_ManageViewModel.cs" />
     <Compile Include="ViewModel\DashboardViewModel.cs" />
     <Compile Include="ViewModel\NewInventoryViewModel.cs" />
     <Compile Include="ViewModel\NewInvoice1ViewModel.cs" />
