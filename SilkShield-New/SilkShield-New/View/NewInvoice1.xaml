@@ -12,6 +12,23 @@
         WindowStartupLocation="CenterScreen"
         Background="White"
         d:DataContext="{d:DesignInstance vm:NewInvoice1ViewModel}">
+    <Window.Resources>
+        <!-- Style for the 'Reset' linked label -->
+        <Style x:Key="ResetLinkStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="#007ACC"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <TextBlock Text="{TemplateBinding Content}" TextDecorations="Underline"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid Margin="20">
@@ -41,22 +58,22 @@
 
                         <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,20,0">
                             <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Invoice Number"/>
-                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="INV-1001"/>
+                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding InvoiceNumber, Mode=TwoWay}"/>
                         </StackPanel>
 
                         <StackPanel Grid.Row="0" Grid.Column="1" Margin="20,0,0,0">
                             <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Date"/>
-                            <DatePicker Padding="8" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <DatePicker Padding="8" SelectedDate="{Binding InvoiceDate, Mode=TwoWay}"/>
                         </StackPanel>
 
                         <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,15,20,0">
                             <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Customer"/>
-                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="John Doe"/>
+                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding CustomerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
                         <StackPanel Grid.Row="1" Grid.Column="1" Margin="20,15,0,0">
                             <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Building Type"/>
-                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1"/>
+                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding BuildingType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                     </Grid>
 
@@ -119,11 +136,11 @@
 
                         <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
                             <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Curtain type</TextBlock>
-                            <ComboBox Width="90" Padding="4" SelectedValue="{Binding CurtainLayerType}" Margin="0,0,10,0">
+                            <ComboBox Width="90" Padding="4" SelectedValue="{Binding CurtainLayerType, Mode=TwoWay}" Margin="0,0,10,0">
                                 <ComboBoxItem Content="Double layer"/>
                                 <ComboBoxItem Content="Single layer"/>
                             </ComboBox>
-                            <ComboBox Width="90" Padding="4" SelectedValue="{Binding CurtainStyle}">
+                            <ComboBox Width="90" Padding="4" SelectedValue="{Binding CurtainStyle, Mode=TwoWay}">
                                 <ComboBoxItem Content="Ripple"/>
                                 <ComboBoxItem Content="Eyelet"/>
                                 <ComboBoxItem Content="3 pleat"/>
@@ -132,12 +149,12 @@
 
                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                             <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Pelmet board</TextBlock>
-                            <ComboBox Width="70" Padding="4" SelectedValue="{Binding IsPelmetBoardChecked}" Margin="0,0,20,0">
+                            <ComboBox Width="70" Padding="4" SelectedValue="{Binding IsPelmetBoardChecked, Mode=TwoWay}" Margin="0,0,20,0">
                                 <ComboBoxItem Content="Yes" Tag="True"/>
                                 <ComboBoxItem Content="No" Tag="False"/>
                             </ComboBox>
                             <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Motorized</TextBlock>
-                            <ComboBox Width="70" Padding="4" SelectedValue="{Binding IsMotorizedChecked}">
+                            <ComboBox Width="70" Padding="4" SelectedValue="{Binding IsMotorizedChecked, Mode=TwoWay}">
                                 <ComboBoxItem Content="Yes" Tag="True"/>
                                 <ComboBoxItem Content="No" Tag="False"/>
                             </ComboBox>
@@ -153,7 +170,7 @@
 
                         <StackPanel Grid.Column="0">
                             <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Payment Method"/>
-                            <ComboBox Padding="8" BorderBrush="#ccc" BorderThickness="1">
+                            <ComboBox Padding="8" BorderBrush="#ccc" BorderThickness="1" SelectedValue="{Binding PaymentMethod, Mode=TwoWay}">
                                 <ComboBoxItem Content="Cash" IsSelected="True"/>
                                 <ComboBoxItem Content="Card"/>
                                 <ComboBoxItem Content="Bank Transfer"/>
@@ -177,31 +194,39 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
+                        <Button Content="Reset Form"
+                                Grid.Column="0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                Command="{Binding ClearFormCommand}"
+                                Style="{StaticResource ResetLinkStyle}"
+                                Margin="0,10,0,0"/>
+
                         <StackPanel Grid.Column="0" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
                             <TextBlock Margin="0,0,20,0" FontSize="18" FontWeight="SemiBold" Text="Total Amount" VerticalAlignment="Center"/>
                             <TextBlock FontSize="20" FontWeight="Bold" Foreground="#333" Text="{Binding GrandTotal, StringFormat=LKR {0:F2}}" VerticalAlignment="Center"/>
                         </StackPanel>
 
                         <Button Grid.Column="1"
-        HorizontalAlignment="Left"
-        Width="100" Height="40"
-        Margin="0,10,0,0"
-        Background="#FF5B281C"
-        Content="Create"
-        Cursor="Hand"
-        FontSize="16"
-        FontWeight="Bold"
-        Foreground="White"
-        Command="{Binding CreateInvoiceCommand}"
-        RenderTransformOrigin="0.5,0.5">
+                                HorizontalAlignment="Left"
+                                Width="100" Height="40"
+                                Margin="0,10,0,0"
+                                Background="#FF5B281C"
+                                Content="Create"
+                                Cursor="Hand"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                Command="{Binding CreateInvoiceCommand}"
+                                RenderTransformOrigin="0.5,0.5">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
                                     <Border Background="{TemplateBinding Background}"
-                    CornerRadius="10"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}">
+                                            CornerRadius="10"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}">
                                         <ContentPresenter HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"/>
+                                                          VerticalAlignment="Center"/>
                                     </Border>
                                 </ControlTemplate>
                             </Button.Template>

@@ -88,6 +88,7 @@
     </ApplicationDefinition>
     <Compile Include="Data\DatabaseHelper.cs" />
     <Compile Include="Model\Customer.cs" />
+    <Compile Include="Model\Invoice.cs" />
     <Compile Include="Model\InvoiceItem.cs" />
     <Compile Include="TextBoxPlaceHolder.cs" />
     <Compile Include="ViewModel\DashboardViewModel.cs" />
