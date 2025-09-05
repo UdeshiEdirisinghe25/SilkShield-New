@@ -111,7 +111,7 @@
             <!-- From Label + DatePicker -->
             <StackPanel Orientation="Horizontal" Margin="0,0,10,0" VerticalAlignment="Center">
                 <TextBlock Text="From:" VerticalAlignment="Center" Margin="0,0,5,0" FontWeight="Bold"/>
-                <Border Background="#F0F0F0" CornerRadius="15" Padding="5" Width="200">
+                <Border Background="Transparent" BorderBrush="DarkGray" BorderThickness="1" CornerRadius="15" Padding="5" Width="200">
                     <DatePicker x:Name="FromDatePicker"
                                 SelectedDate="{x:Null}"
                                 DisplayDateStart="2000-01-01"
@@ -124,7 +124,7 @@
             <!-- To Label + DatePicker -->
             <StackPanel Orientation="Horizontal" Margin="0,0,10,0" VerticalAlignment="Center">
                 <TextBlock Text="To:" VerticalAlignment="Center" Margin="0,0,5,0" FontWeight="Bold"/>
-                <Border Background="#F0F0F0" CornerRadius="15" Padding="5" Width="200">
+                <Border Background="Transparent" BorderBrush="DarkGray" BorderThickness="1" CornerRadius="15" Padding="5" Width="200">
                     <DatePicker x:Name="ToDatePicker"
                                 SelectedDate="{x:Null}"
                                 DisplayDateStart="2000-01-01"
@@ -144,7 +144,7 @@
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
-                                CornerRadius="14"
+                                CornerRadius="10"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -157,50 +157,63 @@
 
         <!-- DataGrid -->
         <Border Grid.Row="2" Background="White" CornerRadius="20" Padding="20" Margin="20,0,20,20">
-            <DataGrid x:Name="InvoiceDataGrid"
-                      AutoGenerateColumns="False"
-                      CanUserAddRows="False"
-                      HeadersVisibility="Column"
-                      GridLinesVisibility="None"
-                      BorderThickness="0"
-                      IsReadOnly="True"
-                      HorizontalAlignment="Stretch"
-                      VerticalAlignment="Stretch">
+            <DataGrid Grid.Row="2"
+          ItemsSource="{Binding Invoices}"
+          AutoGenerateColumns="False"
+          CanUserAddRows="False"
+          RowHeight="35"
+          HeadersVisibility="Column"
+          GridLinesVisibility="None"
+          Background="White"
+          Margin="20,0,20,10"
+          SelectionMode="Single"
+          SelectionUnit="FullRow">
+
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Invoice ID" Binding="{Binding InvoiceID}" Width="*"/>
-                    <DataGridTextColumn Header="Customer" Binding="{Binding Customer}" Width="*"/>
-                    <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*"/>
-                    <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="*"/>
-                    <DataGridTemplateColumn Header="Status" Width="*">
+                    <!-- Invoice ID -->
+                    <DataGridTextColumn Header="Invoice ID" Binding="{Binding InvoiceID}" Width="*" />
+
+                    <!-- Customer -->
+                    <DataGridTextColumn Header="Customer" Binding="{Binding Customer}" Width="2*" />
+
+                    <!-- Date -->
+                    <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*" />
+
+                    <!-- Amount -->
+                    <DataGridTextColumn Header="Amount" Binding="{Binding Amount, StringFormat=C}" Width="*" />
+
+                    <!-- Status -->
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*" />
+
+                    <!-- Action Buttons -->
+                    <DataGridTemplateColumn Header="Action" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Border CornerRadius="10" Padding="5,2" HorizontalAlignment="Left"
-                                        Background="{Binding Status, Converter={StaticResource StatusToBrushConverter}}">
-                                    <TextBlock Text="{Binding Status}"
-                                               Foreground="{Binding Status, Converter={StaticResource StatusToTextBrushConverter}}"
-                                               FontWeight="Bold" TextAlignment="Center"/>
-                                </Border>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="View" Width="0.5*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="👁" Background="Transparent" BorderThickness="0"
-                                        FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Copy" Width="0.5*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="📋" Background="Transparent" BorderThickness="0"
-                                        FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                                    <!-- View Button -->
+                                    <Button Content="👁" Margin="2"
+                                Background="Transparent" BorderBrush="Transparent"
+                                FontSize="12" Cursor="Hand"
+                                Foreground="DarkGray"
+                                Command="{Binding DataContext.ViewInvoiceCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}" />
+
+                                    <!-- Edit Button -->
+                                    <Button Content="✏" Margin="2"
+                                Background="Transparent" BorderBrush="Transparent"
+                                FontSize="12" Cursor="Hand"
+                                Foreground="DarkGray"
+                                Command="{Binding DataContext.EditInvoiceCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}" />
+
+                                </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
+
         </Border>
     </Grid>
 </Window>
