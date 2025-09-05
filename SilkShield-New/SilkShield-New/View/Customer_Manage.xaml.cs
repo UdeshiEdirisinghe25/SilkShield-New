@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using SilkShield_New.ViewModel;
 
 namespace SilkShield_New.View
 {
@@ -8,20 +9,8 @@ namespace SilkShield_New.View
         public Customer_Manage()
         {
             InitializeComponent();
-            LoadCustomers();
+            this.DataContext = new Customer_ManageViewModel();
         }
 
-        private void LoadCustomers()
-        {
-            
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var mainWindow = (MainWindow)Application.Current.MainWindow;
-
-            // Replace content with AddNewCustomer view
-            mainWindow.MainContentArea.Content = new AddNewCustomer();
-        }
     }
 }
