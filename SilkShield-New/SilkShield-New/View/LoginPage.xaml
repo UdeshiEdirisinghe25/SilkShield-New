@@ -18,26 +18,47 @@
         <Label x:Name="WelcomeLabel" Content="Welcome" FontSize="60" FontWeight="Bold" Margin="0,98,0,0" Height="90" Width="270" VerticalAlignment="Top"/>
 
         <!-- User Name TextBox -->
+
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="236" Height="24" Margin="308,297,0,0">
-            <TextBox x:Name="UsernameTextBox" Style="{StaticResource IconTextBoxStyle}" TextChanged="UsernameTextBox_TextChanged">
+            <TextBox x:Name="UsernameTextBox" Style="{StaticResource IconTextBoxStyle}">
                 <TextBox.Tag>
                     <fa:FontAwesome Icon="User" Foreground="Gray" FontSize="16"/>
                 </TextBox.Tag>
             </TextBox>
         </Grid>
 
-        <!-- Password TextBox -->
+        <!-- PasswordBox with Icons -->
+
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="236" Height="24" Margin="308,337,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="11*"/>
-                <ColumnDefinition Width="48*"/>
-            </Grid.ColumnDefinitions>
-            <TextBox x:Name="PasswordTextBox" Style="{StaticResource IconTextBoxStyle}" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="236">
-                <TextBox.Tag>
-                    <fa:FontAwesome Icon="Lock" Foreground="Gray" FontSize="16"/>
-                </TextBox.Tag>
-            </TextBox>
+            <fa:FontAwesome Icon="Lock" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Foreground="Gray" FontSize="16"/>
+
+            <PasswordBox x:Name="PasswordBox"
+                         Style="{StaticResource IconPasswordBoxStyle}"
+                         PasswordChar="•"
+                         Tag="{StaticResource LockIconContent}"/>
+            <fa:FontAwesome Icon="Lock" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Foreground="Gray" FontSize="16"/>
+
+            <!-- New TextBox for showing the password, initially collapsed -->
+            <TextBox x:Name="VisiblePasswordTextBox"
+                     Style="{StaticResource IconTextBoxStyle}"
+                     Visibility="Collapsed"
+                     Tag="{StaticResource LockIconContent}"/>
+            <fa:FontAwesome Icon="Lock" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Foreground="Gray" FontSize="16"/>
+
+
+            <Button x:Name="TogglePasswordButton"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="20"
+                    Height="20"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Margin="210,0,0,0"
+                    Click="TogglePasswordVisibility">
+                <fa:FontAwesome x:Name="PasswordToggleIcon" Icon="EyeSlash" Foreground="Gray" FontSize="16" />
+            </Button>
         </Grid>
+
         <Button x:Name="LoginButton" Content="LOG IN" Style="{StaticResource CurvedButtonStyle}" Height="32" Margin="310,444,0,0" FontWeight="Bold" Width="236" Background="#FF111111" Foreground="#FFFCF3F3" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Rectangle Margin="346,437,341,30" RadiusX="77" RadiusY="77">
             <Rectangle.Fill>

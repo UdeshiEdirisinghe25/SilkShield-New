@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\
+D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\
 SilkShield_New
 none
 false
 DEBUG;TRACE
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\App.xaml
-61482600827
+D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\App.xaml
+8542101835
 
-19-304236419
-1281097644255
-View\AddNewCustomer.xaml;View\Customer_Manage.xaml;View\DashboardWindow.xaml;View\MainWindow.xaml;View\NewInvoice1.xaml;View\New_Inventory.xaml;
+21-1250393734
+129599193505
+MainWindow.xaml;View\AddNewCustomer.xaml;View\Customer_Manage.xaml;View\DashboardWindow.xaml;View\LoginPage.xaml;View\MainWindow.xaml;View\NewInvoice1.xaml;View\New_Inventory.xaml;
 
 False
 

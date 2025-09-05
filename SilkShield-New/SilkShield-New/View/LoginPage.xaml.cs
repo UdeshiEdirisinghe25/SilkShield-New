@@ -1,32 +1,72 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using FontAwesome.WPF;
+using SilkShield_New.ViewModel;
 
 namespace SilkShield_New.View
 {
-    /// <summary>
-    /// Interaction logic for LoginPage.xaml
-    /// </summary>
     public partial class LoginPage : Window
     {
+        // This variable keeps track of the password visibility state
+        private bool _isPasswordVisible = false;
+        private readonly LoginPageViewModel _viewModel;
+
         public LoginPage()
         {
             InitializeComponent();
+            _viewModel = new LoginPageViewModel();
+            this.DataContext = _viewModel;
+
+            // Bind the PasswordBox text to the ViewModel's Password property
+            PasswordBox.PasswordChanged += (sender, e) =>
+            {
+                _viewModel.Password = PasswordBox.Password;
+            };
+
+            // Bind the VisiblePasswordTextBox text to the ViewModel's Password property
+            VisiblePasswordTextBox.TextChanged += (sender, e) =>
+            {
+                _viewModel.Password = VisiblePasswordTextBox.Text;
+            };
         }
 
-        private void UsernameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void TogglePasswordVisibility(object sender, RoutedEventArgs e)
         {
+            // Toggle the state of the password visibility
+            _isPasswordVisible = !_isPasswordVisible;
 
+            if (_isPasswordVisible)
+            {
+                // If the password should be visible:
+                // 1. Copy the password from the PasswordBox to the TextBox
+                VisiblePasswordTextBox.Text = PasswordBox.Password;
+                // 2. Make the PasswordBox invisible and the TextBox visible
+                PasswordBox.Visibility = Visibility.Collapsed;
+                VisiblePasswordTextBox.Visibility = Visibility.Visible;
+
+                // 3. Change the button icon to an open eye
+                var icon = PasswordToggleIcon;
+                if (icon != null)
+                {
+                    icon.Icon = FontAwesomeIcon.Eye;
+                }
+            }
+            else
+            {
+                // If the password should be hidden:
+                // 1. Copy the password from the TextBox to the PasswordBox
+                PasswordBox.Password = VisiblePasswordTextBox.Text;
+                // 2. Make the TextBox invisible and the PasswordBox visible
+                VisiblePasswordTextBox.Visibility = Visibility.Collapsed;
+                PasswordBox.Visibility = Visibility.Visible;
+
+                // 3. Change the button icon back to a slashed eye
+                var icon = PasswordToggleIcon;
+                if (icon != null)
+                {
+                    icon.Icon = FontAwesomeIcon.EyeSlash;
+                }
+            }
         }
     }
 }
