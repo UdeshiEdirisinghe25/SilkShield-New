@@ -60,7 +60,7 @@
             <Border Style="{StaticResource MetricCardStyle}" Height="167">
                 <Grid>
                     <Border Grid.Row="0" Background="{StaticResource RedGradientBrush}" CornerRadius="8" Height="96" Margin="9,11,9,0"/>
-                    <TextBlock Text="Upcoming projects" FontFamily="Roboto" FontSize="16" FontWeight="Bold" Foreground="{StaticResource DarkBlueBrush}" Margin="13,100,0,0"/>
+                    <TextBlock Text="Upcoming projects" FontFamily="Roboto" FontSize="16" FontWeight="Bold" Foreground="{StaticResource DarkBlueBrush}" Margin="5,141,8,0"/>
                 </Grid>
             </Border>
 
@@ -68,7 +68,7 @@
             <Border Style="{StaticResource MetricCardStyle}" Height="167">
                 <Grid>
                     <Border Grid.Row="0" Background="{StaticResource GreenGradientBrush}" CornerRadius="8" Height="96" Margin="9,11,9,0"/>
-                    <TextBlock Text="ongoing project" FontFamily="Roboto" FontSize="16" FontWeight="Bold" Foreground="{StaticResource DarkBlueBrush}" Margin="13,100,0,0"/>
+                    <TextBlock Text="ongoing project" FontFamily="Roboto" FontSize="16" FontWeight="Bold" Foreground="{StaticResource DarkBlueBrush}" Margin="13,142,0,0"/>
                 </Grid>
             </Border>
 
@@ -76,7 +76,7 @@
             <Border Style="{StaticResource MetricCardStyle}" Height="167">
                 <Grid>
                     <Border Grid.Row="0" Background="{StaticResource BlackGradientBrush}" CornerRadius="8" Height="96" Margin="9,11,9,0"/>
-                    <TextBlock Text="Completed Tasks" FontFamily="Roboto" FontSize="16" FontWeight="Bold" Foreground="{StaticResource DarkBlueBrush}" Margin="13,100,0,0"/>
+                    <TextBlock Text="Completed Tasks" FontFamily="Roboto" FontSize="16" FontWeight="Bold" Foreground="{StaticResource DarkBlueBrush}" Margin="13,142,0,0"/>
                 </Grid>
             </Border>
         </UniformGrid>

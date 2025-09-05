@@ -216,3 +216,5 @@ F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.csproj.GenerateResource.cache
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.csproj.CoreCompileInputs.cache
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShie.D00486D6.Up2Date
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\NewInvoice1.g.cs
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\NewInvoice1.baml
