@@ -9,7 +9,7 @@
         Title="LoginPage" Height="700" Width="847" MaxHeight="700" MaxWidth="847">
     <Grid Margin="0,0,0,-6">
         <Grid.Background>
-            <ImageBrush ImageSource="D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\Images\Back.PNG"></ImageBrush>
+            <ImageBrush ImageSource="/Images/Back.PNG"></ImageBrush>
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -62,7 +62,7 @@
         <Button x:Name="LoginButton" Content="LOG IN" Style="{StaticResource CurvedButtonStyle}" Height="32" Margin="310,444,0,0" FontWeight="Bold" Width="236" Background="#FF111111" Foreground="#FFFCF3F3" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Rectangle Margin="346,437,341,30" RadiusX="77" RadiusY="77">
             <Rectangle.Fill>
-                <ImageBrush ImageSource="D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\Images\Logo (2).PNG"/>
+                <ImageBrush ImageSource="\Images\Logo (2).PNG"/>
             </Rectangle.Fill>
         </Rectangle>
         <Label x:Name="WelcomeLabel_Copy" Content="Smart invoicing begins here!" FontSize="16" Foreground="Gray" Margin="0,188,0,0" Height="33" Width="210" VerticalAlignment="Top"/>
