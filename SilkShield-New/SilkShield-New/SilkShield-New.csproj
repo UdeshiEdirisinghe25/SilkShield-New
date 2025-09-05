@@ -88,12 +88,9 @@
     </ApplicationDefinition>
     <Compile Include="Data\DatabaseHelper.cs" />
     <Compile Include="Model\Customer.cs" />
-    <Compile Include="Model\Invoice.cs" />
-    <Compile Include="Model\InvoiceItem.cs" />
     <Compile Include="TextBoxPlaceHolder.cs" />
     <Compile Include="ViewModel\DashboardViewModel.cs" />
     <Compile Include="ViewModel\NewInventoryViewModel.cs" />
-    <Compile Include="ViewModel\NewInvoice1ViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="View\AddNewCustomer.xaml.cs">
       <DependentUpon>AddNewCustomer.xaml</DependentUpon>
@@ -104,22 +101,14 @@
     <Compile Include="View\DashboardWindow.xaml.cs">
       <DependentUpon>DashboardWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\NewInvoice1.xaml.cs">
-      <DependentUpon>NewInvoice1.xaml</DependentUpon>
+    <Compile Include="View\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\New_Inventory.xaml.cs">
       <DependentUpon>New_Inventory.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\AddNewCustomer.xaml">
@@ -134,9 +123,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\NewInvoice1.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="View\MainWindow.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\New_Inventory.xaml">
       <SubType>Designer</SubType>

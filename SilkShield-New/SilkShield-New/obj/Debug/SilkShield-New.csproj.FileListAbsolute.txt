@@ -136,44 +136,42 @@ D:\Udeshi\Copies\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShie
 D:\Udeshi\Copies\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.exe
 D:\Udeshi\Copies\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.pdb
 D:\Udeshi\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.exe.config
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.csproj.AssemblyReference.cache
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\AddNewCustomer.baml
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\New_Inventory.baml
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\MainWindow.g.cs
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\AddNewCustomer.g.cs
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Customer_Manage.g.cs
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\DashboardWindow.g.cs
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\NewInvoice1.g.cs
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\New_Inventory.g.cs
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\App.g.cs
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New_MarkupCompile.cache
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New_MarkupCompile.lref
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.exe
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.pdb
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SilkShield-New.exe.config
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SilkShield-New.exe
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SilkShield-New.pdb
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\Microsoft.Data.Sqlite.dll
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SQLitePCLRaw.batteries_v2.dll
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SQLitePCLRaw.core.dll
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SQLitePCLRaw.provider.dynamic_cdecl.dll
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Buffers.dll
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Data.SQLite.dll
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Memory.dll
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Numerics.Vectors.dll
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\Microsoft.Data.Sqlite.xml
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Buffers.xml
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Data.SQLite.xml
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Memory.xml
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Numerics.Vectors.xml
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\MainWindow.baml
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Customer_Manage.baml
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\DashboardWindow.baml
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\NewInvoice1.baml
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.g.resources
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield_New.Properties.Resources.resources
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.csproj.GenerateResource.cache
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.csproj.CoreCompileInputs.cache
-F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShie.D00486D6.Up2Date
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.csproj.AssemblyReference.cache
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.exe
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.pdb
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\AddNewCustomer.baml
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\MainWindow.baml
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\New_Inventory.baml
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\AddNewCustomer.g.cs
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Customer_Manage.g.cs
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\DashboardWindow.g.cs
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\MainWindow.g.cs
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\New_Inventory.g.cs
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\App.g.cs
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New_MarkupCompile.cache
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New_MarkupCompile.lref
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\DashboardWindow.baml
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SilkShield-New.exe.config
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SilkShield-New.exe
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SilkShield-New.pdb
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\Microsoft.Data.Sqlite.dll
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SQLitePCLRaw.batteries_v2.dll
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SQLitePCLRaw.core.dll
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SQLitePCLRaw.provider.dynamic_cdecl.dll
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Buffers.dll
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Data.SQLite.dll
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Memory.dll
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\Microsoft.Data.Sqlite.xml
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Buffers.xml
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Data.SQLite.xml
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Memory.xml
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Customer_Manage.baml
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.g.resources
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield_New.Properties.Resources.resources
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.csproj.GenerateResource.cache
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.csproj.CoreCompileInputs.cache
+C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShie.D00486D6.Up2Date
