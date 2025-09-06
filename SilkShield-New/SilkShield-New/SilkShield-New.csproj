@@ -98,6 +98,7 @@
     <Compile Include="ViewModel\LoginPageViewModel.cs" />
     <Compile Include="ViewModel\NewInventoryViewModel.cs" />
     <Compile Include="ViewModel\NewInvoice1ViewModel.cs" />
+    <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -123,6 +124,9 @@
     </Compile>
     <Compile Include="View\New_Inventory.xaml.cs">
       <DependentUpon>New_Inventory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Profile.xaml.cs">
+      <DependentUpon>Profile.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -155,6 +159,10 @@
     <Page Include="View\New_Inventory.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="View\Profile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

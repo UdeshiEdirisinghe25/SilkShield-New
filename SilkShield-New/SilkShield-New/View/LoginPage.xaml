@@ -7,9 +7,99 @@
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
         Title="LoginPage" Height="700" Width="847" MaxHeight="700" MaxWidth="847">
+
+    <Window.Resources>
+        <!-- Style for the Username TextBox with a placeholder and icon -->
+        <Style x:Key="IconTextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="23,0,0,0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#FFCCCCCC"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid>
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5"/>
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"/>
+                            <TextBlock IsHitTestVisible="False"
+                                       Text="{TemplateBinding Tag}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       Margin="5,0,0,0"
+                                       Foreground="Gray"
+                                       Padding ="23,0,0,0"
+                                       FontStyle="Italic">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TextBox}}, Path=Text.Length}" Value="0">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TextBox}}, Path=IsKeyboardFocused}" Value="True">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Style for the PasswordBox with a placeholder and icon -->
+
+        <Style x:Key="IconPasswordBoxStyle" TargetType="{x:Type PasswordBox}">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="45,0,0,0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#FFCCCCCC"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type PasswordBox}">
+                        <Grid>
+                            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5"/>
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                            <TextBlock x:Name="PlaceholderTextBlock"
+                                       IsHitTestVisible="False"
+                                       Text="{TemplateBinding Tag}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       Margin="5,0,0,0"
+                                       Foreground="Gray"
+                                       Padding ="23,0,0,0"
+                                       FontStyle="Italic">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type PasswordBox}}, Path=Password.Length}" Value="0">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type PasswordBox}}, Path=IsKeyboardFocused}" Value="True">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <Grid Margin="0,0,0,-6">
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/Back.PNG"></ImageBrush>
+            <ImageBrush ImageSource="/Images/Back.PNG"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -20,49 +110,37 @@
         <!-- User Name TextBox -->
 
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="236" Height="24" Margin="308,297,0,0">
-            <TextBox x:Name="UsernameTextBox" Style="{StaticResource IconTextBoxStyle}">
-                <TextBox.Tag>
-                    <fa:FontAwesome Icon="User" Foreground="Gray" FontSize="16"/>
-                </TextBox.Tag>
-            </TextBox>
+            <TextBox x:Name="UsernameTextBox" Style="{StaticResource IconTextBoxStyle}" Tag="     Username"/>
+            <fa:FontAwesome Icon="User" Foreground="Gray" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30,0,0,0"/>
         </Grid>
 
-        <!-- PasswordBox with Icons -->
+        <!-- Password Box with Lock and Eye Icons -->
 
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="236" Height="24" Margin="308,337,0,0">
-            <fa:FontAwesome Icon="Lock" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Foreground="Gray" FontSize="16"/>
+            <PasswordBox x:Name="PasswordBox" Style="{StaticResource IconPasswordBoxStyle}"
+                         PasswordChar="●"
+                         Tag="     Password"
+                         Visibility="Visible"/>
+            <TextBox x:Name="VisiblePasswordTextBox" Style="{StaticResource IconTextBoxStyle}"
+                     Padding="23,0,0,0"
+                     Visibility="Collapsed"/>
 
-            <PasswordBox x:Name="PasswordBox"
-                         Style="{StaticResource IconPasswordBoxStyle}"
-                         PasswordChar="•"
-                         Tag="{StaticResource LockIconContent}"/>
-            <fa:FontAwesome Icon="Lock" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Foreground="Gray" FontSize="16"/>
-
-            <!-- New TextBox for showing the password, initially collapsed -->
-            <TextBox x:Name="VisiblePasswordTextBox"
-                     Style="{StaticResource IconTextBoxStyle}"
-                     Visibility="Collapsed"
-                     Tag="{StaticResource LockIconContent}"/>
-            <fa:FontAwesome Icon="Lock" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Foreground="Gray" FontSize="16"/>
-
-
+            <fa:FontAwesome x:Name="LockIcon" Icon="Lock" Foreground="Gray" FontSize="16"
+                            VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30,0,0,0"/>
             <Button x:Name="TogglePasswordButton"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Width="20"
-                    Height="20"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                    Margin="210,0,0,0"
+                    Background="Transparent" BorderThickness="0"
+                    VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,0,5,0"
                     Click="TogglePasswordVisibility">
-                <fa:FontAwesome x:Name="PasswordToggleIcon" Icon="EyeSlash" Foreground="Gray" FontSize="16" />
+                <fa:FontAwesome x:Name="PasswordToggleIcon" Icon="EyeSlash" Foreground="Gray" FontSize="16"/>
             </Button>
         </Grid>
+
+        <!-- Login Button -->
 
         <Button x:Name="LoginButton" Content="LOG IN" Style="{StaticResource CurvedButtonStyle}" Height="32" Margin="310,444,0,0" FontWeight="Bold" Width="236" Background="#FF111111" Foreground="#FFFCF3F3" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Rectangle Margin="346,437,341,30" RadiusX="77" RadiusY="77">
             <Rectangle.Fill>
-                <ImageBrush ImageSource="\Images\Logo (2).PNG"/>
+                <ImageBrush ImageSource="/Images/Logo (2).PNG"/>
             </Rectangle.Fill>
         </Rectangle>
         <Label x:Name="WelcomeLabel_Copy" Content="Smart invoicing begins here!" FontSize="16" Foreground="Gray" Margin="0,188,0,0" Height="33" Width="210" VerticalAlignment="Top"/>

@@ -15,6 +15,10 @@
             <fa:FontAwesome x:Key="EyeIconContent" Icon="Eye" Foreground="Gray" FontSize="16"/>
             <fa:FontAwesome x:Key="EyeSlashIconContent" Icon="EyeSlash" Foreground="Gray" FontSize="16"/>
 
+
+            <!-- Curved Button Template -->
+
+
             <ControlTemplate x:Key="CurvedButtonTemplate" TargetType="{x:Type Button}">
                 <Border x:Name="border"
                         Background="{TemplateBinding Background}"
@@ -41,9 +45,13 @@
                 <Setter Property="FontWeight" Value="Bold"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Template" Value="{StaticResource CurvedButtonTemplate}"/>
-                <Setter Property="Padding" Value="10,2,5,2"/>
+                <Setter Property="Padding" Value="23,2,5,2"/>
             </Style>
 
+
+            <!-- Icon TextBox Style -->
+
+            
             <Style x:Key="IconTextBoxStyle" TargetType="TextBox">
                 <Setter Property="Template">
                     <Setter.Value>
@@ -54,14 +62,15 @@
                                         BorderBrush="{TemplateBinding BorderBrush}"
                                         BorderThickness="{TemplateBinding BorderThickness}"
                                         CornerRadius="5"
-                                        Padding="{TemplateBinding Padding}">
+                                        Padding="{TemplateBinding Padding}"
+                                        Margin="10,0,0,0">
                                     <ScrollViewer x:Name="PART_ContentHost" />
                                 </Border>
                                 <ContentPresenter x:Name="IconPresenter"
                                                   Content="{TemplateBinding Tag}"
                                                   VerticalAlignment="Center"
                                                   HorizontalAlignment="Left"
-                                                  Margin="5,0,0,0"/>
+                                                  Margin="10,0,0,0"/>
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
@@ -69,7 +78,8 @@
                 <Setter Property="Background" Value="White" />
                 <Setter Property="BorderBrush" Value="Gray" />
                 <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="Padding" Value="10,2,5,2"/>
+                <Setter Property="Padding" Value="23,0,0,0"/>
+                <Setter Property="Margin" Value="10,0,0,0"/>
             </Style>
             <Style x:Key="IconPasswordBoxStyle" TargetType="{x:Type PasswordBox}">
                 <Setter Property="Template">
@@ -88,7 +98,7 @@
                                                   Content="{TemplateBinding Tag}"
                                                   VerticalAlignment="Center"
                                                   HorizontalAlignment="Left"
-                                                  Margin="5,0,0,0"/>
+                                                  Margin="10,0,0,0"/>
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
@@ -96,7 +106,8 @@
                 <Setter Property="Background" Value="White" />
                 <Setter Property="BorderBrush" Value="Gray" />
                 <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="Padding" Value="10,2,5,2"/>
+                <Setter Property="Padding" Value="23,0,0,0"/>
+                <Setter Property="Margin" Value="10,0,0,0"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

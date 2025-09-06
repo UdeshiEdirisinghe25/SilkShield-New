@@ -249,6 +249,7 @@ D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Lo
 D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\MainWindow.g.cs
 D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\NewInvoice1.g.cs
 D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\New_Inventory.g.cs
+D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Profile.g.cs
 D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\App.g.cs
 D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New_MarkupCompile.cache
 D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New_MarkupCompile.lref
@@ -257,6 +258,7 @@ D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\MainWin
 D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Customer_Manage.baml
 D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\LoginPage.baml
 D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\NewInvoice1.baml
+D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Profile.baml
 D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.g.resources
 D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield_New.Properties.Resources.resources
 D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.csproj.GenerateResource.cache
