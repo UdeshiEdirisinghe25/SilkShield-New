@@ -96,6 +96,7 @@
     <Compile Include="ViewModel\NewInventoryViewModel.cs" />
     <Compile Include="ViewModel\NewInvoice1ViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\AddNewCustomer.xaml.cs">
       <DependentUpon>AddNewCustomer.xaml</DependentUpon>
     </Compile>

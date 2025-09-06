@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Data.SQLite;
 using SilkShield_New.Data;
 using System.Windows;
+using System.Threading.Tasks;
 
 namespace SilkShield_New.ViewModel
 {
@@ -18,6 +19,7 @@ namespace SilkShield_New.ViewModel
         private double _unitPrice;
         private double _total;
         private string _itemName;
+        private string _measuringUnit;
 
         public string ItemName
         {
@@ -41,6 +43,17 @@ namespace SilkShield_New.ViewModel
             }
         }
 
+        public string MeasuringUnit
+        {
+            get => _measuringUnit;
+            set
+            {
+                if (_measuringUnit == value) return;
+                _measuringUnit = value;
+                OnPropertyChanged(nameof(MeasuringUnit));
+            }
+        }
+
         public double Quantity
         {
             get => _quantity;
@@ -48,7 +61,6 @@ namespace SilkShield_New.ViewModel
             {
                 if (_quantity == value) return;
                 _quantity = value;
-                CalculateTotal();
                 OnPropertyChanged(nameof(Quantity));
             }
         }
@@ -60,7 +72,6 @@ namespace SilkShield_New.ViewModel
             {
                 if (_unitPrice == value) return;
                 _unitPrice = value;
-                CalculateTotal();
                 OnPropertyChanged(nameof(UnitPrice));
             }
         }
@@ -76,7 +87,7 @@ namespace SilkShield_New.ViewModel
             }
         }
 
-        private void CalculateTotal()
+        public void CalculateTotal()
         {
             Total = Quantity * UnitPrice;
         }
@@ -293,7 +304,8 @@ namespace SilkShield_New.ViewModel
             Items = new ObservableCollection<InvoiceItem>();
             Items.CollectionChanged += (sender, e) => CalculateGrandTotal();
 
-            Items.CollectionChanged += (sender, e) => {
+            Items.CollectionChanged += (sender, e) =>
+            {
                 if (e.NewItems != null)
                 {
                     foreach (InvoiceItem item in e.NewItems)
@@ -317,11 +329,26 @@ namespace SilkShield_New.ViewModel
 
         #region Private Methods
 
-        private void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private async void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(InvoiceItem.Total))
+            if (sender is InvoiceItem item)
             {
-                CalculateGrandTotal();
+                if (e.PropertyName == nameof(InvoiceItem.ItemName))
+                {
+                    // When ItemName changes, get data from the database
+                    var productData = await LoadProductData(item.ItemName);
+                    if (productData != null)
+                    {
+                        item.MeasuringUnit = productData.UnitOfMeasure;
+                        // UnitPrice will not be set automatically
+                    }
+                }
+                // Also listen for changes to Quantity and UnitPrice to update the item's total.
+                else if (e.PropertyName == nameof(InvoiceItem.Quantity) || e.PropertyName == nameof(InvoiceItem.UnitPrice))
+                {
+                    item.CalculateTotal();
+                    CalculateGrandTotal(); // Grand Total must be recalculated
+                }
             }
         }
 
@@ -364,8 +391,8 @@ namespace SilkShield_New.ViewModel
             }
 
             MessageBox.Show($"Invoice {InvoiceNumber} created successfully!\n" +
-                                         $"Customer: {CustomerName}\n" +
-                                         $"Total Amount: {GrandTotal:C}", "Invoice Created",
+                                             $"Customer: {CustomerName}\n" +
+                                             $"Total Amount: {GrandTotal:C}", "Invoice Created",
                 MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -420,6 +447,41 @@ namespace SilkShield_New.ViewModel
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        // A new method added
+        private async Task<Product> LoadProductData(string itemName)
+        {
+            DatabaseHelper dbHelper = new DatabaseHelper();
+            string query = "SELECT MeasuringUnit, UnitPrice FROM inventory WHERE ItemName = @ItemName";
+            try
+            {
+                using (var connection = dbHelper.GetConnection() as SQLiteConnection)
+                {
+                    await connection.OpenAsync();
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@ItemName", itemName);
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                return new Product
+                                {
+                                    UnitOfMeasure = reader.GetString(0),
+                                    UnitPrice = reader.GetDouble(1)
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading product data: " + ex.Message, "Database Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return null;
+        }
         #endregion
 
         #region INotifyPropertyChanged Implementation
@@ -450,5 +512,12 @@ namespace SilkShield_New.ViewModel
 
         public bool CanExecute(object parameter) => _canExecute == null || _canExecute(parameter);
         public void Execute(object parameter) => _execute(parameter);
+    }
+
+    // A new Product class
+    public class Product
+    {
+        public string UnitOfMeasure { get; set; }
+        public double UnitPrice { get; set; }
     }
 }

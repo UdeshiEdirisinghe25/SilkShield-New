@@ -126,8 +126,13 @@
                                     </DataGridTemplateColumn.CellEditingTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                                <DataGridTextColumn Header="Material" Binding="{Binding Material}" Width="*" />
+
+                                <!-- Add the new column for Measuring Unit -->
+                                <DataGridTextColumn Header="Measuring Unit" Binding="{Binding MeasuringUnit}" Width="*" />
+
                                 <DataGridTextColumn Header="Unit Price" Binding="{Binding UnitPrice, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
                                 <DataGridTextColumn Header="Total" Binding="{Binding Total}" IsReadOnly="True" Width="*"/>
 
                                 <DataGridTemplateColumn Header="Delete" Width="50">
