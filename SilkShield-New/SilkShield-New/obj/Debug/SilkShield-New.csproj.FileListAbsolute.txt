@@ -219,3 +219,5 @@ E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\MainWi
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\MainWindow.g.cs
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\NewInvoice1.g.cs
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\NewInvoice1.baml
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\ViewCustomerWindow.baml
+E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\ViewCustomerWindow.g.cs
