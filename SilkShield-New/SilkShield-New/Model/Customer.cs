@@ -13,5 +13,10 @@ namespace SilkShield_New.Model
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string QuotationStatus { get; set; }
+        public string Property_Details { get; set; }
+        public string Project_Start_Date { get; set; }
+        public string Expected_Dateof_Completion { get;set; }
+        public string Notes { get; set; }
+
     }
 }
