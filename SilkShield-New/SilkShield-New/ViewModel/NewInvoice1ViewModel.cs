@@ -521,7 +521,7 @@ namespace SilkShield_New.ViewModel
         private void LoadItemNamesFromDatabase()
         {
             AvailableItems = new ObservableCollection<string>();
-            string query = "SELECT DISTINCT ItemName FROM inventory";
+            string query = "SELECT DISTINCT ItemName FROM inventory ORDER BY ItemName ASC"; //  Order by ItemName
 
             try
             {
@@ -547,12 +547,13 @@ namespace SilkShield_New.ViewModel
             }
         }
 
+
         private async Task<List<string>> LoadMaterialsByItemName(string itemName)
         {
             var materials = new List<string>();
             if (string.IsNullOrEmpty(itemName)) return materials;
 
-            string query = "SELECT DISTINCT Material FROM inventory WHERE ItemName = @ItemName";
+            string query = "SELECT DISTINCT Material FROM inventory WHERE ItemName = @ItemName ORDER BY Material ASC"; //  Order by Material
 
             try
             {
@@ -579,6 +580,7 @@ namespace SilkShield_New.ViewModel
             }
             return materials;
         }
+
 
         private async Task<Product> LoadProductData(string itemName)
         {
