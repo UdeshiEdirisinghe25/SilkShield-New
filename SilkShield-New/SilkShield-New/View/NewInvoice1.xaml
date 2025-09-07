@@ -13,6 +13,19 @@
         d:DataContext="{d:DesignInstance vm:NewInvoice1ViewModel}">
 
     <Window.Resources>
+        <!-- Style to remove row highlighting -->
+        <Style TargetType="{x:Type DataGridRow}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="BorderBrush" Value="#FFA3AEB7" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <Style x:Key="ResetLinkStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -110,7 +123,8 @@
                                   HorizontalGridLinesBrush="#eee"
                                   VerticalGridLinesBrush="#eee"
                                   GridLinesVisibility="All"
-                                  ItemsSource="{Binding Items}">
+                                  ItemsSource="{Binding Items}"
+                                  >
                             <DataGrid.Columns>
                                 <DataGridTemplateColumn Header="Item Name" Width="2*">
                                     <DataGridTemplateColumn.CellTemplate>
@@ -120,15 +134,32 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                     <DataGridTemplateColumn.CellEditingTemplate>
                                         <DataTemplate>
+                                            <!-- Global AvailableItems list -->
                                             <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.AvailableItems}"
-                                                      SelectedItem="{Binding ItemName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                      SelectedItem="{Binding ItemName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellEditingTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTextColumn Header="Material" Binding="{Binding Material}" Width="*" />
+                                <!-- Material column with row-specific AvailableMaterials -->
+                                <DataGridTemplateColumn Header="Material" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding SelectedMaterial}" VerticalAlignment="Center" Margin="5,0"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataTemplate>
+                                            <!-- Row-specific binding -->
+                                            <ComboBox ItemsSource="{Binding AvailableMaterials}"
+                      SelectedItem="{Binding SelectedMaterial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      IsEditable="False"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                </DataGridTemplateColumn>
 
-                                <!-- Add the new column for Measuring Unit -->
+
+                                <!-- Measuring Unit column -->
                                 <DataGridTextColumn Header="Measuring Unit" Binding="{Binding MeasuringUnit}" Width="*" />
 
                                 <DataGridTextColumn Header="Unit Price" Binding="{Binding UnitPrice, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
@@ -154,7 +185,6 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <!-- Moved + ADD ITEM button here -->
                         <Button Content="+ ADD ITEM"
                                 Command="{Binding AddItemCommand}"
                                 Style="{StaticResource AddButtonStyle}"

@@ -1,16 +1,19 @@
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace SilkShield_New.Model
 {
+    /// <summary>
+    /// A simple model for an item on the invoice. This class
+    /// implements INotifyPropertyChanged to enable data binding.
+    /// </summary>
     public class InvoiceItem : INotifyPropertyChanged
     {
-        private string _itemName;
+        private string _description;
         private double _quantity;
         private double _unitPrice;
         private double _total;
-        private string _material;
-        private string _measuringUnit; // New measuring unit property
+        private string _itemName;
+        private string _measuringUnit;
 
         public string ItemName
         {
@@ -23,6 +26,28 @@ namespace SilkShield_New.Model
             }
         }
 
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                if (_description == value) return;
+                _description = value;
+                OnPropertyChanged(nameof(Description));
+            }
+        }
+
+        public string MeasuringUnit
+        {
+            get => _measuringUnit;
+            set
+            {
+                if (_measuringUnit == value) return;
+                _measuringUnit = value;
+                OnPropertyChanged(nameof(MeasuringUnit));
+            }
+        }
+
         public double Quantity
         {
             get => _quantity;
@@ -30,7 +55,6 @@ namespace SilkShield_New.Model
             {
                 if (_quantity == value) return;
                 _quantity = value;
-                CalculateTotal();
                 OnPropertyChanged(nameof(Quantity));
             }
         }
@@ -42,7 +66,6 @@ namespace SilkShield_New.Model
             {
                 if (_unitPrice == value) return;
                 _unitPrice = value;
-                CalculateTotal();
                 OnPropertyChanged(nameof(UnitPrice));
             }
         }
@@ -58,35 +81,16 @@ namespace SilkShield_New.Model
             }
         }
 
-        public string Material
-        {
-            get => _material;
-            set
-            {
-                if (_material == value) return;
-                _material = value;
-                OnPropertyChanged(nameof(Material));
-            }
-        }
-
-        public string MeasuringUnit
-        {
-            get => _measuringUnit;
-            set
-            {
-                if (_measuringUnit == value) return;
-                _measuringUnit = value;
-                OnPropertyChanged(nameof(MeasuringUnit));
-            }
-        }
-
-        private void CalculateTotal()
+        /// <summary>
+        /// Calculates the total for this invoice item based on Quantity and UnitPrice.
+        /// </summary>
+        public void CalculateTotal()
         {
             Total = Quantity * UnitPrice;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

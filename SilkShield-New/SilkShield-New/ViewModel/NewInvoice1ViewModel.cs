@@ -8,10 +8,11 @@ using System.Data.SQLite;
 using SilkShield_New.Data;
 using System.Windows;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace SilkShield_New.ViewModel
 {
-    // A simple model for an item on the invoice.
+    // A simple model for an item on an invoice.
     public class InvoiceItem : INotifyPropertyChanged
     {
         private string _description;
@@ -20,6 +21,8 @@ namespace SilkShield_New.ViewModel
         private double _total;
         private string _itemName;
         private string _measuringUnit;
+        private ObservableCollection<string> _availableMaterials;
+        private string _selectedMaterial;
 
         public string ItemName
         {
@@ -87,6 +90,26 @@ namespace SilkShield_New.ViewModel
             }
         }
 
+        public ObservableCollection<string> AvailableMaterials
+        {
+            get => _availableMaterials;
+            set
+            {
+                _availableMaterials = value;
+                OnPropertyChanged(nameof(AvailableMaterials));
+            }
+        }
+
+        public string SelectedMaterial
+        {
+            get => _selectedMaterial;
+            set
+            {
+                _selectedMaterial = value;
+                OnPropertyChanged(nameof(SelectedMaterial));
+            }
+        }
+
         public void CalculateTotal()
         {
             Total = Quantity * UnitPrice;
@@ -117,9 +140,8 @@ namespace SilkShield_New.ViewModel
         private double _transportLaborCost;
         private bool _isPelmetBoardChecked;
         private bool _isMotorizedChecked;
-
-        // The collection to bind to the ComboBox in the DataGrid.
         private ObservableCollection<string> _availableItems;
+        private readonly DatabaseHelper _dbHelper;
         #endregion
 
         #region Public Properties
@@ -273,7 +295,6 @@ namespace SilkShield_New.ViewModel
             }
         }
 
-        // The collection to bind to the ComboBox in the DataGrid.
         public ObservableCollection<string> AvailableItems
         {
             get => _availableItems;
@@ -283,7 +304,6 @@ namespace SilkShield_New.ViewModel
                 OnPropertyChanged(nameof(AvailableItems));
             }
         }
-
         #endregion
 
         #region ICommands
@@ -296,14 +316,14 @@ namespace SilkShield_New.ViewModel
         #region Constructor
         public NewInvoice1ViewModel()
         {
+            _dbHelper = new DatabaseHelper();
+
             AddItemCommand = new RelayCommand(AddItem);
             DeleteItemCommand = new RelayCommand(DeleteItem);
             CreateInvoiceCommand = new RelayCommand(CreateInvoice);
             ClearFormCommand = new RelayCommand(ClearForm);
 
             Items = new ObservableCollection<InvoiceItem>();
-            Items.CollectionChanged += (sender, e) => CalculateGrandTotal();
-
             Items.CollectionChanged += (sender, e) =>
             {
                 if (e.NewItems != null)
@@ -320,6 +340,7 @@ namespace SilkShield_New.ViewModel
                         item.PropertyChanged -= OnItemPropertyChanged;
                     }
                 }
+                CalculateGrandTotal();
             };
 
             LoadItemNamesFromDatabase();
@@ -335,20 +356,99 @@ namespace SilkShield_New.ViewModel
             {
                 if (e.PropertyName == nameof(InvoiceItem.ItemName))
                 {
-                    // When ItemName changes, get data from the database
-                    var productData = await LoadProductData(item.ItemName);
-                    if (productData != null)
-                    {
-                        item.MeasuringUnit = productData.UnitOfMeasure;
-                        // UnitPrice will not be set automatically
-                    }
+                    // Load the relevant materials for the new item name.
+                    var materials = await LoadMaterialsByItemName(item.ItemName);
+                    item.AvailableMaterials = new ObservableCollection<string>(materials);
+                    
+                    // Load the relevant measuring unit and set Unit Price to 0.
+                    await UpdateMeasuringUnitAndResetPrice(item);
+                    
+                    // Set this to null to load the Unit Price when a Material is selected.
+                    item.SelectedMaterial = null;
                 }
-                // Also listen for changes to Quantity and UnitPrice to update the item's total.
-                else if (e.PropertyName == nameof(InvoiceItem.Quantity) || e.PropertyName == nameof(InvoiceItem.UnitPrice))
+
+                if (e.PropertyName == nameof(InvoiceItem.SelectedMaterial))
+                {
+                    // Only load the Unit Price when a Material is selected.
+                    await UpdateUnitPrice(item);
+                }
+
+                // Recalculate the total when Quantity or Unit Price changes.
+                if (e.PropertyName == nameof(InvoiceItem.Quantity) || e.PropertyName == nameof(InvoiceItem.UnitPrice))
                 {
                     item.CalculateTotal();
-                    CalculateGrandTotal(); // Grand Total must be recalculated
+                    CalculateGrandTotal();
                 }
+            }
+        }
+        
+        // Method to load the measuring unit based on the item name and set Unit Price to 0.
+        private async Task UpdateMeasuringUnitAndResetPrice(InvoiceItem item)
+        {
+            if (string.IsNullOrEmpty(item.ItemName))
+            {
+                item.MeasuringUnit = string.Empty;
+                item.UnitPrice = 0;
+                return;
+            }
+
+            string query = "SELECT MeasuringUnit FROM inventory WHERE ItemName = @ItemName LIMIT 1";
+            try
+            {
+                using (var connection = _dbHelper.GetConnection() as SQLiteConnection)
+                {
+                    await connection.OpenAsync();
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@ItemName", item.ItemName);
+                        var result = await command.ExecuteScalarAsync();
+                        item.MeasuringUnit = result?.ToString() ?? string.Empty;
+                        item.UnitPrice = 0; // Unit Price remains 0.
+                        item.CalculateTotal();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading MeasuringUnit: {ex.Message}", "Database Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        
+        // Method to load the Unit Price based on the selected material.
+        private async Task UpdateUnitPrice(InvoiceItem item)
+        {
+            if (string.IsNullOrEmpty(item.ItemName) || string.IsNullOrEmpty(item.SelectedMaterial))
+            {
+                item.UnitPrice = 0;
+                return;
+            }
+            
+            string query = "SELECT UnitPrice FROM inventory WHERE ItemName = @ItemName AND Material = @Material";
+            
+            try
+            {
+                using (var connection = _dbHelper.GetConnection() as SQLiteConnection)
+                {
+                    await connection.OpenAsync();
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@ItemName", item.ItemName);
+                        command.Parameters.AddWithValue("@Material", item.SelectedMaterial);
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                item.UnitPrice = reader.GetDouble(0);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading UnitPrice: {ex.Message}", "Database Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -391,8 +491,8 @@ namespace SilkShield_New.ViewModel
             }
 
             MessageBox.Show($"Invoice {InvoiceNumber} created successfully!\n" +
-                                             $"Customer: {CustomerName}\n" +
-                                             $"Total Amount: {GrandTotal:C}", "Invoice Created",
+                                        $"Customer: {CustomerName}\n" +
+                                        $"Total Amount: {GrandTotal:C}", "Invoice Created",
                 MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -421,12 +521,11 @@ namespace SilkShield_New.ViewModel
         private void LoadItemNamesFromDatabase()
         {
             AvailableItems = new ObservableCollection<string>();
-            DatabaseHelper dbHelper = new DatabaseHelper();
             string query = "SELECT DISTINCT ItemName FROM inventory";
 
             try
             {
-                using (var connection = dbHelper.GetConnection() as SQLiteConnection)
+                using (var connection = _dbHelper.GetConnection() as SQLiteConnection)
                 {
                     connection.Open();
                     using (var command = new SQLiteCommand(query, connection))
@@ -448,14 +547,45 @@ namespace SilkShield_New.ViewModel
             }
         }
 
-        // A new method added
+        private async Task<List<string>> LoadMaterialsByItemName(string itemName)
+        {
+            var materials = new List<string>();
+            if (string.IsNullOrEmpty(itemName)) return materials;
+
+            string query = "SELECT DISTINCT Material FROM inventory WHERE ItemName = @ItemName";
+
+            try
+            {
+                using (var connection = _dbHelper.GetConnection() as SQLiteConnection)
+                {
+                    await connection.OpenAsync();
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@ItemName", itemName);
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                materials.Add(reader["Material"].ToString());
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading materials for {itemName}: {ex.Message}", "Database Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return materials;
+        }
+
         private async Task<Product> LoadProductData(string itemName)
         {
-            DatabaseHelper dbHelper = new DatabaseHelper();
             string query = "SELECT MeasuringUnit, UnitPrice FROM inventory WHERE ItemName = @ItemName";
             try
             {
-                using (var connection = dbHelper.GetConnection() as SQLiteConnection)
+                using (var connection = _dbHelper.GetConnection() as SQLiteConnection)
                 {
                     await connection.OpenAsync();
                     using (var command = new SQLiteCommand(query, connection))
@@ -514,7 +644,6 @@ namespace SilkShield_New.ViewModel
         public void Execute(object parameter) => _execute(parameter);
     }
 
-    // A new Product class
     public class Product
     {
         public string UnitOfMeasure { get; set; }
