@@ -490,10 +490,15 @@ namespace SilkShield_New.ViewModel
                 return;
             }
 
-            MessageBox.Show($"Invoice {InvoiceNumber} created successfully!\n" +
-                                        $"Customer: {CustomerName}\n" +
-                                        $"Total Amount: {GrandTotal:C}", "Invoice Created",
-                MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(
+    $"Invoice {InvoiceNumber} created successfully!\n" +
+    $"Customer: {CustomerName}\n" +
+    $"Total Amount: LKR {GrandTotal:N2}",
+    "Invoice Created",
+    MessageBoxButton.OK,
+    MessageBoxImage.Information
+);
+
         }
 
         private void ClearForm(object obj)

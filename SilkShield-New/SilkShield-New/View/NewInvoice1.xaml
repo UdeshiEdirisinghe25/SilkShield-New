@@ -13,7 +13,6 @@
         d:DataContext="{d:DesignInstance vm:NewInvoice1ViewModel}">
 
     <Window.Resources>
-        <!-- Style to remove row highlighting -->
         <Style TargetType="{x:Type DataGridRow}">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
@@ -74,7 +73,6 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <!-- Invoice Info -->
                     <Grid Grid.Row="0" Margin="0,10,0,10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -86,22 +84,22 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,20,0">
-                            <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Invoice Number"/>
+                            <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Invoice Number"/>
                             <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding InvoiceNumber, Mode=TwoWay}"/>
                         </StackPanel>
 
                         <StackPanel Grid.Row="0" Grid.Column="1" Margin="20,0,0,0">
-                            <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Date"/>
+                            <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Date"/>
                             <DatePicker Padding="8" SelectedDate="{Binding InvoiceDate, Mode=TwoWay}"/>
                         </StackPanel>
 
                         <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,15,20,0">
-                            <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Customer"/>
+                            <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Customer"/>
                             <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding CustomerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
                         <StackPanel Grid.Row="1" Grid.Column="1" Margin="20,15,0,0">
-                            <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Building Type"/>
+                            <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Building Type"/>
                             <ComboBox Padding="8" BorderBrush="#ccc" BorderThickness="1" SelectedValue="{Binding BuildingType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <ComboBoxItem Content="House"/>
                                 <ComboBoxItem Content="Apartment"/>
@@ -110,7 +108,6 @@
                         </StackPanel>
                     </Grid>
 
-                    <!-- Items DataGrid & Add Item Button -->
                     <StackPanel Grid.Row="1" Margin="0,7,0,0">
                         <DataGrid x:Name="ItemDataGrid"
                                   AutoGenerateColumns="False"
@@ -134,14 +131,15 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                     <DataGridTemplateColumn.CellEditingTemplate>
                                         <DataTemplate>
-                                            <!-- Global AvailableItems list -->
-                                            <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.AvailableItems}"
-                      SelectedItem="{Binding ItemName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <ComboBox IsEditable="True"
+                      ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.AvailableItems}"
+                      Text="{Binding ItemName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellEditingTemplate>
                                 </DataGridTemplateColumn>
 
-                                <!-- Material column with row-specific AvailableMaterials -->
+
+
                                 <DataGridTemplateColumn Header="Material" Width="*">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -150,16 +148,16 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                     <DataGridTemplateColumn.CellEditingTemplate>
                                         <DataTemplate>
-                                            <!-- Row-specific binding -->
-                                            <ComboBox ItemsSource="{Binding AvailableMaterials}"
-                      SelectedItem="{Binding SelectedMaterial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      IsEditable="False"/>
+                                            <ComboBox IsEditable="True"
+                      ItemsSource="{Binding AvailableMaterials}"
+                      Text="{Binding SelectedMaterial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellEditingTemplate>
                                 </DataGridTemplateColumn>
 
 
-                                <!-- Measuring Unit column -->
+
+
                                 <DataGridTextColumn Header="Measuring Unit" Binding="{Binding MeasuringUnit}" Width="*" />
 
                                 <DataGridTextColumn Header="Unit Price" Binding="{Binding UnitPrice, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
@@ -193,7 +191,6 @@
 
                     </StackPanel>
 
-                    <!-- Curtain, Payment, Transport & Discount -->
                     <Grid Grid.Row="2" Margin="0,20,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -202,7 +199,7 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Grid.Column="0">
-                            <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Curtain Type &amp; Style"/>
+                            <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Curtain Type &amp; Style"/>
                             <StackPanel Orientation="Horizontal">
                                 <ComboBox Padding="8" Width="90" SelectedValue="{Binding CurtainLayerType, Mode=TwoWay}" Margin="0,0,10,0">
                                     <ComboBoxItem Content="Single layer"/>
@@ -213,10 +210,6 @@
                                     <ComboBoxItem Content="Ripple"/>
                                     <ComboBoxItem Content="Pleat"/>
                                     <ComboBoxItem Content="Eyelet"/>
-                                    <ComboBoxItem Content="Roman Blinds"/>
-                                    <ComboBoxItem Content="Venetian Blinds"/>
-                                    <ComboBoxItem Content="Zebra Blinds"/>
-                                    <ComboBoxItem Content="Roller Blinds"/>
                                 </ComboBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
@@ -226,7 +219,7 @@
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Margin="20,0,20,0">
-                            <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Payment Method"/>
+                            <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Payment Method"/>
                             <ComboBox Padding="8" SelectedValue="{Binding PaymentMethod, Mode=TwoWay}">
                                 <ComboBoxItem Content="Cash"/>
                                 <ComboBoxItem Content="Card"/>
@@ -235,30 +228,27 @@
                         </StackPanel>
 
                         <StackPanel Grid.Column="2">
-                            <TextBlock Margin="0,0,0,5" Foreground="#555" Text="Transport &amp; Labor Cost (LKR)"/>
+                            <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Transport &amp; Labor Cost (LKR)"/>
                             <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding TransportLaborCostText, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBlock Margin="0,15,0,5" Foreground="#555" Text="Discount (%)"/>
+                            <TextBlock Margin="0,15,0,5" Foreground="Black" Text="Discount (%)"/>
                             <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding DiscountText, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBlock Margin="0,15,0,5" Foreground="#555" Text="Total Amount (LKR)"/>
+                            <TextBlock Margin="0,15,0,5" Foreground="Black" Text="Total Amount (LKR)"/>
                             <TextBlock FontWeight="Bold" FontSize="20" Foreground="#333" Text="{Binding GrandTotal, StringFormat={}{0:F2}}"/>
                         </StackPanel>
                     </Grid>
 
-                    <!-- Bottom buttons -->
                     <Grid Grid.Row="3" Margin="0,30,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- Left side: Reset -->
                         <Button Grid.Column="0" Content="Reset"
                                 Command="{Binding ClearFormCommand}"
                                 Style="{StaticResource ResetLinkStyle}"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"/>
 
-                        <!-- Right side: Create -->
                         <Button Grid.Column="1"
                                 HorizontalAlignment="Right"
                                 Width="100" Height="40"
@@ -283,7 +273,6 @@
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
-
                     </Grid>
                 </Grid>
             </Border>
