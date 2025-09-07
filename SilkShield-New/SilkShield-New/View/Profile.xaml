@@ -4,24 +4,162 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SilkShield_New.View"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
         Title="Profile" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="CurvedTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <Grid>
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                                <TextBlock Text="{TemplateBinding Tag}"
+                                           Foreground="Gray"
+                                           Margin="10,0,0,0"
+                                           VerticalAlignment="Center"
+                                           IsHitTestVisible="False"
+                                           FontStyle="Italic">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FFCCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="27"/>
+            <Setter Property="Padding" Value="5,2,5,2"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="CurvedPasswordBoxStyle" TargetType="PasswordBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5">
+                            <Grid>
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                                <!-- Placeholder TextBlock -->
+                                <TextBlock x:Name="PlaceholderText"
+                                   Text="{TemplateBinding Tag}"
+                                   Foreground="Gray"
+                                   Margin="10,0,0,0"
+                                   VerticalAlignment="Center"
+                                   IsHitTestVisible="False"
+                                   FontStyle="Italic"
+                                   Visibility="Visible"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!-- Hide the Placeholder when focus the Password box -->
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="PlaceholderText" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FFCCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="27"/>
+            <Setter Property="Padding" Value="5,2,5,2"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Images/Back.PNG"/>
         </Grid.Background>
-        <Label x:Name="ProfileLabel" Content="Profile" FontSize="24" Margin="10,10,702,0" Height="47" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label x:Name="ProfileLabel" Content="Profile" FontSize="24" Margin="10,10,660,0" Height="47" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Content="Username" HorizontalAlignment="Left" Height="27" Margin="268,50,0,0" VerticalAlignment="Top" Width="77" FontWeight="Bold"/>
         <Label Content="Current Password" HorizontalAlignment="Left" Height="27" Margin="268,124,0,0" VerticalAlignment="Top" Width="124" FontWeight="Bold"/>
         <Label Content="New Password" HorizontalAlignment="Left" Height="27" Margin="268,194,0,0" VerticalAlignment="Top" Width="97" FontWeight="Bold"/>
-        <Label Content="Confirm New Password" HorizontalAlignment="Left" Height="27" Margin="270,265,0,0" VerticalAlignment="Top" Width="124" FontWeight="Bold"/>
-        <TextBox HorizontalAlignment="Left" Height="27" Margin="266,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="264" TextChanged="TextBox_TextChanged"/>
-        <PasswordBox HorizontalAlignment="Left" Height="27" Margin="266,156,0,0" VerticalAlignment="Top" Width="264"/>
-        <PasswordBox HorizontalAlignment="Left" Height="27" Margin="266,226,0,0" VerticalAlignment="Top" Width="264"/>
-        <PasswordBox HorizontalAlignment="Left" Height="27" Margin="266,297,0,0" VerticalAlignment="Top" Width="264"/>
-        
-        
-        <Button Content="Apply Changes" Margin="266,360,0,0" Click="Button_Click" Style="{StaticResource CurvedButtonStyle}" Height="32"  FontWeight="Bold" Width="264" Background="#FF111111" Foreground="#FFFCF3F3" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label Content="Confirm New Password" HorizontalAlignment="Left" Height="27" Margin="268,265,0,0" VerticalAlignment="Top" Width="156" FontWeight="Bold"/>
+        <TextBox HorizontalAlignment="Left" Height="27" Margin="266,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="264" Style="{StaticResource CurvedTextBoxStyle}" Tag="Username"/>
 
+        <!-- Current Password -->
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="264" Height="27" Margin="266,156,0,0">
+            <PasswordBox x:Name="CurrentPasswordBox"
+                         Style="{StaticResource CurvedPasswordBoxStyle}"
+                         Tag="Current password"
+                         PasswordChar="●"
+                         Visibility="Visible"/>
+            <TextBox x:Name="CurrentPasswordTextBox"
+                     Style="{StaticResource CurvedTextBoxStyle}"
+                     Tag="Current password"
+                     Visibility="Collapsed"/>
+            <Button x:Name="CurrentPasswordToggleButton"
+                    Width="24" Height="24"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Margin="0,0,2,0"
+                    Background="Transparent" BorderThickness="0"
+                    Click="CurrentPasswordToggleButton_Click">
+                <fa:FontAwesome x:Name="CurrentPasswordEyeIcon" Icon="EyeSlash" Foreground="Gray" FontSize="16"/>
+            </Button>
+        </Grid>
+
+        <!-- New Password -->
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="264" Height="27" Margin="266,226,0,0">
+            <PasswordBox x:Name="NewPasswordBox"
+                         Style="{StaticResource CurvedPasswordBoxStyle}"
+                         Tag="New password"
+                         PasswordChar="●"
+                         Visibility="Visible"/>
+            <TextBox x:Name="NewPasswordTextBox"
+                     Style="{StaticResource CurvedTextBoxStyle}"
+                     Tag="New password"
+                     Visibility="Collapsed"/>
+            <Button x:Name="NewPasswordToggleButton"
+                    Width="24" Height="24"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Margin="0,0,2,0"
+                    Background="Transparent" BorderThickness="0"
+                    Click="NewPasswordToggleButton_Click">
+                <fa:FontAwesome x:Name="NewPasswordEyeIcon" Icon="EyeSlash" Foreground="Gray" FontSize="16"/>
+            </Button>
+        </Grid>
+
+        <!-- Repeat New Password -->
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="264" Height="27" Margin="266,297,0,0">
+            <PasswordBox x:Name="RepeatNewPasswordBox"
+                         Style="{StaticResource CurvedPasswordBoxStyle}"
+                         Tag="Repeat new password"
+                         PasswordChar="●"
+                         Visibility="Visible"/>
+            <TextBox x:Name="RepeatNewPasswordTextBox"
+                     Style="{StaticResource CurvedTextBoxStyle}"
+                     Tag="Repeat new password"
+                     Visibility="Collapsed"/>
+            <Button x:Name="RepeatNewPasswordToggleButton"
+                    Width="24" Height="24"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Margin="0,0,2,0"
+                    Background="Transparent" BorderThickness="0"
+                    Click="RepeatNewPasswordToggleButton_Click">
+                <fa:FontAwesome x:Name="RepeatNewPasswordEyeIcon" Icon="EyeSlash" Foreground="Gray" FontSize="16"/>
+            </Button>
+        </Grid>
+
+        <Button Content="Apply  Changes" Margin="266,360,0,0" Style="{StaticResource CurvedButtonStyle}" Height="32" FontWeight="Bold" Width="264" Background="#FF111111" Foreground="#FFFCF3F3" HorizontalAlignment="Left" VerticalAlignment="Top"/>
     </Grid>
 </Window>
