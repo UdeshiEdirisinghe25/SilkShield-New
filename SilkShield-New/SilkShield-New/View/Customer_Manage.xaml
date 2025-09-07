@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:SilkShield_New.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -13,6 +14,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!-- Header Section -->
         <Grid Grid.Row="0" Margin="20,20,20,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -27,17 +29,9 @@
                 <TextBlock Text="Manage your customer information and project status"
                            FontSize="14"
                            Foreground="Gray"
-                           Margin="0,5,0,0" RenderTransformOrigin="0.5,0.5">
-                    <TextBlock.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-0.717"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </TextBlock.RenderTransform>
-                </TextBlock>
+                           Margin="0,5,0,0" />
             </StackPanel>
+
             <Button Grid.Column="1"
                     Content="+ Add Customer"
                     Padding="12,6"
@@ -53,6 +47,7 @@
                     Command="{Binding AddCustomerCommand}" />
         </Grid>
 
+        <!-- Search Section -->
         <Border Grid.Row="1" Margin="20,10,20,20" Background="#F0F0F0" CornerRadius="10">
             <Grid Margin="20">
                 <Grid.ColumnDefinitions>
@@ -77,7 +72,12 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Path Data="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79 l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                            <Path Data="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 
+                                        6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 
+                                        4.23-1.57l.27.28v.79 l5 4.99L20.49 19l-4.99-5zm-6 
+                                        0C7.01 14 5 11.99 5 9.5S7.01 5 
+                                        9.5 5 14 7.01 14 9.5 11.99 14 
+                                        9.5 14z"
                                   Fill="Gray"
                                   VerticalAlignment="Center"
                                   Margin="8,0,5,0"
@@ -98,25 +98,41 @@
             </Grid>
         </Border>
 
+        <!-- DataGrid Section -->
         <DataGrid Grid.Row="2"
                   ItemsSource="{Binding Customers}"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
+                  IsReadOnly="True"
                   RowHeight="35"
                   HeadersVisibility="Column"
                   GridLinesVisibility="None"
                   Background="White"
-                  Margin="20,0,20,10">
+                  Margin="20,0,20,10"
+                  HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.CanContentScroll="True"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  PreviewMouseWheel="DataGrid_PreviewMouseWheel">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Customer Type" Binding="{Binding CustomerType}" Width="*"/>
-                <DataGridTextColumn Header="Visited/Not Visited" Binding="{Binding VisitedStatus}" Width="*"/>
-                <DataGridTextColumn Header="Customer Name" Binding="{Binding CustomerName}" Width="*"/>
-                <DataGridTextColumn Header="Contact Details" Binding="{Binding Email}" Width="*"/>
-                <DataGridTextColumn Header="Quotation Status" Binding="{Binding QuotationStatus}" Width="*"/>
-                <DataGridTextColumn Header="Project Confirmation" Binding="{Binding ProjectConfirmation}" Width="*"/>
+                <DataGridTextColumn Header="Customer Name" Binding="{Binding CustomerName}" Width="200"/>
+                <DataGridTextColumn Header="Contact Details" Binding="{Binding ContactDetails}" Width="200"/>
+                <DataGridTextColumn Header="Address" Binding="{Binding Address}" Width="200"/>
+                <!-- Invoice Number column removed -->
+                <DataGridTextColumn Header="Property Type" Binding="{Binding PropertyType}" Width="150"/>
+                <DataGridTextColumn Header="Visited/ Not Visited" Binding="{Binding VisitedStatus}" Width="150"/>
+                <DataGridTextColumn Header="Property Details" Binding="{Binding PropertyDetails}" Width="200"/>
+                <DataGridTextColumn Header="Quotations" Binding="{Binding QuotationStatus}" Width="200"/>
+                <DataGridTextColumn Header="Project Confirmation" Binding="{Binding ProjectConfirmation}" Width="150"/>
+                <DataGridTextColumn Header="Project Start Date" Binding="{Binding ProjectStartDate}" Width="150"/>
+                <DataGridTextColumn Header="Expected Date of Completion" Binding="{Binding ExpectedCompletionDate}" Width="200"/>
+                <DataGridTextColumn Header="Special Preferences/ Customizations" Binding="{Binding SpecialPreferences}" Width="250"/>
+                <DataGridTextColumn Header="Notes" Binding="{Binding Notes}" Width="200"/>
 
-                <DataGridTemplateColumn Header="Action" Width="*">
+                <!-- Action Column -->
+                <DataGridTemplateColumn Header="Action" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

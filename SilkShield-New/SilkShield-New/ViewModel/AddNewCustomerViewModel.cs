@@ -40,13 +40,14 @@ namespace SilkShield_New.ViewModel
             if (isSaved)
             {
                 MessageBox.Show("Customer saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                CloseWindow();
+                CloseWindow();  
             }
             else
             {
                 MessageBox.Show("Customer could not be saved. Please check the data.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
         private void Cancel()
         {

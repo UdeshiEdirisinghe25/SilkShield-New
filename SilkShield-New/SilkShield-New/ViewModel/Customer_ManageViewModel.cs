@@ -57,8 +57,17 @@ namespace SilkShield_New.ViewModel
         private void ViewCustomer(Customer customer)
         {
             if (customer != null)
-                MessageBox.Show($"View clicked for: {customer.CustomerName}");
+            {
+                var dialogWindow = new Window();
+                var viewCustomerControl = new View.ViewCustomerWindow();
+                viewCustomerControl.DataContext = customer;
+                dialogWindow.Content = viewCustomerControl;
+                dialogWindow.SizeToContent = SizeToContent.WidthAndHeight;
+                dialogWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                dialogWindow.ShowDialog();
+            }
         }
+
 
         private void EditCustomer(Customer customer)
         {
