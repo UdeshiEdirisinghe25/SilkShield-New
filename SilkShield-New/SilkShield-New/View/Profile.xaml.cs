@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using SilkShield_New.ViewModel;
 
 namespace SilkShield_New.View
 {
@@ -19,84 +10,67 @@ namespace SilkShield_New.View
     /// </summary>
     public partial class Profile : Window
     {
-        public Profile()
-        {
-            InitializeComponent();
-
-            // Event handlers for Pasword Boxes
-            // CurrentPasswordBox.PasswordChanged += CurrentPasswordBox_PasswordChanged;
-            NewPasswordBox.PasswordChanged += NewPasswordBox_PasswordChanged;
-            RepeatNewPasswordBox.PasswordChanged += RepeatNewPasswordBox_PasswordChanged;
-
-            CurrentPasswordBox.GotFocus += PasswordBox_GotFocus;
-            CurrentPasswordBox.LostFocus += CurrentPasswordBox_LostFocus;
-            NewPasswordBox.GotFocus += PasswordBox_GotFocus;
-            NewPasswordBox.LostFocus += NewPasswordBox_LostFocus;
-            RepeatNewPasswordBox.GotFocus += PasswordBox_GotFocus;
-            RepeatNewPasswordBox.LostFocus += RepeatNewPasswordBox_LostFocus;
-        }
-
+        private readonly ProfileViewModel _viewModel;
         private bool _isCurrentPasswordVisible = false;
         private bool _isNewPasswordVisible = false;
         private bool _isRepeatNewPasswordVisible = false;
 
-        // Placeholder visibility control කරන්න
-        private void CurrentPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        public Profile()
         {
-            UpdatePlaceholderVisibility(CurrentPasswordBox);
-        }
+            InitializeComponent();
+            _viewModel = DataContext as ProfileViewModel;
 
-        private void NewPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            UpdatePlaceholderVisibility(NewPasswordBox);
-        }
-
-        private void RepeatNewPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            UpdatePlaceholderVisibility(RepeatNewPasswordBox);
-        }
-
-        private void PasswordBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (sender is PasswordBox passwordBox)
+            // Password box event handlers for eye button functionality
+            CurrentPasswordBox.PasswordChanged += (s, e) =>
             {
-                UpdatePlaceholderVisibility(passwordBox);
-            }
-        }
+                if (_viewModel != null && !_isCurrentPasswordVisible)
+                    _viewModel.CurrentPassword = CurrentPasswordBox.Password;
+                UpdatePlaceholderVisibility(CurrentPasswordBox);
+            };
 
-        private void CurrentPasswordBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            UpdatePlaceholderVisibility(CurrentPasswordBox);
-        }
-
-        private void NewPasswordBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            UpdatePlaceholderVisibility(NewPasswordBox);
-        }
-
-        private void RepeatNewPasswordBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            UpdatePlaceholderVisibility(RepeatNewPasswordBox);
-        }
-
-        private void UpdatePlaceholderVisibility(PasswordBox passwordBox)
-        {
-            if (passwordBox.Template != null)
+            NewPasswordBox.PasswordChanged += (s, e) =>
             {
-                var placeholderText = passwordBox.Template.FindName("PlaceholderText", passwordBox) as TextBlock;
-                if (placeholderText != null)
-                {
-                    if (string.IsNullOrEmpty(passwordBox.Password) && !passwordBox.IsFocused)
-                    {
-                        placeholderText.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        placeholderText.Visibility = Visibility.Collapsed;
-                    }
-                }
-            }
+                if (_viewModel != null && !_isNewPasswordVisible)
+                    _viewModel.NewPassword = NewPasswordBox.Password;
+                UpdatePlaceholderVisibility(NewPasswordBox);
+            };
+
+            RepeatNewPasswordBox.PasswordChanged += (s, e) =>
+            {
+                if (_viewModel != null && !_isRepeatNewPasswordVisible)
+                    _viewModel.ConfirmNewPassword = RepeatNewPasswordBox.Password;
+                UpdatePlaceholderVisibility(RepeatNewPasswordBox);
+            };
+
+            // TextBox event handlers (visible password mode)
+            CurrentPasswordTextBox.TextChanged += (s, e) =>
+            {
+                if (_viewModel != null && _isCurrentPasswordVisible)
+                    _viewModel.CurrentPassword = CurrentPasswordTextBox.Text;
+            };
+
+            NewPasswordTextBox.TextChanged += (s, e) =>
+            {
+                if (_viewModel != null && _isNewPasswordVisible)
+                    _viewModel.NewPassword = NewPasswordTextBox.Text;
+            };
+
+            RepeatNewPasswordTextBox.TextChanged += (s, e) =>
+            {
+                if (_viewModel != null && _isRepeatNewPasswordVisible)
+                    _viewModel.ConfirmNewPassword = RepeatNewPasswordTextBox.Text;
+            };
+
+            // Focus events
+            CurrentPasswordBox.GotFocus += (s, e) => UpdatePlaceholderVisibility(CurrentPasswordBox);
+            CurrentPasswordBox.LostFocus += (s, e) => UpdatePlaceholderVisibility(CurrentPasswordBox);
+            NewPasswordBox.GotFocus += (s, e) => UpdatePlaceholderVisibility(NewPasswordBox);
+            NewPasswordBox.LostFocus += (s, e) => UpdatePlaceholderVisibility(NewPasswordBox);
+            RepeatNewPasswordBox.GotFocus += (s, e) => UpdatePlaceholderVisibility(RepeatNewPasswordBox);
+            RepeatNewPasswordBox.LostFocus += (s, e) => UpdatePlaceholderVisibility(RepeatNewPasswordBox);
         }
+
+        #region Password Visibility Toggle Methods
 
         private void CurrentPasswordToggleButton_Click(object sender, RoutedEventArgs e)
         {
@@ -165,6 +139,43 @@ namespace SilkShield_New.View
                 RepeatNewPasswordBox.Focus();
                 UpdatePlaceholderVisibility(RepeatNewPasswordBox);
             }
+        }
+
+        #endregion
+
+        #region Helper Methods
+
+        private void UpdatePlaceholderVisibility(PasswordBox passwordBox)
+        {
+            if (passwordBox.Template != null)
+            {
+                if (passwordBox.Template.FindName("PlaceholderText", passwordBox) is TextBlock placeholderText)
+                {
+                    if (string.IsNullOrEmpty(passwordBox.Password) && !passwordBox.IsFocused)
+                    {
+                        placeholderText.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        placeholderText.Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        // Window closing event - cleanup
+        protected override void OnClosed(EventArgs e)
+        {
+            if (_viewModel != null)
+            {
+                // Clear sensitive data
+                _viewModel.CurrentPassword = "";
+                _viewModel.NewPassword = "";
+                _viewModel.ConfirmNewPassword = "";
+            }
+            base.OnClosed(e);
         }
     }
 }
