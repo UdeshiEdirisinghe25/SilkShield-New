@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Data.SQLite;
 using System.IO;
+using SilkShield_New.Model;
+using System.Collections.Generic;
+
 
 namespace SilkShield_New.Data
 {
+
     public class DatabaseHelper
     {
         private readonly string _dbPath;
@@ -75,7 +79,50 @@ namespace SilkShield_New.Data
                 {
                     command.ExecuteNonQuery();
                 }
+
+
+
             }
         }
+
+
+        public List<InvoiceDTO> GetRecentInvoices(int limit = 5)
+        {
+            var invoices = new List<InvoiceDTO>();
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                string query = @"
+                       SELECT InvoiceId, Customer, InvoiceDate, TotalAmount
+                        FROM Invoices
+                        ORDER BY datetime(InvoiceDate) DESC
+                        LIMIT @Limit;
+                        ";
+
+                using (var command = new SQLiteCommand(query, connection))
+                     {
+                    command.Parameters.AddWithValue("@Limit", limit);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            invoices.Add(new InvoiceDTO
+                            {
+                                InvoiceId = Convert.ToInt32(reader["InvoiceId"]),
+                                Customer = reader["Customer"].ToString(),
+                                InvoiceDate = DateTime.Parse(reader["InvoiceDate"].ToString()),
+                                TotalAmount = Convert.ToDouble(reader["TotalAmount"])
+                            });
+                        }
+                    }
+                }
+            }
+
+            return invoices;
+        }
+
     }
 }

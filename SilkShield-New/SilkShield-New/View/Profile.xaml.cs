@@ -9,7 +9,7 @@ namespace SilkShield_New.View
     /// <summary>
     /// Interaction logic for Profile.xaml
     /// </summary>
-    public partial class Profile : Window
+    public partial class Profile : UserControl
     {
         private readonly ProfileViewModel _viewModel;
         private bool _isCurrentPasswordVisible = false;

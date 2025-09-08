@@ -75,15 +75,8 @@ namespace SilkShield_New.View
                             if (storedPassword == password)
                             {
                                 // With this corrected code:
-                                DashboardWindow dashboard = new DashboardWindow();
-                                Window dashboardWindow = new Window
-                                {
-                                    Content = dashboard,
-                                    Title = "Dashboard",
-                                    Width = 800, // Set appropriate width
-                                    Height = 600 // Set appropriate height
-                                };
-                                dashboardWindow.Show();
+                                MainWindow main = new MainWindow();
+                                main.Show();
                                 this.Close();
                             }
                             else
@@ -113,6 +106,11 @@ namespace SilkShield_New.View
             UsernameTextBox.Text = string.Empty;
             PasswordBox.Password = string.Empty;
             VisiblePasswordTextBox.Text = string.Empty;
+        }
+
+        private void UsernameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

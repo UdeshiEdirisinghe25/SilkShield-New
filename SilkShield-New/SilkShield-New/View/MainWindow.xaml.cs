@@ -12,6 +12,7 @@ namespace SilkShield_New.View
         private Customer_Manage customerView;
         //private InventoryView inventoryView;
          private NewInvoice1 invoiceView;
+        private Profile ProfileView;
         //private InvoiceHistory invoiceHistory;
 
         public MainWindow()
@@ -22,6 +23,7 @@ namespace SilkShield_New.View
             customerView = new Customer_Manage();
             //inventoryView = new InventoryView();
               invoiceView = new NewInvoice1();
+             ProfileView = new Profile();
             //invoiceHistory = new InvoiceHistory();
 
             MainContentArea.Content = dashboardView;
@@ -61,7 +63,13 @@ namespace SilkShield_New.View
             MainContentArea.Content = invoiceView;
             HighlightButton(invoice);
         }
-        
+
+        private void UserProfile_Click(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = ProfileView;
+            HighlightButton(Profile);
+        }
+
 
 
         private void TopBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
