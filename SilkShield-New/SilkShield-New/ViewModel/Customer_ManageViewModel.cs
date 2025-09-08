@@ -1,15 +1,33 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Data;
 using System.Windows;
 using SilkShield_New.Data;
 using SilkShield_New.Model;
 
 namespace SilkShield_New.ViewModel
 {
-    public class Customer_ManageViewModel
+    public class Customer_ManageViewModel : INotifyPropertyChanged
     {
         private CustomerDAL _customerDal;
+        private string _searchText;
 
         public ObservableCollection<Customer> Customers { get; set; }
+        public ICollectionView CustomersView { get; set; }
+
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    OnPropertyChanged(nameof(SearchText));
+                    CustomersView.Refresh();
+                }
+            }
+        }
 
         public RelayCommand AddCustomerCommand { get; set; }
         public RelayCommand ViewCustomerCommand { get; set; }
@@ -21,10 +39,26 @@ namespace SilkShield_New.ViewModel
             _customerDal = new CustomerDAL();
             Customers = new ObservableCollection<Customer>(_customerDal.GetAllCustomers());
 
+            // Create ICollectionView for filtering
+            CustomersView = CollectionViewSource.GetDefaultView(Customers);
+            CustomersView.Filter = FilterCustomers;
+
             AddCustomerCommand = new RelayCommand(_ => AddCustomer());
             ViewCustomerCommand = new RelayCommand(param => ViewCustomer(param as Customer));
             EditCustomerCommand = new RelayCommand(param => EditCustomer(param as Customer));
             DeleteCustomerCommand = new RelayCommand(param => DeleteCustomer(param as Customer));
+        }
+
+        private bool FilterCustomers(object obj)
+        {
+            if (obj is Customer customer)
+            {
+                if (string.IsNullOrEmpty(SearchText))
+                    return true;
+                return customer.CustomerName.ToLower().Contains(SearchText.ToLower()) ||
+                       customer.Email.ToLower().Contains(SearchText.ToLower());
+            }
+            return false;
         }
 
         private void LoadCustomers()
@@ -36,22 +70,18 @@ namespace SilkShield_New.ViewModel
 
         private void AddCustomer()
         {
-            // Create a new window to host the UserControl
             var dialogWindow = new Window();
-
-            // Create an instance of the UserControl
             var addCustomerControl = new View.AddNewCustomer();
-
-            // Set the UserControl as the content of the new window
             dialogWindow.Content = addCustomerControl;
             dialogWindow.SizeToContent = SizeToContent.WidthAndHeight;
             dialogWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            // Show the new window as a dialog
+            // Show dialog
             dialogWindow.ShowDialog();
 
-            // Reload your customer data after the dialog is closed
+            // Reload data and refresh view
             LoadCustomers();
+            CustomersView.Refresh();
         }
 
         private void ViewCustomer(Customer customer)
@@ -68,12 +98,7 @@ namespace SilkShield_New.ViewModel
             }
         }
 
-
-        private void EditCustomer(Customer customer)
-        {
-            if (customer != null)
-                MessageBox.Show($"Edit clicked for: {customer.CustomerName}");
-        }
+        private void EditCustomer(Customer customer) { }
 
         private void DeleteCustomer(Customer customer)
         {
@@ -91,6 +116,7 @@ namespace SilkShield_New.ViewModel
                 {
                     _customerDal.DeleteCustomer(customer.CustomerID);
                     LoadCustomers();
+                    CustomersView.Refresh();
                 }
                 catch (System.Exception ex)
                 {
@@ -98,6 +124,12 @@ namespace SilkShield_New.ViewModel
                         "Database Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
     }
 }

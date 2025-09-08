@@ -132,8 +132,8 @@
         </Style>
     </UserControl.Resources>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Height="901" Width="837">
-        <Grid Margin="20" Height="824">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid Margin="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -168,36 +168,47 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
+                        <!-- Customer Name -->
                         <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,15,20">
                             <TextBlock Text="Customer Name" Style="{StaticResource InputLabelStyle}"/>
                             <TextBox Style="{StaticResource InputFieldStyle}" Tag="Enter Name"
-                                     Text="{Binding NewCustomer.CustomerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="30" Width="330" HorizontalAlignment="Left"/>
-                        </StackPanel>
-                        <StackPanel Grid.Row="0" Grid.Column="1" Margin="15,0,0,20">
-                            <TextBlock Text="Customer Type" Style="{StaticResource InputLabelStyle}"/>
-                            <ComboBox Style="{StaticResource InputComboBoxStyle}" Height="30" Text="{Binding NewCustomer.CustomerType, Mode=TwoWay}" Width="330" HorizontalAlignment="Left">
-                                <ComboBoxItem Content="Individual"/>
-                                <ComboBoxItem Content="Business"/>
-                            </ComboBox>
+                                     Text="{Binding NewCustomer.CustomerName, Mode=TwoWay}" Height="30" Width="330" HorizontalAlignment="Left"/>
                         </StackPanel>
 
+                        <!-- Property Type -->
+                        <StackPanel Grid.Row="0" Grid.Column="1" Margin="15,0,0,20">
+                            <TextBlock Text="Property Type" Style="{StaticResource InputLabelStyle}"/>
+                            <TextBox Style="{StaticResource InputFieldStyle}" 
+                            Tag="Enter Property Type"
+                            Text="{Binding NewCustomer.CustomerType, Mode=TwoWay}" 
+                            Height="30" Width="330" HorizontalAlignment="Left"/>
+                        </StackPanel>
+
+
+                        <!-- Phone -->
                         <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,15,20">
                             <TextBlock Text="Contact Number" Style="{StaticResource InputLabelStyle}"/>
                             <TextBox Style="{StaticResource InputFieldStyle}" Tag="Contact Number"
                                      Text="{Binding NewCustomer.PhoneNumber, Mode=TwoWay}" Height="30" Width="330" HorizontalAlignment="Left"/>
                         </StackPanel>
+
+                        <!-- Email -->
                         <StackPanel Grid.Row="1" Grid.Column="1" Margin="15,0,0,20">
                             <TextBlock Text="Email" Style="{StaticResource InputLabelStyle}"/>
                             <TextBox Style="{StaticResource InputFieldStyle}" Tag="Enter Email"
                                      Text="{Binding NewCustomer.Email, Mode=TwoWay}" Height="30" Width="330" HorizontalAlignment="Left" TextWrapping="Wrap"/>
                         </StackPanel>
 
+                        <!-- Address -->
                         <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,15,20">
                             <TextBlock Text="Address" Style="{StaticResource InputLabelStyle}"/>
                             <TextBox Style="{StaticResource InputFieldStyle}" TextWrapping="Wrap" AcceptsReturn="True"
+                                     Tag="Enter Address"
                                      VerticalScrollBarVisibility="Auto" Width="330"
                                      Text="{Binding NewCustomer.Address, Mode=TwoWay}" Height="30" HorizontalAlignment="Left"/>
                         </StackPanel>
+
+                        <!-- Visited Status -->
                         <StackPanel Grid.Row="2" Grid.Column="1" Margin="15,0,0,20">
                             <TextBlock Text="Visit Status" Style="{StaticResource InputLabelStyle}"/>
                             <ComboBox Style="{StaticResource InputComboBoxStyle}" Width="330"
@@ -207,6 +218,7 @@
                             </ComboBox>
                         </StackPanel>
 
+                        <!-- Project Confirmation -->
                         <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,0,15,20">
                             <TextBlock Text="Project Confirmation Status" Style="{StaticResource InputLabelStyle}"/>
                             <ComboBox Style="{StaticResource InputComboBoxStyle}" Width="330"
@@ -216,43 +228,54 @@
                                 <ComboBoxItem Content="Rejected"/>
                             </ComboBox>
                         </StackPanel>
+
+                        <!-- Quotation Status -->
                         <StackPanel Grid.Row="3" Grid.Column="1" Margin="15,0,0,20">
                             <TextBlock Text="Quotation Status" Style="{StaticResource InputLabelStyle}"/>
-                            <ComboBox Style="{StaticResource InputComboBoxStyle}" Width="330"
-                                     Text="{Binding NewCustomer.QuotationStatus, Mode=TwoWay}" Height="30" HorizontalAlignment="Left">
-                                <ComboBoxItem Content="Sent"/>
-                                <ComboBoxItem Content="Pending"/>
-                                <ComboBoxItem Content="Approved"/>
-                                <ComboBoxItem Content="Rejected"/>
-                            </ComboBox>
+                            <TextBox Style="{StaticResource InputFieldStyle}" 
+             Width="330" Height="30" 
+             HorizontalAlignment="Left"
+             Tag="Enter quotation status"
+             Text="{Binding NewCustomer.QuotationStatus, Mode=TwoWay}"/>
                         </StackPanel>
 
+
+                        <!-- Property Details -->
                         <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="0,0,0,20">
                             <TextBlock Text="Property Details" Style="{StaticResource InputLabelStyle}"/>
                             <TextBox Style="{StaticResource InputFieldStyle}" Height="30"
-                                     Text="{Binding NewCustomer.PropertyDetails, Mode=TwoWay}" Width="728" HorizontalAlignment="Left"/>
+                                     Tag="Enter Property Deteails"
+                                     Text="{Binding NewCustomer.Property_Details, Mode=TwoWay}" Width="728" HorizontalAlignment="Left"/>
                         </StackPanel>
 
+                        <!-- Project Start Date -->
                         <StackPanel Grid.Row="5" Grid.Column="0" Margin="0,0,15,20">
                             <TextBlock Text="Project Start Date" Style="{StaticResource InputLabelStyle}" HorizontalAlignment="Left"/>
-                            <DatePicker Width="365" SelectedDate="{Binding NewCustomer.ProjectStartDate, Mode=TwoWay}" Height="30"/>
-                        </StackPanel>
-                        <StackPanel Grid.Row="5" Grid.Column="1" Margin="15,0,0,20">
-                            <TextBlock Text="Expected Date of Completion" Style="{StaticResource InputLabelStyle}"/>
-                            <DatePicker Width="330" SelectedDate="{Binding NewCustomer.ExpectedCompletionDate, Mode=TwoWay}" Height="30"/>
+                            <DatePicker Width="365" SelectedDate="{Binding NewCustomer.Project_Start_Date, Mode=TwoWay}" Height="30"/>
+                            
                         </StackPanel>
 
+                        <!-- Expected Completion Date -->
+                        <StackPanel Grid.Row="5" Grid.Column="1" Margin="15,0,0,20">
+                            <TextBlock Text="Expected Date of Completion" Style="{StaticResource InputLabelStyle}"/>
+                            <DatePicker Width="330" SelectedDate="{Binding NewCustomer.Expected_Dateof_Completion, Mode=TwoWay}" Height="30"/>
+                        </StackPanel>
+
+                        <!-- Special Preferences -->
                         <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Margin="0,0,0,20">
                             <TextBlock Text="Special Preferences / Customization" Style="{StaticResource InputLabelStyle}"/>
                             <TextBox Style="{StaticResource InputFieldStyle}" Height="30" TextWrapping="Wrap" AcceptsReturn="True"
+                                     Tag="Enter Special Preferences or customizations"
                                      VerticalScrollBarVisibility="Auto"
-                                     Text="{Binding NewCustomer.SpecialPreferences, Mode=TwoWay}" Width="737" HorizontalAlignment="Left"/>
+                                     Text="{Binding NewCustomer.Special_Preferances, Mode=TwoWay}" Width="737" HorizontalAlignment="Left"/>
                         </StackPanel>
 
+                        <!-- Notes -->
                         <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Margin="0,0,0,20">
                             <TextBlock Text="Notes" Style="{StaticResource InputLabelStyle}" HorizontalAlignment="Left"/>
                             <TextBox Style="{StaticResource InputFieldStyle}" Height="35" Width="727" TextWrapping="Wrap" AcceptsReturn="True"
                                      VerticalScrollBarVisibility="Auto"
+                                     Tag="If any notes..."
                                      Text="{Binding NewCustomer.Notes, Mode=TwoWay}"/>
                         </StackPanel>
 
