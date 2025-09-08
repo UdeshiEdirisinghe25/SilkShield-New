@@ -171,7 +171,6 @@ namespace SilkShield_New.ViewModel
                         item.SelectedMaterial = null;
                     }
 
-                    // Automatically update the Measuring Unit
                     item.MeasuringUnit = await _invoiceDataService.GetMeasuringUnitAsync(item.ItemName);
                 }
                 else if (e.PropertyName == nameof(item.SelectedMaterial))
@@ -203,7 +202,10 @@ namespace SilkShield_New.ViewModel
 
         private void AddItem(object obj)
         {
-            var newItem = new SilkShield_New.Model.InvoiceItem();
+            var newItem = new SilkShield_New.Model.InvoiceItem
+            {
+                Quantity = 1 // Setting the default quantity to 1
+            };
             Items.Add(newItem);
         }
 
@@ -294,7 +296,7 @@ namespace SilkShield_New.ViewModel
             IsMotorizedChecked = false;
 
             Items.Clear();
-            Items.Add(new SilkShield_New.Model.InvoiceItem());
+            Items.Add(new SilkShield_New.Model.InvoiceItem { Quantity = 1 });
         }
 
         private async void LoadItemNamesFromDatabaseAsync()

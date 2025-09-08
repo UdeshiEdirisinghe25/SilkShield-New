@@ -6,7 +6,7 @@ using SilkShield_New.Model;
 using System.Linq;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using System.Threading.Tasks; // This is needed for async/await
+using System.Threading.Tasks;
 using SilkShield_New.Data;
 
 public class InvoiceDataService
@@ -21,10 +21,7 @@ public class InvoiceDataService
     public void AddInvoice(Invoice invoice)
     {
         // This is where your database saving logic will go.
-        // It's a placeholder for now, but the method is correctly defined.
     }
-
-    // New asynchronous methods to be used with 'await' in the ViewModel
 
     public async Task<List<string>> GetDistinctItemNamesAsync()
     {
@@ -45,8 +42,6 @@ public class InvoiceDataService
     {
         return await Task.Run(() => GetUnitPrice(itemName, material));
     }
-
-    // The original synchronous methods, now called by the async wrappers
 
     public string GetMeasuringUnit(string itemName)
     {
@@ -131,13 +126,31 @@ public class InvoiceDataService
             PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
             doc.Open();
 
-            doc.Add(new Paragraph("INVOICE", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 22)));
+            // Add invoice header details
+            doc.Add(new Paragraph("INVOICE", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 22, BaseColor.BLACK)));
             doc.Add(new Paragraph($"Invoice No: {invoice.InvoiceNumber}"));
             doc.Add(new Paragraph($"Date: {invoice.InvoiceDate:yyyy-MM-dd}"));
             doc.Add(new Paragraph($"Customer Name: {invoice.CustomerName}"));
             doc.Add(new Paragraph($"Location: {invoice.Location}"));
             doc.Add(Chunk.NEWLINE);
 
+            // Add the new properties related to the project
+            doc.Add(new Paragraph("Project Details", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.BLACK)));
+
+            // Extract the value from the ComboBoxItem before adding to the PDF
+            string buildingType = invoice.BuildingType?.ToString()?.Split(':')[1].Trim() ?? string.Empty;
+            string curtainLayerType = invoice.CurtainLayerType?.ToString()?.Split(':')[1].Trim() ?? string.Empty;
+            string curtainStyle = invoice.CurtainStyle?.ToString()?.Split(':')[1].Trim() ?? string.Empty;
+            string paymentMethod = invoice.PaymentMethod?.ToString()?.Split(':')[1].Trim() ?? string.Empty;
+
+            doc.Add(new Paragraph($"Building Type: {buildingType}"));
+            doc.Add(new Paragraph($"Curtain Layer Type: {curtainLayerType}"));
+            doc.Add(new Paragraph($"Curtain Style: {curtainStyle}"));
+            doc.Add(new Paragraph($"Pelmet Board: {(invoice.PelmetBoard ? "Yes" : "No")}"));
+            doc.Add(new Paragraph($"Motorized: {(invoice.Motorized ? "Yes" : "No")}"));
+            doc.Add(Chunk.NEWLINE);
+
+            // Add a table for invoice items
             PdfPTable table = new PdfPTable(4);
             table.WidthPercentage = 100;
             table.SetWidths(new float[] { 3, 1, 1, 1 });
@@ -157,11 +170,14 @@ public class InvoiceDataService
             doc.Add(table);
             doc.Add(Chunk.NEWLINE);
 
-            doc.Add(new Paragraph($"Subtotal: LKR {invoice.Items.Sum(i => i.Total):N2}", FontFactory.GetFont(FontFactory.HELVETICA_BOLD)));
+            // Add totals
+            double subTotal = invoice.Items.Sum(i => i.Total);
+            doc.Add(new Paragraph($"Subtotal: LKR {subTotal:N2}", FontFactory.GetFont(FontFactory.HELVETICA_BOLD)));
             doc.Add(new Paragraph($"Transport & Labor Cost: LKR {invoice.TransportLaborCost:N2}"));
             doc.Add(new Paragraph($"Discount: {invoice.Discount}%"));
             doc.Add(new Paragraph("----------------------------------------------------------"));
             doc.Add(new Paragraph($"Grand Total: LKR {invoice.GrandTotal:N2}", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14)));
+            doc.Add(new Paragraph($"Payment Method: {paymentMethod}"));
 
             doc.Close();
         }
