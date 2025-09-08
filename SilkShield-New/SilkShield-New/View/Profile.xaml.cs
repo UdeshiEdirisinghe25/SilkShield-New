@@ -180,6 +180,18 @@ namespace SilkShield_New.View
 
         #endregion
 
+        #region Navigation Methods
+
+        private void LogOutLabel_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            // Navigate to Login page
+            var loginWindow = new LoginPage(); 
+            loginWindow.Show();
+            this.Close();
+        }
+
+        #endregion
+
         #region Helper Methods
 
         private void UpdatePlaceholderVisibility(PasswordBox passwordBox)
