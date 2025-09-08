@@ -1,98 +1,93 @@
 using System.ComponentModel;
+using System.Collections.ObjectModel;
+using SilkShield_New.Data;
 
 namespace SilkShield_New.Model
 {
-    /// <summary>
-    /// A simple model for an item on the invoice. This class
-    /// implements INotifyPropertyChanged to enable data binding.
-    /// </summary>
     public class InvoiceItem : INotifyPropertyChanged
     {
-        private string _description;
+        private string _itemName;
+        private string _selectedMaterial;
+        private string _measuringUnit;
         private double _quantity;
         private double _unitPrice;
         private double _total;
-        private string _itemName;
-        private string _measuringUnit;
+
+        private ObservableCollection<string> _availableMaterials;
 
         public string ItemName
         {
             get => _itemName;
             set
             {
-                if (_itemName == value) return;
-                _itemName = value;
-                OnPropertyChanged(nameof(ItemName));
+                if (_itemName != value)
+                {
+                    _itemName = value;
+                    OnPropertyChanged(nameof(ItemName));
+                    LoadAvailableMaterials();
+                }
             }
         }
 
-        public string Description
+        public string SelectedMaterial
         {
-            get => _description;
-            set
-            {
-                if (_description == value) return;
-                _description = value;
-                OnPropertyChanged(nameof(Description));
-            }
+            get => _selectedMaterial;
+            set { _selectedMaterial = value; OnPropertyChanged(nameof(SelectedMaterial)); }
         }
 
         public string MeasuringUnit
         {
             get => _measuringUnit;
-            set
-            {
-                if (_measuringUnit == value) return;
-                _measuringUnit = value;
-                OnPropertyChanged(nameof(MeasuringUnit));
-            }
+            set { _measuringUnit = value; OnPropertyChanged(nameof(MeasuringUnit)); }
         }
 
         public double Quantity
         {
             get => _quantity;
-            set
-            {
-                if (_quantity == value) return;
-                _quantity = value;
-                OnPropertyChanged(nameof(Quantity));
-            }
+            set { _quantity = value; CalculateTotal(); OnPropertyChanged(nameof(Quantity)); }
         }
 
         public double UnitPrice
         {
             get => _unitPrice;
-            set
-            {
-                if (_unitPrice == value) return;
-                _unitPrice = value;
-                OnPropertyChanged(nameof(UnitPrice));
-            }
+            set { _unitPrice = value; CalculateTotal(); OnPropertyChanged(nameof(UnitPrice)); }
         }
 
         public double Total
         {
             get => _total;
-            private set
+            // The private setter is correct here.
+            private set { _total = value; OnPropertyChanged(nameof(Total)); }
+        }
+
+        public ObservableCollection<string> AvailableMaterials
+        {
+            get => _availableMaterials;
+            set
             {
-                if (_total == value) return;
-                _total = value;
-                OnPropertyChanged(nameof(Total));
+                _availableMaterials = value;
+                OnPropertyChanged(nameof(AvailableMaterials));
             }
         }
 
-        /// <summary>
-        /// Calculates the total for this invoice item based on Quantity and UnitPrice.
-        /// </summary>
-        public void CalculateTotal()
+        // --- FIXED ACCESS LEVEL ---
+        public void CalculateTotal() => Total = Quantity * UnitPrice;
+
+        private void LoadAvailableMaterials()
         {
-            Total = Quantity * UnitPrice;
+            if (!string.IsNullOrEmpty(ItemName))
+            {
+                var dataService = new InvoiceDataService();
+                AvailableMaterials = new ObservableCollection<string>(dataService.GetMaterialsByItemName(ItemName));
+            }
+            else
+            {
+                AvailableMaterials = new ObservableCollection<string>();
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
+        protected void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

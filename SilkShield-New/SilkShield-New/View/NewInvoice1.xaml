@@ -85,7 +85,8 @@
 
                         <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,20,0">
                             <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Invoice Number"/>
-                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding InvoiceNumber, Mode=TwoWay}"/>
+                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" 
+                 Text="{Binding InvoiceNumber, Mode=TwoWay}"/>
                         </StackPanel>
 
                         <StackPanel Grid.Row="0" Grid.Column="1" Margin="20,0,0,0">
@@ -93,20 +94,28 @@
                             <DatePicker Padding="8" SelectedDate="{Binding InvoiceDate, Mode=TwoWay}"/>
                         </StackPanel>
 
+                        <!-- 🟢 Combine Customer + Location in same column -->
                         <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,15,20,0">
                             <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Customer"/>
-                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1" Text="{Binding CustomerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1"
+                 Text="{Binding CustomerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <TextBlock Margin="0,15,0,5" Foreground="Black" Text="Location"/>
+                            <TextBox Padding="8" BorderBrush="#ccc" BorderThickness="1"
+                 Text="{Binding Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
                         <StackPanel Grid.Row="1" Grid.Column="1" Margin="20,15,0,0">
                             <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Building Type"/>
-                            <ComboBox Padding="8" BorderBrush="#ccc" BorderThickness="1" SelectedValue="{Binding BuildingType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBox Padding="8" BorderBrush="#ccc" BorderThickness="1"
+                  SelectedValue="{Binding BuildingType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <ComboBoxItem Content="House"/>
                                 <ComboBoxItem Content="Apartment"/>
                                 <ComboBoxItem Content="Commercial"/>
                             </ComboBox>
                         </StackPanel>
                     </Grid>
+
 
                     <StackPanel Grid.Row="1" Margin="0,7,0,0">
                         <DataGrid x:Name="ItemDataGrid"

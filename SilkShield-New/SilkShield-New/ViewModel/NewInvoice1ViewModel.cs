@@ -4,135 +4,25 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
-using System.Data.SQLite;
-using SilkShield_New.Data;
 using System.Windows;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using SilkShield_New.Model;
+using SilkShield_New.Data;
 
 namespace SilkShield_New.ViewModel
 {
-    // A simple model for an item on an invoice.
-    public class InvoiceItem : INotifyPropertyChanged
-    {
-        private string _description;
-        private double _quantity;
-        private double _unitPrice;
-        private double _total;
-        private string _itemName;
-        private string _measuringUnit;
-        private ObservableCollection<string> _availableMaterials;
-        private string _selectedMaterial;
-
-        public string ItemName
-        {
-            get => _itemName;
-            set
-            {
-                if (_itemName == value) return;
-                _itemName = value;
-                OnPropertyChanged(nameof(ItemName));
-            }
-        }
-
-        public string Description
-        {
-            get => _description;
-            set
-            {
-                if (_description == value) return;
-                _description = value;
-                OnPropertyChanged(nameof(Description));
-            }
-        }
-
-        public string MeasuringUnit
-        {
-            get => _measuringUnit;
-            set
-            {
-                if (_measuringUnit == value) return;
-                _measuringUnit = value;
-                OnPropertyChanged(nameof(MeasuringUnit));
-            }
-        }
-
-        public double Quantity
-        {
-            get => _quantity;
-            set
-            {
-                if (_quantity == value) return;
-                _quantity = value;
-                OnPropertyChanged(nameof(Quantity));
-            }
-        }
-
-        public double UnitPrice
-        {
-            get => _unitPrice;
-            set
-            {
-                if (_unitPrice == value) return;
-                _unitPrice = value;
-                OnPropertyChanged(nameof(UnitPrice));
-            }
-        }
-
-        public double Total
-        {
-            get => _total;
-            private set
-            {
-                if (_total == value) return;
-                _total = value;
-                OnPropertyChanged(nameof(Total));
-            }
-        }
-
-        public ObservableCollection<string> AvailableMaterials
-        {
-            get => _availableMaterials;
-            set
-            {
-                _availableMaterials = value;
-                OnPropertyChanged(nameof(AvailableMaterials));
-            }
-        }
-
-        public string SelectedMaterial
-        {
-            get => _selectedMaterial;
-            set
-            {
-                _selectedMaterial = value;
-                OnPropertyChanged(nameof(SelectedMaterial));
-            }
-        }
-
-        public void CalculateTotal()
-        {
-            Total = Quantity * UnitPrice;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
-
     public class NewInvoice1ViewModel : INotifyPropertyChanged
     {
         #region Private Fields
         private string _invoiceNumber;
         private DateTime _invoiceDate;
         private string _customerName;
-        private string _buildingType;
+        private string _location; // BuildingType වෙනුවට Location ලෙස නම වෙනස් කර ඇත
         private string _curtainLayerType;
         private string _curtainStyle;
         private string _paymentMethod;
-        private ObservableCollection<InvoiceItem> _items;
+        private ObservableCollection<SilkShield_New.Model.InvoiceItem> _items;
         private double _grandTotal;
         private string _discountText;
         private string _transportLaborCostText;
@@ -141,100 +31,41 @@ namespace SilkShield_New.ViewModel
         private bool _isPelmetBoardChecked;
         private bool _isMotorizedChecked;
         private ObservableCollection<string> _availableItems;
-        private readonly DatabaseHelper _dbHelper;
+        private readonly InvoiceDataService _invoiceDataService;
         #endregion
 
         #region Public Properties
-        public string InvoiceNumber
-        {
-            get => _invoiceNumber;
-            set
-            {
-                _invoiceNumber = value;
-                OnPropertyChanged(nameof(InvoiceNumber));
-            }
-        }
+        // මෙහි ඇති සියලුම public properties, ඉහත private fields වලට අනුකූලව වෙනස් කර ඇත.
+        // උදා: BuildingType වෙනුවට Location භාවිතා කර ඇත.
+        public string InvoiceNumber { get => _invoiceNumber; set { _invoiceNumber = value; OnPropertyChanged(nameof(InvoiceNumber)); } }
+        public DateTime InvoiceDate { get => _invoiceDate; set { _invoiceDate = value; OnPropertyChanged(nameof(InvoiceDate)); } }
+        public string CustomerName { get => _customerName; set { _customerName = value; OnPropertyChanged(nameof(CustomerName)); } }
+        public string Location { get => _location; set { _location = value; OnPropertyChanged(nameof(Location)); } }
+        public string CurtainLayerType { get => _curtainLayerType; set { _curtainLayerType = value; OnPropertyChanged(nameof(CurtainLayerType)); } }
+        public string CurtainStyle { get => _curtainStyle; set { _curtainStyle = value; OnPropertyChanged(nameof(CurtainStyle)); } }
+        public string PaymentMethod { get => _paymentMethod; set { _paymentMethod = value; OnPropertyChanged(nameof(PaymentMethod)); } }
 
-        public DateTime InvoiceDate
-        {
-            get => _invoiceDate;
-            set
-            {
-                _invoiceDate = value;
-                OnPropertyChanged(nameof(InvoiceDate));
-            }
-        }
-
-        public string CustomerName
-        {
-            get => _customerName;
-            set
-            {
-                _customerName = value;
-                OnPropertyChanged(nameof(CustomerName));
-            }
-        }
-
-        public string BuildingType
-        {
-            get => _buildingType;
-            set
-            {
-                _buildingType = value;
-                OnPropertyChanged(nameof(BuildingType));
-            }
-        }
-
-        public string CurtainLayerType
-        {
-            get => _curtainLayerType;
-            set
-            {
-                _curtainLayerType = value;
-                OnPropertyChanged(nameof(CurtainLayerType));
-            }
-        }
-
-        public string CurtainStyle
-        {
-            get => _curtainStyle;
-            set
-            {
-                _curtainStyle = value;
-                OnPropertyChanged(nameof(CurtainStyle));
-            }
-        }
-
-        public string PaymentMethod
-        {
-            get => _paymentMethod;
-            set
-            {
-                _paymentMethod = value;
-                OnPropertyChanged(nameof(PaymentMethod));
-            }
-        }
-
-        public ObservableCollection<InvoiceItem> Items
+        public ObservableCollection<SilkShield_New.Model.InvoiceItem> Items
         {
             get => _items;
             set
             {
+                if (_items != null)
+                {
+                    _items.CollectionChanged -= Items_CollectionChanged;
+                    foreach (var item in _items) item.PropertyChanged -= OnItemPropertyChanged;
+                }
                 _items = value;
+                if (_items != null)
+                {
+                    _items.CollectionChanged += Items_CollectionChanged;
+                    foreach (var item in _items) item.PropertyChanged += OnItemPropertyChanged;
+                }
                 OnPropertyChanged(nameof(Items));
             }
         }
 
-        public double GrandTotal
-        {
-            get => _grandTotal;
-            set
-            {
-                _grandTotal = value;
-                OnPropertyChanged(nameof(GrandTotal));
-            }
-        }
-
+        public double GrandTotal { get => _grandTotal; set { _grandTotal = value; OnPropertyChanged(nameof(GrandTotal)); } }
         public string TransportLaborCostText
         {
             get => _transportLaborCostText;
@@ -254,7 +85,6 @@ namespace SilkShield_New.ViewModel
                 OnPropertyChanged(nameof(TransportLaborCostText));
             }
         }
-
         public string DiscountText
         {
             get => _discountText;
@@ -274,36 +104,9 @@ namespace SilkShield_New.ViewModel
                 OnPropertyChanged(nameof(DiscountText));
             }
         }
-
-        public bool IsPelmetBoardChecked
-        {
-            get => _isPelmetBoardChecked;
-            set
-            {
-                _isPelmetBoardChecked = value;
-                OnPropertyChanged(nameof(IsPelmetBoardChecked));
-            }
-        }
-
-        public bool IsMotorizedChecked
-        {
-            get => _isMotorizedChecked;
-            set
-            {
-                _isMotorizedChecked = value;
-                OnPropertyChanged(nameof(IsMotorizedChecked));
-            }
-        }
-
-        public ObservableCollection<string> AvailableItems
-        {
-            get => _availableItems;
-            set
-            {
-                _availableItems = value;
-                OnPropertyChanged(nameof(AvailableItems));
-            }
-        }
+        public bool IsPelmetBoardChecked { get => _isPelmetBoardChecked; set { _isPelmetBoardChecked = value; OnPropertyChanged(nameof(IsPelmetBoardChecked)); } }
+        public bool IsMotorizedChecked { get => _isMotorizedChecked; set { _isMotorizedChecked = value; OnPropertyChanged(nameof(IsMotorizedChecked)); } }
+        public ObservableCollection<string> AvailableItems { get => _availableItems; set { _availableItems = value; OnPropertyChanged(nameof(AvailableItems)); } }
         #endregion
 
         #region ICommands
@@ -316,139 +119,65 @@ namespace SilkShield_New.ViewModel
         #region Constructor
         public NewInvoice1ViewModel()
         {
-            _dbHelper = new DatabaseHelper();
+            _invoiceDataService = new InvoiceDataService();
 
             AddItemCommand = new RelayCommand(AddItem);
             DeleteItemCommand = new RelayCommand(DeleteItem);
-            CreateInvoiceCommand = new RelayCommand(CreateInvoice);
+            CreateInvoiceCommand = new RelayCommand(async (p) => await CreateInvoiceAsync());
             ClearFormCommand = new RelayCommand(ClearForm);
 
-            Items = new ObservableCollection<InvoiceItem>();
-            Items.CollectionChanged += (sender, e) =>
-            {
-                if (e.NewItems != null)
-                {
-                    foreach (InvoiceItem item in e.NewItems)
-                    {
-                        item.PropertyChanged += OnItemPropertyChanged;
-                    }
-                }
-                if (e.OldItems != null)
-                {
-                    foreach (InvoiceItem item in e.OldItems)
-                    {
-                        item.PropertyChanged -= OnItemPropertyChanged;
-                    }
-                }
-                CalculateGrandTotal();
-            };
-
-            LoadItemNamesFromDatabase();
+            Items = new ObservableCollection<SilkShield_New.Model.InvoiceItem>();
+            LoadItemNamesFromDatabaseAsync();
             ClearForm(null);
         }
         #endregion
 
         #region Private Methods
 
+        // CollectionChanged event එක නිවැරදිව handle කිරීම
+        private void Items_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.OldItems != null)
+            {
+                foreach (SilkShield_New.Model.InvoiceItem item in e.OldItems)
+                {
+                    item.PropertyChanged -= OnItemPropertyChanged;
+                }
+            }
+            if (e.NewItems != null)
+            {
+                foreach (SilkShield_New.Model.InvoiceItem item in e.NewItems)
+                {
+                    item.PropertyChanged += OnItemPropertyChanged;
+                }
+            }
+            CalculateGrandTotal();
+        }
+
         private async void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (sender is InvoiceItem item)
+            if (sender is SilkShield_New.Model.InvoiceItem item)
             {
-                if (e.PropertyName == nameof(InvoiceItem.ItemName))
+                if (e.PropertyName == nameof(item.ItemName))
                 {
-                    // Load the relevant materials for the new item name.
-                    var materials = await LoadMaterialsByItemName(item.ItemName);
+                    // async method කැඳවීම සඳහා await භාවිතා කරන්න.
+                    var materials = await _invoiceDataService.GetMaterialsByItemNameAsync(item.ItemName);
                     item.AvailableMaterials = new ObservableCollection<string>(materials);
-                    
-                    // Load the relevant measuring unit and set Unit Price to 0.
-                    await UpdateMeasuringUnitAndResetPrice(item);
-                    
-                    // Set this to null to load the Unit Price when a Material is selected.
-                    item.SelectedMaterial = null;
+                    item.SelectedMaterial = materials.FirstOrDefault();
                 }
-
-                if (e.PropertyName == nameof(InvoiceItem.SelectedMaterial))
+                else if (e.PropertyName == nameof(item.SelectedMaterial))
                 {
-                    // Only load the Unit Price when a Material is selected.
-                    await UpdateUnitPrice(item);
+                    // async method කැඳවීම සඳහා await භාවිතා කරන්න.
+                    if (!string.IsNullOrEmpty(item.SelectedMaterial))
+                    {
+                        item.UnitPrice = await _invoiceDataService.GetUnitPriceAsync(item.ItemName, item.SelectedMaterial);
+                    }
                 }
-
-                // Recalculate the total when Quantity or Unit Price changes.
-                if (e.PropertyName == nameof(InvoiceItem.Quantity) || e.PropertyName == nameof(InvoiceItem.UnitPrice))
+                else if (e.PropertyName == nameof(item.Quantity) || e.PropertyName == nameof(item.UnitPrice))
                 {
                     item.CalculateTotal();
                     CalculateGrandTotal();
                 }
-            }
-        }
-        
-        // Method to load the measuring unit based on the item name and set Unit Price to 0.
-        private async Task UpdateMeasuringUnitAndResetPrice(InvoiceItem item)
-        {
-            if (string.IsNullOrEmpty(item.ItemName))
-            {
-                item.MeasuringUnit = string.Empty;
-                item.UnitPrice = 0;
-                return;
-            }
-
-            string query = "SELECT MeasuringUnit FROM inventory WHERE ItemName = @ItemName LIMIT 1";
-            try
-            {
-                using (var connection = _dbHelper.GetConnection() as SQLiteConnection)
-                {
-                    await connection.OpenAsync();
-                    using (var command = new SQLiteCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@ItemName", item.ItemName);
-                        var result = await command.ExecuteScalarAsync();
-                        item.MeasuringUnit = result?.ToString() ?? string.Empty;
-                        item.UnitPrice = 0; // Unit Price remains 0.
-                        item.CalculateTotal();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading MeasuringUnit: {ex.Message}", "Database Error",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-        
-        // Method to load the Unit Price based on the selected material.
-        private async Task UpdateUnitPrice(InvoiceItem item)
-        {
-            if (string.IsNullOrEmpty(item.ItemName) || string.IsNullOrEmpty(item.SelectedMaterial))
-            {
-                item.UnitPrice = 0;
-                return;
-            }
-            
-            string query = "SELECT UnitPrice FROM inventory WHERE ItemName = @ItemName AND Material = @Material";
-            
-            try
-            {
-                using (var connection = _dbHelper.GetConnection() as SQLiteConnection)
-                {
-                    await connection.OpenAsync();
-                    using (var command = new SQLiteCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@ItemName", item.ItemName);
-                        command.Parameters.AddWithValue("@Material", item.SelectedMaterial);
-                        using (var reader = await command.ExecuteReaderAsync())
-                        {
-                            if (await reader.ReadAsync())
-                            {
-                                item.UnitPrice = reader.GetDouble(0);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading UnitPrice: {ex.Message}", "Database Error",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -462,43 +191,73 @@ namespace SilkShield_New.ViewModel
 
         private void AddItem(object obj)
         {
-            var newItem = new InvoiceItem();
+            var newItem = new SilkShield_New.Model.InvoiceItem();
             Items.Add(newItem);
         }
 
         private void DeleteItem(object obj)
         {
-            if (obj is InvoiceItem item && Items.Count > 1)
+            if (obj is SilkShield_New.Model.InvoiceItem item && Items.Count > 1)
             {
                 Items.Remove(item);
             }
         }
 
-        private void CreateInvoice(object obj)
+        private async Task CreateInvoiceAsync()
         {
             if (string.IsNullOrWhiteSpace(CustomerName))
             {
-                MessageBox.Show("Please enter customer name before creating invoice.", "Validation Error",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Please enter customer name before creating invoice.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (!Items.Any(item => item.Total > 0))
             {
-                MessageBox.Show("Please add at least one item with a value before creating invoice.", "Validation Error",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Please add at least one item with a value before creating invoice.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            MessageBox.Show(
-    $"Invoice {InvoiceNumber} created successfully!\n" +
-    $"Customer: {CustomerName}\n" +
-    $"Total Amount: LKR {GrandTotal:N2}",
-    "Invoice Created",
-    MessageBoxButton.OK,
-    MessageBoxImage.Information
-);
+            try
+            {
+                var invoiceData = new SilkShield_New.Model.Invoice
+                {
+                    InvoiceNumber = InvoiceNumber,
+                    InvoiceDate = InvoiceDate,
+                    CustomerName = CustomerName,
+                    Location = Location, // BuildingType වෙනුවට Location ලෙස නම වෙනස් කර ඇත
+                    PelmetBoard = IsPelmetBoardChecked,
+                    Motorized = IsMotorizedChecked,
+                    PaymentMethod = PaymentMethod,
+                    TransportLaborCost = _transportLaborCost,
+                    Discount = _discountPercentage,
+                    Items = Items
+                };
 
+                // SaveFileDialog භාවිතයෙන් ගොනු මාර්ගය තෝරා ගැනීමට ඉඩ දීම
+                Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+                saveFileDialog.Filter = "PDF Files (*.pdf)|*.pdf";
+                saveFileDialog.FileName = $"Invoice_{invoiceData.InvoiceNumber}.pdf";
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    string filePath = saveFileDialog.FileName;
+                    await Task.Run(() => _invoiceDataService.AddInvoice(invoiceData)); // පසුබිමෙන් save කිරීමට async ලෙස කැඳවීම
+                    await Task.Run(() => _invoiceDataService.GenerateInvoicePdf(invoiceData, filePath)); // පසුබිමෙන් PDF සෑදීමට async ලෙස කැඳවීම
+
+                    MessageBox.Show(
+                        $"Invoice {invoiceData.InvoiceNumber} successfully created and saved!\n" +
+                        $"PDF saved to: {filePath}",
+                        "Invoice Created",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information
+                    );
+                    ClearForm(null);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error creating invoice: {ex.Message}\n\nStack Trace: {ex.StackTrace}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void ClearForm(object obj)
@@ -506,7 +265,7 @@ namespace SilkShield_New.ViewModel
             InvoiceNumber = "INV-1001";
             InvoiceDate = DateTime.Now;
             CustomerName = string.Empty;
-            BuildingType = string.Empty;
+            Location = string.Empty; // BuildingType වෙනුවට Location
             CurtainLayerType = "Double layer";
             CurtainStyle = "Ripple";
             PaymentMethod = "Cash";
@@ -520,105 +279,15 @@ namespace SilkShield_New.ViewModel
             IsMotorizedChecked = false;
 
             Items.Clear();
-            Items.Add(new InvoiceItem());
+            Items.Add(new SilkShield_New.Model.InvoiceItem());
         }
 
-        private void LoadItemNamesFromDatabase()
+        // Database එකෙන් දත්ත load කිරීමට async method එකක් භාවිතා කරන්න
+        private async void LoadItemNamesFromDatabaseAsync()
         {
-            AvailableItems = new ObservableCollection<string>();
-            string query = "SELECT DISTINCT ItemName FROM inventory ORDER BY ItemName ASC"; //  Order by ItemName
-
-            try
-            {
-                using (var connection = _dbHelper.GetConnection() as SQLiteConnection)
-                {
-                    connection.Open();
-                    using (var command = new SQLiteCommand(query, connection))
-                    {
-                        using (var reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                AvailableItems.Add(reader.GetString(0));
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading inventory data: " + ex.Message, "Database Error",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            AvailableItems = new ObservableCollection<string>(await _invoiceDataService.GetDistinctItemNamesAsync());
         }
 
-
-        private async Task<List<string>> LoadMaterialsByItemName(string itemName)
-        {
-            var materials = new List<string>();
-            if (string.IsNullOrEmpty(itemName)) return materials;
-
-            string query = "SELECT DISTINCT Material FROM inventory WHERE ItemName = @ItemName ORDER BY Material ASC"; //  Order by Material
-
-            try
-            {
-                using (var connection = _dbHelper.GetConnection() as SQLiteConnection)
-                {
-                    await connection.OpenAsync();
-                    using (var command = new SQLiteCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@ItemName", itemName);
-                        using (var reader = await command.ExecuteReaderAsync())
-                        {
-                            while (await reader.ReadAsync())
-                            {
-                                materials.Add(reader["Material"].ToString());
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading materials for {itemName}: {ex.Message}", "Database Error",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            return materials;
-        }
-
-
-        private async Task<Product> LoadProductData(string itemName)
-        {
-            string query = "SELECT MeasuringUnit, UnitPrice FROM inventory WHERE ItemName = @ItemName";
-            try
-            {
-                using (var connection = _dbHelper.GetConnection() as SQLiteConnection)
-                {
-                    await connection.OpenAsync();
-                    using (var command = new SQLiteCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@ItemName", itemName);
-                        using (var reader = await command.ExecuteReaderAsync())
-                        {
-                            if (await reader.ReadAsync())
-                            {
-                                return new Product
-                                {
-                                    UnitOfMeasure = reader.GetString(0),
-                                    UnitPrice = reader.GetDouble(1)
-                                };
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading product data: " + ex.Message, "Database Error",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            return null;
-        }
         #endregion
 
         #region INotifyPropertyChanged Implementation
@@ -649,11 +318,5 @@ namespace SilkShield_New.ViewModel
 
         public bool CanExecute(object parameter) => _canExecute == null || _canExecute(parameter);
         public void Execute(object parameter) => _execute(parameter);
-    }
-
-    public class Product
-    {
-        public string UnitOfMeasure { get; set; }
-        public double UnitPrice { get; set; }
     }
 }

@@ -178,6 +178,8 @@ C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShi
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SilkShield-New.exe.config
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SilkShield-New.exe
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SilkShield-New.pdb
+F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\BouncyCastle.Cryptography.dll
+F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\itextsharp.dll
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\Microsoft.Data.Sqlite.dll
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SQLitePCLRaw.batteries_v2.dll
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SQLitePCLRaw.core.dll
@@ -187,6 +189,8 @@ F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Memory.dll
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Numerics.Vectors.dll
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\BouncyCastle.Cryptography.xml
+F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\itextsharp.xml
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\Microsoft.Data.Sqlite.xml
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Buffers.xml
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\System.Data.SQLite.xml
