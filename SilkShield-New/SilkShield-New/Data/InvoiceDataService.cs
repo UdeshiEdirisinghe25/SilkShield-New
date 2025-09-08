@@ -123,7 +123,21 @@ public class InvoiceDataService
         Document doc = new Document(PageSize.A4, 25, 25, 30, 30);
         try
         {
-            PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
+            // Get the path to the executable's directory
+            string appPath = AppDomain.CurrentDomain.BaseDirectory;
+
+            // Construct the full path to the image file inside the Resources folder
+            string backgroundImagePath = Path.Combine(appPath, "Resources", "InvoiceBack.jpg");
+
+            // Make sure the image file exists
+            if (!File.Exists(backgroundImagePath))
+            {
+                throw new FileNotFoundException("Background image file 'InvoiceBack.jpg' not found in the Resources folder.", backgroundImagePath);
+            }
+
+            PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
+            writer.PageEvent = new ImageBackgroundEventHandler(backgroundImagePath);
+
             doc.Open();
 
             // Add invoice header details
@@ -137,7 +151,6 @@ public class InvoiceDataService
             // Add the new properties related to the project
             doc.Add(new Paragraph("Project Details", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.BLACK)));
 
-            // Extract the value from the ComboBoxItem before adding to the PDF
             string buildingType = invoice.BuildingType?.ToString()?.Split(':')[1].Trim() ?? string.Empty;
             string curtainLayerType = invoice.CurtainLayerType?.ToString()?.Split(':')[1].Trim() ?? string.Empty;
             string curtainStyle = invoice.CurtainStyle?.ToString()?.Split(':')[1].Trim() ?? string.Empty;

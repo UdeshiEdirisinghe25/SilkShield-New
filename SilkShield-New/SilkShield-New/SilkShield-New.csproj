@@ -96,6 +96,7 @@
     <Compile Include="Data\InvoiceDataService.cs" />
     <Compile Include="Data\PdfService.cs" />
     <Compile Include="Data\Product.cs" />
+    <Compile Include="ImageBackgroundEventHandler.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\Invoice.cs" />
     <Compile Include="Model\InvoiceItem.cs" />
@@ -179,7 +180,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\InvoiceBack.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
