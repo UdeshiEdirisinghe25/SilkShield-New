@@ -1,9 +1,8 @@
-﻿// File: Customer.cs
+﻿
 namespace SilkShield_New.Model
 {
     public class Customer
     {
-
         public int CustomerID { get; set; }
         public string CustomerType { get; set; }
         public string VisitedStatus { get; set; }
@@ -15,8 +14,13 @@ namespace SilkShield_New.Model
         public string QuotationStatus { get; set; }
         public string Property_Details { get; set; }
         public string Project_Start_Date { get; set; }
-        public string Expected_Dateof_Completion { get;set; }
+        public string Expected_Dateof_Completion { get; set; }
+        public string Special_Preferances { get; set; }   
         public string Notes { get; set; }
+        public string ContactDetails => PhoneNumber;
+        public string PropertyType => CustomerType;
+
+
 
     }
 }

@@ -19,7 +19,6 @@
                             <ColumnDefinition Width="160"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-
                         <TextBlock Text="Customer Name:" FontWeight="SemiBold"/>
                         <TextBlock Grid.Column="1" Text="{Binding CustomerName}" FontSize="13"/>
                     </Grid>
@@ -29,7 +28,7 @@
                             <ColumnDefinition Width="160"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Customer Type:" FontWeight="SemiBold"/>
+                        <TextBlock Text="Property Type:" FontWeight="SemiBold"/>
                         <TextBlock Grid.Column="1" Text="{Binding CustomerType}" FontSize="13"/>
                     </Grid>
 
@@ -39,7 +38,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Phone:" FontWeight="SemiBold"/>
-                        <TextBlock Grid.Column="1" Text="{Binding Phone}" FontSize="13"/>
+                        <TextBlock Grid.Column="1" Text="{Binding PhoneNumber}" FontSize="13"/>
                     </Grid>
 
                     <Grid Margin="0,3,0,0">
@@ -73,7 +72,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Visit Status:" FontWeight="SemiBold"/>
-                        <TextBlock Grid.Column="1" Text="{Binding VisitStatus}" Foreground="Green" FontSize="13"/>
+                        <TextBlock Grid.Column="1" Text="{Binding VisitedStatus}" Foreground="Green" FontSize="13"/>
                     </Grid>
 
                     <Grid Margin="0,3,0,0">
@@ -100,7 +99,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Project Start Date:" FontWeight="SemiBold"/>
-                        <TextBlock Grid.Column="1" Text="{Binding StartDate}" FontSize="13"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Project_Start_Date}" FontSize="13"/>
                     </Grid>
 
                     <Grid Margin="0,3,0,0">
@@ -109,7 +108,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Expected Completion:" FontWeight="SemiBold"/>
-                        <TextBlock Grid.Column="1" Text="{Binding CompletionDate}" FontSize="13"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Expected_Dateof_Completion}" FontSize="13"/>
                     </Grid>
                 </StackPanel>
             </Border>
@@ -124,8 +123,8 @@
                             <ColumnDefinition Width="160"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Project Type:" FontWeight="SemiBold"/>
-                        <TextBlock Grid.Column="1" Text="{Binding ProjectType}" FontSize="13"/>
+                        <TextBlock Text="Property Details:" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Property_Details}" FontSize="13"/>
                     </Grid>
 
                     <Grid Margin="0,3,0,0">
@@ -133,11 +132,21 @@
                             <ColumnDefinition Width="160"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Description:" FontWeight="SemiBold"/>
-                        <TextBlock Grid.Column="1" Text="{Binding Description}" TextWrapping="Wrap" FontSize="13"/>
+                        <TextBlock Text="Special Preferences:" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Special_Preferances}" TextWrapping="Wrap" FontSize="13"/>
+                    </Grid>
+
+                    <Grid Margin="0,3,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Notes:" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Notes}" TextWrapping="Wrap" FontSize="13"/>
                     </Grid>
                 </StackPanel>
             </Border>
+
         </StackPanel>
     </ScrollViewer>
 </UserControl>

@@ -56,7 +56,7 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0">
-                    <TextBlock Text="Search Customers"
+                    <TextBlock Text="Search Customers By Name"
                                FontSize="18"
                                FontWeight="Bold"
                                Foreground="Black"
@@ -81,17 +81,20 @@
                                   Fill="Gray"
                                   VerticalAlignment="Center"
                                   Margin="8,0,5,0"
-                                  Height="15" Width="15"/>
+                                  Height="15" Stretch="Fill"/>
 
-                            <TextBox Grid.Column="1"
-                                     Name="txtSearch"
-                                     BorderThickness="0"
-                                     Background="Transparent"
-                                     VerticalContentAlignment="Center"
-                                     Foreground="Gray"
-                                     FontSize="13"
-                                     Padding="2"
-                                     Text="Search by customer name or email..."/>
+                                       <TextBox Grid.Column="1"
+                                             Name="txtSearch"
+                                             BorderThickness="0"
+                                             Background="Transparent"
+                                             VerticalContentAlignment="Center"
+                                             Foreground="Gray"
+                                             FontSize="13"
+                                             Padding="2"
+                                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+         />
+
+
                         </Grid>
                     </Border>
                 </StackPanel>
@@ -100,7 +103,7 @@
 
         <!-- DataGrid Section -->
         <DataGrid Grid.Row="2"
-                  ItemsSource="{Binding Customers}"
+                  ItemsSource="{Binding CustomersView}"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
                   IsReadOnly="True"
@@ -116,20 +119,22 @@
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
                   PreviewMouseWheel="DataGrid_PreviewMouseWheel">
 
+
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Customer Name" Binding="{Binding CustomerName}" Width="200"/>
                 <DataGridTextColumn Header="Contact Details" Binding="{Binding ContactDetails}" Width="200"/>
-                <DataGridTextColumn Header="Address" Binding="{Binding Address}" Width="200"/>
-                <!-- Invoice Number column removed -->
-                <DataGridTextColumn Header="Property Type" Binding="{Binding PropertyType}" Width="150"/>
+                <DataGridTextColumn Header="Property Type" Binding="{Binding CustomerType}" Width="150"/>
                 <DataGridTextColumn Header="Visited/ Not Visited" Binding="{Binding VisitedStatus}" Width="150"/>
-                <DataGridTextColumn Header="Property Details" Binding="{Binding PropertyDetails}" Width="200"/>
+                <DataGridTextColumn Header="Property Details" Binding="{Binding Property_Details}" Width="200"/>
                 <DataGridTextColumn Header="Quotations" Binding="{Binding QuotationStatus}" Width="200"/>
                 <DataGridTextColumn Header="Project Confirmation" Binding="{Binding ProjectConfirmation}" Width="150"/>
-                <DataGridTextColumn Header="Project Start Date" Binding="{Binding ProjectStartDate}" Width="150"/>
-                <DataGridTextColumn Header="Expected Date of Completion" Binding="{Binding ExpectedCompletionDate}" Width="200"/>
-                <DataGridTextColumn Header="Special Preferences/ Customizations" Binding="{Binding SpecialPreferences}" Width="250"/>
+                <DataGridTextColumn Header="Project Start Date" Binding="{Binding Project_Start_Date}" Width="150"/>
+                <DataGridTextColumn Header="Expected Date of Completion" Binding="{Binding Expected_Dateof_Completion}" Width="200"/>
+                <DataGridTextColumn Header="Special Preferences/ Customizations" Binding="{Binding Special_Preferances}" Width="250"/>
                 <DataGridTextColumn Header="Notes" Binding="{Binding Notes}" Width="200"/>
+
+
+
 
                 <!-- Action Column -->
                 <DataGridTemplateColumn Header="Action" Width="150">

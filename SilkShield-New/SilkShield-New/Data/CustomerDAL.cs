@@ -23,13 +23,15 @@ namespace SilkShield_New.Data
                     connection.Open();
 
                     string sql = @"
-                        INSERT INTO customer_details (
-                            CustomerType, VisitedStatus, CustomerName, Address, 
-                            ProjectConfirmation, Email, PhoneNumber, QuotationStatus
-                        ) VALUES (
-                            @CustomerType, @VisitedStatus, @CustomerName, @Address,
-                            @ProjectConfirmation, @Email, @PhoneNumber, @QuotationStatus
-                        )";
+                INSERT INTO customer_details (
+                    CustomerType, VisitedStatus, CustomerName, Address, 
+                    ProjectConfirmation, Email, PhoneNumber, QuotationStatus,
+                    Property_Details, Project_Start_Date, Expected_Dateof_Completion, Special_Preferances, Notes
+                ) VALUES (
+                    @CustomerType, @VisitedStatus, @CustomerName, @Address,
+                    @ProjectConfirmation, @Email, @PhoneNumber, @QuotationStatus,
+                    @Property_Details, @Project_Start_Date, @Expected_Dateof_Completion, @Special_Preferances, @Notes
+                )";
 
                     using (SQLiteCommand command = new SQLiteCommand(sql, connection))
                     {
@@ -41,6 +43,11 @@ namespace SilkShield_New.Data
                         command.Parameters.AddWithValue("@Email", customer.Email);
                         command.Parameters.AddWithValue("@PhoneNumber", customer.PhoneNumber);
                         command.Parameters.AddWithValue("@QuotationStatus", customer.QuotationStatus);
+                        command.Parameters.AddWithValue("@Property_Details", customer.Property_Details);
+                        command.Parameters.AddWithValue("@Project_Start_Date", customer.Project_Start_Date);
+                        command.Parameters.AddWithValue("@Expected_Dateof_Completion", customer.Expected_Dateof_Completion);
+                        command.Parameters.AddWithValue("@Special_Preferances", customer.Special_Preferances);
+                        command.Parameters.AddWithValue("@Notes", customer.Notes);
 
                         int rowsAffected = command.ExecuteNonQuery();
                         return rowsAffected > 0;
@@ -53,6 +60,7 @@ namespace SilkShield_New.Data
                 }
             }
         }
+
 
         public List<Customer> GetAllCustomers()
         {
@@ -72,7 +80,7 @@ namespace SilkShield_New.Data
                             {
                                 customers.Add(new Customer
                                 {
-                                    CustomerID = Convert.ToInt32(reader["CustomerID"]), // <-- FIXED
+                                    CustomerID = Convert.ToInt32(reader["CustomerID"]),
                                     CustomerName = reader["CustomerName"].ToString(),
                                     CustomerType = reader["CustomerType"].ToString(),
                                     PhoneNumber = reader["PhoneNumber"].ToString(),
@@ -80,7 +88,12 @@ namespace SilkShield_New.Data
                                     Address = reader["Address"].ToString(),
                                     VisitedStatus = reader["VisitedStatus"].ToString(),
                                     ProjectConfirmation = reader["ProjectConfirmation"].ToString(),
-                                    QuotationStatus = reader["QuotationStatus"].ToString()
+                                    QuotationStatus = reader["QuotationStatus"].ToString(),
+                                    Property_Details = reader["Property_Details"].ToString(),
+                                    Project_Start_Date = reader["Project_Start_Date"].ToString(),
+                                    Expected_Dateof_Completion = reader["Expected_Dateof_Completion"].ToString(),
+                                    Special_Preferances = reader["Special_Preferances"].ToString(),
+                                    Notes = reader["Notes"].ToString()
                                 });
                             }
                         }
@@ -94,10 +107,6 @@ namespace SilkShield_New.Data
 
             return customers;
         }
-
-
-        /// <param name="customerId">The ID of the customer to delete.</param>
-        /// <returns>True if the customer was successfully deleted, otherwise false.</returns>
 
         public void DeleteCustomer(int customerId)
         {
@@ -116,10 +125,9 @@ namespace SilkShield_New.Data
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error deleting customer: {ex.Message}");
-                    throw; // optional: rethrow to show in UI
+                    throw;
                 }
             }
         }
-
     }
 }
