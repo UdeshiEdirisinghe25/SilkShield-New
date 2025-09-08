@@ -314,18 +314,19 @@ namespace SilkShield_New.ViewModel
 
                 if (isUpdated)
                 {
-
                     ValidationMessage = "Profile updated successfully!";
+
+                    // Clear password fields FIRST - this will trigger UI updates through PropertyChanged
+                    CurrentPassword = "";
+                    NewPassword = "";
+                    ConfirmNewPassword = "";
 
                     // Show success message
                     MessageBox.Show("Profile updated successfully!", "Success",
                                    MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    // Clear password fields
-                    CurrentPassword = "";
-                    NewPassword = "";
-                    ConfirmNewPassword = "";
-
+                    // Clear validation message after successful operation
+                    ValidationMessage = "";
                 }
                 else
                 {

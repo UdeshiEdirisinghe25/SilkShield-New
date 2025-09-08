@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using SilkShield_New.ViewModel;
@@ -19,6 +20,12 @@ namespace SilkShield_New.View
         {
             InitializeComponent();
             _viewModel = DataContext as ProfileViewModel;
+
+            // Subscribe to ViewModel property changes to clear UI
+            if (_viewModel != null)
+            {
+                _viewModel.PropertyChanged += ViewModel_PropertyChanged;
+            }
 
             // Password box event handlers for eye button functionality
             CurrentPasswordBox.PasswordChanged += (s, e) =>
@@ -69,6 +76,36 @@ namespace SilkShield_New.View
             RepeatNewPasswordBox.GotFocus += (s, e) => UpdatePlaceholderVisibility(RepeatNewPasswordBox);
             RepeatNewPasswordBox.LostFocus += (s, e) => UpdatePlaceholderVisibility(RepeatNewPasswordBox);
         }
+
+        #region ViewModel Property Changed Handler
+
+        private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            // Clear UI controls when ViewModel properties are cleared
+            if (e.PropertyName == nameof(_viewModel.CurrentPassword) && string.IsNullOrEmpty(_viewModel.CurrentPassword))
+            {
+                // Clear both PasswordBox and TextBox
+                CurrentPasswordBox.Password = "";
+                CurrentPasswordTextBox.Text = "";
+                UpdatePlaceholderVisibility(CurrentPasswordBox);
+            }
+            else if (e.PropertyName == nameof(_viewModel.NewPassword) && string.IsNullOrEmpty(_viewModel.NewPassword))
+            {
+                // Clear both PasswordBox and TextBox
+                NewPasswordBox.Password = "";
+                NewPasswordTextBox.Text = "";
+                UpdatePlaceholderVisibility(NewPasswordBox);
+            }
+            else if (e.PropertyName == nameof(_viewModel.ConfirmNewPassword) && string.IsNullOrEmpty(_viewModel.ConfirmNewPassword))
+            {
+                // Clear both PasswordBox and TextBox
+                RepeatNewPasswordBox.Password = "";
+                RepeatNewPasswordTextBox.Text = "";
+                UpdatePlaceholderVisibility(RepeatNewPasswordBox);
+            }
+        }
+
+        #endregion
 
         #region Password Visibility Toggle Methods
 
@@ -170,6 +207,9 @@ namespace SilkShield_New.View
         {
             if (_viewModel != null)
             {
+                // Unsubscribe from events
+                _viewModel.PropertyChanged -= ViewModel_PropertyChanged;
+
                 // Clear sensitive data
                 _viewModel.CurrentPassword = "";
                 _viewModel.NewPassword = "";
