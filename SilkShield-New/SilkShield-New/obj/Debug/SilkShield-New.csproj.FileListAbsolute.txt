@@ -266,3 +266,4 @@ D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShi
 D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShie.D00486D6.Up2Date
 D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.exe
 D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.pdb
+D:\SILKSHIELD_NEW\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\GeneratedInternalTypeHelper.g.cs

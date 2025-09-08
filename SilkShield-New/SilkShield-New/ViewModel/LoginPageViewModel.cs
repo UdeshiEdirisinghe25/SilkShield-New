@@ -43,7 +43,7 @@ namespace SilkShield_New.ViewModel
 
         public LoginPageViewModel()
         {
-            LoginCommand = new RelayCommand(Login, CanLogin);
+            LoginCommand = new CustomCommand(Login, CanLogin);
         }
 
         private void Login(object parameter)
