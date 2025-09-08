@@ -18,7 +18,8 @@ namespace SilkShield_New.ViewModel
         private string _invoiceNumber;
         private DateTime _invoiceDate;
         private string _customerName;
-        private string _location; // BuildingType වෙනුවට Location ලෙස නම වෙනස් කර ඇත
+        private string _location;
+        private string _buildingType;
         private string _curtainLayerType;
         private string _curtainStyle;
         private string _paymentMethod;
@@ -35,12 +36,11 @@ namespace SilkShield_New.ViewModel
         #endregion
 
         #region Public Properties
-        // මෙහි ඇති සියලුම public properties, ඉහත private fields වලට අනුකූලව වෙනස් කර ඇත.
-        // උදා: BuildingType වෙනුවට Location භාවිතා කර ඇත.
         public string InvoiceNumber { get => _invoiceNumber; set { _invoiceNumber = value; OnPropertyChanged(nameof(InvoiceNumber)); } }
         public DateTime InvoiceDate { get => _invoiceDate; set { _invoiceDate = value; OnPropertyChanged(nameof(InvoiceDate)); } }
         public string CustomerName { get => _customerName; set { _customerName = value; OnPropertyChanged(nameof(CustomerName)); } }
         public string Location { get => _location; set { _location = value; OnPropertyChanged(nameof(Location)); } }
+        public string BuildingType { get => _buildingType; set { _buildingType = value; OnPropertyChanged(nameof(BuildingType)); } }
         public string CurtainLayerType { get => _curtainLayerType; set { _curtainLayerType = value; OnPropertyChanged(nameof(CurtainLayerType)); } }
         public string CurtainStyle { get => _curtainStyle; set { _curtainStyle = value; OnPropertyChanged(nameof(CurtainStyle)); } }
         public string PaymentMethod { get => _paymentMethod; set { _paymentMethod = value; OnPropertyChanged(nameof(PaymentMethod)); } }
@@ -134,7 +134,6 @@ namespace SilkShield_New.ViewModel
 
         #region Private Methods
 
-        // CollectionChanged event එක නිවැරදිව handle කිරීම
         private void Items_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (e.OldItems != null)
@@ -160,17 +159,30 @@ namespace SilkShield_New.ViewModel
             {
                 if (e.PropertyName == nameof(item.ItemName))
                 {
-                    // async method කැඳවීම සඳහා await භාවිතා කරන්න.
                     var materials = await _invoiceDataService.GetMaterialsByItemNameAsync(item.ItemName);
                     item.AvailableMaterials = new ObservableCollection<string>(materials);
-                    item.SelectedMaterial = materials.FirstOrDefault();
+
+                    if (materials.Any())
+                    {
+                        item.SelectedMaterial = materials.First();
+                    }
+                    else
+                    {
+                        item.SelectedMaterial = null;
+                    }
+
+                    // Automatically update the Measuring Unit
+                    item.MeasuringUnit = await _invoiceDataService.GetMeasuringUnitAsync(item.ItemName);
                 }
                 else if (e.PropertyName == nameof(item.SelectedMaterial))
                 {
-                    // async method කැඳවීම සඳහා await භාවිතා කරන්න.
                     if (!string.IsNullOrEmpty(item.SelectedMaterial))
                     {
                         item.UnitPrice = await _invoiceDataService.GetUnitPriceAsync(item.ItemName, item.SelectedMaterial);
+                    }
+                    else
+                    {
+                        item.UnitPrice = 0;
                     }
                 }
                 else if (e.PropertyName == nameof(item.Quantity) || e.PropertyName == nameof(item.UnitPrice))
@@ -224,7 +236,10 @@ namespace SilkShield_New.ViewModel
                     InvoiceNumber = InvoiceNumber,
                     InvoiceDate = InvoiceDate,
                     CustomerName = CustomerName,
-                    Location = Location, // BuildingType වෙනුවට Location ලෙස නම වෙනස් කර ඇත
+                    Location = Location,
+                    BuildingType = BuildingType,
+                    CurtainLayerType = CurtainLayerType,
+                    CurtainStyle = CurtainStyle,
                     PelmetBoard = IsPelmetBoardChecked,
                     Motorized = IsMotorizedChecked,
                     PaymentMethod = PaymentMethod,
@@ -233,7 +248,6 @@ namespace SilkShield_New.ViewModel
                     Items = Items
                 };
 
-                // SaveFileDialog භාවිතයෙන් ගොනු මාර්ගය තෝරා ගැනීමට ඉඩ දීම
                 Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
                 saveFileDialog.Filter = "PDF Files (*.pdf)|*.pdf";
                 saveFileDialog.FileName = $"Invoice_{invoiceData.InvoiceNumber}.pdf";
@@ -241,8 +255,8 @@ namespace SilkShield_New.ViewModel
                 if (saveFileDialog.ShowDialog() == true)
                 {
                     string filePath = saveFileDialog.FileName;
-                    await Task.Run(() => _invoiceDataService.AddInvoice(invoiceData)); // පසුබිමෙන් save කිරීමට async ලෙස කැඳවීම
-                    await Task.Run(() => _invoiceDataService.GenerateInvoicePdf(invoiceData, filePath)); // පසුබිමෙන් PDF සෑදීමට async ලෙස කැඳවීම
+                    await Task.Run(() => _invoiceDataService.AddInvoice(invoiceData));
+                    await Task.Run(() => _invoiceDataService.GenerateInvoicePdf(invoiceData, filePath));
 
                     MessageBox.Show(
                         $"Invoice {invoiceData.InvoiceNumber} successfully created and saved!\n" +
@@ -265,7 +279,8 @@ namespace SilkShield_New.ViewModel
             InvoiceNumber = "INV-1001";
             InvoiceDate = DateTime.Now;
             CustomerName = string.Empty;
-            Location = string.Empty; // BuildingType වෙනුවට Location
+            Location = string.Empty;
+            BuildingType = string.Empty;
             CurtainLayerType = "Double layer";
             CurtainStyle = "Ripple";
             PaymentMethod = "Cash";
@@ -282,7 +297,6 @@ namespace SilkShield_New.ViewModel
             Items.Add(new SilkShield_New.Model.InvoiceItem());
         }
 
-        // Database එකෙන් දත්ත load කිරීමට async method එකක් භාවිතා කරන්න
         private async void LoadItemNamesFromDatabaseAsync()
         {
             AvailableItems = new ObservableCollection<string>(await _invoiceDataService.GetDistinctItemNamesAsync());

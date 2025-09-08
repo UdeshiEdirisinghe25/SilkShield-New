@@ -12,6 +12,8 @@ namespace SilkShield_New.Model
         public string CustomerName { get; set; }
         public string Location { get; set; }
         public string BuildingType { get; set; }
+        public string CurtainLayerType { get; set; }
+        public string CurtainStyle { get; set; }
         public bool PelmetBoard { get; set; }
         public bool Motorized { get; set; }
         public string PaymentMethod { get; set; }
