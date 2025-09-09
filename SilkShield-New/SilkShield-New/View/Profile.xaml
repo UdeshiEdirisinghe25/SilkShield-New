@@ -127,7 +127,7 @@
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Images/Back.PNG"/>
+            <ImageBrush ImageSource="/images/Back.PNG"/>
         </Grid.Background>
 
         <!-- Loading Indicator -->

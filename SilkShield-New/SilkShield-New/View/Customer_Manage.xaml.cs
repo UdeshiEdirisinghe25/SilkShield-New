@@ -1,5 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using SilkShield_New.Model;
+using SilkShield_New.ViewModel;
 
 namespace SilkShield_New.View
 {
@@ -8,20 +11,27 @@ namespace SilkShield_New.View
         public Customer_Manage()
         {
             InitializeComponent();
-            LoadCustomers();
+            this.DataContext = new Customer_ManageViewModel();
         }
 
-        private void LoadCustomers()
+
+
+        private void DataGrid_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            
+            if (!e.Handled)
+            {
+                e.Handled = true;
+                var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
+                {
+                    RoutedEvent = UIElement.MouseWheelEvent,
+                    Source = sender
+                };
+
+                var parent = ((Control)sender).Parent as UIElement;
+                parent?.RaiseEvent(eventArg);
+            }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var mainWindow = (MainWindow)Application.Current.MainWindow;
-
-            // Replace content with AddNewCustomer view
-            mainWindow.MainContentArea.Content = new AddNewCustomer();
-        }
+       
     }
 }

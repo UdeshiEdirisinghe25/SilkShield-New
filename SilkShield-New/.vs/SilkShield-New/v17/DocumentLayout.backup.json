@@ -1,38 +1,69 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\",
+  "WorkspaceRootPath": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\silkshield-new\\view\\profile.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\profile.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|e:\\silkshield\\silkshield-new\\silkshield-new\\silkshield-new\\view\\customer_manage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\customer_manage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\silkshield-new\\view\\loginpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\loginpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\view\\dashboardwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\dashboardwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\silkshield-new\\view\\profile.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\profile.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\viewmodel\\customer_manageviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\viewmodel\\customer_manageviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|d:\\silkshield_new\\silkshield-new\\silkshield-new\\silkshield-new\\viewmodel\\profileviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\viewmodel\\profileviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\view\\addnewcustomer.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\addnewcustomer.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\silkshield-new\\viewmodel\\loginpageviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\viewmodel\\loginpageviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\viewmodel\\addnewcustomerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\viewmodel\\addnewcustomerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\silkshield-new\\data\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\data\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\model\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\model\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\silkshield-new\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\data\\customerdal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\data\\customerdal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\silkshield-new\\view\\loginpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\loginpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\viewmodel\\loginpageviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\viewmodel\\loginpageviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\view\\profile.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\profile.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\silkshield-new\\view\\profile.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\profile.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ASUS\\AppData\\Local\\Temp\\.vsdbgsrc\\3714f74b82eacc6cf8dcf1e32980b0908d4f8b447d25d4eb08ff1424a7b57c02\\ResourcePart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\ProfileViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:SilkShield-New\\ViewModel\\ProfileViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\LoginPage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:SilkShield-New\\View\\LoginPage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\LoginPage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:SilkShield-New\\View\\LoginPage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\MainWindow.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SilkShield-New\\MainWindow.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,101 +73,218 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 13,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{74946827-37a0-11d2-a273-00c04f8ef4ff}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Profile.xaml",
-              "DocumentMoniker": "D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\Profile.xaml",
-              "RelativeDocumentMoniker": "SilkShield-New\\View\\Profile.xaml",
-              "ToolTip": "D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\Profile.xaml",
-              "RelativeToolTip": "SilkShield-New\\View\\Profile.xaml",
+              "DocumentIndex": 1,
+              "Title": "DashboardWindow.xaml",
+              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\DashboardWindow.xaml",
+              "RelativeDocumentMoniker": "SilkShield-New\\View\\DashboardWindow.xaml",
+              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\DashboardWindow.xaml",
+              "RelativeToolTip": "SilkShield-New\\View\\DashboardWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-05T20:45:30.165Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T07:07:12.78Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "ProfileViewModel.cs",
-              "DocumentMoniker": "D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\ProfileViewModel.cs",
-              "RelativeDocumentMoniker": "SilkShield-New\\ViewModel\\ProfileViewModel.cs",
-              "ToolTip": "D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\ProfileViewModel.cs",
-              "RelativeToolTip": "SilkShield-New\\ViewModel\\ProfileViewModel.cs",
-              "ViewState": "AgIAALgAAAAAAAAAAAA5wMkAAAAWAAAAAAAAAA==",
+              "Title": "AddNewCustomer.xaml",
+              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\AddNewCustomer.xaml",
+              "RelativeDocumentMoniker": "SilkShield-New\\View\\AddNewCustomer.xaml",
+              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\AddNewCustomer.xaml",
+              "RelativeToolTip": "SilkShield-New\\View\\AddNewCustomer.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-09-09T06:54:22.339Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Customer.cs",
+              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Model\\Customer.cs",
+              "RelativeDocumentMoniker": "SilkShield-New\\Model\\Customer.cs",
+              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Model\\Customer.cs",
+              "RelativeToolTip": "SilkShield-New\\Model\\Customer.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-07T21:12:29.067Z",
+              "WhenOpened": "2025-09-09T05:35:12.033Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CustomerDAL.cs",
+              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Data\\CustomerDAL.cs",
+              "RelativeDocumentMoniker": "SilkShield-New\\Data\\CustomerDAL.cs",
+              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Data\\CustomerDAL.cs",
+              "RelativeToolTip": "SilkShield-New\\Data\\CustomerDAL.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T05:34:53.74Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AddNewCustomerViewModel.cs",
+              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\AddNewCustomerViewModel.cs",
+              "RelativeDocumentMoniker": "SilkShield-New\\ViewModel\\AddNewCustomerViewModel.cs",
+              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\AddNewCustomerViewModel.cs",
+              "RelativeToolTip": "SilkShield-New\\ViewModel\\AddNewCustomerViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T05:34:49.565Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "SilkShield-New\\MainWindow.xaml",
+              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\MainWindow.xaml",
+              "RelativeToolTip": "SilkShield-New\\MainWindow.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-09-09T05:32:00.188Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Customer_Manage.xaml",
+              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\Customer_Manage.xaml",
+              "RelativeDocumentMoniker": "SilkShield-New\\View\\Customer_Manage.xaml",
+              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\Customer_Manage.xaml",
+              "RelativeToolTip": "SilkShield-New\\View\\Customer_Manage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-09-09T05:26:19.11Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Profile.xaml.cs",
-              "DocumentMoniker": "D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\Profile.xaml.cs",
-              "RelativeDocumentMoniker": "SilkShield-New\\View\\Profile.xaml.cs",
-              "ToolTip": "D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\Profile.xaml.cs",
-              "RelativeToolTip": "SilkShield-New\\View\\Profile.xaml.cs",
-              "ViewState": "AgIAAKQAAAAAAAAAAAAmwLsAAAAvAAAAAAAAAA==",
+              "Title": "Customer_ManageViewModel.cs",
+              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\Customer_ManageViewModel.cs",
+              "RelativeDocumentMoniker": "SilkShield-New\\ViewModel\\Customer_ManageViewModel.cs",
+              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\Customer_ManageViewModel.cs",
+              "RelativeToolTip": "SilkShield-New\\ViewModel\\Customer_ManageViewModel.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAcwGQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-07T07:56:48.666Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T05:26:09.721Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "App.xaml",
-              "DocumentMoniker": "D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\SilkShield-New\\App.xaml",
+              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\App.xaml",
               "RelativeDocumentMoniker": "SilkShield-New\\App.xaml",
-              "ToolTip": "D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\SilkShield-New\\App.xaml",
+              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\App.xaml",
               "RelativeToolTip": "SilkShield-New\\App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-03T06:33:21.337Z",
+              "WhenOpened": "2025-09-09T05:22:16.399Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "DatabaseHelper.cs",
-              "DocumentMoniker": "D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Data\\DatabaseHelper.cs",
-              "RelativeDocumentMoniker": "SilkShield-New\\Data\\DatabaseHelper.cs",
-              "ToolTip": "D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Data\\DatabaseHelper.cs",
-              "RelativeToolTip": "SilkShield-New\\Data\\DatabaseHelper.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAA4wDcAAAA9AAAAAAAAAA==",
+              "DocumentIndex": 10,
+              "Title": "Profile.xaml.cs",
+              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\Profile.xaml.cs",
+              "RelativeDocumentMoniker": "SilkShield-New\\View\\Profile.xaml.cs",
+              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\Profile.xaml.cs",
+              "RelativeToolTip": "SilkShield-New\\View\\Profile.xaml.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAvwBIAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-07T21:16:57.759Z"
+              "WhenOpened": "2025-09-09T04:39:36.107Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
+              "Title": "Profile.xaml",
+              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\Profile.xaml",
+              "RelativeDocumentMoniker": "SilkShield-New\\View\\Profile.xaml",
+              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\Profile.xaml",
+              "RelativeToolTip": "SilkShield-New\\View\\Profile.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-09-09T04:27:46.029Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ResourcePart.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS\\AppData\\Local\\Temp\\.vsdbgsrc\\3714f74b82eacc6cf8dcf1e32980b0908d4f8b447d25d4eb08ff1424a7b57c02\\ResourcePart.cs",
+              "ToolTip": "C:\\Users\\ASUS\\AppData\\Local\\Temp\\.vsdbgsrc\\3714f74b82eacc6cf8dcf1e32980b0908d4f8b447d25d4eb08ff1424a7b57c02\\ResourcePart.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAApwDsAAAACAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T03:28:26.574Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ProfileViewModel.cs",
+              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\ProfileViewModel.cs",
+              "RelativeDocumentMoniker": "SilkShield-New\\ViewModel\\ProfileViewModel.cs",
+              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\ProfileViewModel.cs",
+              "RelativeToolTip": "SilkShield-New\\ViewModel\\ProfileViewModel.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAGQBAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-07T21:12:29.067Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "LoginPageViewModel.cs",
-              "DocumentMoniker": "D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\LoginPageViewModel.cs",
+              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\LoginPageViewModel.cs",
               "RelativeDocumentMoniker": "SilkShield-New\\ViewModel\\LoginPageViewModel.cs",
-              "ToolTip": "D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\LoginPageViewModel.cs",
+              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\LoginPageViewModel.cs",
               "RelativeToolTip": "SilkShield-New\\ViewModel\\LoginPageViewModel.cs",
-              "ViewState": "AgIAAFQAAAAAAAAAAAAowGcAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAowHAAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-05T11:20:09.142Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 13,
               "Title": "LoginPage.xaml",
-              "DocumentMoniker": "D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\LoginPage.xaml",
+              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\LoginPage.xaml",
               "RelativeDocumentMoniker": "SilkShield-New\\View\\LoginPage.xaml",
-              "ToolTip": "D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\LoginPage.xaml",
+              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\LoginPage.xaml",
               "RelativeToolTip": "SilkShield-New\\View\\LoginPage.xaml",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-07T07:52:22.351Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-07T07:52:22.351Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 14,
               "Title": "LoginPage.xaml.cs",
-              "DocumentMoniker": "D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\LoginPage.xaml.cs",
+              "DocumentMoniker": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\LoginPage.xaml.cs",
               "RelativeDocumentMoniker": "SilkShield-New\\View\\LoginPage.xaml.cs",
-              "ToolTip": "D:\\SILKSHIELD_NEW\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\LoginPage.xaml.cs",
+              "ToolTip": "E:\\Silkshield\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\LoginPage.xaml.cs",
               "RelativeToolTip": "SilkShield-New\\View\\LoginPage.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
