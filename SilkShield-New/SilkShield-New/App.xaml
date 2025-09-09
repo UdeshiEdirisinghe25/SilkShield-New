@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SilkShield_New"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
-             StartupUri="View/Profile.xaml">
+             StartupUri="View/MainWindow.xaml">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -11,9 +11,9 @@
             <!-- Define reusable FontAwesome icons -->
 
             <fa:FontAwesome x:Key="LockIconContent" Icon="Lock" Foreground="Gray" FontSize="16"/>
-            <fa:FontAwesome x:Key="UserIconContent" Icon="User" Foreground="Gray" FontSize="16"/>
-            <fa:FontAwesome x:Key="EyeIconContent" Icon="Eye" Foreground="Gray" FontSize="16"/>
-            <fa:FontAwesome x:Key="EyeSlashIconContent" Icon="EyeSlash" Foreground="Gray" FontSize="16"/>
+ <fa:FontAwesome x:Key="UserIconContent" Icon="User" Foreground="Gray" FontSize="16"/>
+ <fa:FontAwesome x:Key="EyeIconContent" Icon="Eye" Foreground="Gray" FontSize="16"/>
+ <fa:FontAwesome x:Key="EyeSlashIconContent" Icon="EyeSlash" Foreground="Gray" FontSize="16"/>
 
 
             <!-- Curved Button Template -->
