@@ -56,7 +56,7 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0">
-                    <TextBlock Text="Search Customers By Name"
+                    <TextBlock Text="Search Customers by Name"
                                FontSize="18"
                                FontWeight="Bold"
                                Foreground="Black"
