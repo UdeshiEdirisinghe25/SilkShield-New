@@ -112,7 +112,8 @@
                         <StackPanel Grid.Row="1" Grid.Column="1" Margin="20,15,0,0">
                             <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Building Type"/>
                             <ComboBox Padding="8" BorderBrush="#ccc" BorderThickness="1"
-                  SelectedValue="{Binding BuildingType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                  SelectedValue="{Binding BuildingType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_SelectionChanged"
+                                      SelectedValuePath="Content">
                                 <ComboBoxItem Content="House"/>
                                 <ComboBoxItem Content="Apartment"/>
                                 <ComboBoxItem Content="Commercial"/>
@@ -214,12 +215,14 @@
                         <StackPanel Grid.Column="0">
                             <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Curtain Type &amp; Style"/>
                             <StackPanel Orientation="Horizontal">
-                                <ComboBox Padding="8" Width="90" SelectedValue="{Binding CurtainLayerType, Mode=TwoWay}" Margin="0,0,10,0">
+                                <ComboBox Padding="8" Width="90" SelectedValue="{Binding CurtainLayerType, Mode=TwoWay}" Margin="0,0,10,0"
+                                          SelectedValuePath="Content">
                                     <ComboBoxItem Content="Single layer"/>
                                     <ComboBoxItem Content="Double layer"/>
                                     <ComboBoxItem Content="Triple layer"/>
                                 </ComboBox>
-                                <ComboBox Padding="8" Width="120" SelectedValue="{Binding CurtainStyle, Mode=TwoWay}">
+                                <ComboBox Padding="8" Width="120" SelectedValue="{Binding CurtainStyle, Mode=TwoWay}"
+                                          SelectedValuePath="Content">
                                     <ComboBoxItem Content="Ripple"/>
                                     <ComboBoxItem Content="Pleat"/>
                                     <ComboBoxItem Content="Eyelet"/>
@@ -233,7 +236,8 @@
 
                         <StackPanel Grid.Column="1" Margin="20,0,20,0">
                             <TextBlock Margin="0,0,0,5" Foreground="Black" Text="Payment Method"/>
-                            <ComboBox Padding="8" SelectedValue="{Binding PaymentMethod, Mode=TwoWay}">
+                            <ComboBox Padding="8" SelectedValue="{Binding PaymentMethod, Mode=TwoWay}"
+                                    SelectedValuePath="Content">
                                 <ComboBoxItem Content="Cash"/>
                                 <ComboBoxItem Content="Card"/>
                                 <ComboBoxItem Content="Bank Transfer"/>

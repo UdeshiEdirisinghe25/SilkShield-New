@@ -120,10 +120,21 @@ public class InvoiceDataService
 
     public void GenerateInvoicePdf(Invoice invoice, string filePath)
     {
+        string imagePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "InvoiceBack.jpg");
+
+        if (!File.Exists(imagePath))
+        {
+            throw new FileNotFoundException($"Background image not found at: {imagePath}");
+        }
+
         Document doc = new Document(PageSize.A4, 25, 25, 30, 30);
         try
         {
+            // 1. Create the PDF writer and set the event handler
             PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
+            writer.PageEvent = new ImageBackgroundEventHandler(imagePath); // Connect the event handler
+
+            // 2. Open the document
             doc.Open();
 
             // Invoice Header
@@ -177,19 +188,19 @@ public class InvoiceDataService
             doc.NewPage();
 
             // Background image
-            string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "InvoiceBack.jpg");
-            if (File.Exists(imagePath))
-            {
-                Image img = Image.GetInstance(imagePath);
-                img.ScaleToFit(doc.PageSize.Width, doc.PageSize.Height);
-                img.SetAbsolutePosition(0, 0);
-                doc.Add(img);
-            }
-            else
-            {
-                // Handle the case where the image file is not found
-                // You can log an error or simply proceed without the background image
-            }
+            //string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "InvoiceBack.jpg");
+            //if (File.Exists(imagePath))
+            //{
+            //    Image img = Image.GetInstance(imagePath);
+            //    img.ScaleToFit(doc.PageSize.Width, doc.PageSize.Height);
+            //    img.SetAbsolutePosition(0, 0);
+            //    doc.Add(img);
+            //}
+            //else
+            //{
+            //    // Handle the case where the image file is not found
+            //    // You can log an error or simply proceed without the background image
+            //}
 
             // 💡 Text content from the third page of the PDF - PDF හි තුන්වන පිටුවේ ඇති පෙළ
             doc.Add(new Paragraph("Details of Fabric and Related Accessories", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));

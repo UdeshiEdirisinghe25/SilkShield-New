@@ -10,5 +10,10 @@ namespace SilkShield_New.View
             InitializeComponent();
             this.DataContext = new NewInvoice1ViewModel();
         }
+
+        private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
