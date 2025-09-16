@@ -120,22 +120,39 @@ public class InvoiceDataService
 
     public void GenerateInvoicePdf(Invoice invoice, string filePath)
     {
-        string imagePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "InvoiceBack.jpg");
+        // Path to your logo and background image files
+        string backgroundImagePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "InvoiceBack.jpg");
+        string logoPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "logo.png");
 
-        if (!File.Exists(imagePath))
+        if (!File.Exists(backgroundImagePath))
         {
-            throw new FileNotFoundException($"Background image not found at: {imagePath}");
+            throw new FileNotFoundException($"Background image not found at: {backgroundImagePath}");
+        }
+        if (!File.Exists(logoPath))
+        {
+            throw new FileNotFoundException($"Logo image not found at: {logoPath}");
         }
 
         Document doc = new Document(PageSize.A4, 25, 25, 30, 30);
         try
         {
-            // 1. Create the PDF writer and set the event handler
+            // 1. Create the PDF writer and set the event handler for the background image only
             PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
-            writer.PageEvent = new ImageBackgroundEventHandler(imagePath); // Connect the event handler
+            writer.PageEvent = new ImageBackgroundEventHandler(backgroundImagePath); // Pass only the background image path
 
             // 2. Open the document
             doc.Open();
+
+            // --- Logo and Header Spacer ---
+            // Add the logo image directly to the document and center it
+            Image logoImage = Image.GetInstance(logoPath);
+            logoImage.ScaleToFit(150f, 150f); // Adjust size as needed
+            logoImage.Alignment = Element.ALIGN_CENTER; // Center the logo
+            doc.Add(logoImage);
+
+            // Add a few blank lines to create space below the logo
+            doc.Add(Chunk.NEWLINE);
+            doc.Add(Chunk.NEWLINE);
 
             // Invoice Header
             doc.Add(new Paragraph("INVOICE", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 22, BaseColor.BLACK)));
@@ -176,31 +193,30 @@ public class InvoiceDataService
 
             // Totals
             double subTotal = invoice.Items.Sum(i => i.Total);
-            doc.Add(new Paragraph($"Subtotal: LKR {subTotal:N2}", FontFactory.GetFont(FontFactory.HELVETICA_BOLD)));
-            doc.Add(new Paragraph($"Transport & Labor Cost: LKR {invoice.TransportLaborCost:N2}"));
-            doc.Add(new Paragraph($"Discount: {invoice.Discount}%"));
-            doc.Add(new Paragraph("----------------------------------------------------------"));
-            doc.Add(new Paragraph($"Grand Total: LKR {invoice.GrandTotal:N2}", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14)));
+
+            Paragraph subtotalPara = new Paragraph($"Subtotal: LKR {subTotal:N2}", FontFactory.GetFont(FontFactory.HELVETICA_BOLD));
+            subtotalPara.Alignment = Element.ALIGN_RIGHT;
+            doc.Add(subtotalPara);
+
+            Paragraph transportPara = new Paragraph($"Transport & Labor Cost: LKR {invoice.TransportLaborCost:N2}");
+            transportPara.Alignment = Element.ALIGN_RIGHT;
+            doc.Add(transportPara);
+
+            Paragraph discountPara = new Paragraph($"Discount: {invoice.Discount}%");
+            discountPara.Alignment = Element.ALIGN_RIGHT;
+            doc.Add(discountPara);
+
+            doc.Add(new Paragraph("----------------------------------------------------------", new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL)));
+
+            Paragraph grandTotalPara = new Paragraph($"Grand Total: LKR {invoice.GrandTotal:N2}", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14));
+            grandTotalPara.Alignment = Element.ALIGN_RIGHT;
+            doc.Add(grandTotalPara);
+
             doc.Add(new Paragraph($"Payment Method: {invoice.PaymentMethod}"));
             doc.Add(Chunk.NEWLINE);
 
             // 💡 Additional Page with Details - අමතර පිටුව
             doc.NewPage();
-
-            // Background image
-            //string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "InvoiceBack.jpg");
-            //if (File.Exists(imagePath))
-            //{
-            //    Image img = Image.GetInstance(imagePath);
-            //    img.ScaleToFit(doc.PageSize.Width, doc.PageSize.Height);
-            //    img.SetAbsolutePosition(0, 0);
-            //    doc.Add(img);
-            //}
-            //else
-            //{
-            //    // Handle the case where the image file is not found
-            //    // You can log an error or simply proceed without the background image
-            //}
 
             // 💡 Text content from the third page of the PDF - PDF හි තුන්වන පිටුවේ ඇති පෙළ
             doc.Add(new Paragraph("Details of Fabric and Related Accessories", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
@@ -235,7 +251,6 @@ public class InvoiceDataService
 
             doc.Add(Chunk.NEWLINE);
             doc.Add(new Paragraph("076 0526709/076 7886453 | 251/1 VIHARA MAWATHA, HUNUPITIYA, WATTALA | SHIELDSILK@GMAIL.COM"));
-
 
             doc.Close();
         }

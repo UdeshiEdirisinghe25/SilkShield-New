@@ -7,24 +7,27 @@ namespace SilkShield_New.Data
 {
     public class ImageBackgroundEventHandler : PdfPageEventHelper
     {
-        private string _imagePath;
+        private readonly string _backgroundImagePath;
 
-        public ImageBackgroundEventHandler(string imagePath)
+        public ImageBackgroundEventHandler(string backgroundImagePath)
         {
-            _imagePath = imagePath;
+            _backgroundImagePath = backgroundImagePath;
         }
+
+        // Remove the OnStartPage() method completely
 
         public override void OnEndPage(PdfWriter writer, Document document)
         {
             try
             {
-                // Create a new image instance for EACH page
-                Image backgroundImage = Image.GetInstance(_imagePath);
-                backgroundImage.SetAbsolutePosition(0, 0); 
-                backgroundImage.ScaleAbsolute(document.PageSize.Width, document.PageSize.Height);
+                if (!string.IsNullOrEmpty(_backgroundImagePath))
+                {
+                    Image backgroundImage = Image.GetInstance(_backgroundImagePath);
+                    backgroundImage.SetAbsolutePosition(0, 0);
+                    backgroundImage.ScaleAbsolute(document.PageSize.Width, document.PageSize.Height);
 
-                // Add the new image to the page's background
-                writer.DirectContentUnder.AddImage(backgroundImage);
+                    writer.DirectContentUnder.AddImage(backgroundImage);
+                }
             }
             catch (Exception ex)
             {

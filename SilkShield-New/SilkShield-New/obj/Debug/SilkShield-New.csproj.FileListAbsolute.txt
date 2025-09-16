@@ -175,6 +175,7 @@ C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShi
 C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.csproj.GenerateResource.cache
 C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.csproj.CoreCompileInputs.cache
 C:\Users\my pc\Downloads\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShie.D00486D6.Up2Date
+F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\Resources\logo.png
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SilkShield-New.exe.config
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SilkShield-New.exe
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\SilkShield-New.pdb
@@ -209,6 +210,7 @@ F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\NewInvoice1.g.cs
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\New_Inventory.g.cs
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\App.g.cs
+F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New_Content.g.cs
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New_MarkupCompile.cache
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New_MarkupCompile.lref
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Customer_Manage.baml
