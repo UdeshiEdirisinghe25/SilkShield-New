@@ -123,10 +123,10 @@ public class InvoiceDataService
         Document doc = new Document(PageSize.A4, 25, 25, 30, 30);
         try
         {
-            PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
+            PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
             doc.Open();
 
-            // Add invoice header details
+            // Invoice Header
             doc.Add(new Paragraph("INVOICE", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 22, BaseColor.BLACK)));
             doc.Add(new Paragraph($"Invoice No: {invoice.InvoiceNumber}"));
             doc.Add(new Paragraph($"Date: {invoice.InvoiceDate:yyyy-MM-dd}"));
@@ -134,19 +134,16 @@ public class InvoiceDataService
             doc.Add(new Paragraph($"Location: {invoice.Location}"));
             doc.Add(Chunk.NEWLINE);
 
-            // Add the new properties related to the project
+            // Project Details
             doc.Add(new Paragraph("Project Details", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.BLACK)));
-
-            // 💡 නිවැරදි කරන ලද කේතය මෙතැන් සිට
             doc.Add(new Paragraph($"Building Type: {invoice.BuildingType}"));
             doc.Add(new Paragraph($"Curtain Layer Type: {invoice.CurtainLayerType}"));
             doc.Add(new Paragraph($"Curtain Style: {invoice.CurtainStyle}"));
             doc.Add(new Paragraph($"Pelmet Board: {(invoice.PelmetBoard ? "Yes" : "No")}"));
             doc.Add(new Paragraph($"Motorized: {(invoice.Motorized ? "Yes" : "No")}"));
             doc.Add(Chunk.NEWLINE);
-            // 💡 නිවැරදි කරන ලද කේතය මෙතනින් අවසන්
 
-            // Add a table for invoice items
+            // Invoice Items Table
             PdfPTable table = new PdfPTable(4);
             table.WidthPercentage = 100;
             table.SetWidths(new float[] { 3, 1, 1, 1 });
@@ -166,14 +163,68 @@ public class InvoiceDataService
             doc.Add(table);
             doc.Add(Chunk.NEWLINE);
 
-            // Add totals
+            // Totals
             double subTotal = invoice.Items.Sum(i => i.Total);
             doc.Add(new Paragraph($"Subtotal: LKR {subTotal:N2}", FontFactory.GetFont(FontFactory.HELVETICA_BOLD)));
             doc.Add(new Paragraph($"Transport & Labor Cost: LKR {invoice.TransportLaborCost:N2}"));
             doc.Add(new Paragraph($"Discount: {invoice.Discount}%"));
             doc.Add(new Paragraph("----------------------------------------------------------"));
             doc.Add(new Paragraph($"Grand Total: LKR {invoice.GrandTotal:N2}", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14)));
-            doc.Add(new Paragraph($"Payment Method: {invoice.PaymentMethod}")); // මෙම Line එකද සරල කර ඇත
+            doc.Add(new Paragraph($"Payment Method: {invoice.PaymentMethod}"));
+            doc.Add(Chunk.NEWLINE);
+
+            // 💡 Additional Page with Details - අමතර පිටුව
+            doc.NewPage();
+
+            // Background image
+            string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "InvoiceBack.jpg");
+            if (File.Exists(imagePath))
+            {
+                Image img = Image.GetInstance(imagePath);
+                img.ScaleToFit(doc.PageSize.Width, doc.PageSize.Height);
+                img.SetAbsolutePosition(0, 0);
+                doc.Add(img);
+            }
+            else
+            {
+                // Handle the case where the image file is not found
+                // You can log an error or simply proceed without the background image
+            }
+
+            // 💡 Text content from the third page of the PDF - PDF හි තුන්වන පිටුවේ ඇති පෙළ
+            doc.Add(new Paragraph("Details of Fabric and Related Accessories", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
+            doc.Add(new Paragraph("• Imported, premium-quality sheers. Lab tested and certified as First Class material."));
+            doc.Add(new Paragraph("• OEKO-TEX® STANDARD certifies that products are tested for harmful substances to protect your health."));
+            doc.Add(Chunk.NEWLINE);
+
+            doc.Add(new Paragraph("Terms and Conditions", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
+            doc.Add(new Paragraph("• Prices are valid for 15 days from the date of quotation."));
+            doc.Add(new Paragraph("• Made-to-Measure Policies: Custom orders (e.g., bespoke curtains/blinds) are typically non-refundable unless faulty."));
+            doc.Add(new Paragraph("• Production Timing: Changes are only possible if notified before production begins (often within 24 hours of order placement)."));
+            doc.Add(Chunk.NEWLINE);
+
+            doc.Add(new Paragraph("Warranty Terms", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
+            doc.Add(new Paragraph("• 3 Years complete warranty for all accessories."));
+            doc.Add(new Paragraph("5 Years warranty on fabric for dry cleaning."));
+            doc.Add(Chunk.NEWLINE);
+
+            doc.Add(new Paragraph("Payment Terms", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
+            doc.Add(new Paragraph("• Deposit Requirement: We do require a 70% deposit upon order confirmation, and the balance payment should be done after delivery/installation."));
+            doc.Add(new Paragraph("• Project completion period within 14 Days from date of advance payment."));
+            doc.Add(Chunk.NEWLINE);
+
+            doc.Add(new Paragraph("Bank Details -", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
+            doc.Add(new Paragraph($"Account Name: K. M. G. C. Perera"));
+            doc.Add(new Paragraph($"Account Number: 106057933770"));
+            doc.Add(new Paragraph($"Bank & Branch: Sampath Bank Kadawatha"));
+            doc.Add(Chunk.NEWLINE);
+
+            doc.Add(new Paragraph("THANK YOU FOR CHOOSING US!", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
+            doc.Add(new Paragraph("SILKSHIELD PRIVATE LIMITED", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.BLACK)));
+
+            doc.Add(Chunk.NEWLINE);
+            doc.Add(new Paragraph("076 0526709/076 7886453 | 251/1 VIHARA MAWATHA, HUNUPITIYA, WATTALA | SHIELDSILK@GMAIL.COM"));
+
 
             doc.Close();
         }
