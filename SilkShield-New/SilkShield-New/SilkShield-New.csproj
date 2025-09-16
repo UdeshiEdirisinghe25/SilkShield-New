@@ -100,6 +100,7 @@
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\Invoice.cs" />
     <Compile Include="Model\InvoiceItem.cs" />
+    <Compile Include="Service\InvoiceNumberService.cs" />
     <Compile Include="TextBoxPlaceHolder.cs" />
     <Compile Include="ViewModel\DashboardViewModel.cs" />
     <Compile Include="ViewModel\NewInventoryViewModel.cs" />

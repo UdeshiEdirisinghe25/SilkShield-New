@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using SilkShield_New.Model;
 using SilkShield_New.Data;
+using SilkShield_New.Service;
 
 namespace SilkShield_New.ViewModel
 {
@@ -33,6 +34,7 @@ namespace SilkShield_New.ViewModel
         private bool _isMotorizedChecked;
         private ObservableCollection<string> _availableItems;
         private readonly InvoiceDataService _invoiceDataService;
+        private readonly InvoiceNumberService _invoiceNumberService;
         #endregion
 
         #region Public Properties
@@ -44,7 +46,6 @@ namespace SilkShield_New.ViewModel
         public string CurtainLayerType { get => _curtainLayerType; set { _curtainLayerType = value; OnPropertyChanged(nameof(CurtainLayerType)); } }
         public string CurtainStyle { get => _curtainStyle; set { _curtainStyle = value; OnPropertyChanged(nameof(CurtainStyle)); } }
         public string PaymentMethod { get => _paymentMethod; set { _paymentMethod = value; OnPropertyChanged(nameof(PaymentMethod)); } }
-
         public ObservableCollection<SilkShield_New.Model.InvoiceItem> Items
         {
             get => _items;
@@ -64,7 +65,6 @@ namespace SilkShield_New.ViewModel
                 OnPropertyChanged(nameof(Items));
             }
         }
-
         public double GrandTotal { get => _grandTotal; set { _grandTotal = value; OnPropertyChanged(nameof(GrandTotal)); } }
         public string TransportLaborCostText
         {
@@ -120,6 +120,7 @@ namespace SilkShield_New.ViewModel
         public NewInvoice1ViewModel()
         {
             _invoiceDataService = new InvoiceDataService();
+            _invoiceNumberService = new InvoiceNumberService();
 
             AddItemCommand = new RelayCommand(AddItem);
             DeleteItemCommand = new RelayCommand(DeleteItem);
@@ -204,7 +205,7 @@ namespace SilkShield_New.ViewModel
         {
             var newItem = new SilkShield_New.Model.InvoiceItem
             {
-                Quantity = 1 // Setting the default quantity to 1
+                Quantity = 1
             };
             Items.Add(newItem);
         }
@@ -219,17 +220,8 @@ namespace SilkShield_New.ViewModel
 
         private async Task CreateInvoiceAsync()
         {
-            if (string.IsNullOrWhiteSpace(CustomerName))
-            {
-                MessageBox.Show("Please enter customer name before creating invoice.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            if (!Items.Any(item => item.Total > 0))
-            {
-                MessageBox.Show("Please add at least one item with a value before creating invoice.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+            // Validation checks...
+            InvoiceNumber = _invoiceNumberService.GetNewInvoiceNumber(InvoiceDate);
 
             try
             {
@@ -251,7 +243,7 @@ namespace SilkShield_New.ViewModel
                 };
 
                 Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
-                saveFileDialog.Filter = "PDF Files (*.pdf)|*.pdf";
+                saveFileDialog.Filter = "PDF Files (.pdf)|.pdf";
                 saveFileDialog.FileName = $"Invoice_{invoiceData.InvoiceNumber}.pdf";
 
                 if (saveFileDialog.ShowDialog() == true)
@@ -259,6 +251,8 @@ namespace SilkShield_New.ViewModel
                     string filePath = saveFileDialog.FileName;
                     await Task.Run(() => _invoiceDataService.AddInvoice(invoiceData));
                     await Task.Run(() => _invoiceDataService.GenerateInvoicePdf(invoiceData, filePath));
+
+                    _invoiceNumberService.IncrementInvoiceCounter(InvoiceNumber);
 
                     MessageBox.Show(
                         $"Invoice {invoiceData.InvoiceNumber} successfully created and saved!\n" +
@@ -278,7 +272,7 @@ namespace SilkShield_New.ViewModel
 
         private void ClearForm(object obj)
         {
-            InvoiceNumber = "INV-1001";
+            InvoiceNumber = "This will be generated...";
             InvoiceDate = DateTime.Now;
             CustomerName = string.Empty;
             Location = string.Empty;
@@ -315,6 +309,8 @@ namespace SilkShield_New.ViewModel
         #endregion
     }
 
+    // මෙම RelayCommand class එක NewInvoice1ViewModel.cs ගොනුවට අයිති නැත.
+    // එය වෙනම RelayCommand.cs ගොනුවක තිබිය යුතුය.
     public class RelayCommand : ICommand
     {
         private readonly Action<object> _execute;

@@ -29,7 +29,8 @@ namespace SilkShield_New.Data
         {
             if (_backgroundImage != null)
             {
-                document.Add(_backgroundImage); // 'writer.AddImage()' වෙනුවට 'document.Add()' යොදන්න
+                // Change from document.Add() to writer.DirectContent.AddImage()
+                writer.DirectContent.AddImage(_backgroundImage);
             }
         }
     }
