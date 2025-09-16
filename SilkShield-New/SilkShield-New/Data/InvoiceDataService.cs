@@ -133,26 +133,24 @@ public class InvoiceDataService
             throw new FileNotFoundException($"Logo image not found at: {logoPath}");
         }
 
-        Document doc = new Document(PageSize.A4, 25, 25, 30, 30);
+        // New - Increase the top margin to create more space below the logo
+        Document doc = new Document(PageSize.A4, 25, 25, 150, 30);
         try
         {
-            // 1. Create the PDF writer and set the event handler for the background image only
+            // 1. Create the PDF writer and set the event handler for both the background image and the logo
             PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
-            writer.PageEvent = new ImageBackgroundEventHandler(backgroundImagePath); // Pass only the background image path
+            writer.PageEvent = new ImageBackgroundEventHandler(backgroundImagePath, logoPath);
 
             // 2. Open the document
             doc.Open();
 
-            // --- Logo and Header Spacer ---
-            // Add the logo image directly to the document and center it
-            Image logoImage = Image.GetInstance(logoPath);
-            logoImage.ScaleToFit(150f, 150f); // Adjust size as needed
-            logoImage.Alignment = Element.ALIGN_CENTER; // Center the logo
-            doc.Add(logoImage);
-
-            // Add a few blank lines to create space below the logo
-            doc.Add(Chunk.NEWLINE);
-            doc.Add(Chunk.NEWLINE);
+            // ⚠️ Remove the old logo code from here
+            // The logo will now be added automatically by the PageEvent handler on every page.
+            // The following lines MUST be removed:
+            // Image logoImage = Image.GetInstance(logoPath);
+            // logoImage.ScaleToFit(150f, 150f);
+            // logoImage.Alignment = Element.ALIGN_CENTER;
+            // doc.Add(logoImage);
 
             // Invoice Header
             doc.Add(new Paragraph("INVOICE", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 22, BaseColor.BLACK)));
@@ -206,19 +204,22 @@ public class InvoiceDataService
             discountPara.Alignment = Element.ALIGN_RIGHT;
             doc.Add(discountPara);
 
-            doc.Add(new Paragraph("----------------------------------------------------------", new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL)));
+            Paragraph separator = new Paragraph("----------------------------------------------------------", new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL));
+            separator.Alignment = Element.ALIGN_RIGHT;
+            doc.Add(separator);
 
             Paragraph grandTotalPara = new Paragraph($"Grand Total: LKR {invoice.GrandTotal:N2}", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14));
             grandTotalPara.Alignment = Element.ALIGN_RIGHT;
             doc.Add(grandTotalPara);
 
-            doc.Add(new Paragraph($"Payment Method: {invoice.PaymentMethod}"));
-            doc.Add(Chunk.NEWLINE);
+            Paragraph paymentMethodPara = new Paragraph($"Payment Method: {invoice.PaymentMethod}");
+            paymentMethodPara.Alignment = Element.ALIGN_RIGHT;
+            doc.Add(paymentMethodPara);
 
-            // 💡 Additional Page with Details - අමතර පිටුව
+            //  Additional Page with Details 
             doc.NewPage();
 
-            // 💡 Text content from the third page of the PDF - PDF හි තුන්වන පිටුවේ ඇති පෙළ
+            //  Text content from the third page of the PDF
             doc.Add(new Paragraph("Details of Fabric and Related Accessories", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
             doc.Add(new Paragraph("• Imported, premium-quality sheers. Lab tested and certified as First Class material."));
             doc.Add(new Paragraph("• OEKO-TEX® STANDARD certifies that products are tested for harmful substances to protect your health."));
@@ -259,5 +260,4 @@ public class InvoiceDataService
             throw new Exception("PDF generation failed.", ex);
         }
     }
-
 }

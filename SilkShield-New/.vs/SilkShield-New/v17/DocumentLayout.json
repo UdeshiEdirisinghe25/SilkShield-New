@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\silkshield-new\\imagebackgroundeventhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\imagebackgroundeventhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|f:\\new_silkshield_project\\silkshield-new\\silkshield-new\\silkshield-new\\data\\invoicedataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\data\\invoicedataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\silkshield-new\\imagebackgroundeventhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\imagebackgroundeventhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\silkshield-new\\service\\invoicenumberservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\service\\invoicenumberservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\silkshield-new\\data\\pdfservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -33,10 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\silkshield-new\\view\\newinvoice1.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\view\\newinvoice1.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\silkshield-new\\service\\invoicenumberservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|solutionrelative:silkshield-new\\service\\invoicenumberservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6AD6CD50-3833-4E48-9FF3-6DF2EBCCF33A}|SilkShield-New\\SilkShield-New.csproj|F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\silkshield-new\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -66,7 +66,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 13,
           "Children": [
             {
               "$type": "Bookmark",
@@ -94,20 +94,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "InvoiceDataService.cs",
               "DocumentMoniker": "F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Data\\InvoiceDataService.cs",
               "RelativeDocumentMoniker": "SilkShield-New\\Data\\InvoiceDataService.cs",
               "ToolTip": "F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Data\\InvoiceDataService.cs",
               "RelativeToolTip": "SilkShield-New\\Data\\InvoiceDataService.cs",
-              "ViewState": "AgIAAO4AAAAAAAAAAAAIwAYBAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAOMAAAAAAAAAAAAAANoAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-05T11:16:31.091Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "NewInvoice1.xaml",
               "DocumentMoniker": "F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\SilkShield-New\\View\\NewInvoice1.xaml",
               "RelativeDocumentMoniker": "SilkShield-New\\View\\NewInvoice1.xaml",
@@ -118,7 +118,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "NewInvoice1ViewModel.cs",
               "DocumentMoniker": "F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\NewInvoice1ViewModel.cs",
               "RelativeDocumentMoniker": "SilkShield-New\\ViewModel\\NewInvoice1ViewModel.cs",
@@ -130,7 +130,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 2,
               "Title": "InvoiceNumberService.cs",
               "DocumentMoniker": "F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Service\\InvoiceNumberService.cs",
               "RelativeDocumentMoniker": "SilkShield-New\\Service\\InvoiceNumberService.cs",
@@ -138,7 +138,8 @@
               "RelativeToolTip": "SilkShield-New\\Service\\InvoiceNumberService.cs",
               "ViewState": "AgIAADsAAAAAAAAAAAAcwF0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-10T18:13:41.981Z"
+              "WhenOpened": "2025-09-10T18:13:41.981Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -154,7 +155,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "ViewModelBase.cs",
               "DocumentMoniker": "F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ViewModel\\ViewModelBase.cs",
               "RelativeDocumentMoniker": "SilkShield-New\\ViewModel\\ViewModelBase.cs",
@@ -178,20 +179,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "ImageBackgroundEventHandler.cs",
               "DocumentMoniker": "F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ImageBackgroundEventHandler.cs",
               "RelativeDocumentMoniker": "SilkShield-New\\ImageBackgroundEventHandler.cs",
               "ToolTip": "F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\SilkShield-New\\ImageBackgroundEventHandler.cs",
               "RelativeToolTip": "SilkShield-New\\ImageBackgroundEventHandler.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAACUAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-08T16:36:51.461Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "PdfService.cs",
               "DocumentMoniker": "F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Data\\PdfService.cs",
               "RelativeDocumentMoniker": "SilkShield-New\\Data\\PdfService.cs",
@@ -215,7 +216,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "InvoiceItem.cs",
               "DocumentMoniker": "F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Model\\InvoiceItem.cs",
               "RelativeDocumentMoniker": "SilkShield-New\\Model\\InvoiceItem.cs",
@@ -227,7 +228,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Invoice.cs",
               "DocumentMoniker": "F:\\new_SilkShield_project\\SilkShield-New\\SilkShield-New\\SilkShield-New\\Model\\Invoice.cs",
               "RelativeDocumentMoniker": "SilkShield-New\\Model\\Invoice.cs",
