@@ -8,10 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/gmail.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/invoiceback.jpg")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/logo.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/map.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/viber.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/silkshield-new.exe")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/silkshield-new.pdb")]
 
 
