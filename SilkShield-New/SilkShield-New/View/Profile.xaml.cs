@@ -21,13 +21,14 @@ namespace SilkShield_New.View
             InitializeComponent();
             _viewModel = DataContext as ProfileViewModel;
 
-            // Subscribe to ViewModel property changes to clear UI
+            // Subscribe to ViewModel property changes
             if (_viewModel != null)
-            {
                 _viewModel.PropertyChanged += ViewModel_PropertyChanged;
-            }
 
-            // Password box event handlers for eye button functionality
+            // Subscribe to Unloaded instead of OnClosed
+            this.Unloaded += Profile_Unloaded;
+
+            // PasswordBox events
             CurrentPasswordBox.PasswordChanged += (s, e) =>
             {
                 if (_viewModel != null && !_isCurrentPasswordVisible)
@@ -49,7 +50,7 @@ namespace SilkShield_New.View
                 UpdatePlaceholderVisibility(RepeatNewPasswordBox);
             };
 
-            // TextBox event handlers (visible password mode)
+            // TextBox events (visible password mode)
             CurrentPasswordTextBox.TextChanged += (s, e) =>
             {
                 if (_viewModel != null && _isCurrentPasswordVisible)
@@ -81,24 +82,20 @@ namespace SilkShield_New.View
 
         private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            // Clear UI controls when ViewModel properties are cleared
             if (e.PropertyName == nameof(_viewModel.CurrentPassword) && string.IsNullOrEmpty(_viewModel.CurrentPassword))
             {
-                // Clear both PasswordBox and TextBox
                 CurrentPasswordBox.Password = "";
                 CurrentPasswordTextBox.Text = "";
                 UpdatePlaceholderVisibility(CurrentPasswordBox);
             }
             else if (e.PropertyName == nameof(_viewModel.NewPassword) && string.IsNullOrEmpty(_viewModel.NewPassword))
             {
-                // Clear both PasswordBox and TextBox
                 NewPasswordBox.Password = "";
                 NewPasswordTextBox.Text = "";
                 UpdatePlaceholderVisibility(NewPasswordBox);
             }
             else if (e.PropertyName == nameof(_viewModel.ConfirmNewPassword) && string.IsNullOrEmpty(_viewModel.ConfirmNewPassword))
             {
-                // Clear both PasswordBox and TextBox
                 RepeatNewPasswordBox.Password = "";
                 RepeatNewPasswordTextBox.Text = "";
                 UpdatePlaceholderVisibility(RepeatNewPasswordBox);
@@ -185,9 +182,11 @@ namespace SilkShield_New.View
         private void LogOutLabel_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             // Navigate to Login page
-            var loginWindow = new LoginPage(); 
+            var loginWindow = new LoginPage();
             loginWindow.Show();
-            this.Close();
+
+            // Close the parent window that contains this UserControl
+            Window.GetWindow(this)?.Close();
         }
 
         #endregion
@@ -201,25 +200,21 @@ namespace SilkShield_New.View
                 if (passwordBox.Template.FindName("PlaceholderText", passwordBox) is TextBlock placeholderText)
                 {
                     if (string.IsNullOrEmpty(passwordBox.Password) && !passwordBox.IsFocused)
-                    {
                         placeholderText.Visibility = Visibility.Visible;
-                    }
                     else
-                    {
                         placeholderText.Visibility = Visibility.Collapsed;
-                    }
                 }
             }
         }
 
         #endregion
 
-        // Window closing event - cleanup
-        protected override void OnClosed(EventArgs e)
+        #region Cleanup
+
+        private void Profile_Unloaded(object sender, RoutedEventArgs e)
         {
             if (_viewModel != null)
             {
-                // Unsubscribe from events
                 _viewModel.PropertyChanged -= ViewModel_PropertyChanged;
 
                 // Clear sensitive data
@@ -227,7 +222,13 @@ namespace SilkShield_New.View
                 _viewModel.NewPassword = "";
                 _viewModel.ConfirmNewPassword = "";
             }
-            base.OnClosed(e);
+        }
+
+        #endregion
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            // Placeholder for other button click logic
         }
     }
 }

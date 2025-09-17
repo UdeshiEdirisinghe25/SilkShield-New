@@ -10,6 +10,12 @@ namespace SilkShield_New.View
         {
             InitializeComponent();
             DataContext = new DashboardViewModel();
+            
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 

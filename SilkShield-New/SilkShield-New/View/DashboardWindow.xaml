@@ -10,16 +10,16 @@
         <SolidColorBrush x:Key="DarkBlueBrush" Color="#344767"/>
         <SolidColorBrush x:Key="LightGreyBrush" Color="#F0F2F5"/>
         <LinearGradientBrush x:Key="RedGradientBrush" StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Color="#E93B77" Offset="0"/>
-            <GradientStop Color="#DA1F63" Offset="1"/>
+            <GradientStop Color="LightGoldenrodYellow" Offset="0"/>
+            <GradientStop Color="White" Offset="1"/>
         </LinearGradientBrush>
         <LinearGradientBrush x:Key="GreenGradientBrush" StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Color="#63B967" Offset="0"/>
-            <GradientStop Color="#4BA64F" Offset="1"/>
+            <GradientStop Color="IndianRed" Offset="0"/>
+            <GradientStop Color="white" Offset="1"/>
         </LinearGradientBrush>
         <LinearGradientBrush x:Key="BlackGradientBrush" StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Color="#3E3D45" Offset="0"/>
-            <GradientStop Color="#202020" Offset="1"/>
+            <GradientStop Color="LightGreen" Offset="0" />
+            <GradientStop Color="White" Offset="1"/>
         </LinearGradientBrush>
 
         <!-- Card Style -->
@@ -53,7 +53,7 @@
 
             <TextBlock Grid.Column="0" Text="Dashboard" FontFamily="Roboto" FontSize="32" 
                        FontWeight="SemiBold" Foreground="{StaticResource DarkBlueBrush}" VerticalAlignment="Center"/>
-            <Image Source="/Images/Logo (2).PNG" HorizontalAlignment="Right" Height="100" Width="100" Margin="0,-42,-2,-20" Grid.ColumnSpan="3"/>
+            
         </Grid>
 
         <!-- Metric Cards -->
@@ -103,7 +103,7 @@
                 <!-- List of invoices -->
                 <ListView ItemsSource="{Binding RecentInvoices}"
                   BorderThickness="0"
-                  Background="Transparent" av:ItemsSource="{av:SampleData ItemCount=5}">
+                  Background="Transparent" av:ItemsSource="{av:SampleData ItemCount=5}" SelectionChanged="ListView_SelectionChanged">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border CornerRadius="8"

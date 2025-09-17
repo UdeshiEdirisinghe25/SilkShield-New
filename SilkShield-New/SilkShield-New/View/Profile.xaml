@@ -4,10 +4,257 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SilkShield_New.View"
-        mc:Ignorable="d" Background="White"
-       >
-    <Grid>
-        <Label x:Name="ProfileLabel" Content="Profile" FontSize="24" Margin="10,10,702,0" Height="47" VerticalAlignment="Top" FontWeight="Bold"/>
+        xmlns:vm="clr-namespace:SilkShield_New.ViewModel"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        mc:Ignorable="d"
+        >
 
+    <UserControl.DataContext>
+        <vm:ProfileViewModel/>
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+        <!-- BooleanToVisibilityConverter resource -->
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+
+        <!-- TextBox Style with Data Binding Support -->
+        <Style x:Key="CurvedTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <Grid>
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                                <TextBlock Text="{TemplateBinding Tag}"
+                                           Foreground="Gray"
+                                           Margin="10,0,0,0"
+                                           VerticalAlignment="Center"
+                                           IsHitTestVisible="False"
+                                           FontStyle="Italic">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FFCCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="27"/>
+            <Setter Property="Padding" Value="5,2,5,2"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Password Box Style -->
+        <Style x:Key="CurvedPasswordBoxStyle" TargetType="PasswordBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <Grid>
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                                <TextBlock x:Name="PlaceholderText"
+                                           Text="{TemplateBinding Tag}"
+                                           Foreground="Gray"
+                                           Margin="10,0,0,0"
+                                           VerticalAlignment="Center"
+                                           IsHitTestVisible="False"
+                                           FontStyle="Italic"
+                                           Visibility="Visible"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="PlaceholderText" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FFCCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="27"/>
+            <Setter Property="Padding" Value="5,2,5,2"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Loading Button Style -->
+        <Style x:Key="CurvedButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Log Out Link Style -->
+        <Style x:Key="LogOutLinkStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FF007ACC"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#FF0056A3"/>
+                    <Setter Property="TextDecorations" Value="Underline"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/images/Back.PNG"/>
+        </Grid.Background>
+
+        <!-- Loading Indicator -->
+        <Grid Visibility="{Binding IsLoading, Converter={StaticResource BoolToVis}}" 
+              Background="#80000000" 
+              Panel.ZIndex="999">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressBar IsIndeterminate="True" Width="200" Height="20"/>
+                <TextBlock Text="Loading..." HorizontalAlignment="Center" Foreground="White" Margin="0,10,0,0"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Log Out Link - Top Right Corner -->
+        <TextBlock x:Name="LogOutLabel" 
+                   Text="Log Out" 
+                   HorizontalAlignment="Right" 
+                   VerticalAlignment="Top" 
+                   Margin="0,10,20,0" 
+                   Style="{StaticResource LogOutLinkStyle}"
+                   MouseLeftButtonUp="LogOutLabel_MouseLeftButtonUp"/>
+
+        <Label x:Name="ProfileLabel" Content="Profile" FontSize="24" Margin="10,10,660,0" Height="47" VerticalAlignment="Top" FontWeight="Bold"/>
+
+        <!-- Username -->
+        <Label Content="Username" HorizontalAlignment="Left" Height="27" Margin="268,50,0,0" VerticalAlignment="Top" Width="77" FontWeight="Bold"/>
+        <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                 HorizontalAlignment="Left" Height="27" Margin="266,82,0,0" 
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="264" 
+                 Style="{StaticResource CurvedTextBoxStyle}" Tag="Username"/>
+
+        <!-- Current Password -->
+        <Label Content="Current Password" HorizontalAlignment="Left" Height="27" Margin="268,124,0,0" VerticalAlignment="Top" Width="124" FontWeight="Bold"/>
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="264" Height="27" Margin="266,156,0,0">
+            <PasswordBox x:Name="CurrentPasswordBox"
+                         Style="{StaticResource CurvedPasswordBoxStyle}"
+                         Tag="Current password"
+                         PasswordChar="●"
+                         Visibility="Visible"/>
+            <TextBox x:Name="CurrentPasswordTextBox"
+                     Style="{StaticResource CurvedTextBoxStyle}"
+                     Tag="Current password"
+                     Visibility="Collapsed"/>
+            <Button x:Name="CurrentPasswordToggleButton"
+                    Width="24" Height="24"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Margin="0,0,2,0"
+                    Background="Transparent" BorderThickness="0"
+                    Click="CurrentPasswordToggleButton_Click">
+                <fa:FontAwesome x:Name="CurrentPasswordEyeIcon" Icon="EyeSlash" Foreground="Gray" FontSize="16"/>
+            </Button>
+        </Grid>
+
+        <!-- New Password -->
+        <Label Content="New Password" HorizontalAlignment="Left" Height="27" Margin="268,194,0,0" VerticalAlignment="Top" Width="97" FontWeight="Bold"/>
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="264" Height="27" Margin="266,226,0,0">
+            <PasswordBox x:Name="NewPasswordBox"
+                         Style="{StaticResource CurvedPasswordBoxStyle}"
+                         Tag="New password"
+                         PasswordChar="●"
+                         Visibility="Visible"/>
+            <TextBox x:Name="NewPasswordTextBox"
+                     Style="{StaticResource CurvedTextBoxStyle}"
+                     Tag="New password"
+                     Visibility="Collapsed"/>
+            <Button x:Name="NewPasswordToggleButton"
+                    Width="24" Height="24"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Margin="0,0,2,0"
+                    Background="Transparent" BorderThickness="0"
+                    Click="NewPasswordToggleButton_Click">
+                <fa:FontAwesome x:Name="NewPasswordEyeIcon" Icon="EyeSlash" Foreground="Gray" FontSize="16"/>
+            </Button>
+        </Grid>
+
+        <!-- Repeat New Password -->
+        <Label Content="Confirm New Password" HorizontalAlignment="Left" Height="27" Margin="268,265,0,0" VerticalAlignment="Top" Width="156" FontWeight="Bold"/>
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="264" Height="27" Margin="266,297,0,0">
+            <PasswordBox x:Name="RepeatNewPasswordBox"
+                         Style="{StaticResource CurvedPasswordBoxStyle}"
+                         Tag="Repeat new password"
+                         PasswordChar="●"
+                         Visibility="Visible"/>
+            <TextBox x:Name="RepeatNewPasswordTextBox"
+                     Style="{StaticResource CurvedTextBoxStyle}"
+                     Tag="Repeat new password"
+                     Visibility="Collapsed"/>
+            <Button x:Name="RepeatNewPasswordToggleButton"
+                    Width="24" Height="24"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Margin="0,0,2,0"
+                    Background="Transparent" BorderThickness="0"
+                    Click="RepeatNewPasswordToggleButton_Click">
+                <fa:FontAwesome x:Name="RepeatNewPasswordEyeIcon" Icon="EyeSlash" Foreground="Gray" FontSize="16"/>
+            </Button>
+        </Grid>
+
+        <!-- Validation Message -->
+        <TextBlock Text="{Binding ValidationMessage}"
+                   HorizontalAlignment="Left" 
+                   Margin="266,330,0,0" 
+                   VerticalAlignment="Top" 
+                   Width="264"
+                   Foreground="Red"
+                   FontSize="12"
+                   TextWrapping="Wrap"/>
+
+        <!-- Apply Changes Button -->
+        <Button Content="Apply Changes" 
+                Command="{Binding ApplyChangesCommand}"
+                Margin="266,360,0,0" 
+                Height="32" 
+                FontWeight="Bold" 
+                Width="264" 
+                Background="#FF111111" 
+                Foreground="#FFFCF3F3" 
+                HorizontalAlignment="Left">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource CurvedButtonStyle}">
+                    <Setter Property="IsEnabled" Value="True"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoading}" Value="True">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Setter Property="Content" Value="Processing..."/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
 </UserControl>

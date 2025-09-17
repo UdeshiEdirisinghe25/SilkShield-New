@@ -89,12 +89,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data\CustomerDAL.cs" />
     <Compile Include="Data\DatabaseHelper.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\Invoice.cs" />
     <Compile Include="Model\InvoiceDTO.cs" />
     <Compile Include="Model\InvoiceItem.cs" />
     <Compile Include="TextBoxPlaceHolder.cs" />
+    <Compile Include="ViewModel\AddNewCustomerViewModel.cs" />
+    <Compile Include="ViewModel\Customer_ManageViewModel.cs" />
     <Compile Include="ViewModel\DashboardViewModel.cs" />
     <Compile Include="ViewModel\LoginPageViewModel.cs" />
     <Compile Include="ViewModel\NewInventoryViewModel.cs" />
@@ -129,6 +132,9 @@
     <Compile Include="View\Profile.xaml.cs">
       <DependentUpon>Profile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewCustomerWindow.xaml.cs">
+      <DependentUpon>ViewCustomerWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\AddNewCustomer.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
@@ -160,6 +166,10 @@
     <Page Include="View\Profile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewCustomerWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -194,7 +204,9 @@
     <Resource Include="Images\IMG_5247.PNG" />
     <Resource Include="Images\Logo %282%29.PNG" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="bin\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
