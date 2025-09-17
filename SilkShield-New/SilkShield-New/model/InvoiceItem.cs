@@ -9,7 +9,7 @@ namespace SilkShield_New.Model
         private string _itemName;
         private string _selectedMaterial;
         private string _measuringUnit;
-        private double _quantity;
+        private double _quantity = 1.0; 
         private double _unitPrice;
         private double _total;
 

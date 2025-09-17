@@ -309,8 +309,7 @@ namespace SilkShield_New.ViewModel
         #endregion
     }
 
-    // මෙම RelayCommand class එක NewInvoice1ViewModel.cs ගොනුවට අයිති නැත.
-    // එය වෙනම RelayCommand.cs ගොනුවක තිබිය යුතුය.
+   
     public class RelayCommand : ICommand
     {
         private readonly Action<object> _execute;
