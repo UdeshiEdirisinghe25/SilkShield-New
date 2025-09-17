@@ -49,7 +49,9 @@ namespace SilkShield_New.Data
                         Motorized TEXT,
                         PaymentMethod TEXT,
                         Discount REAL,
-                        TotalAmount REAL
+                        TotalAmount REAL,
+                        Location TEXT
+
                     );";
 
                 string createInvoiceItemsTableQuery = @"

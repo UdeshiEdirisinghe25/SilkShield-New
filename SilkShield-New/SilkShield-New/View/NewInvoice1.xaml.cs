@@ -8,14 +8,12 @@ namespace SilkShield_New.View
         public NewInvoice1()
         {
             InitializeComponent();
-            this.DataContext = new ViewModel.NewInvoice1ViewModel();
+            this.DataContext = new NewInvoice1ViewModel();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
 
         }
-
-        
     }
 }
