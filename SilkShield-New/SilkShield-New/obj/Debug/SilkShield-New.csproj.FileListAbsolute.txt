@@ -280,3 +280,15 @@ E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\GeneratedIn
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\LoginPage.g.cs
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Profile.baml
 E:\Silkshield\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\LoginPage.baml
+F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\FontAwesome.WPF.dll
+F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\FontAwesome.WPF.xml
+F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\MainWindow.baml
+F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\ViewCustomerWindow.baml
+F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\LoginPage.g.cs
+F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Profile.g.cs
+F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\ViewCustomerWindow.g.cs
+F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\GeneratedInternalTypeHelper.g.cs
+F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\App.baml
+F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\LoginPage.baml
+F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Profile.baml
+F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\MainWindow.g.cs
