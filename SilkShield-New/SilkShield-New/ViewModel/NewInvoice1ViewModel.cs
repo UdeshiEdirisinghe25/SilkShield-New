@@ -1,267 +1,333 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
-using System.Windows;
 using System.Windows.Input;
+using System.Windows;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using SilkShield_New.Model;
+using SilkShield_New.Data;
+using SilkShield_New.Service;
 
 namespace SilkShield_New.ViewModel
 {
     public class NewInvoice1ViewModel : INotifyPropertyChanged
     {
+        #region Private Fields
         private string _invoiceNumber;
         private DateTime _invoiceDate;
         private string _customerName;
+        private string _location;
         private string _buildingType;
         private string _curtainLayerType;
         private string _curtainStyle;
         private string _paymentMethod;
-        private ObservableCollection<InvoiceItem> _items;
+        private ObservableCollection<SilkShield_New.Model.InvoiceItem> _items;
         private double _grandTotal;
-        private double _discount;
+        private string _discountText;
+        private string _transportLaborCostText;
+        private double _discountPercentage;
         private double _transportLaborCost;
         private bool _isPelmetBoardChecked;
         private bool _isMotorizedChecked;
+        private ObservableCollection<string> _availableItems;
+        private readonly InvoiceDataService _invoiceDataService;
+        private readonly InvoiceNumberService _invoiceNumberService;
+        #endregion
 
-        public string InvoiceNumber
-        {
-            get => _invoiceNumber;
-            set
-            {
-                _invoiceNumber = value;
-                OnPropertyChanged(nameof(InvoiceNumber));
-            }
-        }
-
-        public DateTime InvoiceDate
-        {
-            get => _invoiceDate;
-            set
-            {
-                _invoiceDate = value;
-                OnPropertyChanged(nameof(InvoiceDate));
-            }
-        }
-
-        public string CustomerName
-        {
-            get => _customerName;
-            set
-            {
-                _customerName = value;
-                OnPropertyChanged(nameof(CustomerName));
-            }
-        }
-
-        public string BuildingType
-        {
-            get => _buildingType;
-            set
-            {
-                _buildingType = value;
-                OnPropertyChanged(nameof(BuildingType));
-            }
-        }
-
-        public string CurtainLayerType
-        {
-            get => _curtainLayerType;
-            set
-            {
-                _curtainLayerType = value;
-                OnPropertyChanged(nameof(CurtainLayerType));
-            }
-        }
-
-        public string CurtainStyle
-        {
-            get => _curtainStyle;
-            set
-            {
-                _curtainStyle = value;
-                OnPropertyChanged(nameof(CurtainStyle));
-            }
-        }
-
-        public string PaymentMethod
-        {
-            get => _paymentMethod;
-            set
-            {
-                _paymentMethod = value;
-                OnPropertyChanged(nameof(PaymentMethod));
-            }
-        }
-
-        public ObservableCollection<InvoiceItem> Items
+        #region Public Properties
+        public string InvoiceNumber { get => _invoiceNumber; set { _invoiceNumber = value; OnPropertyChanged(nameof(InvoiceNumber)); } }
+        public DateTime InvoiceDate { get => _invoiceDate; set { _invoiceDate = value; OnPropertyChanged(nameof(InvoiceDate)); } }
+        public string CustomerName { get => _customerName; set { _customerName = value; OnPropertyChanged(nameof(CustomerName)); } }
+        public string Location { get => _location; set { _location = value; OnPropertyChanged(nameof(Location)); } }
+        public string BuildingType { get => _buildingType; set { _buildingType = value; OnPropertyChanged(nameof(BuildingType)); } }
+        public string CurtainLayerType { get => _curtainLayerType; set { _curtainLayerType = value; OnPropertyChanged(nameof(CurtainLayerType)); } }
+        public string CurtainStyle { get => _curtainStyle; set { _curtainStyle = value; OnPropertyChanged(nameof(CurtainStyle)); } }
+        public string PaymentMethod { get => _paymentMethod; set { _paymentMethod = value; OnPropertyChanged(nameof(PaymentMethod)); } }
+        public ObservableCollection<SilkShield_New.Model.InvoiceItem> Items
         {
             get => _items;
             set
             {
+                if (_items != null)
+                {
+                    _items.CollectionChanged -= Items_CollectionChanged;
+                    foreach (var item in _items) item.PropertyChanged -= OnItemPropertyChanged;
+                }
                 _items = value;
+                if (_items != null)
+                {
+                    _items.CollectionChanged += Items_CollectionChanged;
+                    foreach (var item in _items) item.PropertyChanged += OnItemPropertyChanged;
+                }
                 OnPropertyChanged(nameof(Items));
             }
         }
-
-        public double GrandTotal
+        public double GrandTotal { get => _grandTotal; set { _grandTotal = value; OnPropertyChanged(nameof(GrandTotal)); } }
+        public string TransportLaborCostText
         {
-            get => _grandTotal;
+            get => _transportLaborCostText;
             set
             {
-                _grandTotal = value;
-                OnPropertyChanged(nameof(GrandTotal));
-            }
-        }
-
-        public double Discount
-        {
-            get => _discount;
-            set
-            {
-                if (_discount != value)
+                if (_transportLaborCostText == value) return;
+                _transportLaborCostText = value;
+                if (double.TryParse(value, NumberStyles.Any, CultureInfo.CurrentCulture, out double result))
                 {
-                    _discount = value;
-                    CalculateGrandTotal();
-                    OnPropertyChanged(nameof(Discount));
+                    _transportLaborCost = Math.Max(0, result);
                 }
-            }
-        }
-
-        public double TransportLaborCost
-        {
-            get => _transportLaborCost;
-            set
-            {
-                if (_transportLaborCost != value)
+                else
                 {
-                    _transportLaborCost = value;
-                    CalculateGrandTotal();
-                    OnPropertyChanged(nameof(TransportLaborCost));
+                    _transportLaborCost = 0;
                 }
+                CalculateGrandTotal();
+                OnPropertyChanged(nameof(TransportLaborCostText));
             }
         }
-
-        public bool IsPelmetBoardChecked
+        public string DiscountText
         {
-            get => _isPelmetBoardChecked;
+            get => _discountText;
             set
             {
-                _isPelmetBoardChecked = value;
-                OnPropertyChanged(nameof(IsPelmetBoardChecked));
+                if (_discountText == value) return;
+                _discountText = value;
+                if (double.TryParse(value, NumberStyles.Any, CultureInfo.CurrentCulture, out double result))
+                {
+                    _discountPercentage = Math.Max(0, result);
+                }
+                else
+                {
+                    _discountPercentage = 0;
+                }
+                CalculateGrandTotal();
+                OnPropertyChanged(nameof(DiscountText));
             }
         }
+        public bool IsPelmetBoardChecked { get => _isPelmetBoardChecked; set { _isPelmetBoardChecked = value; OnPropertyChanged(nameof(IsPelmetBoardChecked)); } }
+        public bool IsMotorizedChecked { get => _isMotorizedChecked; set { _isMotorizedChecked = value; OnPropertyChanged(nameof(IsMotorizedChecked)); } }
+        public ObservableCollection<string> AvailableItems { get => _availableItems; set { _availableItems = value; OnPropertyChanged(nameof(AvailableItems)); } }
+        #endregion
 
-        public bool IsMotorizedChecked
-        {
-            get => _isMotorizedChecked;
-            set
-            {
-                _isMotorizedChecked = value;
-                OnPropertyChanged(nameof(IsMotorizedChecked));
-            }
-        }
-
+        #region ICommands
         public ICommand AddItemCommand { get; }
         public ICommand DeleteItemCommand { get; }
         public ICommand CreateInvoiceCommand { get; }
         public ICommand ClearFormCommand { get; }
+        #endregion
 
+        #region Constructor
         public NewInvoice1ViewModel()
         {
-            Items = new ObservableCollection<InvoiceItem>();
-            Items.CollectionChanged += (sender, e) => CalculateGrandTotal();
-
-            // Listen for PropertyChanged events on each item in the collection
-            Items.CollectionChanged += (sender, e) => {
-                if (e.NewItems != null)
-                {
-                    foreach (InvoiceItem item in e.NewItems)
-                    {
-                        item.PropertyChanged += OnItemPropertyChanged;
-                    }
-                }
-                if (e.OldItems != null)
-                {
-                    foreach (InvoiceItem item in e.OldItems)
-                    {
-                        item.PropertyChanged -= OnItemPropertyChanged;
-                    }
-                }
-            };
-
-            var initialItem = new InvoiceItem();
-            Items.Add(initialItem);
+            _invoiceDataService = new InvoiceDataService();
+            _invoiceNumberService = new InvoiceNumberService();
 
             AddItemCommand = new RelayCommand(AddItem);
             DeleteItemCommand = new RelayCommand(DeleteItem);
-            CreateInvoiceCommand = new RelayCommand(CreateInvoice);
+            CreateInvoiceCommand = new RelayCommand(async (p) => await CreateInvoiceAsync());
             ClearFormCommand = new RelayCommand(ClearForm);
 
-            // Initialize properties to their default values
-            InvoiceNumber = "INV-1001";
-            InvoiceDate = DateTime.Now;
-            CustomerName = string.Empty;
-            BuildingType = string.Empty;
-            CurtainLayerType = "Double layer"; // Set initial value from ComboBox
-            CurtainStyle = "Ripple"; // Set initial value from ComboBox
-            PaymentMethod = "Cash"; // Set initial value from ComboBox
+            Items = new ObservableCollection<SilkShield_New.Model.InvoiceItem>();
+            LoadItemNamesFromDatabaseAsync();
+            ClearForm(null);
         }
+        #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        #region Private Methods
 
-        private void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void Items_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(InvoiceItem.Total))
+            if (e.OldItems != null)
             {
-                CalculateGrandTotal();
+                foreach (SilkShield_New.Model.InvoiceItem item in e.OldItems)
+                {
+                    item.PropertyChanged -= OnItemPropertyChanged;
+                }
+            }
+            if (e.NewItems != null)
+            {
+                foreach (SilkShield_New.Model.InvoiceItem item in e.NewItems)
+                {
+                    item.PropertyChanged += OnItemPropertyChanged;
+                }
+            }
+            CalculateGrandTotal();
+        }
+
+        private async void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is SilkShield_New.Model.InvoiceItem item)
+            {
+                if (e.PropertyName == nameof(item.ItemName))
+                {
+                    var materials = await _invoiceDataService.GetMaterialsByItemNameAsync(item.ItemName);
+                    item.AvailableMaterials = new ObservableCollection<string>(materials);
+
+                    if (materials.Any())
+                    {
+                        item.SelectedMaterial = materials.First();
+                    }
+                    else
+                    {
+                        item.SelectedMaterial = null;
+                    }
+
+                    item.MeasuringUnit = await _invoiceDataService.GetMeasuringUnitAsync(item.ItemName);
+                }
+                else if (e.PropertyName == nameof(item.SelectedMaterial))
+                {
+                    if (!string.IsNullOrEmpty(item.SelectedMaterial))
+                    {
+                        item.UnitPrice = await _invoiceDataService.GetUnitPriceAsync(item.ItemName, item.SelectedMaterial);
+                    }
+                    else
+                    {
+                        item.UnitPrice = 0;
+                    }
+                }
+                else if (e.PropertyName == nameof(item.Quantity) || e.PropertyName == nameof(item.UnitPrice))
+                {
+                    item.CalculateTotal();
+                    CalculateGrandTotal();
+                }
             }
         }
 
         private void CalculateGrandTotal()
         {
-            double subTotal = Items.Sum(item => item.Total);
-            GrandTotal = subTotal - _discount + _transportLaborCost;
+            double subTotal = Items?.Sum(item => item.Total) ?? 0;
+            double totalBeforeDiscount = subTotal + _transportLaborCost;
+            double discountAmount = totalBeforeDiscount * (_discountPercentage / 100.0);
+            GrandTotal = Math.Max(0, totalBeforeDiscount - discountAmount);
         }
 
         private void AddItem(object obj)
         {
-            var newItem = new InvoiceItem();
+            var newItem = new SilkShield_New.Model.InvoiceItem
+            {
+                Quantity = 1
+            };
             Items.Add(newItem);
         }
 
         private void DeleteItem(object obj)
         {
-            if (obj is InvoiceItem item)
+            if (obj is SilkShield_New.Model.InvoiceItem item && Items.Count > 1)
             {
                 Items.Remove(item);
             }
         }
 
-        private void CreateInvoice(object obj)
+        private async Task CreateInvoiceAsync()
         {
-            MessageBox.Show("Invoice creation logic would go here!");
+            // Validation checks...
+            InvoiceNumber = _invoiceNumberService.GetNewInvoiceNumber(InvoiceDate);
+
+            try
+            {
+                var invoiceData = new SilkShield_New.Model.Invoice
+                {
+                    InvoiceNumber = InvoiceNumber,
+                    InvoiceDate = InvoiceDate,
+                    CustomerName = CustomerName,
+                    Location = Location,
+                    BuildingType = BuildingType,
+                    CurtainLayerType = CurtainLayerType,
+                    CurtainStyle = CurtainStyle,
+                    PelmetBoard = IsPelmetBoardChecked,
+                    Motorized = IsMotorizedChecked,
+                    PaymentMethod = PaymentMethod,
+                    TransportLaborCost = _transportLaborCost,
+                    Discount = _discountPercentage,
+                    Items = Items
+                };
+
+                Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+                saveFileDialog.Filter = "PDF Files (.pdf)|.pdf";
+                saveFileDialog.FileName = $"Invoice_{invoiceData.InvoiceNumber}.pdf";
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    string filePath = saveFileDialog.FileName;
+                    await Task.Run(() => _invoiceDataService.AddInvoice(invoiceData));
+                    await Task.Run(() => _invoiceDataService.GenerateInvoicePdf(invoiceData, filePath));
+
+                    _invoiceNumberService.IncrementInvoiceCounter(InvoiceNumber);
+
+                    MessageBox.Show(
+                        $"Invoice {invoiceData.InvoiceNumber} successfully created and saved!\n" +
+                        $"PDF saved to: {filePath}",
+                        "Invoice Created",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information
+                    );
+                    ClearForm(null);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error creating invoice: {ex.Message}\n\nStack Trace: {ex.StackTrace}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void ClearForm(object obj)
         {
-            InvoiceNumber = "INV-1001";
+            InvoiceNumber = "This will be generated...";
             InvoiceDate = DateTime.Now;
             CustomerName = string.Empty;
+            Location = string.Empty;
             BuildingType = string.Empty;
             CurtainLayerType = "Double layer";
             CurtainStyle = "Ripple";
             PaymentMethod = "Cash";
-            Discount = 0;
-            TransportLaborCost = 0;
+
+            _transportLaborCost = 0;
+            _discountPercentage = 0;
+            TransportLaborCostText = "0.00";
+            DiscountText = "0";
+
             IsPelmetBoardChecked = false;
             IsMotorizedChecked = false;
+
             Items.Clear();
-            Items.Add(new InvoiceItem());
+            Items.Add(new SilkShield_New.Model.InvoiceItem { Quantity = 1 });
         }
+
+        private async void LoadItemNamesFromDatabaseAsync()
+        {
+            AvailableItems = new ObservableCollection<string>(await _invoiceDataService.GetDistinctItemNamesAsync());
+        }
+
+        #endregion
+
+        #region INotifyPropertyChanged Implementation
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+    }
+
+   
+    public class RelayCommand : ICommand
+    {
+        private readonly Action<object> _execute;
+        private readonly Func<object, bool> _canExecute;
+
+        public event EventHandler CanExecuteChanged
+        {
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
+        }
+
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        {
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _canExecute = canExecute;
+        }
+
+        public bool CanExecute(object parameter) => _canExecute == null || _canExecute(parameter);
+        public void Execute(object parameter) => _execute(parameter);
     }
 }
