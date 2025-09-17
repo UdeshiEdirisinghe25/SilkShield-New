@@ -116,15 +116,14 @@
                     <ComboBox x:Name="Category" 
                               Background="Transparent" 
                               SelectedItem="{Binding SelectedCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding CategoryList}"                             
                               BorderThickness="0" 
                               VerticalContentAlignment="Center" 
                               Padding="8,0,0,0" FontSize="14" 
                               IsEditable="True" Margin="5,2,7,3" 
                               Grid.ColumnSpan="2">
 
-                        <ComboBoxItem>Fabric</ComboBoxItem>
-                        <ComboBoxItem>Blinds</ComboBoxItem>
-                        <ComboBoxItem>Accessories</ComboBoxItem>
+                        
                     </ComboBox>
 
 
@@ -184,7 +183,7 @@
                     FontSize="14" Width="198" />
 
                     <!-- Placeholder -->
-                    <TextBlock Text="Material"
+                    <TextBlock Text="Input Material"
                     Foreground="Gray"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
@@ -219,7 +218,9 @@
             >
                 <Grid>
                     <ComboBox x:Name="MeasuringUnit" 
+                              
                               SelectedItem="{Binding SelectedMeasuringUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding MeasuringUnitList}"
                               Background="Transparent" 
                               BorderThickness="0" 
                               VerticalContentAlignment="Center" 
@@ -227,12 +228,6 @@
                               IsEditable="True" Margin="5,2,7,3" 
                               Grid.ColumnSpan="2">
 
-                        <ComboBoxItem>Meter (m)</ComboBoxItem>
-                        <ComboBoxItem>Square Meter (sqm)</ComboBoxItem>
-                        <ComboBoxItem>Square Feet (sft)</ComboBoxItem>
-                        <ComboBoxItem>Feet (ft)</ComboBoxItem>
-                        <ComboBoxItem>Pieces</ComboBoxItem>
-                        <ComboBoxItem>Roll</ComboBoxItem>
 
                     </ComboBox>
 
@@ -310,12 +305,12 @@
                      FontSize="14" Margin="0,-2,0,2"/>
 
                     <!-- Placeholder -->
-                    <TextBlock Text="Input Price"
-       Foreground="Gray"
-       VerticalAlignment="Center"
-       HorizontalAlignment="Left"
-       Margin="12,0,0,0"
-       IsHitTestVisible="False" FontSize="13">
+                       <TextBlock Text="Input Price"
+                       Foreground="Gray"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Margin="12,0,0,0"
+                       IsHitTestVisible="False" FontSize="13">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Visibility" Value="Collapsed"/>
@@ -352,16 +347,16 @@
                 <Grid>
                     <!-- TextBox -->
                     <ComboBox x:Name="Stock"
-          ItemsSource="{Binding StockStatusList}"
-          SelectedItem="{Binding SelectedStockStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-          Background="Transparent"
-          BorderThickness="0"
-          VerticalContentAlignment="Center"
-          Padding="8,0,0,0"
-          FontSize="14"
-          Margin="5,5,5,4"
-          IsEditable="True" 
-                        />
+                      ItemsSource="{Binding StockStatusList}"
+                      SelectedItem="{Binding SelectedStockStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      VerticalContentAlignment="Center"
+                      Padding="8,0,0,0"
+                      FontSize="14"
+                      Margin="5,5,5,4"
+                      IsEditable="True" 
+                    />
 
 
                     <!-- Placeholder -->
@@ -400,18 +395,18 @@
 
             <!-- SAVE Button -->
             <Button x:Name="btnsave"
-        Grid.Column="1"
-        Content="SAVE"
-        Background="#FF5B281C"
-        Foreground="White"
-        FontSize="15"
-        FontFamily="Segoe UI"
-        FontWeight="SemiBold"
-        Width="110"
-        Height="40"
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        Command="{Binding SaveCommand}">
+                Grid.Column="1"
+                Content="SAVE"
+                Background="#FF5B281C"
+                Foreground="White"
+                FontSize="15"
+                FontFamily="Segoe UI"
+                FontWeight="SemiBold"
+                Width="110"
+                Height="40"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Command="{Binding SaveCommand}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border"

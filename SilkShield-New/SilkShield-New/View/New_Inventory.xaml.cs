@@ -26,6 +26,9 @@ namespace SilkShield_New.View {
             this.DataContext = new NewInventoryViewModel();
         }
 
+        private void MeasuringUnit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
+        }
     }
 }

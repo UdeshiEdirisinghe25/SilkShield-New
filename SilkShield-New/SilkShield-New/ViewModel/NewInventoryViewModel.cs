@@ -46,7 +46,11 @@ namespace SilkShield_New.ViewModels
             set { _selectedCategory = value; OnPropertyChanged(); }
         }
 
-        public ObservableCollection<string> MeasuringUnitList { get; set; }
+        public ObservableCollection<string> MeasuringUnitList { get; set; } = new ObservableCollection<string>
+        {
+            "Meter (m)", "Square Meter (sqm)", "Square Feet (sft)", "Feet (ft)", "Pieces", "Roll"
+        };
+        
         private string _selectedMeasuringUnit;
         public string SelectedMeasuringUnit
         {
@@ -142,5 +146,7 @@ namespace SilkShield_New.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+
+
     }
 }

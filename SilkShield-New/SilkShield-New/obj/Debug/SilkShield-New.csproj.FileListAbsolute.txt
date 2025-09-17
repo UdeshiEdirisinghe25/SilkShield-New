@@ -327,3 +327,12 @@ F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug
 F:\new_SilkShield_project\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\MainWindow.g.cs
 
 D:\Udeshi\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\SilkShield-New.exe.config
+D:\Udeshi\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\FontAwesome.WPF.dll
+D:\Udeshi\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\bin\Debug\FontAwesome.WPF.xml
+D:\Udeshi\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\ViewCustomerWindow.baml
+D:\Udeshi\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\LoginPage.g.cs
+D:\Udeshi\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Profile.g.cs
+D:\Udeshi\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\ViewCustomerWindow.g.cs
+D:\Udeshi\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Udeshi\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\LoginPage.baml
+D:\Udeshi\Invoice Generator\SilkShield-New\SilkShield-New\SilkShield-New\obj\Debug\View\Profile.baml
