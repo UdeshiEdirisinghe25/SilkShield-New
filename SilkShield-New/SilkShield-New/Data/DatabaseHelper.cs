@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 
@@ -18,7 +19,6 @@ namespace SilkShield_New.Data
             );
 
             _connectionString = $"Data Source={_dbPath};Version=3;";
-
             InitializeDatabase();
         }
 
@@ -49,9 +49,7 @@ namespace SilkShield_New.Data
                         Motorized TEXT,
                         PaymentMethod TEXT,
                         Discount REAL,
-                        TotalAmount REAL,
-                        Location TEXT
-
+                        TotalAmount REAL
                     );";
 
                 string createInvoiceItemsTableQuery = @"
@@ -66,6 +64,17 @@ namespace SilkShield_New.Data
                         FOREIGN KEY(InvoiceId) REFERENCES Invoices(InvoiceId)
                     );";
 
+                string createInventoryTableQuery = @"
+                    CREATE TABLE IF NOT EXISTS inventory (
+                        ItemID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        ItemName TEXT NOT NULL,
+                        Category TEXT,
+                        Material TEXT,
+                        MeasuringUnit TEXT,
+                        UnitPrice REAL,
+                        StockStatus TEXT
+                    );";
+
                 using (var command = new SQLiteCommand(createInvoicesTableQuery, connection))
                 {
                     command.ExecuteNonQuery();
@@ -75,7 +84,150 @@ namespace SilkShield_New.Data
                 {
                     command.ExecuteNonQuery();
                 }
+
+                using (var command = new SQLiteCommand(createInventoryTableQuery, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
             }
         }
+
+        public List<InventoryItem> GetAllInventoryItems()
+        {
+            var items = new List<InventoryItem>();
+
+            try
+            {
+                using (var connection = GetConnection())
+                {
+                    connection.Open();
+                    string query = "SELECT ItemID, ItemName, Category, Material, MeasuringUnit, UnitPrice, StockStatus FROM inventory";
+
+                    using (var command = new SQLiteCommand(query, connection))
+                    using (var reader = command.ExecuteReader())
+                    {
+                        int itemIDOrdinal = reader.GetOrdinal("ItemID");
+                        int itemNameOrdinal = reader.GetOrdinal("ItemName");
+                        int categoryOrdinal = reader.GetOrdinal("Category");
+                        int materialOrdinal = reader.GetOrdinal("Material");
+                        int measuringUnitOrdinal = reader.GetOrdinal("MeasuringUnit");
+                        int unitPriceOrdinal = reader.GetOrdinal("UnitPrice");
+                        int stockStatusOrdinal = reader.GetOrdinal("StockStatus");
+
+                        while (reader.Read())
+                        {
+                            items.Add(new InventoryItem
+                            {
+                                ItemID = reader.IsDBNull(itemIDOrdinal) ? 0 : reader.GetInt32(itemIDOrdinal),
+                                ItemName = reader.IsDBNull(itemNameOrdinal) ? "" : reader.GetString(itemNameOrdinal),
+                                Category = reader.IsDBNull(categoryOrdinal) ? "" : reader.GetString(categoryOrdinal),
+                                Material = reader.IsDBNull(materialOrdinal) ? "" : reader.GetString(materialOrdinal),
+                                MeasuringUnit = reader.IsDBNull(measuringUnitOrdinal) ? "" : reader.GetString(measuringUnitOrdinal),
+                                UnitPrice = reader.IsDBNull(unitPriceOrdinal) ? 0.0 : reader.GetDouble(unitPriceOrdinal),
+                                StockStatus = reader.IsDBNull(stockStatusOrdinal) ? "" : reader.GetString(stockStatusOrdinal)
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetAllInventoryItems error: {ex.Message}");
+            }
+
+            return items;
+        }
+
+        public List<InventoryItem> SearchInventoryItems(string searchText)
+        {
+            var items = new List<InventoryItem>();
+
+            try
+            {
+                using (var connection = GetConnection())
+                {
+                    connection.Open();
+                    string query = @"SELECT ItemID, ItemName, Category, Material, MeasuringUnit, UnitPrice, StockStatus 
+                                     FROM inventory 
+                                     WHERE ItemName LIKE @searchText";
+
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@searchText", $"%{searchText}%");
+
+                        using (var reader = command.ExecuteReader())
+                        {
+                            int itemIDOrdinal = reader.GetOrdinal("ItemID");
+                            int itemNameOrdinal = reader.GetOrdinal("ItemName");
+                            int categoryOrdinal = reader.GetOrdinal("Category");
+                            int materialOrdinal = reader.GetOrdinal("Material");
+                            int measuringUnitOrdinal = reader.GetOrdinal("MeasuringUnit");
+                            int unitPriceOrdinal = reader.GetOrdinal("UnitPrice");
+                            int stockStatusOrdinal = reader.GetOrdinal("StockStatus");
+
+                            while (reader.Read())
+                            {
+                                items.Add(new InventoryItem
+                                {
+                                    ItemID = reader.IsDBNull(itemIDOrdinal) ? 0 : reader.GetInt32(itemIDOrdinal),
+                                    ItemName = reader.IsDBNull(itemNameOrdinal) ? "" : reader.GetString(itemNameOrdinal),
+                                    Category = reader.IsDBNull(categoryOrdinal) ? "" : reader.GetString(categoryOrdinal),
+                                    Material = reader.IsDBNull(materialOrdinal) ? "" : reader.GetString(materialOrdinal),
+                                    MeasuringUnit = reader.IsDBNull(measuringUnitOrdinal) ? "" : reader.GetString(measuringUnitOrdinal),
+                                    UnitPrice = reader.IsDBNull(unitPriceOrdinal) ? 0.0 : reader.GetDouble(unitPriceOrdinal),
+                                    StockStatus = reader.IsDBNull(stockStatusOrdinal) ? "" : reader.GetString(stockStatusOrdinal)
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"SearchInventoryItems error: {ex.Message}");
+            }
+
+            return items;
+        }
+
+        // Add this method back to your DatabaseHelper class.
+        public bool DeleteInventoryItem(int itemId)
+        {
+            try
+            {
+                using (var connection = GetConnection())
+                {
+                    connection.Open();
+                    string query = "DELETE FROM inventory WHERE ItemID = @itemId";
+
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@itemId", itemId);
+                        int rowsAffected = command.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Delete error: {ex.Message}");
+                return false;
+            }
+        }
+    }
+
+    public class InventoryItem
+    {
+        public int ItemID { get; set; }
+        public string ItemName { get; set; }
+        public string Category { get; set; }
+        public string Material { get; set; }
+        public string MeasuringUnit { get; set; }
+        public double UnitPrice { get; set; }
+        public string StockStatus { get; set; }
+
+        public string Price => $"Rs. {UnitPrice:N2}";
+        public string StatusText => StockStatus == "In Stock" ? "Active" : "Inactive";
+        public string Status => StockStatus == "In Stock" ? "Active" : "Inactive";
     }
 }
