@@ -16,9 +16,9 @@ using SilkShield_New.Data;
 
 namespace SilkShield_New.View
 {
-    /// <summary>
-    /// Interaction logic for Inventory.xaml
-    /// </summary>
+    /// <summary> 
+    /// Interaction logic for Inventory.xaml 
+    /// </summary> 
     public partial class Inventory : Window
     {
         private InventoryViewModel _viewModel;
@@ -34,15 +34,32 @@ namespace SilkShield_New.View
             _viewModel = new InventoryViewModel();
             this.DataContext = _viewModel;
 
-            // Subscribe to property changes to handle selection highlighting
+            // Subscribe to property changes to handle selection highlighting 
             _viewModel.PropertyChanged += ViewModel_PropertyChanged;
+
+            // ADD THIS LINE
+            dataGridView1.CellEditEnding += DataGrid_CellEditEnding;
+        }
+
+        // ADD THIS NEW METHOD
+        private void DataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            if (e.EditAction == DataGridEditAction.Commit)
+            {
+                var editedItem = e.Row.Item as InventoryItem;
+                if (editedItem != null)
+                {
+                    // Update the item in the ViewModel, which will save to the database
+                    _viewModel.UpdateItem(editedItem);
+                }
+            }
         }
 
         private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(InventoryViewModel.SelectedItem))
             {
-                // Highlight the selected item
+                // Highlight the selected item 
                 HighlightSelectedItem();
             }
         }
@@ -51,31 +68,36 @@ namespace SilkShield_New.View
         {
             if (_viewModel.SelectedItem != null)
             {
-                // Find the item in DataGrid and scroll to it
+                // Find the item in DataGrid and scroll to it 
                 for (int i = 0; i < dataGridView1.Items.Count; i++)
                 {
                     var item = dataGridView1.Items[i] as InventoryItem;
                     if (item != null && item.ItemID == _viewModel.SelectedItem.ItemID)
                     {
                         dataGridView1.SelectedIndex = i;
-                        dataGridView1.ScrollIntoView(dataGridView1.SelectedItem);
 
-                        // Apply highlight styling
+                        // Check if an item is selected before scrolling
+                        if (dataGridView1.SelectedItem != null)
+                        {
+                            dataGridView1.ScrollIntoView(dataGridView1.SelectedItem);
+                        }
+
+                        // Apply highlight styling 
                         Dispatcher.BeginInvoke(new Action(() =>
                         {
                             var row = dataGridView1.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
                             if (row != null)
                             {
-                                row.Background = new SolidColorBrush(Color.FromRgb(139, 69, 19)); // Maroon color
+                                row.Background = new SolidColorBrush(Color.FromRgb(139, 69, 19)); // Maroon color 
                                 row.Foreground = Brushes.White;
 
-                                // Reset after 3 seconds
+                                // Reset after 3 seconds 
                                 var timer = new System.Windows.Threading.DispatcherTimer();
                                 timer.Interval = TimeSpan.FromSeconds(3);
                                 timer.Tick += (s, e) =>
                                 {
                                     row.Background = Brushes.Transparent;
-                                    row.Foreground = new SolidColorBrush(Color.FromRgb(31, 41, 55)); // Original text color
+                                    row.Foreground = new SolidColorBrush(Color.FromRgb(31, 41, 55)); // Original text color 
                                     timer.Stop();
                                 };
                                 timer.Start();
@@ -87,10 +109,10 @@ namespace SilkShield_New.View
             }
         }
 
-        // The SearchTextBox_KeyDown method has been removed.
-        // The real-time filtering is now handled solely by the ViewModel.
+        // The SearchTextBox_KeyDown method has been removed. 
+        // The real-time filtering is now handled solely by the ViewModel. 
 
-        // Optional: Handle window closing
+        // Optional: Handle window closing 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             if (_viewModel != null)
@@ -98,6 +120,13 @@ namespace SilkShield_New.View
                 _viewModel.PropertyChanged -= ViewModel_PropertyChanged;
             }
             base.OnClosing(e);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            New_Inventory newInventoryWindow = new New_Inventory();
+            this.Close();
+            newInventoryWindow.Show();
         }
     }
 }

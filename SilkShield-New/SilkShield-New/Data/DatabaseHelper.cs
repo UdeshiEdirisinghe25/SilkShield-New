@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
+using System.ComponentModel;
 
 namespace SilkShield_New.Data
 {
@@ -147,9 +148,9 @@ namespace SilkShield_New.Data
                 using (var connection = GetConnection())
                 {
                     connection.Open();
-                    string query = @"SELECT ItemID, ItemName, Category, Material, MeasuringUnit, UnitPrice, StockStatus 
-                                     FROM inventory 
-                                     WHERE ItemName LIKE @searchText";
+                    string query = @"SELECT ItemID, ItemName, Category, Material, MeasuringUnit, UnitPrice, StockStatus
+                                   FROM inventory
+                                   WHERE ItemName LIKE @searchText";
 
                     using (var command = new SQLiteCommand(query, connection))
                     {
@@ -190,7 +191,44 @@ namespace SilkShield_New.Data
             return items;
         }
 
-        // Add this method back to your DatabaseHelper class.
+        public bool UpdateInventoryItem(InventoryItem item)
+        {
+            try
+            {
+                using (var connection = GetConnection())
+                {
+                    connection.Open();
+                    string query = @"UPDATE inventory SET
+                                 ItemName = @itemName,
+                                 Category = @category,
+                                 Material = @material,
+                                 MeasuringUnit = @measuringUnit,
+                                 UnitPrice = @unitPrice,
+                                 StockStatus = @stockStatus
+                                 WHERE ItemID = @itemID";
+
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@itemName", item.ItemName);
+                        command.Parameters.AddWithValue("@category", item.Category);
+                        command.Parameters.AddWithValue("@material", item.Material);
+                        command.Parameters.AddWithValue("@measuringUnit", item.MeasuringUnit);
+                        command.Parameters.AddWithValue("@unitPrice", item.UnitPrice);
+                        command.Parameters.AddWithValue("@stockStatus", item.StockStatus);
+                        command.Parameters.AddWithValue("@itemID", item.ItemID);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"UpdateInventoryItem error: {ex.Message}");
+                return false;
+            }
+        }
+
         public bool DeleteInventoryItem(int itemId)
         {
             try
@@ -216,18 +254,75 @@ namespace SilkShield_New.Data
         }
     }
 
-    public class InventoryItem
+    public class InventoryItem : INotifyPropertyChanged
     {
+        private int _itemID;
+        private string _itemName;
+        private string _category;
+        private string _material;
+        private string _measuringUnit;
+        private double _unitPrice; // PRIVATE FIELD
+        private string _stockStatus;
+
         public int ItemID { get; set; }
-        public string ItemName { get; set; }
+
+        public string ItemName
+        {
+            get => _itemName;
+            set
+            {
+                if (_itemName != value)
+                {
+                    _itemName = value;
+                    OnPropertyChanged(nameof(ItemName));
+                }
+            }
+        }
+
         public string Category { get; set; }
         public string Material { get; set; }
         public string MeasuringUnit { get; set; }
-        public double UnitPrice { get; set; }
-        public string StockStatus { get; set; }
 
+        // **UPDATED PROPERTY**
+        public double UnitPrice
+        {
+            get => _unitPrice;
+            set
+            {
+                if (_unitPrice != value)
+                {
+                    _unitPrice = value;
+                    OnPropertyChanged(nameof(UnitPrice));
+                    OnPropertyChanged(nameof(Price)); // Price property eka update karanna
+                }
+            }
+        }
+
+        public string StockStatus
+        {
+            get => _stockStatus;
+            set
+            {
+                if (_stockStatus != value)
+                {
+                    _stockStatus = value;
+                    OnPropertyChanged(nameof(StockStatus));
+                    OnPropertyChanged(nameof(Status));
+                    OnPropertyChanged(nameof(StatusText));
+                }
+            }
+        }
+
+        // Read-only properties
         public string Price => $"Rs. {UnitPrice:N2}";
-        public string StatusText => StockStatus == "In Stock" ? "Active" : "Inactive";
-        public string Status => StockStatus == "In Stock" ? "Active" : "Inactive";
+        public string StatusText => StockStatus;
+        public string Status => StockStatus;
+
+        // INotifyPropertyChanged implementation
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

@@ -174,7 +174,7 @@
 
         <Border Grid.Row="2" Margin="20,0,20,0" Padding="0" CornerRadius="14" BorderBrush="{StaticResource Brush.Border}" BorderThickness="1" Background="#FFFFFF">
             <DataGrid  
-                x:Name="dataGridView1"      
+                x:Name="dataGridView1"    
                 Margin="0"
                 Background="#FFFFFF"
                 BorderBrush="{StaticResource Brush.Border}"
@@ -185,8 +185,7 @@
                 HeadersVisibility="Column"
                 CanUserAddRows="False"
                 RowHeight="48"
-                IsReadOnly="True"
-                GridLinesVisibility="None"
+                IsReadOnly="{Binding IsDataGridReadOnly}" GridLinesVisibility="None"
                 HorizontalGridLinesBrush="#F3F4F6"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto">
@@ -234,27 +233,13 @@
                     <DataGridTextColumn Header="Item Name"
                                          Binding="{Binding ItemName}"
                                          Width="*"
-                                         MinWidth="200">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="FontWeight" Value="Medium"/>
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
+                                         MinWidth="200"/>
 
                     <DataGridTextColumn Header="Unit Price"
                                          Binding="{Binding Price}"
-                                         Width="140">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                                <Setter Property="FontWeight" Value="SemiBold"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
+                                         Width="140"/>
 
-                    <DataGridTemplateColumn Header="Stock Status" Width="140">
+                    <DataGridTemplateColumn Header="Stock Status" Width="140" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Border x:Name="StatusBorder" CornerRadius="12" Padding="10,4" Background="{StaticResource Clr.SuccessBg}" HorizontalAlignment="Center">
@@ -273,7 +258,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Actions" Width="120">
+                    <DataGridTemplateColumn Header="Actions" Width="120" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -307,7 +292,7 @@
                            VerticalAlignment="Center"  
                            Foreground="{StaticResource Brush.Muted}"/>
             </StackPanel>
-            <Button Grid.Column="1" Style="{StaticResource PrimaryButton}" Content="+ New Inventory" FontSize="14" FontWeight="SemiBold"/>
+            <Button Grid.Column="1" Style="{StaticResource PrimaryButton}" Content="+ New Inventory" FontSize="14" FontWeight="SemiBold" Click="Button_Click"/>
         </Grid>
     </Grid>
 </Window>

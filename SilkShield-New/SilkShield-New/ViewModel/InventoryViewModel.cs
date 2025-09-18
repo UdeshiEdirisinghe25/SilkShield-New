@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using SilkShield_New.Data;
+using SilkShield_New.View;
 
 namespace SilkShield_New.ViewModel
 {
@@ -16,6 +17,20 @@ namespace SilkShield_New.ViewModel
         private ObservableCollection<InventoryItem> _inventoryItems;
         private InventoryItem _selectedItem;
         private string _filterText;
+        private bool _isDataGridReadOnly = true;
+
+        public bool IsDataGridReadOnly
+        {
+            get => _isDataGridReadOnly;
+            set
+            {
+                if (_isDataGridReadOnly != value)
+                {
+                    _isDataGridReadOnly = value;
+                    OnPropertyChanged(nameof(IsDataGridReadOnly));
+                }
+            }
+        }
 
         public InventoryViewModel()
         {
@@ -52,7 +67,7 @@ namespace SilkShield_New.ViewModel
                 {
                     _filterText = value;
                     OnPropertyChanged(nameof(FilterText));
-                    ApplyFilter(); // Apply the filter every time the text changes
+                    ApplyFilter();
                 }
             }
         }
@@ -73,7 +88,6 @@ namespace SilkShield_New.ViewModel
 
         public ICommand EditCommand { get; }
         public ICommand DeleteCommand { get; }
-        // The SearchCommand is no longer needed for real-time filtering
 
         #endregion
 
@@ -83,7 +97,6 @@ namespace SilkShield_New.ViewModel
         {
             try
             {
-                // Retrieve all items from the database and store them in a full list
                 _fullInventoryItems = _databaseHelper.GetAllInventoryItems().ToList();
             }
             catch (Exception ex)
@@ -98,7 +111,6 @@ namespace SilkShield_New.ViewModel
 
             if (string.IsNullOrWhiteSpace(FilterText))
             {
-                // If the filter text is empty or only whitespace, add all items back
                 foreach (var item in _fullInventoryItems)
                 {
                     InventoryItems.Add(item);
@@ -106,12 +118,10 @@ namespace SilkShield_New.ViewModel
             }
             else
             {
-                // Filter the full list based on the search text
                 var filteredItems = _fullInventoryItems
-                                      .Where(item => item.ItemName.ToLower().Contains(FilterText.ToLower()))
-                                      .ToList();
+                                     .Where(item => item.ItemName.ToLower().Contains(FilterText.ToLower()))
+                                     .ToList();
 
-                // Populate the ObservableCollection with the filtered results
                 foreach (var item in filteredItems)
                 {
                     InventoryItems.Add(item);
@@ -119,13 +129,57 @@ namespace SilkShield_New.ViewModel
             }
         }
 
+        // **UPDATED METHOD**
+        public void UpdateItem(InventoryItem item)
+        {
+            if (item == null) return;
+
+            try
+            {
+                bool updated = _databaseHelper.UpdateInventoryItem(item);
+                if (updated)
+                {
+                    // Find the item in the full list and update its properties
+                    var existingItem = _fullInventoryItems.FirstOrDefault(i => i.ItemID == item.ItemID);
+                    if (existingItem != null)
+                    {
+                        // Update the properties of the existing item
+                        existingItem.ItemName = item.ItemName;
+                        existingItem.Category = item.Category;
+                        existingItem.Material = item.Material;
+                        existingItem.MeasuringUnit = item.MeasuringUnit;
+                        existingItem.UnitPrice = item.UnitPrice;
+                        existingItem.StockStatus = item.StockStatus;
+                    }
+
+                    // Refresh the DataGrid to show the changes
+                    ApplyFilter();
+
+                    MessageBox.Show($"Item '{item.ItemName}' updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Failed to update item.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating item: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                IsDataGridReadOnly = true;
+            }
+        }
+
         private void ExecuteEdit(InventoryItem item)
         {
             if (item == null) return;
 
-            // TODO: Open edit window/dialog
-            MessageBox.Show($"Edit functionality for {item.ItemName} will be implemented here.",
-                "Edit Item", MessageBoxButton.OK, MessageBoxImage.Information);
+            IsDataGridReadOnly = false;
+            SelectedItem = item;
+
+            MessageBox.Show($"You can now edit the selected item. Please click away to save.", "Edit Mode", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ExecuteDelete(InventoryItem item)
@@ -142,7 +196,6 @@ namespace SilkShield_New.ViewModel
                     bool deleted = _databaseHelper.DeleteInventoryItem(item.ItemID);
                     if (deleted)
                     {
-                        // Remove from both the filtered list and the full list
                         InventoryItems.Remove(item);
                         _fullInventoryItems.Remove(item);
 
@@ -177,7 +230,6 @@ namespace SilkShield_New.ViewModel
         #endregion
     }
 
-    // Generic RelayCommand implementation (unchanged)
     public class CustomizeCommand<T> : ICommand
     {
         private readonly Action<T> _execute;
@@ -206,7 +258,6 @@ namespace SilkShield_New.ViewModel
         }
     }
 
-    // Non-generic RelayCommand for commands with no parameters (unchanged)
     public class CustomizeCommand : ICommand
     {
         private readonly Action _execute;
