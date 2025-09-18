@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:SilkShield_New.ViewModel"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
-        >
+         Background="Transparent">
 
     <UserControl.DataContext>
         <vm:ProfileViewModel/>
@@ -125,12 +125,10 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/images/Back.PNG"/>
-        </Grid.Background>
+    
+        <Grid>
 
-        <!-- Loading Indicator -->
+            <!-- Loading Indicator -->
         <Grid Visibility="{Binding IsLoading, Converter={StaticResource BoolToVis}}" 
               Background="#80000000" 
               Panel.ZIndex="999">

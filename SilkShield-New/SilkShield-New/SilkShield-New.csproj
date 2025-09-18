@@ -95,6 +95,7 @@
     <Compile Include="Model\Invoice.cs" />
     <Compile Include="Model\InvoiceDTO.cs" />
     <Compile Include="Model\InvoiceItem.cs" />
+    <Compile Include="Model\ProjectSummary.cs" />
     <Compile Include="TextBoxPlaceHolder.cs" />
     <Compile Include="ViewModel\AddNewCustomerViewModel.cs" />
     <Compile Include="ViewModel\Customer_ManageViewModel.cs" />
@@ -206,6 +207,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logowhite.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />

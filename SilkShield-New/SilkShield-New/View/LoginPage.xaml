@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SilkShield_New.View"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"  WindowStyle="None" AllowsTransparency="True"
-        Title="LoginPage" Height="700" Width="847" MaxHeight="700" MaxWidth="847">
+        Title="LoginPage" Height="700" Width="847" MaxHeight="700" MaxWidth="847" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <!-- Style for the Username TextBox with a placeholder and icon -->

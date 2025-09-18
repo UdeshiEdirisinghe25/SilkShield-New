@@ -8,6 +8,7 @@ namespace SilkShield_New.View
 {
     public partial class Customer_Manage : UserControl
     {
+        public event RoutedEventHandler AddNewCustomerRequested;
         public Customer_Manage()
         {
             InitializeComponent();
@@ -32,6 +33,9 @@ namespace SilkShield_New.View
             }
         }
 
-       
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewCustomerRequested?.Invoke(this, e);
+        }
     }
 }

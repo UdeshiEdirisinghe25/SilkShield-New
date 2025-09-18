@@ -129,5 +129,60 @@ namespace SilkShield_New.Data
                 }
             }
         }
+        public ProjectSummary GetProjectSummary()
+        {
+            var summary = new ProjectSummary();
+            string connectionString = _dbHelper.GetConnection().ConnectionString;
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                // 1. Pending Projects ගණන ලබා ගැනීම
+                string pendingQuery = "SELECT COUNT(*) FROM customer_details WHERE ProjectConfirmation = 'Pending'";
+                using (var cmd = new SQLiteCommand(pendingQuery, connection))
+                {
+                    summary.Pending = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+
+                // 2. Ongoing සහ Upcoming Projects ගණන C# කේතය හරහා ගණනය කිරීම
+                // මෙය සිදු කරන්නේ date format ගැටලුව මගහැරීමටයි.
+                string confirmedProjectsQuery = "SELECT Project_Start_Date, Expected_Dateof_Completion FROM customer_details WHERE ProjectConfirmation = 'Confirmed'";
+
+                int ongoingCount = 0;
+                int upcomingCount = 0;
+                DateTime today = DateTime.Now.Date;
+
+                using (var cmd = new SQLiteCommand(confirmedProjectsQuery, connection))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string startDateStr = reader["Project_Start_Date"].ToString();
+                            string endDateStr = reader["Expected_Dateof_Completion"].ToString();
+
+                            if (DateTime.TryParse(startDateStr, out DateTime startDate) && DateTime.TryParse(endDateStr, out DateTime endDate))
+                            {
+                                if (startDate.Date <= today && endDate.Date >= today)
+                                {
+                                    ongoingCount++;
+                                }
+                                else if (startDate.Date > today)
+                                {
+                                    upcomingCount++;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                summary.Ongoing = ongoingCount;
+                summary.Upcoming = upcomingCount;
+            }
+
+            return summary;
+        }
+
     }
 }

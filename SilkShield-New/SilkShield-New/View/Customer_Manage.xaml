@@ -44,7 +44,7 @@
                     Cursor="Hand"
                     Height="35"
                     FontWeight="Bold"
-                    Command="{Binding AddCustomerCommand}" />
+                    Command="{Binding AddCustomerCommand}" Click="Button_Click"/>
         </Grid>
 
         <!-- Search Section -->

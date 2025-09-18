@@ -14,6 +14,9 @@ namespace SilkShield_New.View
          private NewInvoice1 invoiceView;
         private Profile ProfileView;
         //private InvoiceHistory invoiceHistory;
+        private AddNewCustomer newCustomerView;
+
+
 
         public MainWindow()
         {
@@ -25,6 +28,9 @@ namespace SilkShield_New.View
               invoiceView = new NewInvoice1();
              ProfileView = new Profile();
             //invoiceHistory = new InvoiceHistory();
+            newCustomerView = new AddNewCustomer();
+
+            customerView.AddNewCustomerRequested += CustomerView_AddNewCustomerRequested;
 
             MainContentArea.Content = dashboardView;
 
@@ -98,11 +104,16 @@ namespace SilkShield_New.View
         }
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
-
-            // LoginPage.show();
-            //this.Close();
-
+            
+            LoginPage loginPage = new LoginPage();
+            loginPage.Show();
+            this.Close();
         }
+        private void CustomerView_AddNewCustomerRequested(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = newCustomerView;
+        }
+
 
 
     }

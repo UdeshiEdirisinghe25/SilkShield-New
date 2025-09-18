@@ -8,7 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/silkshield-new.exe")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/silkshield-new.pdb")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/logowhite.png")]
 
 

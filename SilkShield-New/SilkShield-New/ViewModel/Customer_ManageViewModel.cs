@@ -70,18 +70,9 @@ namespace SilkShield_New.ViewModel
 
         private void AddCustomer()
         {
-            var dialogWindow = new Window();
-            var addCustomerControl = new View.AddNewCustomer();
-            dialogWindow.Content = addCustomerControl;
-            dialogWindow.SizeToContent = SizeToContent.WidthAndHeight;
-            dialogWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+           
 
-            // Show dialog
-            dialogWindow.ShowDialog();
-
-            // Reload data and refresh view
-            LoadCustomers();
-            CustomersView.Refresh();
+           
         }
 
         private void ViewCustomer(Customer customer)
