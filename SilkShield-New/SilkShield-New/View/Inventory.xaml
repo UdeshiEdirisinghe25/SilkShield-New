@@ -162,7 +162,6 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="44"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" FontFamily="{StaticResource IconFont}" Text="&#xE721;" Foreground="{StaticResource Brush.Muted}" VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBox x:Name="SearchTextBox" Grid.Column="1" BorderThickness="0" Background="Transparent" Style="{StaticResource WatermarkTextBox}" Tag="Search by item name..." Height="42"  
                                  Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
                         <Button Grid.Column="2" Style="{StaticResource IconButton}" ToolTip="Search">
@@ -187,7 +186,7 @@
                 CanUserAddRows="False"
                 RowHeight="48"
                 IsReadOnly="True"
-                GridLinesVisibility="Horizontal"
+                GridLinesVisibility="None"
                 HorizontalGridLinesBrush="#F3F4F6"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto">
@@ -207,6 +206,7 @@
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderBrush" Value="#E5E7EB"/>
                         <Setter Property="Foreground" Value="{StaticResource Brush.Text}"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -218,7 +218,7 @@
 
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell">
-                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
                         <Setter Property="Padding" Value="16,8"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Style.Triggers>
