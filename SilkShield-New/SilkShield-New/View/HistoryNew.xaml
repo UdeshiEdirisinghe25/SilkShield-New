@@ -166,9 +166,9 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                     <Button Margin="2" Background="Transparent" BorderBrush="Transparent"
-                        Cursor="Hand" Foreground="Green"
-                        Command="{Binding DataContext.ViewInvoiceCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                        CommandParameter="{Binding}">
+                                            Cursor="Hand" Foreground="Green"
+                                            Command="{Binding DataContext.ViewInvoiceCommand, RelativeSource={RelativeSource AncestorType=Window}}"                        
+                                            CommandParameter="{Binding}">
                                         <fa:FontAwesome Icon="Eye" FontSize="12" />
                                     </Button>
 

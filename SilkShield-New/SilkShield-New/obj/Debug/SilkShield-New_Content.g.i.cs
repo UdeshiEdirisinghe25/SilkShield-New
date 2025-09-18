@@ -8,10 +8,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/gmail.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/invoiceback.jpg")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/logo.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/map.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/viber.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/bouncycastle.cryptography.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/fontawesome.wpf.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/itextsharp.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/microsoft.data.sqlite.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/silkshield-new.exe")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/silkshield-new.pdb")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/sqlitepclraw.batteries_v2.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/sqlitepclraw.core.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/sqlitepclraw.provider.dynamic_cdecl.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/system.buffers.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/system.data.sqlite.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/system.memory.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/system.numerics.vectors.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/system.runtime.compilerservices.unsafe.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/x64/sqlite.interop.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/x86/sqlite.interop.dll")]
 
 

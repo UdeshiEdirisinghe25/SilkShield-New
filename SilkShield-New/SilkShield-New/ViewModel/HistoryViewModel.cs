@@ -10,7 +10,7 @@ namespace SilkShield_New.ViewModel
 {
     public class HistoryViewModel : INotifyPropertyChanged
     {
-        private string _connectionString = "Data Source=SilkShield.db;Version=3;";
+        private string _connectionString = "Data Source=SilkShieldDB.sqlite;Version=3;";
 
         // Properties for filtering and searching
         private string _searchText;
