@@ -3,23 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Title="Invoice History"
+        xmlns:viewModel="clr-namespace:SilkShield_New.ViewModel"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
+        Title="Invoice History"
         Height="600" Width="1000">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Header/Search -->
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <!-- Filters -->
-
-            <!-- DataGrid -->
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
 
-        <!-- Header + Search -->
         <Grid Grid.Row="0" Margin="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -31,103 +27,170 @@
                        FontSize="28" FontWeight="Bold"
                        VerticalAlignment="Center"/>
 
-            <!-- Search box -->
-            <DockPanel Grid.Column="1" VerticalAlignment="Center">
-                <TextBox Width="250"
-                         Height="30"
-                         Margin="0,0,10,0"
-                         VerticalAlignment="Center"
-                         Padding="5"
-                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-                         />
-                <Button Content="🔍"
-                        Width="30"
-                        Height="30"
-                        Command="{Binding SearchCommand}"/>
-            </DockPanel>
+
         </Grid>
 
-        <!-- Date Filters -->
+        <Grid Width="250" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0"
+             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+             FontSize="14"
+             Padding="10,2"
+             BorderThickness="1"
+             Background="Transparent">
+                <TextBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15" />
+                    </Style>
+                </TextBox.Resources>
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TextBox">
+                                    <Border x:Name="border"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="15">
+                                        <ScrollViewer x:Name="PART_ContentHost" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="BorderBrush" Value="#FFA0A0A0" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+
+            <TextBlock Grid.Column="0"
+    Text="Search Here"
+    Foreground="Gray"
+    VerticalAlignment="Center"
+    HorizontalAlignment="Left"
+    Margin="15,0,0,0"
+    FontSize="13"
+    IsHitTestVisible="False">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" Value="">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+            <Button
+            Content="🔍"
+            Width="30"
+            Command="{Binding SearchCommand}"
+            Background="Transparent"
+            BorderThickness="0"
+            Foreground="#FF5B281C"
+            FontSize="16" Margin="211,0,9,0" />
+        </Grid>
+
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20,0,20,10">
             <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
                 <TextBlock Text="From:" VerticalAlignment="Center" Margin="0,0,5,0" FontWeight="Bold"/>
                 <DatePicker SelectedDate="{Binding FromDate}" Width="200" Height="30"/>
             </StackPanel>
-
             <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
                 <TextBlock Text="To:" VerticalAlignment="Center" Margin="0,0,5,0" FontWeight="Bold"/>
                 <DatePicker SelectedDate="{Binding ToDate}" Width="200" Height="30"/>
             </StackPanel>
-
             <Button Content="Clear"
-                    Width="80" Height="28"
-                    Command="{Binding ClearFiltersCommand}"
-                    Background="#FF5B281C"
-                    Foreground="White"
-                    BorderThickness="0"
-                    FontWeight="Bold"/>
+            Width="80"
+            Height="28"
+            Command="{Binding ClearFiltersCommand}"
+            Background="#FF5B281C"
+            Foreground="White"
+            FontWeight="Bold"
+            BorderThickness="0">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                    Background="{TemplateBinding Background}"
+                    CornerRadius="12"
+                    BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                  VerticalAlignment="Center" />
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF804031" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF4A1E16" />
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="#FFB8B8B8" />
+                                <Setter Property="Foreground" Value="Gray" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </StackPanel>
 
-        <!-- DataGrid -->
-        <Border Grid.Row="1" Margin="20,113,20,-73" CornerRadius="10" Background="White" Padding="10">
+        <Border Grid.Row="2" Margin="20" CornerRadius="10" Background="White" Padding="10">
             <DataGrid ItemsSource="{Binding Invoices}"
-                    
-                AutoGenerateColumns="False"
-                CanUserAddRows="False"
-                IsReadOnly="True"
-                RowHeight="35"
-                HeadersVisibility="Column"
-                GridLinesVisibility="None"
-                Background="White"
-                Margin="20,0,20,10"
-                HorizontalScrollBarVisibility="Auto"
-                VerticalScrollBarVisibility="Auto"
-                ScrollViewer.CanContentScroll="True"
-                ScrollViewer.VerticalScrollBarVisibility="Auto"
-                ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                      AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True"
+                      RowHeight="35" HeadersVisibility="Column" GridLinesVisibility="None"
+                      Background="White" HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto">
 
                 <DataGrid.Columns>
-
-                    <DataGridTextColumn Header="Invoice ID" Binding="{Binding InvoiceID}" Width="*" />
+                    <DataGridTextColumn Header="Invoice ID" Binding="{Binding InvoiceId}" Width="*" />
                     <DataGridTextColumn Header="Customer" Binding="{Binding Customer}" Width="2*" />
-                    <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat=d}" Width="*" />
-                    <DataGridTextColumn Header="Amount" Binding="{Binding Amount, StringFormat=C}" Width="*" />
+                    <DataGridTextColumn Header="Date" Binding="{Binding InvoiceDate, StringFormat=d}" Width="*" />
+                    <DataGridTextColumn Header="Amount" Binding="{Binding TotalAmount, StringFormat=C}" Width="*" />
 
-
-                    <!-- Action Column -->
                     <DataGridTemplateColumn Header="Action" Width="150">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button Margin="2" Background="Transparent" BorderBrush="Transparent"
+                        Cursor="Hand" Foreground="Green"
+                        Command="{Binding DataContext.ViewInvoiceCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                        CommandParameter="{Binding}">
+                                        <fa:FontAwesome Icon="Eye" FontSize="12" />
+                                    </Button>
 
-                                    <Button Content="👁" Margin="2"
-                        Background="Transparent" BorderBrush="Transparent"
-                        FontSize="12" Cursor="Hand"
-                        Foreground="Green"
-                        Command="{Binding DataContext.ViewCustomerCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                        CommandParameter="{Binding}" />
+                                    <Button Margin="2" Background="Transparent" BorderBrush="Transparent"
+                        Cursor="Hand" Foreground="Blue"
+                        Command="{Binding DataContext.EditInvoiceCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                        CommandParameter="{Binding}">
+                                        <fa:FontAwesome Icon="Pencil" FontSize="12" />
+                                    </Button>
 
-                                    <Button Content="✏" Margin="2"
-                        Background="Transparent" BorderBrush="Transparent"
-                        FontSize="12" Cursor="Hand"
-                        Foreground="Blue"
-                        Command="{Binding DataContext.EditCustomerCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                        CommandParameter="{Binding}" />
-
-                                    <Button Content="🗑" Margin="2"
-                        Background="Transparent" BorderBrush="Transparent"
-                        FontSize="12" Cursor="Hand"
-                        Foreground="Red"
-                        Command="{Binding DataContext.DeleteCustomerCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                        CommandParameter="{Binding}" />
+                                    <Button Margin="2" Background="Transparent" BorderBrush="Transparent"
+                        Cursor="Hand" Foreground="Red"
+                        Command="{Binding DataContext.DeleteInvoiceCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                        CommandParameter="{Binding}">
+                                        <fa:FontAwesome Icon="Trash" FontSize="12" />
+                                    </Button>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
     </Grid>
 </Window>
-
