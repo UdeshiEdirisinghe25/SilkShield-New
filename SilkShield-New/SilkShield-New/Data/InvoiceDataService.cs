@@ -20,7 +20,68 @@ public class InvoiceDataService
 
     public void AddInvoice(Invoice invoice)
     {
-        // This is where your database saving logic will go.
+        using (var connection = _dbHelper.GetConnection())
+        {
+            connection.Open();
+            using (var transaction = connection.BeginTransaction())
+            {
+                try
+                {
+                    // 1. Inserting data into the Invoices Table.
+                    string invoiceQuery = @"
+                    INSERT INTO Invoices (InvoiceNumber, InvoiceDate, Customer, BuildingType, PelmetBoard, Motorized, PaymentMethod, Discount, TotalAmount, Location, CurtainLayerType, CurtainStyle, TransportLaborCost)
+                    VALUES (@InvoiceNumber, @InvoiceDate, @Customer, @BuildingType, @PelmetBoard, @Motorized, @PaymentMethod, @Discount, @TotalAmount, @Location, @CurtainLayerType, @CurtainStyle, @TransportLaborCost);
+                    SELECT last_insert_rowid();"; // This will get the newly entered InvoiceId.
+
+                    long invoiceId;
+                    using (var command = new SQLiteCommand(invoiceQuery, connection, transaction))
+                    {
+                        command.Parameters.AddWithValue("@InvoiceNumber", invoice.InvoiceNumber);
+                        command.Parameters.AddWithValue("@InvoiceDate", invoice.InvoiceDate.ToString("yyyy-MM-dd HH:mm:ss"));
+                        command.Parameters.AddWithValue("@Customer", invoice.CustomerName);
+                        command.Parameters.AddWithValue("@BuildingType", invoice.BuildingType);
+                        command.Parameters.AddWithValue("@PelmetBoard", invoice.PelmetBoard);
+                        command.Parameters.AddWithValue("@Motorized", invoice.Motorized);
+                        command.Parameters.AddWithValue("@PaymentMethod", invoice.PaymentMethod);
+                        command.Parameters.AddWithValue("@Discount", invoice.Discount);
+                        command.Parameters.AddWithValue("@TotalAmount", invoice.GrandTotal);
+                        command.Parameters.AddWithValue("@Location", invoice.Location);
+                        command.Parameters.AddWithValue("@CurtainLayerType", invoice.CurtainLayerType);
+                        command.Parameters.AddWithValue("@CurtainStyle", invoice.CurtainStyle);
+                        command.Parameters.AddWithValue("@TransportLaborCost", invoice.TransportLaborCost);
+
+                        invoiceId = (long)command.ExecuteScalar();
+                    }
+
+                    // 2. Entering data into the InvoiceItems table.
+                    string itemQuery = @"
+                    INSERT INTO InvoiceItems (InvoiceId, ItemName, Quantity, UnitPrice, Total, CurtainType)
+                    VALUES (@InvoiceId, @ItemName, @Quantity, @UnitPrice, @Total, @CurtainType);";
+
+                    foreach (var item in invoice.Items)
+                    {
+                        using (var command = new SQLiteCommand(itemQuery, connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@InvoiceId", invoiceId); // get ID
+                            command.Parameters.AddWithValue("@ItemName", item.ItemName);
+                            command.Parameters.AddWithValue("@Quantity", item.Quantity);
+                            command.Parameters.AddWithValue("@UnitPrice", item.UnitPrice);
+                            command.Parameters.AddWithValue("@Total", item.Total);
+                            command.Parameters.AddWithValue("@CurtainType", item.SelectedMaterial); // Selected Material is used for Curtain Type.
+
+                            command.ExecuteNonQuery();
+                        }
+                    }
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Data entry error. Transaction reversed..", ex);
+                }
+            }
+        }
     }
 
     public async Task<List<string>> GetDistinctItemNamesAsync()
