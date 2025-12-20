@@ -1,0 +1,369 @@
+﻿<UserControl x:Class="SilkShield_New.View.Inventory"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Background="Transparent">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <Grid Grid.Row="0" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Inventory Details"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="Black"/>
+                <TextBlock Text="Manage your inventory information and stock status"
+                           FontSize="14"
+                           Foreground="Gray"
+                           Margin="0,4,0,0"/>
+            </StackPanel>
+
+            <Button Grid.Column="1"
+                    Content="+ Add Inventory"
+                    Width="160"
+                    Height="40"
+                    FontWeight="SemiBold"
+                    FontSize="14"
+                    Background="#5B281C"
+                    Foreground="White"
+                    BorderBrush="Transparent"
+                    Cursor="Hand"
+                    Click="NewInventoryButton_Click"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"/>
+        </Grid>
+
+        <!-- SEARCH SECTION -->
+        <Border Grid.Row="1"
+                Background="#F0F0F0"
+                CornerRadius="12"
+                Padding="20"
+                Margin="0,0,0,20">
+            <StackPanel>
+                <TextBlock Text="Search Items by Name"
+                           FontWeight="Bold"
+                           FontSize="16"
+                           Foreground="#1F2937"
+                           Margin="0,0,0,10"/>
+                <Border CornerRadius="8"
+                        BorderBrush="#E5E7EB"
+                        BorderThickness="1"
+                        Background="White"
+                        Height="42">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="&#xE721;"
+                                   FontFamily="Segoe MDL2 Assets"
+                                   Foreground="#9CA3AF"
+                                   VerticalAlignment="Center"
+                                   Margin="10,0"/>
+                        <TextBox x:Name="SearchTextBox"
+                                 Grid.Column="1"
+                                 BorderThickness="0"
+                                 Background="Transparent"
+                                 VerticalContentAlignment="Center"
+                                 FontSize="14"
+                                 Tag="Search by item name..."
+                                 Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- DATA GRID -->
+        <Border Grid.Row="2"
+                CornerRadius="14"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1"
+                Background="White"
+                Padding="0">
+            <DataGrid x:Name="dataGridView1"
+                      Margin="0"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      ItemsSource="{Binding InventoryItems}"
+                      SelectedItem="{Binding SelectedItem}"
+                      AutoGenerateColumns="False"
+                      HeadersVisibility="Column"
+                      CanUserAddRows="False"
+                      RowHeight="48"
+                      IsReadOnly="{Binding IsDataGridReadOnly}" 
+                      GridLinesVisibility="None"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      SelectionUnit="FullRow"
+                      SelectionMode="Single"
+                      SnapsToDevicePixels="True"
+                      UseLayoutRounding="True">
+
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="#1F2937"/>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="#1F2937"/>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="#1F2937"/>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    </Style>
+                </DataGrid.Resources>
+
+                <!-- HEADER STYLE -->
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="Gray"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="Height" Value="44"/>
+                        <Setter Property="Padding" Value="16,0"/>
+                        <Setter Property="BorderBrush" Value="#E5E7EB"/>
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+                <!-- ROW STYLE -->
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Foreground" Value="#1F2937"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridRow">
+                                    <Border x:Name="DGR_Border"
+                                            Background="{TemplateBinding Background}"
+                                            BorderThickness="0"
+                                            BorderBrush="Transparent"
+                                            SnapsToDevicePixels="True">
+                                        <SelectiveScrollingGrid>
+                                            <SelectiveScrollingGrid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </SelectiveScrollingGrid.ColumnDefinitions>
+                                            <SelectiveScrollingGrid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </SelectiveScrollingGrid.RowDefinitions>
+
+                                            <DataGridCellsPresenter Grid.Column="1"
+                                                                    ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+
+                                            <DataGridDetailsPresenter Grid.Column="1"
+                                                                      Grid.Row="1"
+                                                                      Visibility="{TemplateBinding DetailsVisibility}"/>
+
+                                            <DataGridRowHeader Grid.RowSpan="2"
+                                                               Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Row}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                        </SelectiveScrollingGrid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="DGR_Border" Property="Background" Value="#F9FAFB"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="DGR_Border" Property="Background" Value="#EFF6FF"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.RowStyle>
+
+                <!-- CELL STYLE -->
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="Foreground" Value="#1F2937"/>
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="Padding" Value="16,0"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridCell">
+                                    <Border Background="{TemplateBinding Background}"
+                                            BorderThickness="0"
+                                            BorderBrush="Transparent"
+                                            Padding="{TemplateBinding Padding}"
+                                            SnapsToDevicePixels="True">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="#1F2937"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
+
+                <!-- COLUMNS -->
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Item Name" 
+                                        Binding="{Binding ItemName}" 
+                                        Width="*" 
+                                        MinWidth="200">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Unit Price" 
+                                        Binding="{Binding Price}" 
+                                        Width="140">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTemplateColumn Header="Stock Status" Width="140" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border x:Name="StatusBorder" 
+                                        CornerRadius="12" 
+                                        Padding="10,4" 
+                                        Background="#EAFBF1" 
+                                        HorizontalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse x:Name="StatusEllipse" 
+                                                 Width="8" 
+                                                 Height="8" 
+                                                 Fill="#22C55E" 
+                                                 Margin="0,0,6,0"/>
+                                        <TextBlock Text="{Binding StatusText}" 
+                                                   VerticalAlignment="Center" 
+                                                   FontSize="14" 
+                                                   FontWeight="SemiBold"
+                                                   Foreground="#1F2937"/>
+                                    </StackPanel>
+                                </Border>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Status}" Value="Inactive">
+                                        <Setter TargetName="StatusBorder" Property="Background" Value="#FEF2F2"/>
+                                        <Setter TargetName="StatusEllipse" Property="Fill" Value="#F43F5E"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Actions Column -->
+                    <DataGridTemplateColumn Header="Actions" Width="120" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                                    <Button Width="32" 
+                                            Height="32" 
+                                            Background="#F8FAFC" 
+                                            BorderBrush="#E5E7EB" 
+                                            BorderThickness="1"
+                                            Cursor="Hand"
+                                            Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            CommandParameter="{Binding}"
+                                            ToolTip="Edit Item">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Background" Value="#F8FAFC"/>
+                                                <Setter Property="BorderThickness" Value="1"/>
+                                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#E5E7EB"/>
+                                                    </Trigger>
+                                                    <Trigger Property="IsPressed" Value="True">
+                                                        <Setter Property="Background" Value="#D1D5DB"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <TextBlock Text="&#xE70F;" 
+                                                   FontFamily="Segoe MDL2 Assets" 
+                                                   FontSize="14" 
+                                                   Foreground="#6B7280"/>
+                                    </Button>
+
+                                    <Button Width="32" 
+                                            Height="32" 
+                                            Background="#F8FAFC" 
+                                            BorderBrush="#E5E7EB" 
+                                            BorderThickness="1" 
+                                            Margin="4,0,0,0"
+                                            Cursor="Hand"
+                                            Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            CommandParameter="{Binding}"
+                                            ToolTip="Delete Item">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Background" Value="#F8FAFC"/>
+                                                <Setter Property="BorderThickness" Value="1"/>
+                                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#FEE2E2"/>
+                                                    </Trigger>
+                                                    <Trigger Property="IsPressed" Value="True">
+                                                        <Setter Property="Background" Value="#FECACA"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <TextBlock Text="&#xE74D;" 
+                                                   FontFamily="Segoe MDL2 Assets" 
+                                                   FontSize="14" 
+                                                   Foreground="#EF4444"/>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <!-- FOOTER -->
+        <TextBlock Grid.Row="3"
+                   Text="{Binding InventoryItems.Count, StringFormat='Total Items: {0}'}"
+                   Foreground="#667085"
+                   FontSize="13"
+                   Margin="0,10,0,0"/>
+    </Grid>
+</UserControl>
