@@ -187,7 +187,7 @@ public class InvoiceDataService
 
         if (!File.Exists(backgroundImagePath))
         {
-            throw new FileNotFoundException($"Background image not found at: {backgroundImagePath}");
+            throw new FileNotFoundException($"Background image not found at: {backgroundImagePath}"); //
         }
         if (!File.Exists(logoPath))
         {

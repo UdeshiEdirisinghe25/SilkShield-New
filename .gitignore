@@ -1,0 +1,16 @@
+# Visual Studio folders
+.vs/
+[Bb]in/
+[Oo]bj/
+
+# NuGet Packages 
+packages/
+
+# Project specific
+*.exe
+*.dll
+*.pdb
+*.suo
+*.user
+*.sqlite
+*.db

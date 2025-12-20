@@ -405,7 +405,7 @@
 		 
 	</ItemGroup>
 
-	  <ItemGroup><Resource Include="Images\Back.PNG" /><Resource Include="Images\IMG_5247.PNG" /><Resource Include="Images\Logo %282%29.PNG" /></ItemGroup><ItemGroup><Resource Include="Resources\gmail.png" /><Resource Include="Resources\InvoiceBack.jpg" /><Resource Include="Resources\logo.png" /><Resource Include="Resources\map.png" /><Resource Include="Resources\viber.png" /></ItemGroup><ItemGroup><Resource Include="Images\logowhite.jpg" /></ItemGroup><ItemGroup><Resource Include="Images\ss.png" /></ItemGroup>
+	  <ItemGroup><Resource Include="Images\Back.PNG" /><Resource Include="Images\IMG_5247.PNG" /><Resource Include="Images\Logo %282%29.PNG" /></ItemGroup><ItemGroup><Content Include="Resources\gmail.png"><CopyToOutputDirectory>Always</CopyToOutputDirectory></Content><Content Include="Resources\InvoiceBack.jpg"><CopyToOutputDirectory>Always</CopyToOutputDirectory></Content><Content Include="Resources\logo.png"><CopyToOutputDirectory>Always</CopyToOutputDirectory></Content><Content Include="Resources\map.png"><CopyToOutputDirectory>Always</CopyToOutputDirectory></Content><Content Include="Resources\viber.png"><CopyToOutputDirectory>Always</CopyToOutputDirectory></Content></ItemGroup><ItemGroup><Resource Include="Images\logowhite.jpg" /></ItemGroup><ItemGroup><Resource Include="Images\ss.png" /></ItemGroup>
 
 	  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
