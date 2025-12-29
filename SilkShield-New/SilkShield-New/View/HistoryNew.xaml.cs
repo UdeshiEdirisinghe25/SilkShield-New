@@ -11,7 +11,7 @@ namespace SilkShield_New.View
         {
             InitializeComponent();
 
-            var viewModel = new HistoryViewModel();
+            var viewModel = new HistoryNewViewModel();
             this.DataContext = viewModel;
 
             viewModel.LoadInvoices();

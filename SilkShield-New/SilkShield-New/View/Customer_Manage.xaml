@@ -241,7 +241,7 @@
                                     <Button Width="32" Height="32" Background="#F8FAFC" BorderBrush="#E5E7EB" BorderThickness="1" Margin="4,0,0,0"
                                             Command="{Binding DataContext.EditCustomerCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                             CommandParameter="{Binding}" ToolTip="Edit Customer">
-                                        <TextBlock Text="&#xE70F;" FontFamily="Segoe MDL2 Assets" FontSize="14" FontWeight="SemiBold" Foreground="Blue"/>
+                                        <TextBlock Text="&#xE70F;" FontFamily="Segoe MDL2 Assets" FontSize="14" FontWeight="SemiBold" Foreground="Black"/>
                                     </Button>
                                     <Button Width="32" Height="32" Background="#F8FAFC" BorderBrush="#E5E7EB" BorderThickness="1" Margin="4,0,0,0"
                                             Command="{Binding DataContext.DeleteCustomerCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"

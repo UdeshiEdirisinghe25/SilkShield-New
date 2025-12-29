@@ -101,8 +101,88 @@ namespace SilkShield_New.Data
             }
         }
 
+        //get invoices to history
+        public List<Invoice> GetAllInvoices()
+        {
+            var invoices = new List<Invoice>();
 
-                public List<InventoryItem> GetAllInventoryItems()
+            try
+            {
+                using (var connection = GetConnection())
+                {
+                    connection.Open();
+
+                    string query = @"
+                        SELECT 
+                            InvoiceNumber,
+                            InvoiceDate,
+                            Customer,
+                            Location,
+                            BuildingType,
+                            CurtainLayerType,
+                            PelmetBoard,
+                            Motorized,
+                            PaymentMethod,
+                            Discount,
+                            TotalAmount
+                        FROM Invoices
+                        ORDER BY InvoiceDate DESC";
+
+                    using (var command = new SQLiteCommand(query, connection))
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            invoices.Add(new Invoice
+                            {
+                                InvoiceNumber = reader["InvoiceNumber"]?.ToString(),
+                                InvoiceDate = DateTime.Parse(reader["InvoiceDate"].ToString()),
+                                CustomerName = reader["Customer"]?.ToString(),
+                                Location = reader["Location"]?.ToString(),
+                                BuildingType = reader["BuildingType"]?.ToString(),
+                                CurtainLayerType = reader["CurtainLayerType"]?.ToString(),
+                                PelmetBoard = reader["PelmetBoard"]?.ToString() == "Yes",
+                                Motorized = reader["Motorized"]?.ToString() == "Yes",
+                                PaymentMethod = reader["PaymentMethod"]?.ToString(),
+                                Discount = reader["Discount"] == DBNull.Value ? 0 : Convert.ToDouble(reader["Discount"]),
+                                TransportLaborCost = 0
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetAllInvoices error: {ex.Message}");
+            }
+
+            return invoices;
+        }
+
+        public bool DeleteInvoice(string invoiceNumber)
+        {
+            try
+            {
+                using (var connection = GetConnection())
+                {
+                    connection.Open();
+                    string query = "DELETE FROM Invoices WHERE InvoiceNumber = @no";
+
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@no", invoiceNumber);
+                        return command.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"DeleteInvoice error: {ex.Message}");
+                return false;
+            }
+        }
+
+        public List<InventoryItem> GetAllInventoryItems()
         {
             var items = new List<InventoryItem>();
 

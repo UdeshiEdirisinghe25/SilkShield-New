@@ -1,26 +1,75 @@
-﻿using System;
+﻿using SilkShield_New.Data;
+using SilkShield_New.Model;
+using SilkShield_New.Service;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Data.SQLite;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using System.Runtime.CompilerServices;
-using SilkShield_New.Model;
 
 namespace SilkShield_New.ViewModel
 {
-    public class HistoryViewModel : INotifyPropertyChanged
+    public class HistoryNewViewModel : INotifyPropertyChanged
     {
-        private string _connectionString = "Data Source=SilkShieldDB.sqlite;Version=3;";
+        private readonly DatabaseHelper _db = new DatabaseHelper();
 
-        private string _searchText;
-        public string SearchText
+        public ObservableCollection<Invoice> Invoices { get; set; }
+
+        public ICommand EditCommand { get; }
+        public ICommand DeleteCommand { get; }
+        public ICommand ClearFiltersCommand { get; set; } 
+        public ICommand SearchCommand { get; set; }
+
+
+
+
+        public HistoryNewViewModel()
         {
-            get => _searchText;
-            set
+            LoadInvoices();
+
+            EditCommand = new RelayCommand(EditInvoice);
+            DeleteCommand = new RelayCommand(DeleteInvoice);
+            ClearFiltersCommand = new RelayCommand(ClearFilters); // Initialize here
+            SearchCommand = new RelayCommand(ExecuteSearch);
+
+        }
+
+        public void LoadInvoices()
+        {
+            Invoices = new ObservableCollection<Invoice>(_db.GetAllInvoices());
+            OnPropertyChanged(nameof(Invoices));
+        }
+
+        private void EditInvoice(object obj)
+        {
+            if (obj is Invoice invoice)
             {
-                _searchText = value;
-                OnPropertyChanged();
+                MessageBox.Show(
+                    $"Edit Invoice: {invoice.InvoiceNumber}",
+                    "Edit",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+
+                // 👉 Open Edit Window here later
+            }
+        }
+
+        private void DeleteInvoice(object obj)
+        {
+            if (obj is Invoice invoice)
+            {
+                var result = MessageBox.Show(
+                    "Are you sure you want to delete this invoice?",
+                    "Confirm Delete",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    _db.DeleteInvoice(invoice.InvoiceNumber);
+                    Invoices.Remove(invoice);
+                }
             }
         }
 
@@ -30,8 +79,12 @@ namespace SilkShield_New.ViewModel
             get => _fromDate;
             set
             {
-                _fromDate = value;
-                OnPropertyChanged();
+                if (_fromDate != value)
+                {
+                    _fromDate = value;
+                    OnPropertyChanged(nameof(FromDate));
+                    ApplyFilters(); // Apply filters when date changes
+                }
             }
         }
 
@@ -41,147 +94,86 @@ namespace SilkShield_New.ViewModel
             get => _toDate;
             set
             {
-                _toDate = value;
-                OnPropertyChanged();
+                if (_toDate != value)
+                {
+                    _toDate = value;
+                    OnPropertyChanged(nameof(ToDate));
+                    ApplyFilters(); // Apply filters when date changes
+                }
             }
         }
-
-        public ObservableCollection<InvoiceHistory> Invoices { get; set; } = new ObservableCollection<InvoiceHistory>();
-        public ICommand SearchCommand { get; }
-        public ICommand ClearFiltersCommand { get; }
-        public ICommand ViewInvoiceCommand { get; }
-        public ICommand EditInvoiceCommand { get; }
-        public ICommand DeleteInvoiceCommand { get; }
-
-        public HistoryViewModel()
+        private void ApplyFilters()
         {
-            SearchCommand = new RelayCommand(ExecuteSearch);
-            ClearFiltersCommand = new RelayCommand(ExecuteClearFilters);
-            ViewInvoiceCommand = new RelayCommand(ExecuteViewInvoice);
-            EditInvoiceCommand = new RelayCommand(ExecuteEditInvoice);
-            DeleteInvoiceCommand = new RelayCommand(ExecuteDeleteInvoice);
+            var filtered = _db.GetAllInvoices(); // Get all invoices from database
 
-            LoadInvoices();
+            if (FromDate.HasValue)
+                filtered = filtered.Where(i => i.InvoiceDate.Date >= FromDate.Value.Date).ToList();
+
+            if (ToDate.HasValue)
+                filtered = filtered.Where(i => i.InvoiceDate.Date <= ToDate.Value.Date).ToList();
+
+            if (!string.IsNullOrEmpty(SearchText))
+            {
+                filtered = filtered.Where(i =>
+                    (i.CustomerName != null && i.CustomerName.ToLower().Contains(SearchText.ToLower())) ||
+                    (i.InvoiceNumber != null && i.InvoiceNumber.ToLower().Contains(SearchText.ToLower()))
+                ).ToList();
+            }
+
+            if (filtered.Count == 0)
+            {
+                System.Windows.MessageBox.Show(
+                    "No invoices found! Maybe they’re on a coffee break! 😎☕",
+                    "Search Result",
+                    System.Windows.MessageBoxButton.OK,
+                    System.Windows.MessageBoxImage.Information
+                );
+            }
+
+
+            Invoices = new ObservableCollection<Invoice>(filtered);
+            OnPropertyChanged(nameof(Invoices));
+
         }
 
         private void ExecuteSearch(object obj)
         {
-            LoadInvoices();
+            ApplyFilters();
         }
 
-        private void ExecuteClearFilters(object obj)
+
+
+
+
+        private string _searchText;
+        public string SearchText
         {
-            SearchText = string.Empty;
+            get => _searchText;
+            set
+            {
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    OnPropertyChanged(nameof(SearchText));
+                    ApplyFilters(); // Update filtered list on search
+                }
+            }
+        }
+
+        private void ClearFilters(object obj = null)
+        {
             FromDate = null;
             ToDate = null;
-            LoadInvoices();
+            SearchText = string.Empty;
+            ApplyFilters(); // Reset filters
         }
 
-        private void ExecuteViewInvoice(object obj)
-        {
-            if (obj is InvoiceHistory invoice)
-            {
-                MessageBox.Show($"Viewing Invoice ID: {invoice.InvoiceNumber}\nCustomer: {invoice.Customer}");
-            }
-        }
 
-        private void ExecuteEditInvoice(object obj)
-        {
-            if (obj is InvoiceHistory invoice)
-            {
-                MessageBox.Show($"Editing Invoice ID: {invoice.InvoiceNumber}\nCustomer: {invoice.Customer}");
-            }
-        }
 
-        private void ExecuteDeleteInvoice(object obj)
-        {
-            if (obj is InvoiceHistory invoice)
-            {
-                var result = MessageBox.Show($"Are you sure you want to delete Invoice Number {invoice.InvoiceNumber}?", "Confirm Deletion", MessageBoxButton.YesNo);
-                if (result == MessageBoxResult.Yes)
-                {
-                    try
-                    {
-                        using (var conn = new SQLiteConnection(_connectionString))
-                        {
-                            conn.Open();
-                            // 'InvoiceId' වෙනුවට 'InvoiceNumber' භාවිතා කරන්න
-                            string query = "DELETE FROM Invoices WHERE InvoiceNumber = @invoiceNumber";
-                            using (var cmd = new SQLiteCommand(query, conn))
-                            {
-                                // 'InvoiceId' වෙනුවට 'invoice.InvoiceNumber' යොදන්න
-                                cmd.Parameters.AddWithValue("@invoiceNumber", invoice.InvoiceNumber);
-                                cmd.ExecuteNonQuery();
-                            }
-                        }
-                        Invoices.Remove(invoice);
-                        MessageBox.Show("Invoice deleted successfully.");
-                    }
-                    catch (SQLiteException ex)
-                    {
-                        MessageBox.Show($"Database error: {ex.Message}", "Error");
-                    }
-                }
-            }
-        }
 
-        public void LoadInvoices()
-        {
-            Invoices.Clear();
 
-            try
-            {
-                using (var conn = new SQLiteConnection(_connectionString))
-                {
-                    conn.Open();
-
-                    // SQL විධානය සකස් කිරීම.
-                    string query = "SELECT InvoiceNumber, Customer, InvoiceDate, TotalAmount FROM Invoices WHERE 1=1";
-
-                    if (!string.IsNullOrEmpty(SearchText))
-                    {
-                        query += " AND Customer LIKE @searchText";
-                    }
-                    if (FromDate.HasValue)
-                    {
-                        query += " AND InvoiceDate >= @fromDate";
-                    }
-                    if (ToDate.HasValue)
-                    {
-                        query += " AND InvoiceDate <= @toDate";
-                    }
-
-                    using (var cmd = new SQLiteCommand(query, conn))
-                    {
-                        // ... parameters ...
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                Invoices.Add(new InvoiceHistory
-                                {
-                                    InvoiceNumber = reader.GetString(0), // මෙහි 0 අංකය InvoiceNumber එකට අදාල වෙනවා
-                                    Customer = reader.GetString(1),
-                                    InvoiceDate = reader.GetDateTime(2),
-                                    TotalAmount = reader.GetDecimal(3)
-                                });
-                            }
-                        }
-                    }
-                }
-            }
-            catch (SQLiteException ex)
-            {
-                MessageBox.Show($"A database error occurred: {ex.Message}", "Error");
-            }
-        }
-
-        // INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        private void OnPropertyChanged(string prop) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
     }
 }
