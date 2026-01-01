@@ -19,6 +19,7 @@ namespace SilkShield_New.Model
         public string PaymentMethod { get; set; }
         public double TransportLaborCost { get; set; }
         public double Discount { get; set; }
+        public decimal TotalAmount { get; set; }
 
         public ObservableCollection<InvoiceItem> Items { get; set; } = new ObservableCollection<InvoiceItem>();
 

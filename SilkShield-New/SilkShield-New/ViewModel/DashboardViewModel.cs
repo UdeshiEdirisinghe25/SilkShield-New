@@ -8,7 +8,18 @@ using SilkShield_New.Model;
 namespace SilkShield_New.ViewModel
 {
     public class DashboardViewModel : INotifyPropertyChanged
+
     {
+
+        public static DashboardViewModel Instance { get; private set; }
+
+        private object _currentView;
+        public object CurrentView
+        {
+            get => _currentView;
+            set { _currentView = value; OnPropertyChanged(nameof(CurrentView)); }
+        }
+
         private int _upcomingCount;
         private int _ongoingCount;
         private int _pendingCount;
@@ -68,7 +79,7 @@ namespace SilkShield_New.ViewModel
             PendingCount = summary.Pending;
 
             // Get recent invoices
-            var invoices = dbHelper.GetRecentInvoices(5);
+            var invoices = dbHelper.GetRecentInvoices(3);
             RecentInvoices.Clear();
             foreach (var invoice in invoices)
             {

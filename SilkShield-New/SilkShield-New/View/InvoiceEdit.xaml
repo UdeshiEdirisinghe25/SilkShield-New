@@ -1,12 +1,457 @@
-﻿<Window x:Class="SilkShield_New.View.InvoiceEdit"
+﻿<UserControl x:Class="SilkShield_New.View.InvoiceEdit"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SilkShield_New.View"
+        xmlns:vm="clr-namespace:SilkShield_New.ViewModel"
         mc:Ignorable="d"
-        Title="InvoiceEdit" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
-</Window>
+        Background="Transparent"
+        FontFamily="Segoe UI">
+
+    <UserControl.Resources>
+
+        <!-- 🔹 DataGrid Row Style -->
+        <Style TargetType="{x:Type DataGridRow}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#FFF2EDEB"/>
+                    <Setter Property="BorderBrush" Value="#FF5B281C"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- 🔹 DataGrid Column Header Style -->
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#E0E0E0"/>
+            <!-- Gray background -->
+            <Setter Property="Foreground" Value="#333"/>
+            <!-- Dark text -->
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+            <Setter Property="BorderBrush" Value="#CCC"/>
+        </Style>
+
+        <!-- 🔹 Reset link -->
+        <Style x:Key="ResetLinkStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="#007ACC"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <TextBlock Text="{TemplateBinding Content}" TextDecorations="Underline"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- 🔹 Add item button -->
+        <Style x:Key="AddButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="#FF5B281C"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <!-- 🔹 Primary button -->
+        <Style x:Key="RoundedPrimaryButton" TargetType="Button">
+            <Setter Property="Background" Value="#FF5B281C"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- 🔹 Label -->
+        <Style x:Key="FormLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#333"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+        </Style>
+
+        <!-- 🔹 Rounded TextBox -->
+        <Style x:Key="InputBoxStyle" TargetType="TextBox">
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#CCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- 🔹 Rounded ComboBox -->
+        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#CCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton Name="ToggleButton"
+                                          Background="{TemplateBinding Background}"
+                                          BorderBrush="{TemplateBinding BorderBrush}"
+                                          BorderThickness="{TemplateBinding BorderThickness}"
+                                          Focusable="False"
+                                          ClickMode="Press"
+                                          IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                CornerRadius="8">
+                                            <Grid>
+                                                <ContentPresenter Margin="5,0,25,0"
+                                                                  VerticalAlignment="Center"
+                                                                  HorizontalAlignment="Left"
+                                                                  Content="{TemplateBinding Content}"/>
+                                                <Path HorizontalAlignment="Right"
+                                                      Margin="0,0,10,0"
+                                                      VerticalAlignment="Center"
+                                                      Data="M 0 0 L 4 4 L 8 0 Z"
+                                                      Fill="Gray"/>
+                                            </Grid>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+
+                            <ContentPresenter Name="ContentSite"
+                                              IsHitTestVisible="False"
+                                              Content="{TemplateBinding SelectionBoxItem}"
+                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                              Margin="5,3,25,3"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"/>
+
+                            <Popup Name="Popup"
+                                   Placement="Bottom"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Slide">
+                                <Border Name="DropDownBorder"
+                                        Background="White"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="8">
+                                    <ScrollViewer Margin="4,6,4,6"
+                                                  SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="25">
+            <Border Padding="25" CornerRadius="10" BorderBrush="#DDD" BorderThickness="1">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="#FFFCF9F9" Offset="0"/>
+                        <GradientStop Color="#FFACAAAA" Offset="0.963"/>
+                        <GradientStop Color="#FF403F3F" Offset="1"/>
+                        <GradientStop Color="#FFE0DDDD" Offset="0.113"/>
+                        <GradientStop Color="#FFC6C4C4" Offset="0.241"/>
+                        <GradientStop Color="#FFA4A2A2" Offset="0"/>
+                        <GradientStop Color="#FF6F6E6E"/>
+                        <GradientStop Color="#FFB4B2B2" Offset="0.403"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- 🧾 Header -->
+                    <Grid Grid.Row="0" Margin="0,10,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Margin="0,0,20,0">
+                            <TextBlock Style="{StaticResource FormLabelStyle}" Text="Invoice Number"/>
+                            <TextBox Style="{StaticResource InputBoxStyle}"
+                                     Text="{Binding InvoiceNumber, Mode=OneWay}"
+                                     IsReadOnly="True"
+                                     Background="#F5F5F5"
+                                     Foreground="Gray"
+                                     FontStyle="Italic"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Style="{StaticResource FormLabelStyle}" Text="Date"/>
+                            <DatePicker Padding="8" FontSize="14" SelectedDate="{Binding InvoiceDate, Mode=TwoWay}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- 👤 Customer -->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Margin="0,0,20,0">
+                            <TextBlock Style="{StaticResource FormLabelStyle}" Text="Customer"/>
+                            <TextBox Style="{StaticResource InputBoxStyle}"
+                                     Text="{Binding CustomerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <TextBlock Style="{StaticResource FormLabelStyle}" Margin="0,15,0,5" Text="Location"/>
+                            <TextBox Style="{StaticResource InputBoxStyle}"
+                                     Text="{Binding Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Style="{StaticResource FormLabelStyle}" Text="Building Type"/>
+                            <ComboBox Style="{StaticResource ComboBoxStyle}"
+                                      SelectedValue="{Binding BuildingType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedValuePath="Content">
+                                <ComboBoxItem Content="House"/>
+                                <ComboBoxItem Content="Apartment"/>
+                                <ComboBoxItem Content="Commercial"/>
+                            </ComboBox>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- 📋 Item Table -->
+                    <StackPanel Grid.Row="2" Margin="0,25,0,0">
+                        <DataGrid x:Name="ItemDataGrid"
+                                  AutoGenerateColumns="False"
+                                  FontSize="14"
+                                  BorderBrush="#E0E0E0"
+                                  BorderThickness="1"
+                                  CanUserAddRows="True"
+                                  CanUserDeleteRows="True"
+                                  SelectionMode="Single"
+                                  SelectionUnit="FullRow"
+                                  ItemsSource="{Binding Items}"
+                                  HeadersVisibility="Column"
+                                  GridLinesVisibility="All"
+                                  HorizontalGridLinesBrush="#EEE"
+                                  VerticalGridLinesBrush="#EEE">
+
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Item Name" Width="2*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ItemName}" VerticalAlignment="Center" Margin="5,0"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataTemplate>
+                                            <ComboBox IsEditable="True"
+                                                      Style="{StaticResource ComboBoxStyle}"
+                                                      ItemsSource="{Binding Path=DataContext.AvailableItems, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                      Text="{Binding ItemName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="Material" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding SelectedMaterial}" VerticalAlignment="Center" Margin="5,0"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataTemplate>
+                                            <ComboBox IsEditable="True"
+                                                      Style="{StaticResource ComboBoxStyle}"
+                                                      ItemsSource="{Binding AvailableMaterials}"
+                                                      Text="{Binding SelectedMaterial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTextColumn Header="Unit" Binding="{Binding MeasuringUnit}" Width="*"/>
+                                <DataGridTextColumn Header="Unit Price" Binding="{Binding UnitPrice}" Width="*"/>
+                                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="*"/>
+                                <DataGridTextColumn Header="Total" Binding="{Binding Total}" Width="*"/>
+
+                                <!-- 🗑 Delete -->
+                                <DataGridTemplateColumn Header="Delete" Width="60">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.DeleteItemCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Background="Transparent"
+                                                    BorderThickness="0"
+                                                    Cursor="Hand">
+                                                <TextBlock Text="🗑" FontSize="16" HorizontalAlignment="Center"/>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <Button Content="+ ADD ITEM"
+                                Style="{StaticResource AddButtonStyle}"
+                                Command="{Binding AddItemCommand}"
+                                HorizontalAlignment="Right"
+                                Margin="0,10,0,0"/>
+                    </StackPanel>
+
+                    <!-- 💰 Totals -->
+                    <Grid Grid.Row="3" Margin="0,30,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Style="{StaticResource FormLabelStyle}" Text="Curtain Type &amp; Style"/>
+                            <StackPanel Orientation="Horizontal">
+                                <ComboBox Style="{StaticResource ComboBoxStyle}" Width="120" Margin="0,0,10,0"
+                                          SelectedValue="{Binding CurtainLayerType, Mode=TwoWay}"
+                                          SelectedValuePath="Content" Height="31">
+                                    <ComboBoxItem Content="Single layer"/>
+                                    <ComboBoxItem Content="Double layer"/>
+                                    <ComboBoxItem Content="Triple layer"/>
+                                </ComboBox>
+                                <ComboBox Style="{StaticResource ComboBoxStyle}" Width="120"
+                                          SelectedValue="{Binding CurtainStyle, Mode=TwoWay}"
+                                          SelectedValuePath="Content" Height="32">
+                                    <ComboBoxItem Content="Ripple"/>
+                                    <ComboBoxItem Content="Pleat"/>
+                                    <ComboBoxItem Content="Eyelet"/>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                                <CheckBox Content="Pelmet Board" IsChecked="{Binding IsPelmetBoardChecked}" Margin="0,0,20,0"/>
+                                <CheckBox Content="Motorized" IsChecked="{Binding IsMotorizedChecked}" Width="87"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Margin="20,0,20,0">
+                            <TextBlock Style="{StaticResource FormLabelStyle}" Text="Payment Method"/>
+                            <ComboBox Style="{StaticResource ComboBoxStyle}"
+                                      SelectedValue="{Binding PaymentMethod, Mode=TwoWay}"
+                                      SelectedValuePath="Content">
+                                <ComboBoxItem Content="Cash"/>
+                                <ComboBoxItem Content="Card"/>
+                                <ComboBoxItem Content="Bank Transfer"/>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Style="{StaticResource FormLabelStyle}" Text="Transport &amp; Labor Cost (LKR)"/>
+                            <TextBox Style="{StaticResource InputBoxStyle}" Text="{Binding TransportLaborCostText}"/>
+
+                            <TextBlock Style="{StaticResource FormLabelStyle}" Margin="0,15,0,5" Text="Discount (%)"/>
+                            <TextBox Style="{StaticResource InputBoxStyle}" Text="{Binding DiscountText}"/>
+
+                            <TextBlock Style="{StaticResource FormLabelStyle}" Margin="0,15,0,5" Text="Total Amount (LKR)" FontWeight="Bold"/>
+                            <TextBlock FontWeight="Bold" FontSize="20" Foreground="#333"
+                                       Text="{Binding GrandTotal, StringFormat={}{0:F0}}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- 🔘 Buttons -->
+                    <Grid Grid.Row="4" Margin="0,30,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0"
+                                Content="Reset"
+                                Style="{StaticResource ResetLinkStyle}"
+                                Command="{Binding ClearFormCommand}"
+                                HorizontalAlignment="Left"/>
+
+                        <Button Grid.Column="1"
+                                Content="Update"
+                                Command="{Binding UpdateInvoiceCommand}"
+                                HorizontalAlignment="Left" Margin="201,0,0,0" Width="90"  Height="35">
+
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource RoundedPrimaryButton}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#FF804031"/>
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <Button Grid.Column="1"
+                                Content="Cancel"
+                                Command="{Binding CancelCommand}"
+                                HorizontalAlignment="Left" Margin="46,0,0,0" Width="90" Height="35">
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource RoundedPrimaryButton}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#FF804031"/>
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

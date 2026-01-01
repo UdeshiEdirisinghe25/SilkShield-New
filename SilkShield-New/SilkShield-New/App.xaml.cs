@@ -12,7 +12,7 @@ namespace SilkShield_New
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var loginWindow = new View.HistoryNew();
+            var loginWindow = new View.MainWindow();
             loginWindow.Show();
 
             // Set the initial main window to the login window.

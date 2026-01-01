@@ -515,9 +515,9 @@
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border"
-    Background="{TemplateBinding Background}"
-    CornerRadius="12"
-    BorderThickness="0">
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="12"
+                                BorderThickness="0">
                             <ContentPresenter HorizontalAlignment="Center"
                   VerticalAlignment="Center"/>
                         </Border>

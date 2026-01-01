@@ -12,6 +12,7 @@ namespace SilkShield_New.Data
         private readonly string _dbPath;
         private readonly string _connectionString;
 
+        public string ConnectionString => _connectionString;
         public DatabaseHelper()
         {
             _dbPath = Path.Combine(
@@ -42,7 +43,8 @@ namespace SilkShield_New.Data
             {
                 connection.Open();
 
-                // **1. CREATE Invoices table**
+                // Ensure tables exist with expected columns. CREATE TABLE IF NOT EXISTS is used,
+                // but we also ensure any missing columns are added for existing DB files.
                 string createInvoicesTableQuery = @"
                 CREATE TABLE IF NOT EXISTS Invoices (
                     InvoiceId INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -56,23 +58,23 @@ namespace SilkShield_New.Data
                     TotalAmount REAL,
                     Location TEXT,
                     InvoiceNumber TEXT,
-                    CurtainLayerType TEXT
+                    CurtainLayerType TEXT,
+                    CurtainStyle TEXT,
+                    TransportLaborCost REAL
                 );";
 
-                // **2. CREATE InvoiceItems table**
                 string createInvoiceItemsTableQuery = @"
-            CREATE TABLE IF NOT EXISTS InvoiceItems (
-                ItemId INTEGER PRIMARY KEY AUTOINCREMENT,
-                InvoiceId INTEGER NOT NULL,
-                ItemName TEXT,
-                Quantity REAL,
-                UnitPrice REAL,
-                Total REAL,
-                CurtainType TEXT,
-                FOREIGN KEY(InvoiceId) REFERENCES Invoices(InvoiceId)
-            );";
+                CREATE TABLE IF NOT EXISTS InvoiceItems (
+                    ItemId INTEGER PRIMARY KEY AUTOINCREMENT,
+                    InvoiceId INTEGER NOT NULL,
+                    ItemName TEXT,
+                    Quantity REAL,
+                    UnitPrice REAL,
+                    Total REAL,
+                    CurtainType TEXT,
+                    FOREIGN KEY(InvoiceId) REFERENCES Invoices(InvoiceId)
+                );";
 
-                // inventory table එක නිර්මාණය කිරීම
                 string createInventoryTableQuery = @"
                     CREATE TABLE IF NOT EXISTS inventory (
                       ItemID INTEGER PRIMARY KEY,
@@ -98,6 +100,45 @@ namespace SilkShield_New.Data
                 {
                     command.ExecuteNonQuery();
                 }
+
+                // Make sure expected columns exist on older DB files; add them if missing.
+                EnsureColumnExists(connection, "Invoices", "CurtainStyle", "TEXT");
+                EnsureColumnExists(connection, "Invoices", "TransportLaborCost", "REAL");
+                EnsureColumnExists(connection, "InvoiceItems", "CurtainType", "TEXT");
+            }
+        }
+
+        private void EnsureColumnExists(SQLiteConnection connection, string tableName, string columnName, string columnType)
+        {
+            try
+            {
+                string pragma = $"PRAGMA table_info({tableName});";
+                using (var cmd = new SQLiteCommand(pragma, connection))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    bool found = false;
+                    while (reader.Read())
+                    {
+                        if (reader["name"] != null && string.Equals(reader["name"].ToString(), columnName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found)
+                    {
+                        string alter = $"ALTER TABLE {tableName} ADD COLUMN {columnName} {columnType};";
+                        using (var alterCmd = new SQLiteCommand(alter, connection))
+                        {
+                            alterCmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // Defensive: if schema adjustment fails, avoid throwing at runtime in production.
             }
         }
 
@@ -120,11 +161,13 @@ namespace SilkShield_New.Data
                             Location,
                             BuildingType,
                             CurtainLayerType,
+                            CurtainStyle,
                             PelmetBoard,
                             Motorized,
                             PaymentMethod,
                             Discount,
-                            TotalAmount
+                            TotalAmount,
+                            TransportLaborCost
                         FROM Invoices
                         ORDER BY InvoiceDate DESC";
 
@@ -135,17 +178,19 @@ namespace SilkShield_New.Data
                         {
                             invoices.Add(new Invoice
                             {
-                                InvoiceNumber = reader["InvoiceNumber"]?.ToString(),
-                                InvoiceDate = DateTime.Parse(reader["InvoiceDate"].ToString()),
-                                CustomerName = reader["Customer"]?.ToString(),
-                                Location = reader["Location"]?.ToString(),
-                                BuildingType = reader["BuildingType"]?.ToString(),
-                                CurtainLayerType = reader["CurtainLayerType"]?.ToString(),
-                                PelmetBoard = reader["PelmetBoard"]?.ToString() == "Yes",
-                                Motorized = reader["Motorized"]?.ToString() == "Yes",
-                                PaymentMethod = reader["PaymentMethod"]?.ToString(),
-                                Discount = reader["Discount"] == DBNull.Value ? 0 : Convert.ToDouble(reader["Discount"]),
-                                TransportLaborCost = 0
+                                InvoiceNumber = SafeGetString(reader, "InvoiceNumber"),
+                                InvoiceDate = ParseDateSafe(SafeGetString(reader, "InvoiceDate")),
+                                CustomerName = SafeGetString(reader, "Customer"),
+                                Location = SafeGetString(reader, "Location"),
+                                BuildingType = SafeGetString(reader, "BuildingType"),
+                                CurtainLayerType = SafeGetString(reader, "CurtainLayerType"),
+                                CurtainStyle = SafeGetString(reader, "CurtainStyle"),
+                                PelmetBoard = ParseBooleanFlexible(reader, "PelmetBoard"),
+                                Motorized = ParseBooleanFlexible(reader, "Motorized"),
+                                PaymentMethod = SafeGetString(reader, "PaymentMethod"),
+                                Discount = SafeGetDouble(reader, "Discount"),
+                                TotalAmount = SafeGetDecimal(reader, "TotalAmount"),
+                                TransportLaborCost = SafeGetDouble(reader, "TransportLaborCost")
                             });
                         }
                     }
@@ -157,6 +202,86 @@ namespace SilkShield_New.Data
             }
 
             return invoices;
+        }
+
+        private static string SafeGetString(SQLiteDataReader reader, string columnName)
+        {
+            try
+            {
+                int ord = reader.GetOrdinal(columnName);
+                return reader.IsDBNull(ord) ? string.Empty : reader.GetString(ord);
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        private static double SafeGetDouble(SQLiteDataReader reader, string columnName)
+        {
+            try
+            {
+                int ord = reader.GetOrdinal(columnName);
+                if (reader.IsDBNull(ord)) return 0;
+                var val = reader.GetValue(ord);
+                if (val is double) return (double)val;
+                if (val is float) return Convert.ToDouble(val);
+                if (val is long || val is int) return Convert.ToDouble(val);
+                if (val is string) double.TryParse((string)val, out double parsed);
+                return Convert.ToDouble(val);
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        private static decimal SafeGetDecimal(SQLiteDataReader reader, string columnName)
+        {
+            try
+            {
+                int ord = reader.GetOrdinal(columnName);
+                if (reader.IsDBNull(ord)) return 0;
+                var val = reader.GetValue(ord);
+                return Convert.ToDecimal(val);
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        private static DateTime ParseDateSafe(string dateString)
+        {
+            if (DateTime.TryParse(dateString, out var dt)) return dt;
+            return DateTime.Now;
+        }
+
+        private static bool ParseBooleanFlexible(SQLiteDataReader reader, string columnName)
+        {
+            try
+            {
+                int ord = reader.GetOrdinal(columnName);
+                if (reader.IsDBNull(ord)) return false;
+                var val = reader.GetValue(ord);
+                if (val == null) return false;
+
+                // Handle several representations: "Yes"/"No", "1"/"0", true/false
+                if (val is long || val is int)
+                {
+                    return Convert.ToInt64(val) != 0;
+                }
+
+                string s = val.ToString().Trim();
+                if (string.Equals(s, "yes", StringComparison.OrdinalIgnoreCase)) return true;
+                if (string.Equals(s, "true", StringComparison.OrdinalIgnoreCase)) return true;
+                if (s == "1") return true;
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool DeleteInvoice(string invoiceNumber)

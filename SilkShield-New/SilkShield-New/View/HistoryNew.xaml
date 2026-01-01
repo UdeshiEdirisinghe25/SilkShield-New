@@ -1,139 +1,206 @@
-﻿<Window x:Class="SilkShield_New.View.HistoryNew"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewModel="clr-namespace:SilkShield_New.ViewModel"
-        mc:Ignorable="d"
-        Title="Invoice History"
-        Height="600" Width="1000">
+﻿<UserControl x:Class="SilkShield_New.View.HistoryNew"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:viewModel="clr-namespace:SilkShield_New.ViewModel"
+            mc:Ignorable="d"
+            Background="Transparent">
 
- 
-
-    <Grid>
+    <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Header -->
-        <Grid Grid.Row="0" Margin="20">
+        <!-- HEADER -->
+        <Grid Grid.Row="0" Margin="0,0,0,16">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0"
-                       Text="Invoice History"
-                       FontSize="28" FontWeight="Bold"
-                       VerticalAlignment="Center"/>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Invoice History"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="Black"/>
+                <TextBlock Text="Browse and manage existing invoices"
+                           FontSize="14"
+                           Foreground="Gray"
+                           Margin="0,4,0,0"/>
+            </StackPanel>
+
+            <!-- Right-top DatePicker (binds to FromDate). Adjust binding if you want a separate property. -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,0">
+                <DatePicker SelectedDate="{Binding FromDate, Mode=TwoWay}"
+                Width="160"
+                Height="25"
+                VerticalAlignment="Center"
+                Background="White"
+                Margin="0,0,0,0"
+                ToolTip="Filter from date (select date)" />
+            </StackPanel>
         </Grid>
 
-        <!-- Search Box -->
-        <Grid Grid.Row="0" Width="250" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,10,20,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+        <!-- SEARCH -->
+        <Border Grid.Row="1"
+                Background="#F0F0F0"
+                CornerRadius="12"
+                Padding="12"
+                Margin="0,0,0,16">
+            <!-- layout: search input | Search button | Clear button -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0"
-                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-                     FontSize="14"
-                     Padding="10,2"
-                     BorderThickness="1"
-                     Background="Transparent">
-                <TextBox.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="15" />
-                    </Style>
-                </TextBox.Resources>
-            </TextBox>
+                <Border Grid.Column="0" CornerRadius="8"
+                        BorderBrush="#E5E7EB"
+                        BorderThickness="1"
+                        Background="White"
+                        Height="42"
+                        VerticalAlignment="Center">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0"
-                       Text="Search Here"
-                       Foreground="Gray"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Left"
-                       Margin="15,0,0,0"
-                       FontSize="13"
-                       IsHitTestVisible="False">
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" Value="">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
+                        <TextBlock Text="&#xE721;"
+                                   FontFamily="Segoe MDL2 Assets"
+                                   Foreground="#9CA3AF"
+                                   VerticalAlignment="Center"
+                                   Margin="10,0"/>
+                        <TextBox Grid.Column="1"
+                                 BorderThickness="0"
+                                 Background="Transparent"
+                                 VerticalContentAlignment="Center"
+                                 FontSize="14"
+                                 Foreground="#1F2937"
+                                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+                </Border>
 
-            <Button Grid.Column="1"
-                    Content="🔍"
-                    Width="30"
-                    Command="{Binding SearchCommand}"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Foreground="Black"
-                    FontSize="16" />
-        </Grid>
+                <!-- Search button -->
+                <Button Grid.Column="1"
+                        Width="80"
+                        Height="36"
+                        Margin="12,0,8,0"
+                        VerticalAlignment="Center"
+                        Content="Search"
+                        Command="{Binding SearchCommand}"
+                        Background="#5B281C"
+                        Foreground="White"
+                        FontWeight="SemiBold"
+                        BorderBrush="Transparent"
+                        Cursor="Hand">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border x:Name="searchBorder"
+                                                Background="{TemplateBinding Background}"
+                                                CornerRadius="5"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="searchBorder" Property="Background" Value="#FF804031"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                                <Setter Property="Cursor" Value="Hand"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
 
-        <!-- Date Filters -->
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20,0,20,10">
-            <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
-                <TextBlock Text="From:" VerticalAlignment="Center" Margin="0,0,5,0" FontWeight="Bold"/>
-                <DatePicker SelectedDate="{Binding FromDate}" Width="200" Height="24"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
-                <TextBlock Text="To:" VerticalAlignment="Center" Margin="0,0,5,0" FontWeight="Bold"/>
-                <DatePicker SelectedDate="{Binding ToDate}" Width="200" Height="24" RenderTransformOrigin="0.5,0.913"/>
-            </StackPanel>
-            <Button Content="Clear"
-                    Width="80"
-                    Height="28"
-                    Command="{Binding ClearFiltersCommand}"                    
-                    Background="#FF5B281C"
-                    Foreground="White"
-                    FontWeight="Bold"
-                    BorderThickness="0"/>
-        </StackPanel>
+                <!-- Clear button with hover using search hover color -->
+                <Button Grid.Column="2"
+                        Width="80"
+                        Height="36"
+                        Margin="0,0,0,0"
+                        VerticalAlignment="Center"
+                        Content="Clear"
+                        Command="{Binding ClearFiltersCommand}"
+                        Background="#5B281C"
+                        Foreground="White"
+                        FontWeight="SemiBold"
+                        BorderBrush="Transparent"
+                        Cursor="Hand">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border x:Name="clrBorder"
+                                                Background="{TemplateBinding Background}"
+                                                CornerRadius="5"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <!-- use the search button hover color -->
+                                                <Setter TargetName="clrBorder" Property="Background" Value="#FF804031"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                                <Setter Property="Cursor" Value="Hand"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
 
-        <!-- DataGrid -->
-        <Border 
-            Grid.Row="2"
+                
+            </Grid>
+        </Border>
+
+        <!-- DATA GRID (styled to match Customer_Manage) -->
+        <Border Grid.Row="2"
                 CornerRadius="14"
                 BorderBrush="#E5E7EB"
                 BorderThickness="1"
                 Background="White"
-                Padding="10">
-            
-            <DataGrid 
-                ItemsSource="{Binding Invoices}"
-                AutoGenerateColumns="False" 
-                CanUserAddRows="False" 
-                IsReadOnly="True"
-                RowHeight="45" 
-                HeadersVisibility="Column" 
-                GridLinesVisibility="None"
-                Background="Transparent" 
-                HorizontalScrollBarVisibility="Auto"
-                VerticalScrollBarVisibility="Auto"
-                ScrollViewer.VerticalScrollBarVisibility="Auto">
+                Padding="0">
+
+            <DataGrid x:Name="HistoryDataGrid"
+                      Margin="0"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      ItemsSource="{Binding Invoices}"
+                      AutoGenerateColumns="False"
+                      HeadersVisibility="Column"
+                      CanUserAddRows="False"
+                      RowHeight="48"
+                      IsReadOnly="True"
+                      GridLinesVisibility="None"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      SelectionUnit="FullRow"
+                      SelectionMode="Single"
+                      SnapsToDevicePixels="True"
+                      UseLayoutRounding="True">
 
                 <DataGrid.Resources>
-                    <!-- Text colors for selection & normal -->
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="#1F2937"/>
                     <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="#1F2937"/>
                     <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="#1F2937"/>
-
-                    <!-- Remove focus rectangle on cells -->
                     <Style TargetType="DataGridCell">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                        <Setter Property="Padding" Value="8,0"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
                     </Style>
                 </DataGrid.Resources>
 
@@ -149,7 +216,6 @@
                         <Setter Property="BorderBrush" Value="#E5E7EB"/>
                         <Setter Property="BorderThickness" Value="0,0,0,1"/>
                         <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
 
@@ -159,26 +225,23 @@
                         <Setter Property="Background" Value="White"/>
                         <Setter Property="Foreground" Value="#1F2937"/>
                         <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
                         <Setter Property="FontSize" Value="14"/>
                         <Setter Property="FontWeight" Value="SemiBold"/>
-                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="DataGridRow">
                                     <Border x:Name="RowBorder"
-                            Background="{TemplateBinding Background}"
-                            BorderThickness="0,0,0,1"
-                            BorderBrush="#E5E7EB"
-                            SnapsToDevicePixels="True">
+                                            Background="{TemplateBinding Background}"
+                                            BorderThickness="0,0,0,1"
+                                            BorderBrush="#E5E7EB"
+                                            SnapsToDevicePixels="True">
                                         <DataGridCellsPresenter/>
                                     </Border>
                                     <ControlTemplate.Triggers>
-                                        <!-- Hover -->
                                         <Trigger Property="IsMouseOver" Value="True">
                                             <Setter TargetName="RowBorder" Property="Background" Value="#F9FAFB"/>
                                         </Trigger>
-                                        <!-- Selected -->
                                         <Trigger Property="IsSelected" Value="True">
                                             <Setter TargetName="RowBorder" Property="Background" Value="#EFF6FF"/>
                                         </Trigger>
@@ -189,32 +252,53 @@
                     </Style>
                 </DataGrid.RowStyle>
 
+                <!-- CELL STYLE -->
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Foreground" Value="#1F2937"/>
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="Padding" Value="16,0"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridCell">
+                                    <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
 
+                <!-- COLUMNS -->
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Invoice Number" Binding="{Binding InvoiceNumber}" Width="*" />
-                    <DataGridTextColumn Header="Customer" Binding="{Binding CustomerName}" Width="2*" />
-                    <DataGridTextColumn Header="Date" Binding="{Binding InvoiceDate, StringFormat=d}" Width="*" />
-                    <DataGridTextColumn Header="Total Amount" Binding="{Binding GrandTotal, StringFormat=C}" Width="*" />
+                    <DataGridTextColumn Header="Invoice Number" Binding="{Binding InvoiceNumber}" Width="200"/>
+                    <DataGridTextColumn Header="Customer" Binding="{Binding CustomerName}" Width="2*"/>
+                    <DataGridTextColumn Header="Date" Binding="{Binding InvoiceDate, StringFormat=d}" Width="150"/>
+                    <DataGridTextColumn Header="Total Amount" Binding="{Binding TotalAmount, StringFormat='Rs. {0:F0}'}" Width="150"/>
 
-                    <!-- Edit/Delete buttons column -->
+                    <!-- ACTIONS -->
                     <DataGridTemplateColumn Header="Actions" Width="120">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" 
-                                    HorizontalAlignment="Center" 
-                                    VerticalAlignment="Center">
-
-                                    <!-- Edit Button -->
-                                    <Button Width="32" Height="32" Background="#F8FAFC" BorderBrush="#E5E7EB" BorderThickness="1" Margin="4,0,0,0"
-                                        Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                        CommandParameter="{Binding}" ToolTip="Edit Invoice">
-                                       <TextBlock Text="&#xE70F;" FontFamily="Segoe MDL2 Assets" FontSize="14" FontWeight="SemiBold" Foreground="Black"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button Width="32" Height="32" Background="#F8FAFC" BorderBrush="#E5E7EB" BorderThickness="1"
+                                            Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            CommandParameter="{Binding}" ToolTip="Edit Invoice">
+                                        <TextBlock Text="&#xE70F;" FontFamily="Segoe MDL2 Assets" FontSize="14" FontWeight="SemiBold" Foreground="Black"/>
                                     </Button>
-
-                                    <!-- Delete Button -->
                                     <Button Width="32" Height="32" Background="#F8FAFC" BorderBrush="#E5E7EB" BorderThickness="1" Margin="4,0,0,0"
-                                        Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                        CommandParameter="{Binding}" ToolTip="Delete Invoice">
+                                            Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            CommandParameter="{Binding}" ToolTip="Delete Invoice">
                                         <TextBlock Text="&#xE74D;" FontFamily="Segoe MDL2 Assets" FontSize="14" FontWeight="SemiBold" Foreground="Red"/>
                                     </Button>
                                 </StackPanel>
@@ -223,10 +307,13 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            
-            
-
-
         </Border>
+
+        <!-- FOOTER: align with Customer_Manage style -->
+        <TextBlock Grid.Row="3"
+                   Text="{Binding TotalInvoiceCount, StringFormat='Total Invoices: {0}'}"
+                   Foreground="#667085"
+                   FontSize="13"
+                   Margin="0,10,0,0"/>
     </Grid>
-</Window>
+</UserControl>

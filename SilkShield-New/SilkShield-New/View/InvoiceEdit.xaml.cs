@@ -1,27 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SilkShield_New.Model;
+using SilkShield_New.ViewModel;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SilkShield_New.View
 {
-    /// <summary>
-    /// Interaction logic for InvoiceEdit.xaml
-    /// </summary>
-    public partial class InvoiceEdit : Window
+    public partial class InvoiceEdit : UserControl
     {
-        public InvoiceEdit()
+        public InvoiceEdit(Invoice invoiceToEdit)
         {
             InitializeComponent();
+
+            try
+            {
+                // Inject the selected invoice into the ViewModel
+                this.DataContext = new InvoiceEditViewModel(invoiceToEdit);
+            }
+            catch (Exception ex)
+            {
+                // Surface the exception so we can see what's wrong instead of closing the window
+                MessageBox.Show($"Failed to open invoice editor:\n{ex.Message}\n\n{ex.StackTrace}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.DataContext = null;
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using SilkShield_New.Model;
 using SilkShield_New.View;
+using SilkShield_New.ViewModel;
 
 namespace SilkShield_New.View
 {
@@ -15,6 +16,7 @@ namespace SilkShield_New.View
         private Profile ProfileView;
         private New_Inventory newinventory;
         private AddNewCustomer newCustomerView;
+        private HistoryNew historyNewView;
 
 
         public MainWindow()
@@ -28,6 +30,7 @@ namespace SilkShield_New.View
             ProfileView = new Profile();
             newinventory = new New_Inventory();
             newCustomerView = new AddNewCustomer();
+            historyNewView = new HistoryNew();
 
             customerView.AddNewCustomerRequested += CustomerView_AddNewCustomerRequested;
 
@@ -39,6 +42,15 @@ namespace SilkShield_New.View
             HighlightButton(dashboard);//default
         }
 
+
+        public void NavigateToEditInvoice(Invoice invoiceToEdit)
+        {
+            // Create the view ONLY when we have an invoice to show
+            var editView = new InvoiceEdit(invoiceToEdit);
+            MainContentArea.Content = editView;
+            HighlightButton(history);
+        }
+
         private void HighlightButton(Button activeButton)
         {
 
@@ -46,6 +58,7 @@ namespace SilkShield_New.View
             customer.Style = (Style)FindResource("NavButtonStyle");
             invoice.Style = (Style)FindResource("PromoButtonStyle");
             inventory.Style = (Style)FindResource("NavButtonStyle");
+            history.Style = (Style)FindResource("NavButtonStyle");
             // Add other buttons if needed...
 
 
@@ -123,8 +136,10 @@ namespace SilkShield_New.View
             ProfileView = null;
             newinventory = null;
             newCustomerView = null;
+            historyNewView = null;
+
             LoginPage loginPage = new LoginPage();
-            loginPage.Show(); 
+            loginPage.Show();
             Application.Current.MainWindow = loginPage; Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose; this.Close();
         }
         private void CustomerView_AddNewCustomerRequested(object sender, RoutedEventArgs e)
@@ -132,5 +147,11 @@ namespace SilkShield_New.View
             MainContentArea.Content = newCustomerView;
         }
 
+        public void History_Click(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = historyNewView;
+            HighlightButton(history);
+        }
+    
     }
 }

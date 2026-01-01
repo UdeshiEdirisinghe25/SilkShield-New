@@ -5,7 +5,7 @@ using System.Windows.Controls;
 
 namespace SilkShield_New.View
 {
-    public partial class HistoryNew : Window
+    public partial class HistoryNew : UserControl
     {
         public HistoryNew()
         {
@@ -16,5 +16,7 @@ namespace SilkShield_New.View
 
             viewModel.LoadInvoices();
         }
+
     }
 }
+
