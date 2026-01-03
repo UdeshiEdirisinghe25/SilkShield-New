@@ -111,5 +111,83 @@ namespace SilkShield_New.Data
                 }
             }
         }
+
+
+        
+
+        public bool UpdateInventoryItem(InventoryItem item)
+        {
+            try
+            {
+                // Use SQLiteConnection and pass the string variable _connectionString
+                using (var connection = new SQLiteConnection(_connectionString))
+                {
+                    connection.Open();
+                    string query = @"UPDATE Inventory 
+                                     SET ItemName = @Name, Category = @Cat, Material = @Mat, 
+                                         MeasuringUnit = @Unit, UnitPrice = @Price, StockStatus = @Status 
+                                     WHERE ItemID = @Id";
+
+                    using (var cmd = new SQLiteCommand(query, connection))
+                    {
+                        // Add parameters with null checks to prevent database errors
+                        cmd.Parameters.AddWithValue("@Name", item.ItemName ?? string.Empty);
+                        cmd.Parameters.AddWithValue("@Cat", item.Category ?? string.Empty);
+                        cmd.Parameters.AddWithValue("@Mat", item.Material ?? string.Empty);
+                        cmd.Parameters.AddWithValue("@Unit", item.MeasuringUnit ?? string.Empty);
+                        cmd.Parameters.AddWithValue("@Price", item.UnitPrice);
+                        cmd.Parameters.AddWithValue("@Status", item.StockStatus ?? string.Empty);
+                        cmd.Parameters.AddWithValue("@Id", item.ItemID);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if necessary for debugging
+                return false;
+            }
+        }
+
+        public List<InventoryItem> GetAllInventoryItems()
+        {
+            List<InventoryItem> list = new List<InventoryItem>();
+            try
+            {
+                using (var connection = new SQLiteConnection(_connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM Inventory";
+
+                    using (var cmd = new SQLiteCommand(query, connection))
+                    {
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                list.Add(new InventoryItem
+                                {
+                                    ItemID = Convert.ToInt32(reader["ItemID"]),
+                                    ItemName = reader["ItemName"]?.ToString(),
+                                    Category = reader["Category"]?.ToString(),
+                                    Material = reader["Material"]?.ToString(),
+                                    MeasuringUnit = reader["MeasuringUnit"]?.ToString(),
+                                    UnitPrice = Convert.ToDouble(reader["UnitPrice"]),
+                                    StockStatus = reader["StockStatus"]?.ToString()
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Logic to handle load failures
+            }
+            return list;
+        }
     }
+
 }

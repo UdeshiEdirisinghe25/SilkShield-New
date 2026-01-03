@@ -33,17 +33,38 @@
             </StackPanel>
 
             <Button Grid.Column="1"
-                    Content="+ Add Customer"
-                    Width="160" Height="40"
-                    FontWeight="SemiBold"
-                    FontSize="14"
-                    Background="#5B281C"
-                    Foreground="White"
-                    BorderBrush="Transparent"
-                    Cursor="Hand"
-                    Command="{Binding AddCustomerCommand}"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center" Click="Button_Click_1"/>
+        Content="+ Add Customer"
+        Width="160" Height="40"
+        FontWeight="SemiBold"
+        FontSize="14"
+        Foreground="White"
+        Cursor="Hand"
+        Command="{Binding AddCustomerCommand}"
+        HorizontalAlignment="Right"
+        VerticalAlignment="Center" >
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#5B281C"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="6" 
+                                BorderThickness="0">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF804031"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
 
         <!-- SEARCH -->
@@ -236,11 +257,10 @@
                                     <Button Width="32" Height="32" Background="#F8FAFC" BorderBrush="#E5E7EB" BorderThickness="1"
                                             Command="{Binding DataContext.ViewCustomerCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                             CommandParameter="{Binding}" ToolTip="View Customer">
-                                        <TextBlock Text="&#xE8F4;" FontFamily="Segoe MDL2 Assets" FontSize="14" FontWeight="SemiBold" Foreground="Green"/>
+                                        <TextBlock Text="&#xE890;" FontFamily="Segoe MDL2 Assets" FontSize="14" FontWeight="SemiBold" Foreground="Green"/>
                                     </Button>
                                     <Button Width="32" Height="32" Background="#F8FAFC" BorderBrush="#E5E7EB" BorderThickness="1" Margin="4,0,0,0"
-                                            Command="{Binding DataContext.EditCustomerCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                            CommandParameter="{Binding}" ToolTip="Edit Customer">
+                                            Command="{Binding DataContext.EditCustomerCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"                                            CommandParameter="{Binding}" ToolTip="Edit Customer">
                                         <TextBlock Text="&#xE70F;" FontFamily="Segoe MDL2 Assets" FontSize="14" FontWeight="SemiBold" Foreground="Black"/>
                                     </Button>
                                     <Button Width="32" Height="32" Background="#F8FAFC" BorderBrush="#E5E7EB" BorderThickness="1" Margin="4,0,0,0"

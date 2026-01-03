@@ -218,7 +218,7 @@ namespace SilkShield_New.ViewModel
             }
         }
 
-        private async Task CreateInvoiceAsync()
+        public async Task CreateInvoiceAsync()
         {
             // Validation checks...
             InvoiceNumber = _invoiceNumberService.GetNewInvoiceNumber(InvoiceDate);
@@ -263,6 +263,27 @@ namespace SilkShield_New.ViewModel
                     );
                     ClearForm(null);
                 }
+
+                // --- REFRESH LOGIC ---
+                try
+                {
+                    var mainWindow = System.Windows.Application.Current.MainWindow as SilkShield_New.View.MainWindow;
+
+                    if (mainWindow != null)
+                    {
+                        // 1. Force the UI to switch to the History tab/view
+                        mainWindow.History_Click(null, null);
+
+                        // 2. Now that the History view is active, trigger the refresh
+                        mainWindow.RefreshHistoryIfActive();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // It's better to log the error so you know why it's failing
+                    Console.WriteLine($"Refresh failed: {ex.Message}");
+                }
+
             }
             catch (Exception ex)
             {
@@ -270,7 +291,7 @@ namespace SilkShield_New.ViewModel
             }
         }
 
-        private void ClearForm(object obj)
+        public void ClearForm(object obj)
         {
             InvoiceNumber = "This will be generated...";
             InvoiceDate = DateTime.Now;
@@ -293,7 +314,7 @@ namespace SilkShield_New.ViewModel
             Items.Add(new SilkShield_New.Model.InvoiceItem { Quantity = 1 });
         }
 
-        private async void LoadItemNamesFromDatabaseAsync()
+        public async void LoadItemNamesFromDatabaseAsync()
         {
             AvailableItems = new ObservableCollection<string>(await _invoiceDataService.GetDistinctItemNamesAsync());
         }
@@ -330,6 +351,8 @@ namespace SilkShield_New.ViewModel
         public bool CanExecute(object parameter) => _canExecute == null || _canExecute(parameter);
         public void Execute(object parameter) => _execute(parameter);
     }
+
+
 
 
 }

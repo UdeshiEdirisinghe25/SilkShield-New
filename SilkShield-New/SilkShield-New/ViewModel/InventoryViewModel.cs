@@ -97,7 +97,13 @@ namespace SilkShield_New.ViewModel
         {
             try
             {
-                _fullInventoryItems = _databaseHelper.GetAllInventoryItems().ToList();
+                // Use OrderByDescending to put the highest ItemID (newest) at the top
+                _fullInventoryItems = _databaseHelper.GetAllInventoryItems()
+                                                     .OrderByDescending(item => item.ItemID)
+                                                     .ToList();
+
+                // If you are using a filtered collection for the UI, update it here too
+                // FilteredInventoryItems = new ObservableCollection<InventoryItem>(_fullInventoryItems);
             }
             catch (Exception ex)
             {
@@ -126,6 +132,20 @@ namespace SilkShield_New.ViewModel
                 {
                     InventoryItems.Add(item);
                 }
+            }
+        }
+
+        // Public refresh method used by MainWindow.RefreshInventoryIfActive()
+        public void LoadInventoryData()
+        {
+            try
+            {
+                LoadAllInventoryItems();
+                ApplyFilter();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error refreshing inventory: {ex.Message}", "Error");
             }
         }
 
@@ -176,10 +196,18 @@ namespace SilkShield_New.ViewModel
         {
             if (item == null) return;
 
-            IsDataGridReadOnly = false;
-            SelectedItem = item;
+            if (Application.Current.MainWindow is SilkShield_New.View.MainWindow mainWin)
+            {
+                // 1. Create the UserControl (the Edit view)
+                var editView = new SilkShield_New.View.EditInventory();
 
-            MessageBox.Show($"You can now edit the selected item. Please click away to save.", "Edit Mode", MessageBoxButton.OK, MessageBoxImage.Information);
+                // 2. Create and assign the ViewModel with the selected item data
+                var editVm = new EditInventoryViewModel(item);
+                editView.DataContext = editVm;
+
+                // 3. FIX: Set Content instead of calling Navigate
+                mainWin.MainContentArea.Content = editView;
+            }
         }
 
         private void ExecuteDelete(InventoryItem item)

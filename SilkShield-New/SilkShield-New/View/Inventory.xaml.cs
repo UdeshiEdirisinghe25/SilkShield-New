@@ -110,18 +110,7 @@ namespace SilkShield_New.View
             }
         }
 
-        // The SearchTextBox_KeyDown method has been removed. 
-        // The real-time filtering is now handled solely by the ViewModel. 
-
-        // Optional: Handle window closing 
-        //protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
-        //{
-        //    if (_viewModel != null)
-        //    {
-        //        _viewModel.PropertyChanged -= ViewModel_PropertyChanged;
-        //    }
-        //    base.OnClosing(e);
-        // }
+    
 
         private void NewInventoryButton_Click(object sender, RoutedEventArgs e)
         {

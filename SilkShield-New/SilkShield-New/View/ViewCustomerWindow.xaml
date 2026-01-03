@@ -1,13 +1,15 @@
-﻿<UserControl x:Class="SilkShield_New.View.ViewCustomerWindow"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             Height="500" Width="500"
-             Background="#FAFAFA">
+﻿<Window x:Class="SilkShield_New.View.ViewCustomerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        mc:Ignorable="d" 
+        Title="Customer Details"
+        Height="800" Width="600"
+        WindowStartupLocation="CenterScreen"
+        Background="#FAFAFA">
 
-    <UserControl.Resources>
+    <Window.Resources>
         <Style x:Key="SectionIcon" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
             <Setter Property="FontSize" Value="16"/>
@@ -50,25 +52,23 @@
             <Setter Property="Margin" Value="0,0,8,0"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
         </Style>
+    </Window.Resources>
 
-    </UserControl.Resources>
-
-    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,-158,-243">
-        <StackPanel Margin="15">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20">
 
             <TextBlock Text="{Binding CustomerName}" 
-                       FontSize="24" 
+                       FontSize="28" 
                        FontWeight="Bold" 
                        Foreground="#333333" 
-                       Margin="0,0,0,15"/>
+                       Margin="0,0,0,20"/>
 
-            <Border CornerRadius="10" Background="#FFFFFF" Padding="15" Margin="0,0,0,10" Height="233">
+            <Border CornerRadius="10" Background="#FFFFFF" Padding="15" Margin="0,0,0,15">
                 <Border.Effect>
-                    <DropShadowEffect BlurRadius="10" ShadowDepth="2" Color="#CCCCCC" Opacity="0.5"/>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="2" Color="#CCCCCC" Opacity="0.3"/>
                 </Border.Effect>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                        <TextBlock Text="&#xE7C3;" Style="{StaticResource SectionIcon}" Foreground="#0078D4"/>
                         <Label Content="Basic Information" FontWeight="Bold" FontSize="16" Foreground="#333333" Padding="0"/>
                     </StackPanel>
 
@@ -77,29 +77,26 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-
                         <StackPanel Grid.Column="0">
-                            <StackPanel Orientation="Horizontal" Margin="0,0,20,15">
-                                <TextBlock Text="&#xE731;" Style="{StaticResource BasicInfoIconStyle}" Foreground="#0078D4"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,10,15">
+                                <TextBlock Text="&#xE731;" Style="{StaticResource BasicInfoIconStyle}" Foreground="#0078D4" />
                                 <StackPanel>
                                     <TextBlock Text="Customer Name" Foreground="#666666" FontSize="12"/>
                                     <TextBlock Text="{Binding CustomerName}" FontWeight="SemiBold" FontSize="14" Foreground="#333333"/>
                                 </StackPanel>
                             </StackPanel>
-
-                            <StackPanel Orientation="Horizontal" Margin="0,0,20,15">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,10,15">
                                 <TextBlock Text="&#xE70F;" Style="{StaticResource BasicInfoIconStyle}" Foreground="#4CAF50"/>
                                 <StackPanel>
                                     <TextBlock Text="Phone" Foreground="#666666" FontSize="12"/>
                                     <TextBlock Text="{Binding PhoneNumber}" FontWeight="SemiBold" FontSize="14" Foreground="#333333"/>
                                 </StackPanel>
                             </StackPanel>
-
-                            <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
                                 <TextBlock Text="&#xE816;" Style="{StaticResource BasicInfoIconStyle}" Foreground="#E57373"/>
                                 <StackPanel>
                                     <TextBlock Text="Address" Foreground="#666666" FontSize="12"/>
-                                    <TextBlock Text="{Binding Address}" TextWrapping="Wrap" FontWeight="SemiBold" FontSize="14" Foreground="#333333"/>
+                                    <TextBlock Text="{Binding Address}" TextWrapping="Wrap" FontWeight="SemiBold" FontSize="14" Foreground="#333333" MaxWidth="180"/>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
@@ -112,7 +109,6 @@
                                     <TextBlock Text="{Binding CustomerType}" FontWeight="SemiBold" FontSize="14" Foreground="#333333"/>
                                 </StackPanel>
                             </StackPanel>
-
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
                                 <TextBlock Text="&#xE715;" Style="{StaticResource BasicInfoIconStyle}" Foreground="#FF9800"/>
                                 <StackPanel>
@@ -125,16 +121,14 @@
                 </StackPanel>
             </Border>
 
-            <Border CornerRadius="10" Background="#FFFFFF" Padding="15" Margin="0,10,0,10" Height="237">
+            <Border CornerRadius="10" Background="#FFFFFF" Padding="15" Margin="0,0,0,15">
                 <Border.Effect>
-                    <DropShadowEffect BlurRadius="10" ShadowDepth="2" Color="#CCCCCC" Opacity="0.5"/>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="2" Color="#CCCCCC" Opacity="0.3"/>
                 </Border.Effect>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                        <TextBlock Text="&#xE73E;" Style="{StaticResource SectionIcon}" FontSize="20" Foreground="#4CAF50"/>
-                        <Label Content="Project Status" FontWeight="Bold" FontSize="18" Foreground="#333333" Padding="0"/>
+                        <Label Content="Project Status" FontWeight="Bold" FontSize="16" Foreground="#333333" Padding="0"/>
                     </StackPanel>
-
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -178,7 +172,7 @@
                         </StackPanel>
 
                         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,15">
-                            <TextBlock Text="&#xE8D5;" Style="{StaticResource StatusIconStyle}" Foreground="#C5CAE9"/>
+                            <TextBlock Text="&#xE916;" Style="{StaticResource StatusIconStyle}" Foreground="#9FA8DA"/>
                             <StackPanel>
                                 <TextBlock Text="Project Start Date" Foreground="#666666" FontSize="12"/>
                                 <TextBlock Text="{Binding Project_Start_Date}" FontWeight="SemiBold" FontSize="14" Foreground="#333333"/>
@@ -186,32 +180,30 @@
                         </StackPanel>
 
                         <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="0,0,10,0">
-                            <TextBlock Text="&#xE8D5;" Style="{StaticResource StatusIconStyle}" Foreground="#C5CAE9"/>
+                            <TextBlock Text="&#xE787;" Style="{StaticResource StatusIconStyle}" Foreground="#9FA8DA"/>
                             <StackPanel>
                                 <TextBlock Text="Expected Completion" Foreground="#666666" FontSize="12"/>
                                 <TextBlock Text="{Binding Expected_Dateof_Completion}" FontWeight="SemiBold" FontSize="14" Foreground="#333333"/>
                             </StackPanel>
                         </StackPanel>
-
                     </Grid>
                 </StackPanel>
             </Border>
 
-            <Border CornerRadius="10" Background="#FFF8E1" Padding="15" Margin="0,10,0,200" Height="269">
+            <Border CornerRadius="10" Background="#FFF8E1" Padding="15" Margin="0,0,0,20">
                 <Border.Effect>
-                    <DropShadowEffect BlurRadius="10" ShadowDepth="2" Color="#CCCCCC" Opacity="0.5"/>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="2" Color="#CCCCCC" Opacity="0.3"/>
                 </Border.Effect>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                        <TextBlock Text="&#xE7C3;" Style="{StaticResource SectionIcon}" FontSize="20" Foreground="White"/>
-                        <Label Content="Project Details" FontWeight="Bold" FontSize="18" Foreground="#333333" Padding="0"/>
+                        <Label Content="Project Details" FontWeight="Bold" FontSize="16" Foreground="#333333" Padding="0"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
                         <TextBlock Text="&#xE724;" Style="{StaticResource DetailIconStyle}" Foreground="#FFB74D"/>
                         <StackPanel>
                             <TextBlock Text="Property Details" Foreground="#666666" FontSize="12"/>
-                            <TextBlock Text="{Binding Property_Details}" FontWeight="SemiBold" FontSize="14" Foreground="#333333" TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding Property_Details}" FontWeight="SemiBold" FontSize="14" Foreground="#333333" TextWrapping="Wrap" MaxWidth="400"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -219,15 +211,15 @@
                         <TextBlock Text="&#xE72D;" Style="{StaticResource DetailIconStyle}" Foreground="#FFB74D"/>
                         <StackPanel>
                             <TextBlock Text="Special Preferences" Foreground="#666666" FontSize="12"/>
-                            <TextBlock Text="{Binding Special_Preferances}" TextWrapping="Wrap" FontWeight="SemiBold" FontSize="14" Foreground="#333333"/>
+                            <TextBlock Text="{Binding Special_Preferances}" TextWrapping="Wrap" FontWeight="SemiBold" FontSize="14" Foreground="#333333" MaxWidth="400"/>
                         </StackPanel>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Height="27" RenderTransformOrigin="0.509,1.42">
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xE70B;" Style="{StaticResource DetailIconStyle}" Foreground="#E57373"/>
                         <StackPanel>
                             <TextBlock Text="Notes" Foreground="#666666" FontSize="12"/>
-                            <TextBlock Text="{Binding Notes}" TextWrapping="Wrap" FontWeight="SemiBold" FontSize="14" Foreground="#333333"/>
+                            <TextBlock Text="{Binding Notes}" TextWrapping="Wrap" FontWeight="SemiBold" FontSize="14" Foreground="#333333" MaxWidth="400"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
@@ -235,4 +227,4 @@
 
         </StackPanel>
     </ScrollViewer>
-</UserControl>
+</Window>

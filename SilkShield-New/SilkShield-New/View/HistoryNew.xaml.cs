@@ -10,11 +10,7 @@ namespace SilkShield_New.View
         public HistoryNew()
         {
             InitializeComponent();
-
-            var viewModel = new HistoryNewViewModel();
-            this.DataContext = viewModel;
-
-            viewModel.LoadInvoices();
+            this.DataContext = new HistoryNewViewModel(); // Important for the refresh to work!
         }
 
     }

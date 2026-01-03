@@ -212,7 +212,7 @@
 
 		    <Compile Include="ViewModel\Customer_ManageViewModel.cs" />
 
-		    <Compile Include="ViewModel\DashboardViewModel.cs" /><Compile Include="ViewModel\HistoryViewModel.cs" /><Compile Include="ViewModel\InventoryViewModel.cs" /><Compile Include="ViewModel\InvoiceEditViewModel.cs" /><Compile Include="ViewModel\LoginPageViewModel.cs" />
+		    <Compile Include="ViewModel\DashboardViewModel.cs" /><Compile Include="ViewModel\EditCustomerViewModel.cs" /><Compile Include="ViewModel\EditInventoryViewModel.cs" /><Compile Include="ViewModel\HistoryViewModel.cs" /><Compile Include="ViewModel\InventoryViewModel.cs" /><Compile Include="ViewModel\InvoiceEditViewModel.cs" /><Compile Include="ViewModel\LoginPageViewModel.cs" />
 
 		    <Compile Include="ViewModel\NewInventoryViewModel.cs" />
 
@@ -239,7 +239,7 @@
 			      <DependentUpon>DashboardWindow.xaml</DependentUpon>
 
 			   
-		</Compile><Compile Include="View\HistoryNew.xaml.cs"><DependentUpon>HistoryNew.xaml</DependentUpon></Compile><Compile Include="View\Inventory.xaml.cs"><DependentUpon>Inventory.xaml</DependentUpon></Compile><Compile Include="View\InvoiceEdit.xaml.cs"><DependentUpon>InvoiceEdit.xaml</DependentUpon></Compile><Compile Include="View\LoginPage.xaml.cs"><DependentUpon>LoginPage.xaml</DependentUpon></Compile>
+		</Compile><Compile Include="View\EditCustomer.xaml.cs"><DependentUpon>EditCustomer.xaml</DependentUpon></Compile><Compile Include="View\EditInventory.xaml.cs"><DependentUpon>EditInventory.xaml</DependentUpon></Compile><Compile Include="View\HistoryNew.xaml.cs"><DependentUpon>HistoryNew.xaml</DependentUpon></Compile><Compile Include="View\Inventory.xaml.cs"><DependentUpon>Inventory.xaml</DependentUpon></Compile><Compile Include="View\InvoiceEdit.xaml.cs"><DependentUpon>InvoiceEdit.xaml</DependentUpon></Compile><Compile Include="View\LoginPage.xaml.cs"><DependentUpon>LoginPage.xaml</DependentUpon></Compile>
 
 		    <Compile Include="View\MainWindow.xaml.cs">
 
@@ -303,7 +303,7 @@
 			      <Generator>MSBuild:Compile</Generator>
 
 			   
-		</Page><Page Include="View\HistoryNew.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page><Page Include="View\Inventory.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page><Page Include="View\InvoiceEdit.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page><Page Include="View\LoginPage.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
+		</Page><Page Include="View\EditCustomer.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page><Page Include="View\EditInventory.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page><Page Include="View\HistoryNew.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page><Page Include="View\Inventory.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page><Page Include="View\InvoiceEdit.xaml"><SubType>Designer</SubType><Generator>MSBuild:Compile</Generator></Page><Page Include="View\LoginPage.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
 
 		    <Page Include="View\MainWindow.xaml">
 

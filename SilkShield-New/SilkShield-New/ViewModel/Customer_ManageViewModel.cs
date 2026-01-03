@@ -1,10 +1,11 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows.Data;
-using System.Windows;
-using SilkShield_New.Data;
+﻿using SilkShield_New.Data;
 using SilkShield_New.Model;
+using SilkShield_New.View;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Windows;
+using System.Windows.Data;
 
 namespace SilkShield_New.ViewModel
 {
@@ -69,30 +70,46 @@ namespace SilkShield_New.ViewModel
                 Customers.Add(cust);
         }
 
+        // Public helper so other viewmodels/windows can request a refresh
+        public void RefreshCustomers()
+        {
+            LoadCustomers();
+            CustomersView?.Refresh();
+        }
+
         private void AddCustomer()
         {
-
+            // 1. Create the window instance
             var addView = new View.AddNewCustomer();
-            var window = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive);
-           
 
+            addView.Owner = Application.Current.MainWindow;
+
+            addView.ShowDialog();
         }
 
         private void ViewCustomer(Customer customer)
         {
-            if (customer != null)
+            if (customer == null) return;
+
+            var viewWindow = new View.ViewCustomerWindow
             {
-                var dialogWindow = new Window();
-                var viewCustomerControl = new View.ViewCustomerWindow();
-                viewCustomerControl.DataContext = customer;
-                dialogWindow.Content = viewCustomerControl;
-                dialogWindow.SizeToContent = SizeToContent.WidthAndHeight;
-                dialogWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                dialogWindow.ShowDialog();
-            }
+                DataContext = customer,
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+
+            viewWindow.ShowDialog();
         }
 
-        private void EditCustomer(Customer customer) { }
+        private void EditCustomer(Customer customer)
+        {
+            var editWindow = new EditCustomer();
+            // Pass the selected customer into the ViewModel constructor
+            var viewModel = new EditCustomerViewModel(customer);
+
+            editWindow.DataContext = viewModel; // <--- VERY IMPORTANT
+            editWindow.ShowDialog();
+        }
 
         private void DeleteCustomer(Customer customer)
         {

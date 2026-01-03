@@ -78,7 +78,7 @@ namespace SilkShield_New.View
         }
 
 
-        private void customer_click(object sender, RoutedEventArgs e)
+        public void customer_click(object sender, RoutedEventArgs e)
         {
             MainContentArea.Content = customerView;
             HighlightButton(customer);
@@ -89,7 +89,7 @@ namespace SilkShield_New.View
             MainContentArea.Content = invoiceView;
             HighlightButton(invoice);
         }
-        private void Inventory_Click(object sender, RoutedEventArgs e)
+        public void Inventory_Click(object sender, RoutedEventArgs e)
         {
             MainContentArea.Content = inventoryView;
             HighlightButton(inventory);
@@ -152,6 +152,41 @@ namespace SilkShield_New.View
             MainContentArea.Content = historyNewView;
             HighlightButton(history);
         }
-    
+        // Call this from other viewmodels to refresh Customer_Manage when it's active
+        public void RefreshCustomerManageIfActive()
+        {
+            // MainContentArea is a private field generated from XAML.
+            // Expose a small public helper that checks current content and refreshes the VM.
+            if (this.MainContentArea?.Content is Customer_Manage manageView &&
+                manageView.DataContext is Customer_ManageViewModel manageVm)
+            {
+                manageVm.RefreshCustomers();
+            }
+        }
+
+        public void RefreshHistoryIfActive()
+        {
+            // 1. Check if the current content is the History view
+            if (this.MainContentArea?.Content is HistoryNew historyView &&
+                historyView.DataContext is HistoryNewViewModel historyVm)
+            {
+                // 2. Call the public refresh method in the History ViewModel
+                historyVm.RefreshData();
+            }
+        }
+        public void RefreshInventoryIfActive()
+        {
+            // 1. Check if the current view is the Inventory Manage screen
+            if (this.MainContentArea?.Content is Inventory invView)
+            {
+                // 2. ERROR FIX: Ensure you cast to InventoryViewModel, NOT EditInventoryViewModel
+                if (invView.DataContext is InventoryViewModel invVm)
+                {
+                    // 3. This call will now work because LoadInventoryData exists in InventoryViewModel
+                    invVm.LoadInventoryData();
+                }
+            }
+        }
+
     }
 }

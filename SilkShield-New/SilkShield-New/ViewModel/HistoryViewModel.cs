@@ -1,6 +1,5 @@
 ﻿using SilkShield_New.Data;
 using SilkShield_New.Model;
-using SilkShield_New.Service;
 using SilkShield_New.View;
 using System;
 using System.Collections.ObjectModel;
@@ -8,7 +7,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Threading;
 
 namespace SilkShield_New.ViewModel
 {
@@ -42,7 +40,7 @@ namespace SilkShield_New.ViewModel
                 {
                     _searchText = value;
                     OnPropertyChanged(nameof(SearchText));
-                    ApplyFilters(); // Live filtering as you type
+                    ApplyFilters(); // Live filtering
                 }
             }
         }
@@ -69,7 +67,6 @@ namespace SilkShield_New.ViewModel
             }
         }
 
-        // New: indicates whether the last filter returned no invoices
         public bool NoInvoicesFound
         {
             get => _noInvoicesFound;
@@ -81,7 +78,6 @@ namespace SilkShield_New.ViewModel
             }
         }
 
-        // New: total count of invoices shown (after filters)
         public int TotalInvoiceCount
         {
             get => _totalInvoiceCount;
@@ -108,40 +104,35 @@ namespace SilkShield_New.ViewModel
             SearchCommand = new RelayCommand(ExecuteSearch);
 
             // Initial Data Load
-            LoadInvoices();
-            _refreshTimer = new DispatcherTimer();
-            _refreshTimer.Interval = TimeSpan.FromSeconds(1);
-            _refreshTimer.Tick += (sender, e) =>
-            {
-                ApplyFilters(); // Refresh list while keeping user's search text
-            };
-            _refreshTimer.Start();
+            RefreshData();
         }
 
-        // --- Methods ---
+        // The central method to reload everything
+        public void RefreshData()
+        {
+            LoadInvoices();
+            ApplyFilters();
+        }
+
         public void LoadInvoices()
         {
             var data = _db.GetAllInvoices();
-            Invoices = new ObservableCollection<Invoice>(data);
-            TotalInvoiceCount = data?.Count ?? 0;
-            NoInvoicesFound = TotalInvoiceCount == 0;
+            Invoices = new ObservableCollection<Invoice>(data ?? new System.Collections.Generic.List<Invoice>());
         }
 
         private void ApplyFilters()
         {
-            // We get fresh data from the DB to filter
             var allData = _db.GetAllInvoices();
+            if (allData == null) return;
 
             var filtered = allData.AsEnumerable();
 
-            // Date Range Filter
             if (FromDate.HasValue)
                 filtered = filtered.Where(i => i.InvoiceDate.Date >= FromDate.Value.Date);
 
             if (ToDate.HasValue)
                 filtered = filtered.Where(i => i.InvoiceDate.Date <= ToDate.Value.Date);
 
-            // Text Search Filter (Number or Name)
             if (!string.IsNullOrWhiteSpace(SearchText))
             {
                 string search = SearchText.ToLower();
@@ -154,24 +145,18 @@ namespace SilkShield_New.ViewModel
             var resultList = filtered.ToList();
             Invoices = new ObservableCollection<Invoice>(resultList);
 
-            // Set counts so the view can show total and no-results message
             TotalInvoiceCount = resultList.Count;
             NoInvoicesFound = resultList.Count == 0;
         }
 
         private void ExecuteSearch(object obj)
         {
-            // 1. Run the existing filter logic
             ApplyFilters();
-
-            // 2. Show the popup if nothing was found
             if (NoInvoicesFound)
             {
                 MessageBox.Show("No invoices found for the given search criteria.", "Search", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
-
-        private DispatcherTimer _refreshTimer; // This makes it accessible to the whole class
 
         private void ClearFilters(object obj = null)
         {
@@ -190,13 +175,8 @@ namespace SilkShield_New.ViewModel
         {
             if (obj is Invoice selectedInvoice)
             {
-                // Find the MainWindow and call the specific navigation method
                 var mainWindow = Application.Current.MainWindow as SilkShield_New.View.MainWindow;
-
-                if (mainWindow != null)
-                {
-                    mainWindow.NavigateToEditInvoice(selectedInvoice);
-                }
+                mainWindow?.NavigateToEditInvoice(selectedInvoice);
             }
         }
 
@@ -215,9 +195,12 @@ namespace SilkShield_New.ViewModel
                     bool success = _db.DeleteInvoice(invoice.InvoiceNumber);
                     if (success)
                     {
-                        Invoices.Remove(invoice);
-                        TotalInvoiceCount = Invoices?.Count ?? 0;
-                        NoInvoicesFound = TotalInvoiceCount == 0;
+                        // Instead of manual removal, just refresh the whole state from the DB
+                        RefreshData();
+
+                        // Notify MainWindow to refresh if needed (optional since we are already in this VM)
+                        var mainWindow = Application.Current.MainWindow as SilkShield_New.View.MainWindow;
+                        mainWindow?.RefreshHistoryIfActive();
                     }
                     else
                     {

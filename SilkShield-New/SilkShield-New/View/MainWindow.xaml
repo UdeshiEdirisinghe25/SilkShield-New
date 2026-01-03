@@ -137,20 +137,21 @@
                 <StackPanel DockPanel.Dock="Top" Height="646">
 
 
-                    <Rectangle Width="152" Height="126"
-                               >
+                    <!-- Promo Block -->
+
+                    <!-- User Profile -->
+
+
+
+                    <!-- User Profile -->
+                    <!-- User Profile -->
+                    <Rectangle Width="150" Height="125">
                         <Rectangle.Fill>
                             <ImageBrush ImageSource="/Images/ss.png"/>
                         </Rectangle.Fill>
                     </Rectangle>
 
 
-
-
-
-
-
-                    <!-- Promo Block -->
 
                     <!-- User Profile -->
                     <Button x:Name="Profile"  Style="{StaticResource NavButtonStyle}" Click="UserProfile_Click" Background="Transparent" BorderThickness="0" Height="113" Width="216" >
@@ -180,10 +181,7 @@
                                        TextAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,20"/>
                             <Button x:Name="invoice" Style="{StaticResource PromoButtonStyle}" Click="Invoice_Click" Height="48" Width="158"  >
                                 <StackPanel Orientation="Horizontal" Width="135">
-                                    <Border Width="15" Height="24" CornerRadius="12">
-                                        <Path Data="M12,4L10.59,5.41L16.17,11H4V13H16.17L10.59,18.59L12,20L20,12L12,4Z" Fill="White" Stretch="Uniform" Width="12" Height="12"/>
-                                    </Border>
-                                    <TextBlock Text="Add New Invoice" FontSize="12" Width="99" Height="14" Foreground="white"/>
+                                    <TextBlock Text="Add New Invoice" Margin="10,0,10,0" FontSize="12" Width="101" Height="14" Foreground="white"/>
                                 </StackPanel>
                             </Button>
                         </StackPanel>
@@ -195,7 +193,7 @@
                         <Button x:Name="dashboard" Style="{StaticResource ActiveNavButtonStyle}" Click="dashboard_click">
                             <StackPanel Orientation="Horizontal">
                                 <Border Width="24" Height="24" Margin="0,0,16,0">
-                                    <Grid Height="24" VerticalAlignment="Top">
+                                    <Grid Height="24" VerticalAlignment="Top" Margin="0,-5,0,0">
                                         <Rectangle Width="8" Height="8" Fill="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,2,0,0"/>
                                         <Rectangle Width="8" Height="8" Fill="White" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,2,2,0"/>
                                         <Rectangle Width="8" Height="8" Fill="White" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="2,0,0,2"/>
@@ -208,7 +206,7 @@
                         <Button x:Name="customer" Style="{StaticResource NavButtonStyle}" Click="customer_click">
                             <StackPanel Orientation="Horizontal">
                                 <Border Width="24" Height="24" Margin="0,0,16,0">
-                                    <fa:FontAwesome Icon="Users" Foreground="White" FontSize="16" VerticalAlignment="Center"/>
+                                    <fa:FontAwesome Icon="Users" Foreground="White" FontSize="16" VerticalAlignment="Top"/>
                                 </Border>
                                 <TextBlock Text="Customer Details"/>
                             </StackPanel>
@@ -216,7 +214,7 @@
                         <Button x:Name="inventory" Style="{StaticResource NavButtonStyle}" Click="Inventory_Click" >
                             <StackPanel Orientation="Horizontal">
                                 <Border Width="24" Height="24" Margin="0,0,16,0">
-                                    <fa:FontAwesome Icon="Archive" Foreground="White" FontSize="16" VerticalAlignment="Center" />
+                                    <fa:FontAwesome Icon="Archive" Foreground="White" FontSize="16" VerticalAlignment="Top" />
                                 </Border>
                                 <TextBlock Text="Inventory"/>
                             </StackPanel>
@@ -226,9 +224,9 @@
                         <Button x:Name="history" Style="{StaticResource NavButtonStyle}" Click="History_Click" >
                             <StackPanel Orientation="Horizontal">
                                 <Border Width="24" Height="24" Margin="0,0,16,0">
-                                    <fa:FontAwesome Icon="Archive" Foreground="White" FontSize="16" VerticalAlignment="Center" />
+                                    <fa:FontAwesome Icon="History" Foreground="White" FontSize="16" VerticalAlignment="Top" />
                                 </Border>
-                                <TextBlock Text="History"/>
+                                <TextBlock Text="History" RenderTransformOrigin="0.492,1.022"/>
                             </StackPanel>
                         </Button>
 
@@ -254,14 +252,88 @@
 
                 <!-- Window Buttons -->
                 <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
-                    <Button  Width="40" Height="40" Click="Minimize_Click" Background="Transparent" Foreground="White" BorderThickness="0"   Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <fa:FontAwesome Icon="WindowMinimize" Foreground="White" FontSize="18" />
+
+                    <Button Width="40" Height="40" Click="Minimize_Click" BorderThickness="0" Cursor="Hand">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <TextBlock Text="&#xE921;" 
+                                       FontFamily="Segoe MDL2 Assets" 
+                                       FontSize="12" 
+                                       Foreground="White" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#3E3E3E"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                     </Button>
-                    <Button  Width="40" Height="40" Click="MaximizeRestore_Click" Background="Transparent" Foreground="White" BorderThickness="0"   Cursor="Hand">
-                        <fa:FontAwesome Icon="WindowMaximize" Foreground="White" FontSize="18"  />
+
+
+                    <Button Width="40" Height="40" Click="MaximizeRestore_Click" BorderThickness="0" Cursor="Hand">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <TextBlock Text="&#xE922;" 
+                                       FontFamily="Segoe MDL2 Assets" 
+                                       FontSize="12" 
+                                       Foreground="White" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#3E3E3E"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                     </Button>
-                    <Button Width="40" Height="40" Click="Close_Click" Background="Transparent" Foreground="White" BorderThickness="0"  Cursor="Hand">
-                        <fa:FontAwesome Icon="Close" Foreground="White" FontSize="25" />
+
+
+                    <Button Width="40" Height="40" Click="Close_Click" BorderThickness="0" Cursor="Hand">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <TextBlock Text="&#xE8BB;" 
+                                       FontFamily="Segoe MDL2 Assets" 
+                                       FontSize="12" 
+                                       Foreground="White" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Top" Margin="0,14,0,0"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="Red"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                     </Button>
                 </StackPanel>
             </Grid>

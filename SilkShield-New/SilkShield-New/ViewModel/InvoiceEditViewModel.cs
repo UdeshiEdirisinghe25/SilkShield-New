@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using SilkShield_New.Data;
+using SilkShield_New.Model;
+using SilkShield_New.Service;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using SilkShield_New.Model;
-using SilkShield_New.Data;
 
 namespace SilkShield_New.ViewModel
 {
@@ -12,6 +15,8 @@ namespace SilkShield_New.ViewModel
     {
         private readonly InvoiceDataService _dataService;
         private readonly InvoiceRepository _repository;
+        private readonly InvoiceNumberService _invoiceNumberService;
+
         private string _originalInvoiceNumber;
 
         // Commands bound from InvoiceEdit.xaml
@@ -22,9 +27,10 @@ namespace SilkShield_New.ViewModel
         {
             _dataService = new InvoiceDataService();
             _repository = new InvoiceRepository();
+            _invoiceNumberService = new InvoiceNumberService(); // Initialized this service
 
-            // Initialize commands
-            UpdateInvoiceCommand = new RelayCommand((p) => SaveUpdatedInvoice(), (p) => CanUpdate());
+            // Initialize commands - changed to async call
+            UpdateInvoiceCommand = new RelayCommand(async (p) => await SaveUpdatedInvoice(), (p) => CanUpdate());
             CancelCommand = new RelayCommand((p) => CancelEdit());
 
             if (selectedInvoice == null) return;
@@ -39,8 +45,6 @@ namespace SilkShield_New.ViewModel
             this.BuildingType = selectedInvoice.BuildingType;
             this.CurtainLayerType = selectedInvoice.CurtainLayerType;
             this.CurtainStyle = selectedInvoice.CurtainStyle;
-
-            // PaymentMethod (matches base class)
             this.PaymentMethod = selectedInvoice.PaymentMethod;
 
             // --- 2. SET CHECKBOXES ---
@@ -60,19 +64,18 @@ namespace SilkShield_New.ViewModel
                 this.Items.Add(item);
             }
 
-            // Force CommandManager to requery CanExecute
             CommandManager.InvalidateRequerySuggested();
         }
 
         private bool CanUpdate()
         {
-            // Basic guard: must have a valid invoice number and at least one item
             if (string.IsNullOrWhiteSpace(this.InvoiceNumber)) return false;
             if (this.Items == null || this.Items.Count == 0) return false;
             return true;
         }
 
-        public void SaveUpdatedInvoice()
+        // Added 'async Task' to allow 'await'
+        public async Task SaveUpdatedInvoice()
         {
             try
             {
@@ -88,25 +91,57 @@ namespace SilkShield_New.ViewModel
                     PelmetBoard = this.IsPelmetBoardChecked,
                     Motorized = this.IsMotorizedChecked,
                     PaymentMethod = this.PaymentMethod,
-
                     TransportLaborCost = double.TryParse(this.TransportLaborCostText, out double t) ? t : 0,
                     Discount = double.TryParse(this.DiscountText, out double d) ? d : 0,
-
                     Items = new ObservableCollection<InvoiceItem>(this.Items)
                 };
 
+                // Save to DB first
                 bool success = _repository.UpdateInvoice(updatedInvoice, _originalInvoiceNumber);
 
                 if (success)
                 {
-                    MessageBox.Show("Invoice updated successfully!");
-                    CancelEdit();
+                    // Initialize the SaveFileDialog (Fixes CS0103)
+                    SaveFileDialog saveFileDialog = new SaveFileDialog
+                    {
+                        Filter = "PDF Files (*.pdf)|*.pdf",
+                        FileName = $"Invoice_{updatedInvoice.InvoiceNumber}"
+                    };
+
+                    if (saveFileDialog.ShowDialog() == true)
+                    {
+                        string filePath = saveFileDialog.FileName;
+
+                        // 1. Generate PDF in background using the updatedInvoice object
+                        // Note: Using updatedInvoice instead of undefined invoiceData
+                        await Task.Run(() => _dataService.GenerateInvoicePdf(updatedInvoice, filePath));
+
+                        // 2. Show Success Message
+                        MessageBox.Show(
+                            $"Invoice {updatedInvoice.InvoiceNumber} successfully updated and saved!\n" +
+                            $"PDF saved to: {filePath}",
+                            "Invoice Updated",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information
+                        );
+
+                        // 3. Navigation and Refresh
+                        var mainWindow = System.Windows.Application.Current.MainWindow as SilkShield_New.View.MainWindow;
+                        if (mainWindow != null)
+                        {
+                            mainWindow.History_Click(null, null);
+                            try
+                            {
+                                mainWindow.RefreshHistoryIfActive();
+                            }
+                            catch { }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
-                // Show full exception to help debugging (remove stack trace in production)
-                MessageBox.Show($"Failed to update invoice:\n{ex.Message}\n\n{ex.InnerException?.Message}", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error updating invoice: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

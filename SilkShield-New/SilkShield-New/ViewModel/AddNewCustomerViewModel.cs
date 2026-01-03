@@ -1,8 +1,10 @@
-﻿using System;
+﻿using SilkShield_New.Data;
+using SilkShield_New.Model;
+using SilkShield_New.View;
+using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using SilkShield_New.Data;
-using SilkShield_New.Model;
 
 namespace SilkShield_New.ViewModel
 {
@@ -24,7 +26,7 @@ namespace SilkShield_New.ViewModel
             CancelCommand = new RelayCommand(_ => Cancel());
         }
 
-        private void SaveCustomer()
+        public void SaveCustomer()
         {
             string name = NewCustomer.CustomerName?.Trim();
             string phone = NewCustomer.PhoneNumber?.Trim();
@@ -37,10 +39,24 @@ namespace SilkShield_New.ViewModel
 
             bool isSaved = _customerDal.InsertCustomer(NewCustomer);
 
+            // Inside SaveCustomer() in AddNewCustomerViewModel.cs
             if (isSaved)
             {
                 MessageBox.Show("Customer saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                CloseWindow();  
+
+                // FIX: Cast specifically to your View namespace to ensure it finds the right class
+                var mainWindow = Application.Current.MainWindow as SilkShield_New.View.MainWindow;
+
+                if (mainWindow != null)
+                {
+                    try
+                    {
+                        mainWindow.RefreshCustomerManageIfActive();
+                    }
+                    catch { /* Defensive */ }
+                }
+
+                CloseWindow();
             }
             else
             {
@@ -48,25 +64,43 @@ namespace SilkShield_New.ViewModel
             }
         }
 
-
         private void Cancel()
         {
-            CloseWindow();
-        }
-
-        private void CloseWindow()
-        {
-            foreach (Window window in Application.Current.Windows)
+            // Try to close popup window if this VM is hosted in a Window
+            var popupWindow = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.DataContext == this);
+            if (popupWindow != null)
             {
-                if (window.DataContext == this)
+                popupWindow.Close();
+                return;
+            }
+
+            // Otherwise, if this VM is used inside MainWindow (as a UserControl), navigate back to Customer_Manage
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null)
+            {
+                // If the current MainWindow.Content is the view that uses this VM, replace it
+                try
                 {
-                    window.Close();
-                    break;
+                    if (mainWindow.Content is FrameworkElement fe && fe.DataContext == this)
+                    {
+                        mainWindow.Content = new Customer_Manage();
+                        return;
+                    }
+                }
+                catch
+                {
                 }
             }
         }
 
+        private void CloseWindow()
+        {
+            // Use ToList() to avoid "Collection Modified" errors if multiple windows close
+            var window = Application.Current.Windows
+                .Cast<Window>()
+                .FirstOrDefault(w => w.DataContext == this);
 
-
+            window?.Close();
+        }
     }
 }

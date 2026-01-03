@@ -34,17 +34,37 @@
 
             <Button Grid.Column="1"
                     Content="+ Add Inventory"
-                    Width="160"
-                    Height="40"
+                    Width="160" Height="40"
                     FontWeight="SemiBold"
                     FontSize="14"
-                    Background="#5B281C"
                     Foreground="White"
-                    BorderBrush="Transparent"
                     Cursor="Hand"
                     Click="NewInventoryButton_Click"
                     HorizontalAlignment="Right"
-                    VerticalAlignment="Center"/>
+                    VerticalAlignment="Center">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#5B281C"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" 
+                                            CornerRadius="6" 
+                                            BorderThickness="0">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF804031"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
 
         <!-- SEARCH SECTION -->
@@ -94,6 +114,7 @@
                 BorderThickness="1"
                 Background="White"
                 Padding="0">
+            <!-- Ensure pixel-based scrolling so horizontal scrollbar appears and columns don't get squeezed -->
             <DataGrid x:Name="dataGridView1"
                       Margin="0"
                       Background="Transparent"
@@ -106,12 +127,21 @@
                       RowHeight="48"
                       IsReadOnly="{Binding IsDataGridReadOnly}" 
                       GridLinesVisibility="None"
+          
                       ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      ScrollViewer.CanContentScroll="True"
+          
                       SelectionUnit="FullRow"
                       SelectionMode="Single"
                       SnapsToDevicePixels="True"
-                      UseLayoutRounding="True">
+                      UseLayoutRounding="True"
+          
+                      CanUserResizeColumns="True"
+                      CanUserReorderColumns="True"
+          
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch">
 
                 <DataGrid.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="#1F2937"/>
@@ -149,39 +179,19 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="DataGridRow">
-                                    <Border x:Name="DGR_Border"
+                                    <Border x:Name="RowBorder"
                                             Background="{TemplateBinding Background}"
-                                            BorderThickness="0"
-                                            BorderBrush="Transparent"
+                                            BorderThickness="0,0,0,1"
+                                            BorderBrush="#E5E7EB"
                                             SnapsToDevicePixels="True">
-                                        <SelectiveScrollingGrid>
-                                            <SelectiveScrollingGrid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </SelectiveScrollingGrid.ColumnDefinitions>
-                                            <SelectiveScrollingGrid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </SelectiveScrollingGrid.RowDefinitions>
-
-                                            <DataGridCellsPresenter Grid.Column="1"
-                                                                    ItemsPanel="{TemplateBinding ItemsPanel}"
-                                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-
-                                            <DataGridDetailsPresenter Grid.Column="1"
-                                                                      Grid.Row="1"
-                                                                      Visibility="{TemplateBinding DetailsVisibility}"/>
-
-                                            <DataGridRowHeader Grid.RowSpan="2"
-                                                               Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Row}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
-                                        </SelectiveScrollingGrid>
+                                        <DataGridCellsPresenter/>
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="DGR_Border" Property="Background" Value="#F9FAFB"/>
+                                            <Setter TargetName="RowBorder" Property="Background" Value="#F9FAFB"/>
                                         </Trigger>
                                         <Trigger Property="IsSelected" Value="True">
-                                            <Setter TargetName="DGR_Border" Property="Background" Value="#EFF6FF"/>
+                                            <Setter TargetName="RowBorder" Property="Background" Value="#EFF6FF"/>
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -195,22 +205,16 @@
                     <Style TargetType="DataGridCell">
                         <Setter Property="Background" Value="Transparent"/>
                         <Setter Property="BorderThickness" Value="0"/>
-                        <Setter Property="BorderBrush" Value="Transparent"/>
                         <Setter Property="Foreground" Value="#1F2937"/>
                         <Setter Property="FontSize" Value="14"/>
                         <Setter Property="FontWeight" Value="SemiBold"/>
-                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
                         <Setter Property="Padding" Value="16,0"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="DataGridCell">
-                                    <Border Background="{TemplateBinding Background}"
-                                            BorderThickness="0"
-                                            BorderBrush="Transparent"
-                                            Padding="{TemplateBinding Padding}"
-                                            SnapsToDevicePixels="True">
-                                        <ContentPresenter VerticalAlignment="Center"
-                                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                    <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter VerticalAlignment="Center"/>
                                     </Border>
                                 </ControlTemplate>
                             </Setter.Value>
@@ -218,7 +222,6 @@
                         <Style.Triggers>
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter Property="Background" Value="Transparent"/>
-                                <Setter Property="Foreground" Value="#1F2937"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -228,21 +231,57 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Item Name" 
                                         Binding="{Binding ItemName}" 
-                                        Width="*" 
-                                        MinWidth="200">
+                                        Width="2*" 
+                                        MinWidth="220">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="VerticalAlignment" Value="Center"/>
                                 <Setter Property="Padding" Value="0"/>
                                 <Setter Property="FontSize" Value="14"/>
                                 <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="TextWrapping" Value="NoWrap"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- Category column -->
+                    <DataGridTextColumn Header="Category"
+                                        Binding="{Binding Category}"
+                                        Width="160"
+                                        MinWidth="120">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="Foreground" Value="#374151"/>
+                                <Setter Property="TextWrapping" Value="NoWrap"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- Material column -->
+                    <DataGridTextColumn Header="Material"
+                                        Binding="{Binding Material}"
+                                        Width="160"
+                                        MinWidth="120">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="Foreground" Value="#374151"/>
+                                <Setter Property="TextWrapping" Value="NoWrap"/>
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
                     <DataGridTextColumn Header="Unit Price" 
                                         Binding="{Binding Price}" 
-                                        Width="140">
+                                        Width="140"
+                                        MinWidth="120">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="VerticalAlignment" Value="Center"/>
@@ -253,7 +292,7 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTemplateColumn Header="Stock Status" Width="140" IsReadOnly="True">
+                    <DataGridTemplateColumn Header="Stock Status" Width="170" MinWidth="150" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Border x:Name="StatusBorder" 
@@ -267,7 +306,7 @@
                                                  Height="8" 
                                                  Fill="#22C55E" 
                                                  Margin="0,0,6,0"/>
-                                        <TextBlock Text="{Binding StatusText}" 
+                                        <TextBlock x:Name="StatusTextBlock" Text="{Binding StatusText}" 
                                                    VerticalAlignment="Center" 
                                                    FontSize="14" 
                                                    FontWeight="SemiBold"
@@ -275,9 +314,32 @@
                                     </StackPanel>
                                 </Border>
                                 <DataTemplate.Triggers>
+                                    <!-- Out of Stock: red -->
+                                    <DataTrigger Binding="{Binding Status}" Value="Out of Stock">
+                                        <Setter TargetName="StatusBorder" Property="Background" Value="#FEF2F2"/>
+                                        <Setter TargetName="StatusEllipse" Property="Fill" Value="#F43F5E"/>
+                                        <Setter TargetName="StatusTextBlock" Property="Foreground" Value="#991B1B"/>
+                                    </DataTrigger>
+
+                                    <!-- Low Stock: amber -->
+                                    <DataTrigger Binding="{Binding Status}" Value="Low Stock">
+                                        <Setter TargetName="StatusBorder" Property="Background" Value="#FFFBEB"/>
+                                        <Setter TargetName="StatusEllipse" Property="Fill" Value="#F59E0B"/>
+                                        <Setter TargetName="StatusTextBlock" Property="Foreground" Value="#92400E"/>
+                                    </DataTrigger>
+
+                                    <!-- In Stock: green -->
+                                    <DataTrigger Binding="{Binding Status}" Value="In Stock">
+                                        <Setter TargetName="StatusBorder" Property="Background" Value="#EAFBF1"/>
+                                        <Setter TargetName="StatusEllipse" Property="Fill" Value="#22C55E"/>
+                                        <Setter TargetName="StatusTextBlock" Property="Foreground" Value="#065F46"/>
+                                    </DataTrigger>
+
+                                    <!-- Legacy: Inactive -> red -->
                                     <DataTrigger Binding="{Binding Status}" Value="Inactive">
                                         <Setter TargetName="StatusBorder" Property="Background" Value="#FEF2F2"/>
                                         <Setter TargetName="StatusEllipse" Property="Fill" Value="#F43F5E"/>
+                                        <Setter TargetName="StatusTextBlock" Property="Foreground" Value="#991B1B"/>
                                     </DataTrigger>
                                 </DataTemplate.Triggers>
                             </DataTemplate>
@@ -285,7 +347,7 @@
                     </DataGridTemplateColumn>
 
                     <!-- Actions Column -->
-                    <DataGridTemplateColumn Header="Actions" Width="120" IsReadOnly="True">
+                    <DataGridTemplateColumn Header="Actions" Width="130" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -354,7 +416,6 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-
                 </DataGrid.Columns>
             </DataGrid>
         </Border>

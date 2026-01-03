@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace SilkShield_New.View
 {
     /// <summary>
-    /// Interaction logic for ViewCustomerWindow.xaml
+    /// Interaction logic for EditInventory.xaml
     /// </summary>
-    public partial class ViewCustomerWindow : Window
+    public partial class EditInventory : UserControl
     {
-        public ViewCustomerWindow()
+        public EditInventory()
         {
             InitializeComponent();
         }

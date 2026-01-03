@@ -40,25 +40,13 @@ namespace SilkShield_New.View
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            // Create an instance of AddNewCustomer UserControl
-            var addCustomerControl = new AddNewCustomer();
-
-            // Find the parent window that hosts this UserControl
-            Window parentWindow = Window.GetWindow(this);
-            if (parentWindow != null)
+            // Create and show the AddNewCustomer window as a dialog
+            var addCustomerWindow = new AddNewCustomer
             {
-                // Assuming the main window has a ContentControl named 'MainContent' for dynamic navigation
-                var contentControl = parentWindow.FindName("MainContent") as ContentControl;
-                if (contentControl != null)
-                {
-                    contentControl.Content = addCustomerControl;
-                }
-                else
-                {
-                    // If no ContentControl exists, just replace the Window content
-                    parentWindow.Content = addCustomerControl;
-                }
-            }
+                Owner = Window.GetWindow(this),
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+            addCustomerWindow.ShowDialog();
         }
 
         

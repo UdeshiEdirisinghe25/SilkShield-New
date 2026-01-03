@@ -47,7 +47,7 @@ namespace SilkShield_New.ViewModels
         }
 
         public ObservableCollection<string> MeasuringUnitList { get; set; }
-        private string _selectedMeasuringUnit;
+        public string _selectedMeasuringUnit;
         public string SelectedMeasuringUnit
         {
             get => _selectedMeasuringUnit;
@@ -55,7 +55,7 @@ namespace SilkShield_New.ViewModels
         }
 
         public ObservableCollection<string> StockStatusList { get; set; }
-        private string _selectedStockStatus;
+        public string _selectedStockStatus;
         public string SelectedStockStatus
         {
             get => _selectedStockStatus;
@@ -75,12 +75,12 @@ namespace SilkShield_New.ViewModels
             // Initialize ComboBox lists
             CategoryList = new ObservableCollection<string> { "Fabric", "Blinds", "Accessories" };
             MeasuringUnitList = new ObservableCollection<string> { "Meters (m)", "Feet (ft)", "Pieces", "Square Feet (sft)", "Square Meter", "Roll" };
-            StockStatusList = new ObservableCollection<string> { "In Stock", "Out of Stock" };
+            StockStatusList = new ObservableCollection<string> { "In Stock","Low Stock", "Out of Stock" };
 
             // Initialize commands
             SaveCommand = new RelayCommand(SaveInventoryItem);
             ClearCommand = new RelayCommand(ClearForm);
-            CancelCommand = new RelayCommand(CloseWindow);
+            CancelCommand = new RelayCommand(_ => Cancel());
         }
 
         // Save inventory item to SQLite
@@ -108,14 +108,25 @@ namespace SilkShield_New.ViewModels
                     }
                 }
 
-                // Clear fields after saving
+
+                MessageBox.Show("Inventory item saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // 1. Clear fields
                 ClearForm(null);
 
-                MessageBox.Show("Inventory item saved successfully!");
+                // 2. Navigate and Refresh
+                if (Application.Current.MainWindow is SilkShield_New.View.MainWindow mainWin)
+                {
+                    // First, switch the view back to the main Inventory list
+                    mainWin.Inventory_Click(null, null);
+
+                    // Second, tell the main window to refresh the data in that list
+                    mainWin.RefreshInventoryIfActive();
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error saving inventory: " + ex.Message,"Error");
+                MessageBox.Show("Error saving inventory: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -130,10 +141,16 @@ namespace SilkShield_New.ViewModels
             SelectedStockStatus = null;
         }
 
+        private void Cancel() => CloseWindow();
+
         // Close the window
-        private void CloseWindow(object obj)
+        private void CloseWindow()
         {
-            Application.Current.Windows[0]?.Close();
+            if (Application.Current.MainWindow is SilkShield_New.View.MainWindow mainWin)
+            {
+                
+                mainWin.Inventory_Click(null, null);
+            }
         }
 
         // INotifyPropertyChanged implementation
