@@ -220,8 +220,56 @@ namespace SilkShield_New.ViewModel
 
         public async Task CreateInvoiceAsync()
         {
+            //check required fields are filled
+
+            if (string.IsNullOrWhiteSpace(CustomerName))
+            {
+                MessageBox.Show("Please enter a Customer Name.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(Location))
+            {
+                MessageBox.Show("Please enter a Location.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+
+            if (string.IsNullOrEmpty(BuildingType))
+            {
+                MessageBox.Show("Please select a Building Type.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (Items == null || !Items.Any(i => !string.IsNullOrWhiteSpace(i.ItemName)))
+            {
+                MessageBox.Show("The invoice must contain at least one item ",
+                                "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(CurtainLayerType))
+            {
+                MessageBox.Show("Please select a Curtain Layer Type.", "Required Field", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(CurtainStyle))
+            {
+                MessageBox.Show("Please select a Curtain Style.", "Required Field", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Payment Method Validation
+            if (string.IsNullOrWhiteSpace(PaymentMethod))
+            {
+                MessageBox.Show("Please select a Payment Method.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             // Validation checks...
             InvoiceNumber = _invoiceNumberService.GetNewInvoiceNumber(InvoiceDate);
+
 
             try
             {
@@ -271,16 +319,13 @@ namespace SilkShield_New.ViewModel
 
                     if (mainWindow != null)
                     {
-                        // 1. Force the UI to switch to the History tab/view
                         mainWindow.History_Click(null, null);
 
-                        // 2. Now that the History view is active, trigger the refresh
                         mainWindow.RefreshHistoryIfActive();
                     }
                 }
                 catch (Exception ex)
                 {
-                    // It's better to log the error so you know why it's failing
                     Console.WriteLine($"Refresh failed: {ex.Message}");
                 }
 
@@ -298,9 +343,9 @@ namespace SilkShield_New.ViewModel
             CustomerName = string.Empty;
             Location = string.Empty;
             BuildingType = string.Empty;
-            CurtainLayerType = "Double layer";
-            CurtainStyle = "Ripple";
-            PaymentMethod = "Cash";
+            CurtainLayerType = string.Empty;
+            CurtainStyle = string.Empty;
+            PaymentMethod = string.Empty;
 
             _transportLaborCost = 0;
             _discountPercentage = 0;

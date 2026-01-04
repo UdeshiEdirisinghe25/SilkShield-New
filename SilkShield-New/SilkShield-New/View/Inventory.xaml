@@ -231,8 +231,8 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Item Name" 
                                         Binding="{Binding ItemName}" 
-                                        Width="2*" 
-                                        MinWidth="220">
+                                        Width="*" 
+                                        MinWidth="200">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="VerticalAlignment" Value="Center"/>
@@ -247,8 +247,8 @@
                     <!-- Category column -->
                     <DataGridTextColumn Header="Category"
                                         Binding="{Binding Category}"
-                                        Width="160"
-                                        MinWidth="120">
+                                        Width="160" >
+                        
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="VerticalAlignment" Value="Center"/>
@@ -265,7 +265,7 @@
                     <DataGridTextColumn Header="Material"
                                         Binding="{Binding Material}"
                                         Width="160"
-                                        MinWidth="120">
+                                      >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="VerticalAlignment" Value="Center"/>
@@ -280,8 +280,8 @@
 
                     <DataGridTextColumn Header="Unit Price" 
                                         Binding="{Binding Price}" 
-                                        Width="140"
-                                        MinWidth="120">
+                                        Width="150"
+                                       >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="VerticalAlignment" Value="Center"/>
@@ -292,7 +292,7 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTemplateColumn Header="Stock Status" Width="170" MinWidth="150" IsReadOnly="True">
+                    <DataGridTemplateColumn Header="Stock Status" Width="160"  IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Border x:Name="StatusBorder" 
@@ -335,12 +335,7 @@
                                         <Setter TargetName="StatusTextBlock" Property="Foreground" Value="#065F46"/>
                                     </DataTrigger>
 
-                                    <!-- Legacy: Inactive -> red -->
-                                    <DataTrigger Binding="{Binding Status}" Value="Inactive">
-                                        <Setter TargetName="StatusBorder" Property="Background" Value="#FEF2F2"/>
-                                        <Setter TargetName="StatusEllipse" Property="Fill" Value="#F43F5E"/>
-                                        <Setter TargetName="StatusTextBlock" Property="Foreground" Value="#991B1B"/>
-                                    </DataTrigger>
+                                    
                                 </DataTemplate.Triggers>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
