@@ -8,36 +8,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.ComponentModel;
 
 namespace SilkShield_New.ViewModel
 {
     public class InvoiceEditViewModel : NewInvoice1ViewModel
     {
-        private readonly InvoiceDataService _dataService;
         private readonly InvoiceRepository _repository;
-        private readonly InvoiceNumberService _invoiceNumberService;
-
         private string _originalInvoiceNumber;
+        private bool _isLoading = false;
 
-        // Commands bound from InvoiceEdit.xaml
         public ICommand UpdateInvoiceCommand { get; }
         public ICommand CancelCommand { get; }
 
         public InvoiceEditViewModel(Invoice selectedInvoice) : base()
         {
-            _dataService = new InvoiceDataService();
             _repository = new InvoiceRepository();
-            _invoiceNumberService = new InvoiceNumberService(); // Initialized this service
-
-            // Initialize commands - changed to async call
             UpdateInvoiceCommand = new RelayCommand(async (p) => await SaveUpdatedInvoice(), (p) => CanUpdate());
             CancelCommand = new RelayCommand((p) => CancelEdit());
 
             if (selectedInvoice == null) return;
 
+            _isLoading = true;
             _originalInvoiceNumber = selectedInvoice.InvoiceNumber;
 
-            // --- 1. SET HEADER DATA ---
+            // Map Header
             this.InvoiceNumber = selectedInvoice.InvoiceNumber;
             this.InvoiceDate = selectedInvoice.InvoiceDate;
             this.CustomerName = selectedInvoice.CustomerName;
@@ -46,35 +41,43 @@ namespace SilkShield_New.ViewModel
             this.CurtainLayerType = selectedInvoice.CurtainLayerType;
             this.CurtainStyle = selectedInvoice.CurtainStyle;
             this.PaymentMethod = selectedInvoice.PaymentMethod;
-
-            // --- 2. SET CHECKBOXES ---
             this.IsPelmetBoardChecked = selectedInvoice.PelmetBoard;
             this.IsMotorizedChecked = selectedInvoice.Motorized;
-
-            // --- 3. SET COSTS & DISCOUNT ---
             this.TransportLaborCostText = selectedInvoice.TransportLaborCost.ToString();
             this.DiscountText = selectedInvoice.Discount.ToString();
 
-            // --- 4. RETRIEVE AND SET ITEMS ---
-            var itemsFromDb = _dataService.GetInvoiceItemsByNumber(selectedInvoice.InvoiceNumber);
-
+            // Map Items
+            var itemsFromDb = _invoiceDataService.GetInvoiceItemsByNumber(selectedInvoice.InvoiceNumber);
             this.Items.Clear();
+
             foreach (var item in itemsFromDb)
             {
-                this.Items.Add(item);
+                var newItem = new InvoiceItem
+                {
+                    ItemName = item.ItemName,
+                    SelectedMaterial = item.SelectedMaterial,
+                    MeasuringUnit = item.MeasuringUnit,
+                    UnitPrice = item.UnitPrice,
+                    Quantity = item.Quantity
+                };
+                // FIXED: Don't set Total directly (it's read-only). Call CalculateTotal() instead.
+                newItem.CalculateTotal();
+                this.Items.Add(newItem);
             }
 
-            CommandManager.InvalidateRequerySuggested();
+            _isLoading = false;
+            CalculateGrandTotal();
         }
 
-        private bool CanUpdate()
+        // FIXED: Added 'override' and fixed protection level error (CS0115 / CS0122)
+        protected override void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(this.InvoiceNumber)) return false;
-            if (this.Items == null || this.Items.Count == 0) return false;
-            return true;
+            if (_isLoading) return;
+            base.OnItemPropertyChanged(sender, e);
         }
 
-        // Added 'async Task' to allow 'await'
+        private bool CanUpdate() => !string.IsNullOrWhiteSpace(this.CustomerName) && this.Items?.Count > 0;
+
         public async Task SaveUpdatedInvoice()
         {
             try
@@ -93,65 +96,31 @@ namespace SilkShield_New.ViewModel
                     PaymentMethod = this.PaymentMethod,
                     TransportLaborCost = double.TryParse(this.TransportLaborCostText, out double t) ? t : 0,
                     Discount = double.TryParse(this.DiscountText, out double d) ? d : 0,
-                    Items = new ObservableCollection<InvoiceItem>(this.Items)
+                    Items = this.Items
                 };
 
-                // Save to DB first
-                bool success = _repository.UpdateInvoice(updatedInvoice, _originalInvoiceNumber);
+                if (_repository.UpdateInvoice(updatedInvoice, _originalInvoiceNumber))
 
-                if (success)
+                     DashboardViewModel.Instance?.LoadDashboard();
                 {
-                    // Initialize the SaveFileDialog (Fixes CS0103)
-                    SaveFileDialog saveFileDialog = new SaveFileDialog
+                    SaveFileDialog sfd = new SaveFileDialog { Filter = "PDF Files|*.pdf", FileName = $"Invoice_{this.InvoiceNumber}" };
+                    if (sfd.ShowDialog() == true)
                     {
-                        Filter = "PDF Files (*.pdf)|*.pdf",
-                        FileName = $"Invoice_{updatedInvoice.InvoiceNumber}"
-                    };
-
-                    if (saveFileDialog.ShowDialog() == true)
-                    {
-                        string filePath = saveFileDialog.FileName;
-
-                        // 1. Generate PDF in background using the updatedInvoice object
-                        // Note: Using updatedInvoice instead of undefined invoiceData
-                        await Task.Run(() => _dataService.GenerateInvoicePdf(updatedInvoice, filePath));
-
-                        // 2. Show Success Message
-                        MessageBox.Show(
-                            $"Invoice {updatedInvoice.InvoiceNumber} successfully updated and saved!\n" +
-                            $"PDF saved to: {filePath}",
-                            "Invoice Updated",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Information
-                        );
-
-                        // 3. Navigation and Refresh
-                        var mainWindow = System.Windows.Application.Current.MainWindow as SilkShield_New.View.MainWindow;
-                        if (mainWindow != null)
-                        {
-                            mainWindow.History_Click(null, null);
-                            try
-                            {
-                                mainWindow.RefreshHistoryIfActive();
-                            }
-                            catch { }
-                        }
+                        await Task.Run(() => _invoiceDataService.GenerateInvoicePdf(updatedInvoice, sfd.FileName));
+                        MessageBox.Show("Invoice updated successfully!");
+                        ReturnToHistory();
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error updating invoice: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        private void CancelEdit()
+        private void CancelEdit() => ReturnToHistory();
+
+        private void ReturnToHistory()
         {
-            var mainWindow = Application.Current.MainWindow as SilkShield_New.View.MainWindow;
-            if (mainWindow != null)
-            {
-                mainWindow.History_Click(null, null);
-            }
+            var mw = Application.Current.MainWindow as SilkShield_New.View.MainWindow;
+            if (mw != null) { mw.History_Click(null, null); try { mw.RefreshHistoryIfActive(); } catch { } }
         }
     }
 }

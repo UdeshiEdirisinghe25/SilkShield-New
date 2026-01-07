@@ -44,6 +44,7 @@ namespace SilkShield_New.ViewModel
             // Create ICollectionView for filtering
             CustomersView = CollectionViewSource.GetDefaultView(Customers);
             CustomersView.Filter = FilterCustomers;
+            CustomersView.SortDescriptions.Add(new SortDescription("CustomerID", ListSortDirection.Descending));
 
             AddCustomerCommand = new RelayCommand(_ => AddCustomer());
             ViewCustomerCommand = new RelayCommand(param => ViewCustomer(param as Customer));
@@ -75,6 +76,7 @@ namespace SilkShield_New.ViewModel
         {
             LoadCustomers();
             CustomersView?.Refresh();
+
         }
 
         private void AddCustomer()
@@ -128,6 +130,7 @@ namespace SilkShield_New.ViewModel
                     _customerDal.DeleteCustomer(customer.CustomerID);
                     LoadCustomers();
                     CustomersView.Refresh();
+                    DashboardViewModel.Instance?.LoadDashboard();
                 }
                 catch (System.Exception ex)
                 {

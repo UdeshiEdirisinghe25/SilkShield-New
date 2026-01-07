@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using SilkShield_New.Model;
 using SilkShield_New.Data;
 using SilkShield_New.Service;
+using System.Diagnostics;
 
 namespace SilkShield_New.ViewModel
 {
@@ -33,8 +34,10 @@ namespace SilkShield_New.ViewModel
         private bool _isPelmetBoardChecked;
         private bool _isMotorizedChecked;
         private ObservableCollection<string> _availableItems;
-        private readonly InvoiceDataService _invoiceDataService;
-        private readonly InvoiceNumberService _invoiceNumberService;
+        protected readonly InvoiceDataService _invoiceDataService;
+        protected readonly InvoiceNumberService _invoiceNumberService;
+
+
         #endregion
 
         #region Public Properties
@@ -154,51 +157,68 @@ namespace SilkShield_New.ViewModel
             CalculateGrandTotal();
         }
 
-        private async void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected virtual async void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (sender is SilkShield_New.Model.InvoiceItem item)
             {
-                if (e.PropertyName == nameof(item.ItemName))
+                try
                 {
-                    var materials = await _invoiceDataService.GetMaterialsByItemNameAsync(item.ItemName);
-                    item.AvailableMaterials = new ObservableCollection<string>(materials);
+                    if (e.PropertyName == nameof(item.ItemName))
+                    {
+                        // 1. Try to fetch materials for what the user typed/selected
+                        var materials = await _invoiceDataService.GetMaterialsByItemNameAsync(item.ItemName);
 
-                    if (materials.Any())
-                    {
-                        item.SelectedMaterial = materials.First();
-                    }
-                    else
-                    {
-                        item.SelectedMaterial = null;
-                    }
+                        if (materials != null && materials.Any())
+                        {
+                            item.AvailableMaterials = new ObservableCollection<string>(materials);
+                            // Only auto-select if the user hasn't typed a custom material yet
+                            if (string.IsNullOrEmpty(item.SelectedMaterial))
+                                item.SelectedMaterial = materials.First();
+                        }
 
-                    item.MeasuringUnit = await _invoiceDataService.GetMeasuringUnitAsync(item.ItemName);
-                }
-                else if (e.PropertyName == nameof(item.SelectedMaterial))
-                {
-                    if (!string.IsNullOrEmpty(item.SelectedMaterial))
-                    {
-                        item.UnitPrice = await _invoiceDataService.GetUnitPriceAsync(item.ItemName, item.SelectedMaterial);
+                        // 2. Try to get unit. If DB returns null, we DON'T overwrite (keeping user's custom text)
+                        string dbUnit = await _invoiceDataService.GetMeasuringUnitAsync(item.ItemName);
+                        if (!string.IsNullOrEmpty(dbUnit))
+                        {
+                            item.MeasuringUnit = dbUnit;
+                        }
                     }
-                    else
+                    else if (e.PropertyName == nameof(item.SelectedMaterial))
                     {
-                        item.UnitPrice = 0;
+                        // 3. Try to get price. 
+                        if (!string.IsNullOrEmpty(item.SelectedMaterial))
+                        {
+                            double dbPrice = await _invoiceDataService.GetUnitPriceAsync(item.ItemName, item.SelectedMaterial);
+
+                            // Only update Price if a valid one exists in DB. 
+                            // This allows users to type a custom Material and then a custom Price.
+                            if (dbPrice > 0)
+                            {
+                                item.UnitPrice = dbPrice;
+                            }
+                        }
+                    }
+                    else if (e.PropertyName == nameof(item.Quantity) || e.PropertyName == nameof(item.UnitPrice))
+                    {
+                        item.CalculateTotal();
+                        CalculateGrandTotal();
                     }
                 }
-                else if (e.PropertyName == nameof(item.Quantity) || e.PropertyName == nameof(item.UnitPrice))
+                catch (Exception ex)
                 {
-                    item.CalculateTotal();
-                    CalculateGrandTotal();
+                    Debug.WriteLine($"Error in Property Update: {ex.Message}");
                 }
             }
         }
 
-        private void CalculateGrandTotal()
+        public void CalculateGrandTotal()
         {
+            // 1. Sum up the item rows only (Subtotal)
             double subTotal = Items?.Sum(item => item.Total) ?? 0;
-            double totalBeforeDiscount = subTotal + _transportLaborCost;
-            double discountAmount = totalBeforeDiscount * (_discountPercentage / 100.0);
-            GrandTotal = Math.Max(0, totalBeforeDiscount - discountAmount);
+
+            // 2. Calculate discount ONLY on the items subtotal
+            double discountAmount = subTotal * (_discountPercentage / 100.0);
+            GrandTotal = Math.Max(0, (subTotal - discountAmount) + _transportLaborCost);
         }
 
         private void AddItem(object obj)
@@ -287,7 +307,9 @@ namespace SilkShield_New.ViewModel
                     PaymentMethod = PaymentMethod,
                     TransportLaborCost = _transportLaborCost,
                     Discount = _discountPercentage,
-                    Items = Items
+                    Items = Items,
+
+                    TotalAmount = (decimal)this.GrandTotal
                 };
 
                 Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
@@ -301,6 +323,8 @@ namespace SilkShield_New.ViewModel
                     await Task.Run(() => _invoiceDataService.GenerateInvoicePdf(invoiceData, filePath));
 
                     _invoiceNumberService.IncrementInvoiceCounter(InvoiceNumber);
+
+                    DashboardViewModel.Instance?.LoadDashboard();
 
                     MessageBox.Show(
                         $"Invoice {invoiceData.InvoiceNumber} successfully created and saved!\n" +
@@ -322,6 +346,7 @@ namespace SilkShield_New.ViewModel
                         mainWindow.History_Click(null, null);
 
                         mainWindow.RefreshHistoryIfActive();
+
                     }
                 }
                 catch (Exception ex)
@@ -357,6 +382,8 @@ namespace SilkShield_New.ViewModel
 
             Items.Clear();
             Items.Add(new SilkShield_New.Model.InvoiceItem { Quantity = 1 });
+
+
         }
 
         public async void LoadItemNamesFromDatabaseAsync()
@@ -375,7 +402,7 @@ namespace SilkShield_New.ViewModel
         #endregion
     }
 
-   
+
     public class RelayCommand : ICommand
     {
         private readonly Action<object> _execute;

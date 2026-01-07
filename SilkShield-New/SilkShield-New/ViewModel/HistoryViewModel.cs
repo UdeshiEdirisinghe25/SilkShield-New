@@ -201,6 +201,7 @@ namespace SilkShield_New.ViewModel
                         // Notify MainWindow to refresh if needed (optional since we are already in this VM)
                         var mainWindow = Application.Current.MainWindow as SilkShield_New.View.MainWindow;
                         mainWindow?.RefreshHistoryIfActive();
+                        DashboardViewModel.Instance?.LoadDashboard();
                     }
                     else
                     {

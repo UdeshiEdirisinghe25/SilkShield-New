@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows.Threading;
+using System.Windows.Input; 
 using SilkShield_New.Data;
 using SilkShield_New.Model;
 
 namespace SilkShield_New.ViewModel
 {
     public class DashboardViewModel : INotifyPropertyChanged
-
     {
-
         public static DashboardViewModel Instance { get; private set; }
 
         private object _currentView;
@@ -25,7 +23,7 @@ namespace SilkShield_New.ViewModel
         private int _pendingCount;
         private ObservableCollection<InvoiceDTO> _recentInvoices;
 
-        private readonly DispatcherTimer _refreshTimer;
+        public ICommand RefreshCommand { get; }
 
         public int UpcomingCount
         {
@@ -38,8 +36,6 @@ namespace SilkShield_New.ViewModel
             get => _ongoingCount;
             set { _ongoingCount = value; OnPropertyChanged(nameof(OngoingCount)); }
         }
-
-
 
         public int PendingCount
         {
@@ -55,30 +51,25 @@ namespace SilkShield_New.ViewModel
 
         public DashboardViewModel()
         {
+            Instance = this;
             RecentInvoices = new ObservableCollection<InvoiceDTO>();
 
-            // Initialize the timer to refresh data every 30 seconds
-            _refreshTimer = new DispatcherTimer();
-            _refreshTimer.Interval = TimeSpan.FromSeconds(30);
-            _refreshTimer.Tick += (sender, e) => LoadDashboard(); // Use a lambda to call the method
-            _refreshTimer.Start();
+           
+            RefreshCommand = new RelayCommand(o => LoadDashboard());
 
-            // Load the initial data when the ViewModel is created
             LoadDashboard();
         }
 
-        private void LoadDashboard()
+        public void LoadDashboard()
         {
             var customerDAL = new CustomerDAL();
             var dbHelper = new DatabaseHelper();
 
-            // Get counts
             var summary = customerDAL.GetProjectSummary();
             UpcomingCount = summary.Upcoming;
             OngoingCount = summary.Ongoing;
             PendingCount = summary.Pending;
 
-            // Get recent invoices
             var invoices = dbHelper.GetRecentInvoices(3);
             RecentInvoices.Clear();
             foreach (var invoice in invoices)

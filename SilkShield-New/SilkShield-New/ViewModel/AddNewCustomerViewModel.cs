@@ -44,16 +44,18 @@ namespace SilkShield_New.ViewModel
             {
                 MessageBox.Show("Customer saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                // FIX: Cast specifically to your View namespace to ensure it finds the right class
                 var mainWindow = Application.Current.MainWindow as SilkShield_New.View.MainWindow;
 
-                if (mainWindow != null)
+                if (Application.Current.MainWindow is SilkShield_New.View.MainWindow mainWin)
                 {
-                    try
-                    {
-                        mainWindow.RefreshCustomerManageIfActive();
-                    }
-                    catch { /* Defensive */ }
+                    mainWin.customer_click(null, null);
+
+                    mainWin.RefreshCustomerManageIfActive();
+                }
+
+                if (DashboardViewModel.Instance != null)
+                {
+                    DashboardViewModel.Instance.LoadDashboard();
                 }
 
                 CloseWindow();

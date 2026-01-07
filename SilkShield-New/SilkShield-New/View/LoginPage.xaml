@@ -6,11 +6,10 @@
         xmlns:local="clr-namespace:SilkShield_New.View"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
-        Title="LoginPage" Height="756" Width="1160" MaxHeight="756" MaxWidth="1160"
+        Title="LoginPage" Height="756" Width="1160" 
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
-        <!-- Style for the Username TextBox with a placeholder and icon -->
         <Style x:Key="IconTextBoxStyle" TargetType="{x:Type TextBox}">
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="23,0,0,0"/>
@@ -51,8 +50,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-        <!-- Style for the PasswordBox with a placeholder and icon -->
 
         <Style x:Key="IconPasswordBoxStyle" TargetType="{x:Type PasswordBox}">
             <Setter Property="Foreground" Value="Black"/>
@@ -102,47 +99,52 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Images/Back.PNG"/>
         </Grid.Background>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="0*"/>
-        </Grid.ColumnDefinitions>
-        <Label x:Name="WelcomeLabel" Content="Welcome" FontSize="60" FontWeight="Bold" Margin="0,98,0,0" Height="90" Width="270" VerticalAlignment="Top"/>
 
-        <!-- User Name TextBox -->
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,131,0,0">
 
-        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="236" Height="24" Margin="460,304,0,0">
-            <TextBox x:Name="UsernameTextBox" Style="{StaticResource IconTextBoxStyle}" Tag="     Username"/>
-            <fa:FontAwesome Icon="User" Foreground="Gray" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30,0,0,0"/>
-        </Grid>
+            <Label x:Name="WelcomeLabel" Content="Welcome" FontSize="60" FontWeight="Bold" 
+                   HorizontalAlignment="Center" Height="90" Width="270" Padding="0"/>
 
-        <!-- Password Box with Lock and Eye Icons -->
+            <Label x:Name="WelcomeLabel_Copy" Content="Smart invoicing begins here!" FontSize="16" 
+                   Foreground="Gray" HorizontalAlignment="Center" Margin="0,-10,0,40"/>
 
-        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="236" Height="24" Margin="460,344,0,0">
-            <PasswordBox x:Name="PasswordBox" Style="{StaticResource IconPasswordBoxStyle}"
-                         PasswordChar="●"
-                         Tag="     Password"
-                         Visibility="Visible"/>
-            <TextBox x:Name="VisiblePasswordTextBox" Style="{StaticResource IconTextBoxStyle}"
-                     Padding="23,0,0,0"
-                     Visibility="Collapsed"/>
+            <StackPanel Width="236">
+                <Grid Height="24" Margin="0,0,0,15">
+                    <TextBox x:Name="UsernameTextBox" Style="{StaticResource IconTextBoxStyle}" Tag="      Username"/>
+                    <fa:FontAwesome Icon="User" Foreground="Gray" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30,0,0,0"/>
+                </Grid>
 
-            <fa:FontAwesome x:Name="LockIcon" Icon="Lock" Foreground="Gray" FontSize="16"
-                            VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30,0,0,0"/>
-            <Button x:Name="TogglePasswordButton"
-                    Background="Transparent" BorderThickness="0"
-                    VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,0,5,0"
-                    Click="TogglePasswordVisibility">
-                <fa:FontAwesome x:Name="PasswordToggleIcon" Icon="EyeSlash" Foreground="Gray" FontSize="16"/>
-            </Button>
-        </Grid>
+                <Grid Height="24" Margin="0,0,0,30">
+                    <PasswordBox x:Name="PasswordBox" Style="{StaticResource IconPasswordBoxStyle}"
+                                 PasswordChar="●" Tag="      Password" Visibility="Visible"/>
+                    <TextBox x:Name="VisiblePasswordTextBox" Style="{StaticResource IconTextBoxStyle}"
+                             Padding="23,0,0,0" Visibility="Collapsed"/>
 
-        <!-- Login Button -->
-        <Rectangle Margin="486,476,474,23" RadiusX="77" RadiusY="77">
+                    <fa:FontAwesome x:Name="LockIcon" Icon="Lock" Foreground="Gray" FontSize="16"
+                                    VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30,0,0,0"/>
+
+                    <Button x:Name="TogglePasswordButton" Background="Transparent" BorderThickness="0"
+                            VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,0,5,0"
+                            Click="TogglePasswordVisibility">
+                        <fa:FontAwesome x:Name="PasswordToggleIcon" Icon="EyeSlash" Foreground="Gray" FontSize="16"/>
+                    </Button>
+                </Grid>
+
+                <Button x:Name="LoginButton" Content="LOG IN" Style="{StaticResource CurvedButtonStyle}" 
+                        Height="32" FontWeight="Bold" Background="#FF111111" Foreground="#FFFCF3F3" 
+                        Click="LoginButton_Click"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Rectangle Width="468" Height="409" 
+                   Margin="0,415,0,0" 
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Center" 
+                   RadiusX="100" RadiusY="100">
             <Rectangle.Fill>
-                <ImageBrush ImageSource="/Images/Logo (2).PNG"/>
+                <ImageBrush ImageSource="/Images/Logo (2).PNG" Stretch="Uniform"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Label x:Name="WelcomeLabel_Copy" Content="Smart invoicing begins here!" FontSize="16" Foreground="Gray" Margin="0,188,0,0" Height="33" Width="210" VerticalAlignment="Top"/>
-        <Button x:Name="LoginButton" Content="LOG IN" Style="{StaticResource CurvedButtonStyle}" Height="32" Margin="0,439,0,0" FontWeight="Bold" Width="236" Background="#FF111111" Foreground="#FFFCF3F3" HorizontalAlignment="Center" VerticalAlignment="Top" Click="LoginButton_Click"/>
+
     </Grid>
 </Window>

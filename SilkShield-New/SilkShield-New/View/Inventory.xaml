@@ -280,8 +280,8 @@
 
                     <DataGridTextColumn Header="Unit Price" 
                                         Binding="{Binding Price}" 
-                                        Width="150"
-                                       >
+                                        Width="150">
+                        
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="VerticalAlignment" Value="Center"/>

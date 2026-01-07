@@ -14,8 +14,7 @@ namespace SilkShield_New.ViewModel
         private readonly CustomerDAL _customerDal;
         private readonly DatabaseHelper _dbHelper;
 
-        // CRITICAL FIX: The XAML uses {Binding NewCustomer.PropertyName}.
-        // This property returns "this" (the ViewModel itself) so the XAML can find the fields.
+       
         public EditCustomerViewModel NewCustomer => this;
 
         #region Flattened Properties
@@ -197,7 +196,7 @@ namespace SilkShield_New.ViewModel
                     
                     // --- REFRESH LOGIC START ---
                     RefreshParentUI();
-                    // --- REFRESH LOGIC END ---
+                    DashboardViewModel.Instance?.LoadDashboard();
 
                     CloseWindow();
                 }

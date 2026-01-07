@@ -1,16 +1,16 @@
 ﻿<UserControl x:Class="SilkShield_New.View.InvoiceEdit"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:SilkShield_New.ViewModel"
-        mc:Ignorable="d"
-        Background="Transparent"
-        FontFamily="Segoe UI">
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:vm="clr-namespace:SilkShield_New.ViewModel"
+            mc:Ignorable="d"
+            d:DataContext="{d:DesignInstance vm:NewInvoice1ViewModel}"
+            Background="Transparent"
+            FontFamily="Segoe UI">
 
     <UserControl.Resources>
 
-        <!-- 🔹 DataGrid Row Style -->
         <Style TargetType="{x:Type DataGridRow}">
             <Setter Property="Background" Value="White"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -23,12 +23,9 @@
             </Style.Triggers>
         </Style>
 
-        <!-- 🔹 DataGrid Column Header Style -->
         <Style TargetType="DataGridColumnHeader">
             <Setter Property="Background" Value="#E0E0E0"/>
-            <!-- Gray background -->
             <Setter Property="Foreground" Value="#333"/>
-            <!-- Dark text -->
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -37,7 +34,6 @@
             <Setter Property="BorderBrush" Value="#CCC"/>
         </Style>
 
-        <!-- 🔹 Reset link -->
         <Style x:Key="ResetLinkStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -54,7 +50,6 @@
             </Setter>
         </Style>
 
-        <!-- 🔹 Add item button -->
         <Style x:Key="AddButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -64,7 +59,6 @@
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
 
-        <!-- 🔹 Primary button -->
         <Style x:Key="RoundedPrimaryButton" TargetType="Button">
             <Setter Property="Background" Value="#FF5B281C"/>
             <Setter Property="Foreground" Value="White"/>
@@ -87,7 +81,6 @@
             </Setter>
         </Style>
 
-        <!-- 🔹 Label -->
         <Style x:Key="FormLabelStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
@@ -95,7 +88,6 @@
             <Setter Property="Margin" Value="0,0,0,5"/>
         </Style>
 
-        <!-- 🔹 Rounded TextBox -->
         <Style x:Key="InputBoxStyle" TargetType="TextBox">
             <Setter Property="Padding" Value="8"/>
             <Setter Property="FontSize" Value="14"/>
@@ -117,7 +109,6 @@
             </Setter>
         </Style>
 
-        <!-- 🔹 Rounded ComboBox -->
         <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
             <Setter Property="Padding" Value="8"/>
             <Setter Property="FontSize" Value="14"/>
@@ -216,7 +207,6 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <!-- 🧾 Header -->
                     <Grid Grid.Row="0" Margin="0,10,0,20">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -239,7 +229,6 @@
                         </StackPanel>
                     </Grid>
 
-                    <!-- 👤 Customer -->
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -268,9 +257,8 @@
                         </StackPanel>
                     </Grid>
 
-                    <!-- 📋 Item Table -->
                     <StackPanel Grid.Row="2" Margin="0,25,0,0">
-                        <DataGrid x:Name="ItemDataGrid"
+                        <DataGrid Name="ItemDataGrid"
                                   AutoGenerateColumns="False"
                                   FontSize="14"
                                   BorderBrush="#E0E0E0"
@@ -294,15 +282,14 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                     <DataGridTemplateColumn.CellEditingTemplate>
                                         <DataTemplate>
-                                            <ComboBox IsEditable="True"
-                                                      Style="{StaticResource ComboBoxStyle}"
-                                                      ItemsSource="{Binding Path=DataContext.AvailableItems, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                                      Text="{Binding ItemName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <ComboBox IsEditable="True" 
+                                                      ItemsSource="{Binding DataContext.AvailableItems, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                      Text="{Binding ItemName, UpdateSourceTrigger=PropertyChanged}"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellEditingTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Header="Material" Width="*">
+                                <DataGridTemplateColumn Header="Material" Width="1.5*">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding SelectedMaterial}" VerticalAlignment="Center" Margin="5,0"/>
@@ -310,20 +297,32 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                     <DataGridTemplateColumn.CellEditingTemplate>
                                         <DataTemplate>
-                                            <ComboBox IsEditable="True"
-                                                      Style="{StaticResource ComboBoxStyle}"
+                                            <ComboBox IsEditable="True" 
                                                       ItemsSource="{Binding AvailableMaterials}"
-                                                      Text="{Binding SelectedMaterial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                                      Text="{Binding SelectedMaterial, UpdateSourceTrigger=PropertyChanged}"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellEditingTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTextColumn Header="Unit" Binding="{Binding MeasuringUnit}" Width="*"/>
+                                <DataGridTemplateColumn Header="Unit" Width="1*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding MeasuringUnit}" VerticalAlignment="Center" Margin="5,0"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataTemplate>
+                                            <ComboBox IsEditable="True" 
+                                                      ItemsSource="{Binding DataContext.AvailableUnits, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                      Text="{Binding MeasuringUnit, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                </DataGridTemplateColumn>
+
                                 <DataGridTextColumn Header="Unit Price" Binding="{Binding UnitPrice}" Width="*"/>
                                 <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="*"/>
-                                <DataGridTextColumn Header="Total" Binding="{Binding Total}" Width="*"/>
+                                <DataGridTextColumn Header="Total" Binding="{Binding Total}" IsReadOnly="True" Width="*"/>
 
-                                <!-- 🗑 Delete -->
                                 <DataGridTemplateColumn Header="Delete" Width="60">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -347,7 +346,6 @@
                                 Margin="0,10,0,0"/>
                     </StackPanel>
 
-                    <!-- 💰 Totals -->
                     <Grid Grid.Row="3" Margin="0,30,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -400,11 +398,10 @@
 
                             <TextBlock Style="{StaticResource FormLabelStyle}" Margin="0,15,0,5" Text="Total Amount (LKR)" FontWeight="Bold"/>
                             <TextBlock FontWeight="Bold" FontSize="20" Foreground="#333"
-                                       Text="{Binding GrandTotal, StringFormat={}{0:F0}}"/>
+                                       Text="{Binding GrandTotal, StringFormat={}{0:F2}}"/>
                         </StackPanel>
                     </Grid>
 
-                    <!-- 🔘 Buttons -->
                     <Grid Grid.Row="4" Margin="0,30,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -418,37 +415,10 @@
                                 HorizontalAlignment="Left"/>
 
                         <Button Grid.Column="1"
-                                Content="Update"
+                                Content="Create"
+                                Style="{StaticResource RoundedPrimaryButton}"
                                 Command="{Binding UpdateInvoiceCommand}"
-                                HorizontalAlignment="Left" Margin="201,0,0,0" Width="90"  Height="35">
-
-                            <Button.Style>
-                                <Style TargetType="Button" BasedOn="{StaticResource RoundedPrimaryButton}">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#FF804031"/>
-                                            <Setter Property="Cursor" Value="Hand"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                        </Button>
-
-                        <Button Grid.Column="1"
-                                Content="Cancel"
-                                Command="{Binding CancelCommand}"
-                                HorizontalAlignment="Left" Margin="46,0,0,0" Width="90" Height="35">
-                            <Button.Style>
-                                <Style TargetType="Button" BasedOn="{StaticResource RoundedPrimaryButton}">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#FF804031"/>
-                                            <Setter Property="Cursor" Value="Hand"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                        </Button>
+                                HorizontalAlignment="Right"/>
                     </Grid>
                 </Grid>
             </Border>

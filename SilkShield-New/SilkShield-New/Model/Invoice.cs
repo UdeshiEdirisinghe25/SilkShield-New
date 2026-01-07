@@ -30,6 +30,7 @@ namespace SilkShield_New.Model
                 double subtotal = Items?.Sum(i => i.Total) ?? 0;
                 double discountAmount = subtotal * (Discount / 100);
                 return subtotal + TransportLaborCost - discountAmount;
+
             }
         }
 

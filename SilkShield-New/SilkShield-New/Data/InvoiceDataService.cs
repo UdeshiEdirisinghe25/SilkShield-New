@@ -56,8 +56,8 @@ namespace SilkShield_New.Data
 
                         // 2. Entering data into the InvoiceItems table.
                         string itemQuery = @"
-                    INSERT INTO InvoiceItems (InvoiceId, ItemName, Quantity, UnitPrice, Total, CurtainType)
-                    VALUES (@InvoiceId, @ItemName, @Quantity, @UnitPrice, @Total, @CurtainType);";
+                                            INSERT INTO InvoiceItems (InvoiceId, ItemName, Quantity, UnitPrice, Total, CurtainType, MeasuringUnit)
+                                            VALUES (@InvoiceId, @ItemName, @Quantity, @UnitPrice, @Total, @CurtainType, @MeasuringUnit);";
 
                         foreach (var item in invoice.Items)
                         {
@@ -69,7 +69,7 @@ namespace SilkShield_New.Data
                                 command.Parameters.AddWithValue("@UnitPrice", item.UnitPrice);
                                 command.Parameters.AddWithValue("@Total", item.Total);
                                 command.Parameters.AddWithValue("@CurtainType", item.SelectedMaterial); // Selected Material is used for Curtain Type.
-
+                                command.Parameters.AddWithValue("@MeasuringUnit", item.MeasuringUnit ?? string.Empty); 
                                 command.ExecuteNonQuery();
                             }
                         }
@@ -115,7 +115,7 @@ namespace SilkShield_New.Data
 
                 // 2) select item rows by InvoiceId using the actual schema columns
                 string query = @"
-                    SELECT ItemName, Quantity, UnitPrice, Total, CurtainType
+                    SELECT ItemName, Quantity, UnitPrice, Total, CurtainType,MeasuringUnit
                     FROM InvoiceItems
                     WHERE InvoiceId = @InvoiceId
                     ORDER BY ItemId ASC";
@@ -132,6 +132,7 @@ namespace SilkShield_New.Data
                             item.Quantity = reader["Quantity"] == DBNull.Value ? 1.0 : Convert.ToDouble(reader["Quantity"]);
                             item.UnitPrice = reader["UnitPrice"] == DBNull.Value ? 0.0 : Convert.ToDouble(reader["UnitPrice"]);
                             item.SelectedMaterial = reader["CurtainType"]?.ToString();
+                            item.MeasuringUnit = reader["MeasuringUnit"]?.ToString(); 
 
                             // Ensure model computes total and raises notifications
                             item.CalculateTotal();
