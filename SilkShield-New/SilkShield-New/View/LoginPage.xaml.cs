@@ -11,8 +11,6 @@ namespace SilkShield_New.View
         public LoginPage()
         {
             InitializeComponent();
-            // The Login button's click event handler is now linked to the method in this code-behind file.
-            LoginButton.Click += LoginButton_Click;
         }
         private void TogglePasswordVisibility(object sender, RoutedEventArgs e)
         {
@@ -74,10 +72,12 @@ namespace SilkShield_New.View
                             // Check if the entered password matches the stored password.
                             if (storedPassword == password)
                             {
-                                MainWindow main = new MainWindow();
+                                // 1. Create the new window using the full namespace
+                                SilkShield_New.View.MainWindow main = new SilkShield_New.View.MainWindow();
+
+                                Application.Current.MainWindow = main;
+
                                 main.Show();
-                                Application.Current.MainWindow = main; 
-                                Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose; 
                                 this.Close();
                             }
                             else

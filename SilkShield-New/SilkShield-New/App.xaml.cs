@@ -12,13 +12,10 @@ namespace SilkShield_New
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var loginWindow = new View.MainWindow();
-            loginWindow.Show();
-
-            // Set the initial main window to the login window.
-            // When this window is closed, the application will shut down.
+            var loginWindow = new View.LoginPage();
             Application.Current.MainWindow = loginWindow;
-            Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+            loginWindow.Show();
         }
     }
+
 }

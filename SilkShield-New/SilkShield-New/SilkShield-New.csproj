@@ -276,7 +276,7 @@
 			      <DependentUpon>ViewCustomerWindow.xaml</DependentUpon>
 
 			   
-		</Compile><Page Include="MainWindow.xaml"><Generator>MSBuild:Compile</Generator><SubType>Designer</SubType></Page>
+		</Compile>
 
 		    <Page Include="View\AddNewCustomer.xaml">
 
