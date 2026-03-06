@@ -5,7 +5,6 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             xmlns:vm="clr-namespace:SilkShield_New.ViewModel"
             mc:Ignorable="d"
-            d:DataContext="{d:DesignInstance vm:NewInvoice1ViewModel}"
             Background="Transparent"
             FontFamily="Segoe UI">
 
@@ -367,7 +366,7 @@
                                           SelectedValue="{Binding CurtainStyle, Mode=TwoWay}"
                                           SelectedValuePath="Content" Height="32">
                                     <ComboBoxItem Content="Ripple"/>
-                                    <ComboBoxItem Content="Pleat"/>
+                                    <ComboBoxItem Content="3 Pleat"/>
                                     <ComboBoxItem Content="Eyelet"/>
                                 </ComboBox>
                             </StackPanel>
@@ -408,14 +407,18 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button Grid.Column="0"
-                                Content="Reset"
-                                Style="{StaticResource ResetLinkStyle}"
-                                Command="{Binding ClearFormCommand}"
-                                HorizontalAlignment="Left"/>
+                        <!-- Added checkbox bound to IncludeDetailsPage and moved Reset next to it -->
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                            <CheckBox Content="Include details page" IsChecked="{Binding IncludeDetailsPage, Mode=TwoWay}" Margin="0,0,15,0"/>
+                            <Button Grid.Column="0"
+                                    Content="Reset"
+                                    Style="{StaticResource ResetLinkStyle}"
+                                    Command="{Binding ClearFormCommand}"
+                                    HorizontalAlignment="Left"/>
+                        </StackPanel>
 
                         <Button Grid.Column="1"
-                                Content="Create"
+                                Content="Update"
                                 Style="{StaticResource RoundedPrimaryButton}"
                                 Command="{Binding UpdateInvoiceCommand}"
                                 HorizontalAlignment="Right"/>

@@ -367,7 +367,7 @@
                                           SelectedValue="{Binding CurtainStyle, Mode=TwoWay}"
                                           SelectedValuePath="Content" Height="32">
                                     <ComboBoxItem Content="Ripple"/>
-                                    <ComboBoxItem Content="Pleat"/>
+                                    <ComboBoxItem Content="3 Pleat"/>
                                     <ComboBoxItem Content="Eyelet"/>
                                 </ComboBox>
                             </StackPanel>
@@ -408,11 +408,14 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button Grid.Column="0"
-                                Content="Reset"
-                                Style="{StaticResource ResetLinkStyle}"
-                                Command="{Binding ClearFormCommand}"
-                                HorizontalAlignment="Left"/>
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                            <CheckBox Content="Include details page" IsChecked="{Binding IncludeDetailsPage, Mode=TwoWay}" Margin="0,0,15,0"/>
+                            <Button Grid.Column="0"
+                                    Content="Reset"
+                                    Style="{StaticResource ResetLinkStyle}"
+                                    Command="{Binding ClearFormCommand}"
+                                    HorizontalAlignment="Left"/>
+                        </StackPanel>
 
                         <Button Grid.Column="1"
                                 Content="Create"

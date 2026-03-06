@@ -48,7 +48,8 @@ namespace SilkShield_New.Data
                                                 TransportLaborCost = @TransportLaborCost,
                                                 Discount = @Discount,
                                                 PaymentMethod = @PaymentMethod,
-                                                TotalAmount = @TotalAmount
+                                                TotalAmount = @TotalAmount,
+                                                IncludeDetailsPage = @IncludeDetailsPage
                                                 WHERE InvoiceId = @InvoiceId";
 
                         using (var cmd = new SQLiteCommand(updateHeaderSql, connection, transaction))
@@ -66,6 +67,8 @@ namespace SilkShield_New.Data
                             cmd.Parameters.AddWithValue("@Discount", invoice.Discount);
                             cmd.Parameters.AddWithValue("@PaymentMethod", invoice.PaymentMethod ?? string.Empty);
                             cmd.Parameters.AddWithValue("@TotalAmount", invoice.GrandTotal);
+                            // Persist include flag as integer 1/0
+                            cmd.Parameters.AddWithValue("@IncludeDetailsPage", invoice.IncludeDetailsPage ? 1 : 0);
                             cmd.Parameters.AddWithValue("@InvoiceId", invoiceId);
                             int rows = cmd.ExecuteNonQuery();
                             if (rows == 0)

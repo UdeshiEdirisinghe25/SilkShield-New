@@ -60,7 +60,8 @@ namespace SilkShield_New.Data
                     InvoiceNumber TEXT,
                     CurtainLayerType TEXT,
                     CurtainStyle TEXT,
-                    TransportLaborCost REAL
+                    TransportLaborCost REAL,
+                    IncludeDetailsPage INTEGER DEFAULT 1
                 );";
 
                 string createInvoiceItemsTableQuery = @"
@@ -104,7 +105,22 @@ namespace SilkShield_New.Data
                 // Make sure expected columns exist on older DB files; add them if missing.
                 EnsureColumnExists(connection, "Invoices", "CurtainStyle", "TEXT");
                 EnsureColumnExists(connection, "Invoices", "TransportLaborCost", "REAL");
+                EnsureColumnExists(connection, "Invoices", "IncludeDetailsPage", "INTEGER");
                 EnsureColumnExists(connection, "InvoiceItems", "CurtainType", "TEXT");
+                EnsureColumnExists(connection, "InvoiceItems", "MeasuringUnit", "TEXT");
+
+                // Migration: set existing NULLs to empty string (no-op if column just created)
+                try
+                {
+                    using (var cmd = new SQLiteCommand("UPDATE InvoiceItems SET MeasuringUnit = '' WHERE MeasuringUnit IS NULL;", connection))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch
+                {
+                    // ignore migration failures (defensive)
+                }
             }
         }
 
@@ -167,7 +183,8 @@ namespace SilkShield_New.Data
                             PaymentMethod,
                             Discount,
                             TotalAmount,
-                            TransportLaborCost
+                            TransportLaborCost,
+                            IncludeDetailsPage
                         FROM Invoices
                         ORDER BY InvoiceDate DESC";
 
@@ -190,7 +207,8 @@ namespace SilkShield_New.Data
                                 PaymentMethod = SafeGetString(reader, "PaymentMethod"),
                                 Discount = SafeGetDouble(reader, "Discount"),
                                 TotalAmount = SafeGetDecimal(reader, "TotalAmount"),
-                                TransportLaborCost = SafeGetDouble(reader, "TransportLaborCost")
+                                TransportLaborCost = SafeGetDouble(reader, "TransportLaborCost"),
+                                IncludeDetailsPage = ParseBooleanFlexible(reader, "IncludeDetailsPage")
                             });
                         }
                     }

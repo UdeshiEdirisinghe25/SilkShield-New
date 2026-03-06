@@ -21,6 +21,9 @@ namespace SilkShield_New.Model
         public double Discount { get; set; }
         public decimal TotalAmount { get; set; }
 
+        // New: persist checkbox per invoice
+        public bool IncludeDetailsPage { get; set; } = true;
+
         public ObservableCollection<InvoiceItem> Items { get; set; } = new ObservableCollection<InvoiceItem>();
 
         public double GrandTotal

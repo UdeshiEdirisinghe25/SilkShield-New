@@ -30,28 +30,44 @@ namespace SilkShield_New.Data
                     {
                         // 1. Inserting data into the Invoices Table.
                         string invoiceQuery = @"
-                    INSERT INTO Invoices (InvoiceNumber, InvoiceDate, Customer, BuildingType, PelmetBoard, Motorized, PaymentMethod, Discount, TotalAmount, Location, CurtainLayerType, CurtainStyle, TransportLaborCost)
-                    VALUES (@InvoiceNumber, @InvoiceDate, @Customer, @BuildingType, @PelmetBoard, @Motorized, @PaymentMethod, @Discount, @TotalAmount, @Location, @CurtainLayerType, @CurtainStyle, @TransportLaborCost);
-                    SELECT last_insert_rowid();"; // This will get the newly entered InvoiceId.
+                    INSERT INTO Invoices 
+                      (InvoiceNumber, InvoiceDate, Customer, BuildingType, PelmetBoard, Motorized, PaymentMethod, Discount, TotalAmount, Location, CurtainLayerType, CurtainStyle, TransportLaborCost, IncludeDetailsPage)
+                    VALUES 
+                      (@InvoiceNumber, @InvoiceDate, @Customer, @BuildingType, @PelmetBoard, @Motorized, @PaymentMethod, @Discount, @TotalAmount, @Location, @CurtainLayerType, @CurtainStyle, @TransportLaborCost, @IncludeDetailsPage);
+                    ";// This will get the newly entered InvoiceId.
 
                         long invoiceId;
                         using (var command = new SQLiteCommand(invoiceQuery, connection, transaction))
                         {
-                            command.Parameters.AddWithValue("@InvoiceNumber", invoice.InvoiceNumber);
+                            command.Parameters.AddWithValue("@InvoiceNumber", invoice.InvoiceNumber ?? string.Empty);
                             command.Parameters.AddWithValue("@InvoiceDate", invoice.InvoiceDate.ToString("yyyy-MM-dd HH:mm:ss"));
-                            command.Parameters.AddWithValue("@Customer", invoice.CustomerName);
-                            command.Parameters.AddWithValue("@BuildingType", invoice.BuildingType);
-                            command.Parameters.AddWithValue("@PelmetBoard", invoice.PelmetBoard);
-                            command.Parameters.AddWithValue("@Motorized", invoice.Motorized);
-                            command.Parameters.AddWithValue("@PaymentMethod", invoice.PaymentMethod);
+                            command.Parameters.AddWithValue("@Customer", invoice.CustomerName ?? string.Empty);
+                            command.Parameters.AddWithValue("@BuildingType", invoice.BuildingType ?? string.Empty);
+
+                            // store as "Yes"/"No" to match other code and schema expectations
+                            command.Parameters.AddWithValue("@PelmetBoard", invoice.PelmetBoard ? "Yes" : "No");
+                            command.Parameters.AddWithValue("@Motorized", invoice.Motorized ? "Yes" : "No");
+
+                            command.Parameters.AddWithValue("@PaymentMethod", invoice.PaymentMethod ?? string.Empty);
                             command.Parameters.AddWithValue("@Discount", invoice.Discount);
                             command.Parameters.AddWithValue("@TotalAmount", invoice.GrandTotal);
-                            command.Parameters.AddWithValue("@Location", invoice.Location);
-                            command.Parameters.AddWithValue("@CurtainLayerType", invoice.CurtainLayerType);
-                            command.Parameters.AddWithValue("@CurtainStyle", invoice.CurtainStyle);
+                            command.Parameters.AddWithValue("@Location", invoice.Location ?? string.Empty);
+                            command.Parameters.AddWithValue("@CurtainLayerType", invoice.CurtainLayerType ?? string.Empty);
+                            command.Parameters.AddWithValue("@CurtainStyle", invoice.CurtainStyle ?? string.Empty);
                             command.Parameters.AddWithValue("@TransportLaborCost", invoice.TransportLaborCost);
+                            command.Parameters.AddWithValue("@IncludeDetailsPage", invoice.IncludeDetailsPage ? 1 : 0);
 
-                            invoiceId = (long)command.ExecuteScalar();
+                            // execute insert
+                            command.ExecuteNonQuery();
+                        }
+
+                        // get last inserted id in a separate, explicit command
+                        using (var idCmd = new SQLiteCommand("SELECT last_insert_rowid();", connection, transaction))
+                        {
+                            var idObj = idCmd.ExecuteScalar();
+                            if (idObj == null || idObj == DBNull.Value)
+                                throw new Exception("Could not retrieve inserted InvoiceId from database.");
+                            invoiceId = Convert.ToInt64(idObj);
                         }
 
                         // 2. Entering data into the InvoiceItems table.
@@ -82,7 +98,7 @@ namespace SilkShield_New.Data
                         throw new Exception("Data entry error. Transaction reversed..", ex);
                     }
 
-                    
+
                 }
             }
         }
@@ -132,7 +148,7 @@ namespace SilkShield_New.Data
                             item.Quantity = reader["Quantity"] == DBNull.Value ? 1.0 : Convert.ToDouble(reader["Quantity"]);
                             item.UnitPrice = reader["UnitPrice"] == DBNull.Value ? 0.0 : Convert.ToDouble(reader["UnitPrice"]);
                             item.SelectedMaterial = reader["CurtainType"]?.ToString();
-                            item.MeasuringUnit = reader["MeasuringUnit"]?.ToString(); 
+                            item.MeasuringUnit = reader["MeasuringUnit"]?.ToString();
 
                             // Ensure model computes total and raises notifications
                             item.CalculateTotal();
@@ -241,7 +257,7 @@ namespace SilkShield_New.Data
             return materials;
         }
 
-        public void GenerateInvoicePdf(Invoice invoice, string filePath)
+        public void GenerateInvoicePdf(Invoice invoice, string filePath, bool includeDetailsPage = true)
         {
             // Path to your logo and background image files
             string backgroundImagePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "InvoiceBack.jpg");
@@ -266,8 +282,6 @@ namespace SilkShield_New.Data
 
                 // 2. Open the document
                 doc.Open();
-
-                
 
                 // Invoice Header
                 doc.Add(new Paragraph("INVOICE", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 22, BaseColor.BLACK)));
@@ -333,42 +347,45 @@ namespace SilkShield_New.Data
                 paymentMethodPara.Alignment = Element.ALIGN_RIGHT;
                 doc.Add(paymentMethodPara);
 
-                //  Additional Page with Details 
-                doc.NewPage();
+                // Conditionally include the additional page with details
+                if (includeDetailsPage)
+                {
+                    doc.NewPage();
 
-                //  Text content from the third page of the PDF
-                doc.Add(new Paragraph("Details of Fabric and Related Accessories", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
-                doc.Add(new Paragraph("• Imported, premium-quality sheers. Lab tested and certified as First Class material."));
-                doc.Add(new Paragraph("• OEKO-TEX® STANDARD certifies that products are tested for harmful substances to protect your health."));
-                doc.Add(Chunk.NEWLINE);
+                    //  Text content from the third page of the PDF
+                    doc.Add(new Paragraph("Details of Fabric and Related Accessories", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
+                    doc.Add(new Paragraph("• Imported, premium-quality sheers. Lab tested and certified as First Class material."));
+                    doc.Add(new Paragraph("• OEKO-TEX® STANDARD certifies that products are tested for harmful substances to protect your health."));
+                    doc.Add(Chunk.NEWLINE);
 
-                doc.Add(new Paragraph("Terms and Conditions", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
-                doc.Add(new Paragraph("• Prices are valid for 15 days from the date of quotation."));
-                doc.Add(new Paragraph("• Made-to-Measure Policies: Custom orders (e.g., bespoke curtains/blinds) are typically non-refundable unless faulty."));
-                doc.Add(new Paragraph("• Production Timing: Changes are only possible if notified before production begins (often within 24 hours of order placement)."));
-                doc.Add(Chunk.NEWLINE);
+                    doc.Add(new Paragraph("Terms and Conditions", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
+                    doc.Add(new Paragraph("• Prices are valid for 15 days from the date of quotation."));
+                    doc.Add(new Paragraph("• Made-to-Measure Policies: Custom orders (e.g., bespoke curtains/blinds) are typically non-refundable unless faulty."));
+                    doc.Add(new Paragraph("• Production Timing: Changes are only possible if notified before production begins (often within 24 hours of order placement)."));
+                    doc.Add(Chunk.NEWLINE);
 
-                doc.Add(new Paragraph("Warranty Terms", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
-                doc.Add(new Paragraph("• 3 Years complete warranty for all accessories."));
-                doc.Add(new Paragraph("5 Years warranty on fabric for dry cleaning."));
-                doc.Add(Chunk.NEWLINE);
+                    doc.Add(new Paragraph("Warranty Terms", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
+                    doc.Add(new Paragraph("• 3 Years complete warranty for all accessories."));
+                    doc.Add(new Paragraph("5 Years warranty on fabric for dry cleaning."));
+                    doc.Add(Chunk.NEWLINE);
 
-                doc.Add(new Paragraph("Payment Terms", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
-                doc.Add(new Paragraph("• Deposit Requirement: We do require a 70% deposit upon order confirmation, and the balance payment should be done after delivery/installation."));
-                doc.Add(new Paragraph("• Project completion period within 14 Days from date of advance payment."));
-                doc.Add(Chunk.NEWLINE);
+                    doc.Add(new Paragraph("Payment Terms", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
+                    doc.Add(new Paragraph("• Deposit Requirement: We do require a 70% deposit upon order confirmation, and the balance payment should be done after delivery/installation."));
+                    doc.Add(new Paragraph("• Project completion period within 14 Days from date of advance payment."));
+                    doc.Add(Chunk.NEWLINE);
 
-                doc.Add(new Paragraph("Bank Details -", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
-                doc.Add(new Paragraph($"Account Name: K. M. G. C. Perera"));
-                doc.Add(new Paragraph($"Account Number: 106057933770"));
-                doc.Add(new Paragraph($"Bank & Branch: Sampath Bank Kadawatha"));
-                doc.Add(Chunk.NEWLINE);
+                    doc.Add(new Paragraph("Bank Details -", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
+                    doc.Add(new Paragraph($"Account Name: K. M. G. C. Perera"));
+                    doc.Add(new Paragraph($"Account Number: 106057933770"));
+                    doc.Add(new Paragraph($"Bank & Branch: Sampath Bank Kadawatha"));
+                    doc.Add(Chunk.NEWLINE);
 
-                doc.Add(new Paragraph("THANK YOU FOR CHOOSING US!", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
-                doc.Add(new Paragraph("SILKSHIELD PRIVATE LIMITED", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.BLACK)));
+                    doc.Add(new Paragraph("THANK YOU FOR CHOOSING US!", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK)));
+                    doc.Add(new Paragraph("SILKSHIELD PRIVATE LIMITED", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.BLACK)));
 
-                doc.Add(Chunk.NEWLINE);
-                doc.Add(new Paragraph("076 0526709/076 7886453 | 251/1 VIHARA MAWATHA, HUNUPITIYA, WATTALA | SHIELDSILK@GMAIL.COM"));
+                    doc.Add(Chunk.NEWLINE);
+                    doc.Add(new Paragraph("076 0526709/076 7886453 | 251/1 VIHARA MAWATHA, HUNUPITIYA, WATTALA | SHIELDSILK@GMAIL.COM"));
+                }
 
                 doc.Close();
             }

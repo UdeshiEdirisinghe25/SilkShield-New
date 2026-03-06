@@ -45,6 +45,8 @@ namespace SilkShield_New.ViewModel
             this.IsMotorizedChecked = selectedInvoice.Motorized;
             this.TransportLaborCostText = selectedInvoice.TransportLaborCost.ToString();
             this.DiscountText = selectedInvoice.Discount.ToString();
+            // Restore saved checkbox state
+            this.IncludeDetailsPage = selectedInvoice.IncludeDetailsPage;
 
             // Map Items
             var itemsFromDb = _invoiceDataService.GetInvoiceItemsByNumber(selectedInvoice.InvoiceNumber);
@@ -96,7 +98,9 @@ namespace SilkShield_New.ViewModel
                     PaymentMethod = this.PaymentMethod,
                     TransportLaborCost = double.TryParse(this.TransportLaborCostText, out double t) ? t : 0,
                     Discount = double.TryParse(this.DiscountText, out double d) ? d : 0,
-                    Items = this.Items
+                    Items = this.Items,
+                    // Persist include flag with the updated invoice object
+                    IncludeDetailsPage = this.IncludeDetailsPage
                 };
 
                 if (_repository.UpdateInvoice(updatedInvoice, _originalInvoiceNumber))
@@ -106,7 +110,8 @@ namespace SilkShield_New.ViewModel
                     SaveFileDialog sfd = new SaveFileDialog { Filter = "PDF Files|*.pdf", FileName = $"Invoice_{this.InvoiceNumber}" };
                     if (sfd.ShowDialog() == true)
                     {
-                        await Task.Run(() => _invoiceDataService.GenerateInvoicePdf(updatedInvoice, sfd.FileName));
+                        // Pass the current VM flag when generating the PDF
+                        await Task.Run(() => _invoiceDataService.GenerateInvoicePdf(updatedInvoice, sfd.FileName, this.IncludeDetailsPage));
                         MessageBox.Show("Invoice updated successfully!");
                         ReturnToHistory();
                     }

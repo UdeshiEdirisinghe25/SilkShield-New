@@ -34,6 +34,7 @@ namespace SilkShield_New.ViewModel
         private bool _isPelmetBoardChecked;
         private bool _isMotorizedChecked;
         private ObservableCollection<string> _availableItems;
+        private bool _includeDetailsPage = true;
         protected readonly InvoiceDataService _invoiceDataService;
         protected readonly InvoiceNumberService _invoiceNumberService;
 
@@ -110,6 +111,7 @@ namespace SilkShield_New.ViewModel
         public bool IsPelmetBoardChecked { get => _isPelmetBoardChecked; set { _isPelmetBoardChecked = value; OnPropertyChanged(nameof(IsPelmetBoardChecked)); } }
         public bool IsMotorizedChecked { get => _isMotorizedChecked; set { _isMotorizedChecked = value; OnPropertyChanged(nameof(IsMotorizedChecked)); } }
         public ObservableCollection<string> AvailableItems { get => _availableItems; set { _availableItems = value; OnPropertyChanged(nameof(AvailableItems)); } }
+        public bool IncludeDetailsPage { get => _includeDetailsPage; set { _includeDetailsPage = value; OnPropertyChanged(nameof(IncludeDetailsPage)); } }
         #endregion
 
         #region ICommands
@@ -320,7 +322,7 @@ namespace SilkShield_New.ViewModel
                 {
                     string filePath = saveFileDialog.FileName;
                     await Task.Run(() => _invoiceDataService.AddInvoice(invoiceData));
-                    await Task.Run(() => _invoiceDataService.GenerateInvoicePdf(invoiceData, filePath));
+                    await Task.Run(() => _invoiceDataService.GenerateInvoicePdf(invoiceData, filePath, IncludeDetailsPage));
 
                     _invoiceNumberService.IncrementInvoiceCounter(InvoiceNumber);
 
@@ -383,7 +385,7 @@ namespace SilkShield_New.ViewModel
             Items.Clear();
             Items.Add(new SilkShield_New.Model.InvoiceItem { Quantity = 1 });
 
-
+            IncludeDetailsPage = true;
         }
 
         public async void LoadItemNamesFromDatabaseAsync()
@@ -423,8 +425,5 @@ namespace SilkShield_New.ViewModel
         public bool CanExecute(object parameter) => _canExecute == null || _canExecute(parameter);
         public void Execute(object parameter) => _execute(parameter);
     }
-
-
-
 
 }
