@@ -245,8 +245,9 @@ namespace SilkShield_New.Data
                 if (val is double) return (double)val;
                 if (val is float) return Convert.ToDouble(val);
                 if (val is long || val is int) return Convert.ToDouble(val);
-                if (val is string) double.TryParse((string)val, out double parsed);
+                if(val is string && double.TryParse((string)val, out double parsed)) return parsed;
                 return Convert.ToDouble(val);
+
             }
             catch
             {

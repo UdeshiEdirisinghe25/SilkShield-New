@@ -75,7 +75,7 @@
 		    <WarningLevel>4</WarningLevel>
 
 		 
-	</PropertyGroup>
+	</PropertyGroup><PropertyGroup><ApplicationIcon>ss.ico</ApplicationIcon></PropertyGroup>
 
 	  <ItemGroup>
 
@@ -405,7 +405,7 @@
 		 
 	</ItemGroup>
 
-	  <ItemGroup><Resource Include="Images\Back.PNG" /><Resource Include="Images\IMG_5247.PNG" /><Resource Include="Images\Logo %282%29.PNG" /></ItemGroup><ItemGroup><Resource Include="Images\logo.png" /><Content Include="Resources\gmail.png"><CopyToOutputDirectory>Always</CopyToOutputDirectory></Content><Content Include="Resources\InvoiceBack.jpg"><CopyToOutputDirectory>Always</CopyToOutputDirectory></Content><Content Include="Resources\logo.png"><CopyToOutputDirectory>Always</CopyToOutputDirectory></Content><Content Include="Resources\map.png"><CopyToOutputDirectory>Always</CopyToOutputDirectory></Content><Content Include="Resources\viber.png"><CopyToOutputDirectory>Always</CopyToOutputDirectory></Content></ItemGroup><ItemGroup><Resource Include="Images\logowhite.jpg" /></ItemGroup><ItemGroup><Resource Include="Images\ss.png" /></ItemGroup>
+	  <ItemGroup><Resource Include="Images\Back.PNG" /><Resource Include="Images\IMG_5247.PNG" /><Resource Include="Images\Logo %282%29.PNG" /></ItemGroup><ItemGroup><Resource Include="ss.ico" /><Resource Include="Images\logo.png" /><Content Include="Resources\gmail.png"><CopyToOutputDirectory>Always</CopyToOutputDirectory></Content><Content Include="Resources\InvoiceBack.jpg"><CopyToOutputDirectory>Always</CopyToOutputDirectory></Content><Content Include="Resources\logo.png"><CopyToOutputDirectory>Always</CopyToOutputDirectory></Content><Content Include="Resources\map.png"><CopyToOutputDirectory>Always</CopyToOutputDirectory></Content><Content Include="Resources\viber.png"><CopyToOutputDirectory>Always</CopyToOutputDirectory></Content></ItemGroup><ItemGroup><Resource Include="Images\logowhite.jpg" /></ItemGroup><ItemGroup><Resource Include="Images\ss.png" /></ItemGroup>
 
 	  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
